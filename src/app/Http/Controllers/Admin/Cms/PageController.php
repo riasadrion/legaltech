@@ -47,19 +47,23 @@ class PageController extends Controller
     public function edit(Page $page)
     {
         $sections = $page->sections();
-        $typeCounts = $sections->groupBy('type')->map->count();
         $allTypes = config('sections', []);
 
-        $availableTypes = collect($allTypes)->filter(function ($cfg, $type) use ($typeCounts) {
-            $max = $cfg['max_per_page'];
-            if ($max === null) {
-                return true;
-            }
+        // Fixed sections (everything except custom_html) not already attached to this page
+        $reusableSections = \App\Domain\Cms\Models\PageSection::whereNotIn('id', $page->section_ids ?? [])
+            ->where('type', '!=', 'custom_html')
+            ->orderBy('type')
+            ->orderBy('id')
+            ->get();
 
-            return ($typeCounts[$type] ?? 0) < $max;
-        });
+        // Available types to CREATE:
+        //   - custom_html — always creatable
+        //   - other types — only if no section of that type exists yet anywhere
+        $existingTypes = \App\Domain\Cms\Models\PageSection::pluck('type')->unique();
 
-        return view('admin.cms.pages.edit', compact('page', 'sections', 'availableTypes'));
+        $availableTypes = collect($allTypes)->filter(fn ($_cfg, $type) => $type === 'custom_html' || ! $existingTypes->contains($type));
+
+        return view('admin.cms.pages.edit', compact('page', 'sections', 'availableTypes', 'reusableSections'));
     }
 
     public function update(Request $request, Page $page)

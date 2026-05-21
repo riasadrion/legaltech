@@ -25,36 +25,11 @@ class CmsSeeder extends Seeder
                 'status' => 'published',
                 'sections' => ['hero'],
             ],
-            [
-                'slug' => 'about',
-                'title' => ['en' => 'About Us'],
-                'status' => 'published',
-                'sections' => ['content'],
-            ],
-            [
-                'slug' => 'privacy-policy',
-                'title' => ['en' => 'Privacy Policy'],
-                'status' => 'published',
-                'sections' => ['content'],
-            ],
-            [
-                'slug' => 'terms',
-                'title' => ['en' => 'Terms of Service'],
-                'status' => 'published',
-                'sections' => ['content'],
-            ],
-            [
-                'slug' => 'refund-policy',
-                'title' => ['en' => 'Refund Policy'],
-                'status' => 'published',
-                'sections' => ['content'],
-            ],
-            [
-                'slug' => 'cookie-policy',
-                'title' => ['en' => 'Cookie Policy'],
-                'status' => 'published',
-                'sections' => ['content'],
-            ],
+            ['slug' => 'about',          'title' => ['en' => 'About Us'],         'status' => 'published', 'sections' => []],
+            ['slug' => 'privacy-policy', 'title' => ['en' => 'Privacy Policy'],   'status' => 'published', 'sections' => []],
+            ['slug' => 'terms',          'title' => ['en' => 'Terms of Service'], 'status' => 'published', 'sections' => []],
+            ['slug' => 'refund-policy',  'title' => ['en' => 'Refund Policy'],    'status' => 'published', 'sections' => []],
+            ['slug' => 'cookie-policy',  'title' => ['en' => 'Cookie Policy'],    'status' => 'published', 'sections' => []],
         ];
 
         foreach ($systemPages as $pageData) {

@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Plan extends Model
 {
+    const CYCLE_PER_CONTRACT = 'per_contract';
+
     const CYCLE_MONTHLY = 'monthly';
 
     const CYCLE_YEARLY = 'yearly';
@@ -20,12 +22,16 @@ class Plan extends Model
         'credits',
         'trial_days',
         'features',
+        'is_featured',
+        'cta_text',
+        'cta_url',
         'is_active',
         'sort',
     ];
 
     protected $casts = [
         'features' => 'array',
+        'is_featured' => 'boolean',
         'is_active' => 'boolean',
         'price' => 'float',
         'credits' => 'integer',

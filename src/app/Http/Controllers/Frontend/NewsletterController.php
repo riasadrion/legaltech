@@ -18,30 +18,38 @@ class NewsletterController extends Controller
             'website' => ['nullable', 'string', 'max:1'],  // honeypot
         ]);
 
+        $wantsJson = $request->expectsJson() || $request->ajax();
+
         if ($request->filled('website')) {
-            return back()->with('success', 'Thank you for subscribing!');
+            $msg = __('Thank you for subscribing!');
+            return $wantsJson ? response()->json(['status' => 'success', 'message' => $msg]) : back()->with('success', $msg);
         }
 
-        $existing = Subscriber::where('email', $request->input('email'))->first();
+        $subscriber = Subscriber::where('email', $request->input('email'))->first();
 
-        if ($existing?->isConfirmed()) {
-            return back()->with('info', 'You are already subscribed.');
+        // Already a confirmed subscriber — nothing to do.
+        if ($subscriber?->isConfirmed()) {
+            $msg = __('You are already subscribed.');
+            return $wantsJson ? response()->json(['status' => 'info', 'message' => $msg]) : back()->with('info', $msg);
         }
 
-        if (! $existing) {
+        // Returning an unsubscribed user — reactivate the same row.
+        // Pending or new — create or refresh token and re-send confirmation.
+        if (! $subscriber) {
             $subscriber = new Subscriber;
             $subscriber->email = $request->input('email');
-            $subscriber->name = $request->input('name');
-            $subscriber->token = Subscriber::generateToken();
-            $subscriber->status = Subscriber::STATUS_PENDING;
-            $subscriber->save();
-        } else {
-            $subscriber = $existing;
         }
+
+        $subscriber->name = $request->input('name') ?: $subscriber->name;
+        $subscriber->token = Subscriber::generateToken();
+        $subscriber->status = Subscriber::STATUS_PENDING;
+        $subscriber->confirmed_at = null;
+        $subscriber->save();
 
         Mail::to($subscriber->email)->send(new NewsletterConfirm($subscriber));
 
-        return back()->with('success', 'Check your email to confirm your subscription.');
+        $msg = __('Check your email to confirm your subscription.');
+        return $wantsJson ? response()->json(['status' => 'success', 'message' => $msg]) : back()->with('success', $msg);
     }
 
     public function confirm(string $token)

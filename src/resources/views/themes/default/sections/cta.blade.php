@@ -1,10 +1,61 @@
-@php $d = $section->getLocaleData(); @endphp
-{{-- Section: cta --}}
-<section class="py-16">
-    <div class="mx-auto max-w-6xl px-4">
-        <p class="text-xs text-gray-400 font-mono">[cta section — customize this view]</p>
-        @if(isset($d['heading']) && $d['heading'])
-            <h2 class="text-3xl font-bold text-gray-900 mt-2">{{ $d['heading'] }}</h2>
+@php
+    $d        = $section->data ?? [];
+    $pill     = $d['pill_text']      ?? '';
+    $line1    = $d['heading_line_1'] ?? '';
+    $line2    = $d['heading_line_2'] ?? '';
+    $subhead  = $d['subheading']     ?? '';
+    $pText    = $d['primary_text']   ?? '';
+    $pUrl     = $d['primary_url']    ?? '#';
+    $pIcon    = $d['primary_icon']   ?? 'ri-arrow-right-up-line';
+    $sText    = $d['secondary_text'] ?? '';
+    $sUrl     = $d['secondary_url']  ?? '#';
+    $sIcon    = $d['secondary_icon'] ?? 'ri-calendar-line';
+@endphp
+
+<section class="relative py-28 overflow-hidden">
+    <div class="absolute inset-0 bg-grid radial-fade pointer-events-none"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] glow-lime opacity-80"></div>
+
+    <div class="relative mx-auto max-w-5xl px-6 text-center">
+
+        @if($pill)
+            <div class="inline-flex items-center gap-2 rounded-full glass px-3 py-1.5 text-xs text-white/75">
+                <span class="w-2 h-2 rounded-full bg-lime pulse-dot"></span>
+                {{ __($pill) }}
+            </div>
         @endif
+
+        @if($line1 || $line2)
+            <h2 class="font-display text-6xl md:text-8xl leading-[0.95] mt-6">
+                @if($line1)
+                    {{ __($line1) }}<br />
+                @endif
+                @if($line2)
+                    <span class="italic-display lime-grad">{{ __($line2) }}</span>
+                @endif
+            </h2>
+        @endif
+
+        @if($subhead)
+            <p class="text-white/65 text-lg mt-6 max-w-xl mx-auto">{{ __($subhead) }}</p>
+        @endif
+
+        @if($pText || $sText)
+        <div class="mt-9 flex flex-col sm:flex-row items-center justify-center gap-3">
+            @if($pText)
+                <a href="{{ $pUrl }}" class="btn-lime rounded-full px-7 py-4 text-[15px] flex items-center gap-2">
+                    {{ __($pText) }}
+                    @if($pIcon)<i class="{{ $pIcon }}"></i>@endif
+                </a>
+            @endif
+            @if($sText)
+                <a href="{{ $sUrl }}" class="btn-ghost rounded-full px-7 py-4 text-[15px] flex items-center gap-2">
+                    @if($sIcon)<i class="{{ $sIcon }}"></i>@endif
+                    {{ __($sText) }}
+                </a>
+            @endif
+        </div>
+        @endif
+
     </div>
 </section>

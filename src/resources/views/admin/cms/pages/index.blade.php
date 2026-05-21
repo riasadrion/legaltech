@@ -41,7 +41,7 @@
                             <span class="ml-1 inline-flex items-center rounded-full bg-blue-50 px-2 py-0.5 text-xs font-medium text-blue-600">{{ __('System') }}</span>
                         @endif
                     </td>
-                    <td class="px-4 py-3 text-gray-500" data-label="{{ __('Sections') }}">{{ $page->sections->count() }}</td>
+                    <td class="px-4 py-3 text-gray-500" data-label="{{ __('Sections') }}">{{ count($page->section_ids ?? []) }}</td>
                     <td class="px-4 py-3 text-right" data-label="">
                         <div class="flex items-center justify-end gap-2">
                             <a href="{{ route('admin.cms.pages.preview', $page) }}" target="_blank"

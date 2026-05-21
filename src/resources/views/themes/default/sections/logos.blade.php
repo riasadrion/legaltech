@@ -7,7 +7,7 @@
     <div class="mx-auto max-w-7xl px-6">
         @if($heading)
             <p class="text-center text-sm font-mono uppercase tracking-[.25em] text-white/55">
-                {{ $heading }}
+                {{ __($heading) }}
             </p>
         @endif
     </div>

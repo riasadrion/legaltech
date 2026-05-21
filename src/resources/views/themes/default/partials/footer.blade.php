@@ -33,18 +33,23 @@
                 </p>
 
                 {{-- Newsletter --}}
-                <form method="POST" action="{{ route('newsletter.subscribe') }}"
-                      class="mt-8 flex items-center gap-2 glass rounded-full p-1.5 pl-4 max-w-sm">
+                <form id="newsletter-form" method="POST" action="{{ route('newsletter.subscribe') }}"
+                      class="relative mt-8 flex items-center gap-2 glass rounded-full p-1.5 pl-4 max-w-sm">
                     @csrf
-                    <x-heroicon-o-envelope class="h-4 w-4 text-white/40" />
+                    <x-heroicon-o-envelope class="h-4 w-4 text-white/40 shrink-0" />
                     <input type="email" name="email" required
                            placeholder="{{ __('you@company.com') }}"
-                           class="flex-1 bg-transparent outline-none text-sm placeholder:text-white/35 text-white py-2">
-                    <button type="submit" class="btn-lime rounded-full text-sm px-4 py-2">
-                        {{ __('Subscribe') }}
+                           class="flex-1 min-w-0 bg-transparent outline-none text-sm placeholder:text-white/35 text-white py-2">
+                    {{-- honeypot --}}
+                    <input type="text" name="website" tabindex="-1" autocomplete="off"
+                           class="absolute opacity-0 pointer-events-none -z-10" aria-hidden="true">
+                    <button type="submit" class="btn-lime rounded-full text-sm px-4 py-2 shrink-0">
+                        <span data-label>{{ __('Subscribe') }}</span>
                     </button>
                 </form>
-                <p class="text-[11px] text-white/40 mt-2">{{ __('One short email a month. No tracking pixels.') }}</p>
+                <p id="newsletter-msg" class="text-[11px] mt-2 text-white/40">
+                    {{ __('One short email a month. No tracking pixels.') }}
+                </p>
             </div>
 
             {{-- Dynamic footer columns from menu --}}
@@ -126,3 +131,57 @@
         </div>
     </div>
 </footer>
+
+@push('scripts')
+<script>
+$(function () {
+    'use strict';
+
+    var $form = $('#newsletter-form');
+    if (!$form.length) return;
+
+    var $msg   = $('#newsletter-msg');
+    var $btn   = $form.find('button[type="submit"]');
+    var $label = $btn.find('[data-label]');
+    var $input = $form.find('input[name="email"]');
+
+    var idleMsg   = $msg.text();
+    var idleClass = 'text-white/40';
+    var okClass   = 'text-lime';
+    var errClass  = 'text-red-400';
+    var classes   = idleClass + ' ' + okClass + ' ' + errClass;
+
+    var idleLabel = $label.text();
+
+    $form.on('submit', function (e) {
+        e.preventDefault();
+
+        $btn.prop('disabled', true).addClass('opacity-70');
+        $label.text('{{ __('Sending…') }}');
+
+        $.ajax({
+            url: $form.attr('action'),
+            method: 'POST',
+            data: $form.serialize(),
+            dataType: 'json',
+            headers: { 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json' },
+        }).done(function (res) {
+            var color = res.status === 'info' ? idleClass : okClass;
+            $msg.removeClass(classes).addClass(color).text(res.message || '{{ __('Subscribed.') }}');
+            $label.text('{{ __('Subscribed ✓') }}');
+            $input.val('');
+        }).fail(function (xhr) {
+            var message = '{{ __('Something went wrong. Please try again.') }}';
+            if (xhr.responseJSON && xhr.responseJSON.errors && xhr.responseJSON.errors.email) {
+                message = xhr.responseJSON.errors.email[0];
+            } else if (xhr.responseJSON && xhr.responseJSON.message) {
+                message = xhr.responseJSON.message;
+            }
+            $msg.removeClass(classes).addClass(errClass).text(message);
+            $label.text(idleLabel);
+            $btn.prop('disabled', false).removeClass('opacity-70');
+        });
+    });
+});
+</script>
+@endpush

@@ -65,11 +65,16 @@
                                     {{ $section->enabled ? __('Disable') : __('Enable') }}
                                 </button>
                             </form>
-                            @if(config('sections.' . $section->type . '.deletable', true))
+                            <form method="POST" action="{{ route('admin.cms.sections.detach', [$page, $section]) }}" class="inline">
+                                @csrf
+                                <button type="submit" data-confirm="{{ __('Detach this section from the page?') }}"
+                                        class="text-xs text-amber-500 hover:text-amber-700">{{ __('Detach') }}</button>
+                            </form>
+                            @if($section->type === 'custom_html')
                                 <form method="POST" action="{{ route('admin.cms.sections.destroy', [$page, $section]) }}" class="inline">
                                     @csrf @method('DELETE')
-                                    <button type="submit" data-confirm="{{ __('Remove this section?') }}"
-                                            class="text-xs text-red-500 hover:text-red-700">{{ __('Remove') }}</button>
+                                    <button type="submit" data-confirm="{{ __('Permanently delete this section?') }}"
+                                            class="text-xs text-red-500 hover:text-red-700">{{ __('Delete') }}</button>
                                 </form>
                             @endif
                         </div>
@@ -80,7 +85,7 @@
             </div>
 
             {{-- Add section --}}
-            @if($availableTypes->isNotEmpty())
+            @if($availableTypes->isNotEmpty() || $reusableSections->isNotEmpty())
             <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
                 <div class="border-b border-gray-100 px-5 py-3.5">
                     <h3 class="text-sm font-semibold text-gray-900">{{ __('Add section') }}</h3>
@@ -88,11 +93,29 @@
                 <div class="px-5 py-4">
                     <form method="POST" action="{{ route('admin.cms.sections.store', $page) }}" class="flex items-center gap-3">
                         @csrf
-                        <select name="type"
+                        <select name="source"
                                 class="flex-1 h-9 rounded-lg border border-gray-300 px-3 text-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500">
-                            @foreach($availableTypes as $type => $cfg)
-                            <option value="{{ $type }}">{{ $cfg['label'] }}</option>
-                            @endforeach
+                            @if($availableTypes->isNotEmpty())
+                                <optgroup label="{{ __('Create new') }}">
+                                    @foreach($availableTypes as $type => $cfg)
+                                        <option value="{{ $type }}">{{ $cfg['label'] }}</option>
+                                    @endforeach
+                                </optgroup>
+                            @endif
+                            @if($reusableSections->isNotEmpty())
+                                <optgroup label="{{ __('Reuse existing') }}">
+                                    @foreach($reusableSections as $existing)
+                                        @php
+                                            $label = config('sections.' . $existing->type . '.label', $existing->type);
+                                            $hint = $existing->data['heading'] ?? $existing->data['heading_line_1'] ?? $existing->data['title'] ?? '';
+                                            $hint = is_string($hint) ? trim(strip_tags($hint)) : '';
+                                        @endphp
+                                        <option value="existing:{{ $existing->id }}">
+                                            {{ $label }} #{{ $existing->id }}{{ $hint ? ' — ' . \Illuminate\Support\Str::limit($hint, 50) : '' }}
+                                        </option>
+                                    @endforeach
+                                </optgroup>
+                            @endif
                         </select>
                         <button type="submit"
                                 class="inline-flex items-center gap-2 rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-brand-700">
@@ -135,13 +158,14 @@
                             <option value="published" @selected(old('status', $page->status) === 'published')>{{ __('Published') }}</option>
                         </x-form.select>
                     </div>
-                    <div class="flex items-start gap-3">
+                    <div class="border-t border-gray-100 px-5 py-4 flex items-center gap-3">
                         <button type="submit"
                                 class="inline-flex items-center gap-2 rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-brand-700">
                             <x-heroicon-o-check class="h-4 w-4" />
                             {{ __('Save') }}
                         </button>
                     </div>
+                </div>
             </form>
         </div>
 
@@ -159,15 +183,20 @@ onAdminReady(function () {
         animation: 150,
         onEnd: function () {
             var order = Array.from(el.querySelectorAll('[data-id]')).map(function (li) {
-                return li.dataset.id;
+                return parseInt(li.dataset.id, 10);
             });
             fetch('{{ route('admin.cms.sections.reorder', $page) }}', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Accept': 'application/json',
                     'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').content,
                 },
                 body: JSON.stringify({ order: order }),
+            }).then(function (res) {
+                if (res.ok && typeof window.toast === 'function') {
+                    window.toast('{{ __('Order saved') }}', 'success');
+                }
             });
         },
     });

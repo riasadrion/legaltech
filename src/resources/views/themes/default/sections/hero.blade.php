@@ -17,10 +17,10 @@
                    class="group inline-flex items-center gap-3 rounded-full glass px-2 py-1.5 pr-4 text-sm text-white/80">
                     @if(!empty($d['pill_label']))
                         <span class="rounded-full bg-lime text-ink-900 font-semibold text-xs px-2.5 py-1">
-                            {{ $d['pill_label'] }}
+                            {{ __($d['pill_label']) }}
                         </span>
                     @endif
-                    <span>{{ $d['pill_text'] }}</span>
+                    <span>{{ __($d['pill_text']) }}</span>
                     <x-heroicon-o-arrow-right class="h-4 w-4 transition group-hover:translate-x-0.5" />
                 </a>
             </div>
@@ -29,26 +29,26 @@
         {{-- headline --}}
         <h1 class="mt-8 text-center font-display text-[60px] leading-[0.93] sm:text-[80px] md:text-[104px] tracking-tight">
             @if(!empty($d['heading_line_1']))
-                <span class="grad-text">{{ $d['heading_line_1'] }} </span>
+                <span class="grad-text">{{ __($d['heading_line_1']) }} </span>
             @endif
             @if(!empty($d['heading_italic_1']))
-                <span class="italic-display lime-grad">{{ $d['heading_italic_1'] }}</span>
+                <span class="italic-display lime-grad">{{ __($d['heading_italic_1']) }}</span>
             @endif
             <br class="hidden sm:block" />
             @if(!empty($d['heading_line_2']))
-                <span class="grad-text">{{ $d['heading_line_2'] }} </span>
+                <span class="grad-text">{{ __($d['heading_line_2']) }} </span>
             @endif
             @if(!empty($d['heading_italic_2']))
-                <span class="italic-display text-white/75">{{ $d['heading_italic_2'] }}</span>
+                <span class="italic-display text-white/75">{{ __($d['heading_italic_2']) }}</span>
             @endif
         </h1>
 
         {{-- subheading --}}
         @if(!empty($d['subheading']))
             <p class="mx-auto mt-6 max-w-xl text-center text-lg text-white/60">
-                {{ $d['subheading'] }}
+                {{ __($d['subheading']) }}
                 @if(!empty($d['subheading_emphasis']))
-                    <span class="text-white">{{ $d['subheading_emphasis'] }}</span>
+                    <span class="text-white">{{ __($d['subheading_emphasis']) }}</span>
                 @endif
             </p>
         @endif
@@ -59,7 +59,7 @@
                 @if(!empty($d['primary_text']))
                     <a href="{{ $d['primary_url'] ?? '#' }}"
                        class="btn-lime rounded-full px-6 py-3.5 text-[15px] flex items-center gap-2">
-                        {{ $d['primary_text'] }}
+                        {{ __($d['primary_text']) }}
                         <x-heroicon-s-sparkles class="h-4 w-4" />
                     </a>
                 @endif
@@ -67,7 +67,7 @@
                     <a href="{{ $d['secondary_url'] ?? '#' }}"
                        class="btn-ghost rounded-full px-6 py-3.5 text-[15px] flex items-center gap-2">
                         <x-heroicon-o-play-circle class="h-5 w-5" />
-                        {{ $d['secondary_text'] }}
+                        {{ __($d['secondary_text']) }}
                     </a>
                 @endif
             </div>

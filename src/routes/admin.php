@@ -136,6 +136,7 @@ Route::prefix('admin')
         Route::post('cms/pages/{page}/sections', [PageSectionController::class, 'store'])->name('cms.sections.store')->middleware('permission:cms.manage');
         Route::get('cms/pages/{page}/sections/{section}/edit', [PageSectionController::class, 'edit'])->name('cms.sections.edit')->middleware('permission:cms.manage');
         Route::put('cms/pages/{page}/sections/{section}', [PageSectionController::class, 'update'])->name('cms.sections.update')->middleware('permission:cms.manage');
+        Route::post('cms/pages/{page}/sections/{section}/detach', [PageSectionController::class, 'detach'])->name('cms.sections.detach')->middleware('permission:cms.manage');
         Route::delete('cms/pages/{page}/sections/{section}', [PageSectionController::class, 'destroy'])->name('cms.sections.destroy')->middleware('permission:cms.manage');
         Route::post('cms/pages/{page}/sections/reorder', [PageSectionController::class, 'reorder'])->name('cms.sections.reorder')->middleware('permission:cms.manage');
         Route::post('cms/pages/{page}/sections/{section}/toggle', [PageSectionController::class, 'toggle'])->name('cms.sections.toggle')->middleware('permission:cms.manage');
