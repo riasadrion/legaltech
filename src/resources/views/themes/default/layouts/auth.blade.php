@@ -8,31 +8,98 @@
     @if($favicon = setting('site.favicon'))
     <link rel="icon" href="{{ $favicon }}" type="image/png">
     @endif
+
+    {{-- external-allowed: google-fonts --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    {{-- external-allowed: google-fonts --}}
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    {{-- external-allowed: google-fonts --}}
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
     <script src="{{ asset('assets/static/js/jquery.min.js') }}"></script>
     <?php echo \App\Support\ViteAssets::includeAssets(['resources/css/app.css', 'resources/js/app.js']); ?>
+    <link rel="stylesheet" href="{{ asset('assets/static/css/themes/default.css') }}">
     <x-integrations.ga4 />
     @stack('head')
 </head>
-<body class="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+<body class="theme-default min-h-screen antialiased">
 
     <x-flash />
 
-    <div class="w-full max-w-md">
-        {{-- Logo --}}
-        <div class="text-center mb-8">
-            <a href="{{ route('home') }}" class="inline-block">
-                <span class="text-2xl font-bold text-brand-600">{{ config('app.name') }}</span>
-            </a>
-        </div>
+    <div class="min-h-screen flex">
 
-        {{-- Card --}}
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
-            @if(isset($heading) || View::hasSection('heading'))
-            <h1 class="text-xl font-semibold text-gray-900 mb-6">{{ $heading ?? '' }}@yield('heading')</h1>
-            @endif
+        {{-- LEFT VISUAL --}}
+        <aside class="hidden lg:flex relative w-1/2 bg-ink-950 overflow-hidden">
+            {{-- bg layers --}}
+            <div class="absolute inset-0 bg-grid radial-fade pointer-events-none"></div>
+            <div class="absolute -top-32 left-1/2 -translate-x-1/2 w-[700px] h-[400px] glow-violet"></div>
+            <div class="absolute bottom-0 right-0 w-[500px] h-[300px] glow-lime opacity-50"></div>
 
-            {{ $slot ?? '' }}
-            @yield('content')
+            <div class="relative w-full p-12 flex flex-col">
+                {{-- brand --}}
+                <a href="{{ route('home') }}" class="flex items-center gap-2">
+                    @if($logo = setting('site.logo'))
+                        <img src="{{ $logo }}" alt="{{ setting('site.name', config('app.name')) }}" class="h-9">
+                    @else
+                        <span class="grid place-items-center w-9 h-9 rounded-full bg-lime text-ink-900">
+                            <x-heroicon-s-pencil class="h-5 w-5" />
+                        </span>
+                        <span class="font-display text-2xl tracking-tight text-white">{{ setting('site.name', config('app.name')) }}</span>
+                    @endif
+                </a>
+
+                {{-- Page-specific aside content (slot) --}}
+                @hasSection('aside')
+                    <div class="flex-1 mt-12 flex flex-col justify-center">
+                        @yield('aside')
+                    </div>
+                @else
+                    <div class="flex-1 mt-12 flex flex-col justify-center max-w-md">
+                        <p class="font-display text-4xl text-white leading-tight">
+                            {{ setting('site.tagline', __('Welcome back. Pick up where you left off.')) }}
+                        </p>
+                        <p class="text-white/60 mt-4 text-sm">{{ __('Secure, fast, and built for modern teams.') }}</p>
+                    </div>
+                @endif
+
+                {{-- trust strip --}}
+                <div class="text-[11px] font-mono uppercase tracking-widest text-white/35">
+                    {{ __('Secured by') }} <span class="text-lime">●</span> {{ now()->format('Y') }} · {{ setting('site.name', config('app.name')) }}
+                </div>
+            </div>
+        </aside>
+
+        {{-- RIGHT FORM --}}
+        <div class="flex-1 flex flex-col">
+            {{-- top bar (mobile brand + back to home) --}}
+            <div class="flex items-center justify-between px-6 py-5 lg:px-10">
+                <a href="{{ route('home') }}" class="flex items-center gap-2 lg:hidden">
+                    <span class="grid place-items-center w-8 h-8 rounded-full bg-lime text-ink-900">
+                        <x-heroicon-s-pencil class="h-4 w-4" />
+                    </span>
+                    <span class="font-display text-xl text-white">{{ setting('site.name', config('app.name')) }}</span>
+                </a>
+                <a href="{{ route('home') }}" class="text-sm text-white/60 hover:text-white inline-flex items-center gap-1.5 ml-auto">
+                    <x-heroicon-o-arrow-left class="h-4 w-4" />
+                    {{ __('Back to home') }}
+                </a>
+            </div>
+
+            <div class="flex-1 flex items-center justify-center px-6 lg:px-12 pb-12">
+                <div class="w-full max-w-md">
+                    @if(isset($heading) || View::hasSection('heading'))
+                        <h1 class="font-display text-4xl text-white tracking-tight">{{ $heading ?? '' }}@yield('heading')</h1>
+                        @if(isset($subheading) || View::hasSection('subheading'))
+                            <p class="text-white/55 mt-2 text-sm">{{ $subheading ?? '' }}@yield('subheading')</p>
+                        @endif
+                    @endif
+
+                    <div class="mt-8">
+                        {{ $slot ?? '' }}
+                        @yield('content')
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

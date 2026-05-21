@@ -10,7 +10,7 @@ class PageController extends Controller
     public function show(string $slug)
     {
         $page = Page::where('slug', $slug)->published()->firstOrFail();
-        $sections = $page->sections()->where('enabled', true)->orderBy('sort')->get();
+        $sections = $page->enabledSections();
 
         return view('theme::cms.page', compact('page', 'sections'));
     }
@@ -23,7 +23,7 @@ class PageController extends Controller
             return view('theme::cms.home-fallback');
         }
 
-        $sections = $page->sections()->where('enabled', true)->orderBy('sort')->get();
+        $sections = $page->enabledSections();
 
         return view('theme::cms.page', compact('page', 'sections'));
     }

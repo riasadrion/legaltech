@@ -1,10 +1,12 @@
-@php $d = $section->getLocaleData(); @endphp
-{{-- Section: custom_html --}}
-<section class="py-16">
-    <div class="mx-auto max-w-6xl px-4">
-        <p class="text-xs text-gray-400 font-mono">[custom_html section — customize this view]</p>
-        @if(isset($d['heading']) && $d['heading'])
-            <h2 class="text-3xl font-bold text-gray-900 mt-2">{{ $d['heading'] }}</h2>
-        @endif
+@php
+    $d = $section->getLocaleData();
+    $body = (string) ($d['body'] ?? '');
+    $clean = \App\Domain\Cms\Sanitizer\HtmlPurifier::purify($body);
+@endphp
+@if($clean !== '')
+<section class="relative py-16">
+    <div class="mx-auto max-w-4xl px-6 prose prose-invert">
+        <?php echo $clean; ?>
     </div>
 </section>
+@endif

@@ -5,118 +5,34 @@ return [
     'hero' => [
         'label' => 'Hero',
         'max_per_page' => 1,
-        'deletable' => true,
-        'default_data' => [
-            'en' => [
-                'heading' => 'Welcome to our platform',
-                'subheading' => 'Everything you need, all in one place.',
-                'cta_text' => 'Get started',
-                'cta_url' => '/register',
-                'image' => null,
-            ],
-        ],
-    ],
-
-    'features' => [
-        'label' => 'Features',
-        'max_per_page' => null,
-        'deletable' => true,
-        'default_data' => [
-            'en' => [
-                'heading' => 'Why choose us',
-                'features' => [
-                    ['icon' => 'bolt', 'title' => 'Fast', 'body' => 'Lightning-fast performance.'],
-                    ['icon' => 'shield-check', 'title' => 'Secure', 'body' => 'Enterprise-grade security.'],
-                    ['icon' => 'chart-bar', 'title' => 'Scalable', 'body' => 'Grows with your business.'],
-                ],
-            ],
-        ],
-    ],
-
-    'cta' => [
-        'label' => 'Call to Action',
-        'max_per_page' => null,
-        'deletable' => true,
-        'default_data' => [
-            'en' => [
-                'heading' => 'Ready to get started?',
-                'body' => 'Join thousands of users today.',
-                'primary_text' => 'Sign up free',
-                'primary_url' => '/register',
-                'secondary_text' => 'Learn more',
-                'secondary_url' => '/about',
-            ],
-        ],
-    ],
-
-    'content' => [
-        'label' => 'Rich Content',
-        'max_per_page' => null,
-        'deletable' => true,
-        'default_data' => [
-            'en' => [
-                'heading' => '',
-                'body' => '<p>Add your content here.</p>',
-            ],
-        ],
-    ],
-
-    'gallery' => [
-        'label' => 'Gallery',
-        'max_per_page' => null,
-        'deletable' => true,
-        'default_data' => [
-            'en' => ['heading' => ''],
-            'images' => [],
+        'deletable' => false,
+        'fields' => [
+            ['pill_label', 'text', 'Pill — badge label'],
+            ['pill_text',  'text', 'Pill — text'],
+            ['pill_url',   'url',  'Pill — URL'],
+            ['heading_line_1',   'text', 'Heading line 1'],
+            ['heading_italic_1', 'text', 'Heading line 1 — italic accent'],
+            ['heading_line_2',   'text', 'Heading line 2'],
+            ['heading_italic_2', 'text', 'Heading line 2 — italic accent'],
+            ['subheading', 'textarea', 'Subheading'],
+            ['subheading_emphasis', 'text', 'Subheading — emphasis (white)'],
+            ['primary_text', 'text', 'Primary button — text'],
+            ['primary_url',  'url',  'Primary button — URL'],
+            ['secondary_text', 'text', 'Secondary button — text'],
+            ['secondary_url',  'url',  'Secondary button — URL'],
         ],
     ],
 
     'logos' => [
-        'label' => 'Logo Strip',
-        'max_per_page' => null,
-        'deletable' => true,
-        'default_data' => [
-            'en' => ['heading' => 'Trusted by'],
-            'logos' => [],
-        ],
-    ],
-
-    'stats' => [
-        'label' => 'Stats',
-        'max_per_page' => null,
-        'deletable' => true,
-        'default_data' => [
-            'en' => [
-                'heading' => '',
-                'stats' => [
-                    ['value' => '10K+', 'label' => 'Users'],
-                    ['value' => '99.9%', 'label' => 'Uptime'],
-                    ['value' => '24/7', 'label' => 'Support'],
-                ],
-            ],
-        ],
-    ],
-
-    'cta_strip' => [
-        'label' => 'CTA Strip',
-        'max_per_page' => null,
-        'deletable' => true,
-        'default_data' => [
-            'en' => [
-                'text' => 'Start your free trial today.',
-                'cta_text' => 'Get started',
-                'cta_url' => '/register',
-            ],
-        ],
-    ],
-
-    'latest_blog_posts' => [
-        'label' => 'Latest Blog Posts',
+        'label' => 'Trusted-by / Logo Strip',
         'max_per_page' => 1,
-        'deletable' => true,
-        'default_data' => [
-            'en' => ['heading' => 'Latest from the blog'],
-            'count' => 3,
+        'deletable' => false,
+        'fields' => [
+            ['heading', 'text', 'Eyebrow / heading'],
+            ['logos', 'Logos', [
+                ['url', 'image', 'Image'],
+                ['alt', 'text',  'Alt text'],
+            ]],
         ],
     ],
 
@@ -124,8 +40,8 @@ return [
         'label' => 'Custom HTML',
         'max_per_page' => null,
         'deletable' => true,
-        'default_data' => [
-            'en' => ['title' => 'Custom block', 'body' => ''],
+        'fields' => [
+            ['body', 'richtext', 'Content'],
         ],
     ],
 

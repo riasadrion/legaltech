@@ -58,6 +58,13 @@ return [
             'pattern' => 'module',
             'max_width' => 600,
         ],
+        'sections' => [
+            'mime' => ['image/jpeg', 'image/png', 'image/webp'],
+            'max_kb' => 2048,
+            'public' => true,
+            'pattern' => 'module',
+            'max_width' => 600,
+        ],
         'settings' => [
             'mime' => ['image/jpeg', 'image/png', 'image/webp'],
             'max_kb' => 4096,

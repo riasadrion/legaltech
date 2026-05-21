@@ -11,13 +11,23 @@
     @if($favicon = setting('site.favicon'))
     <link rel="icon" href="{{ $favicon }}" type="image/png">
     @endif
+
+    {{-- external-allowed: google-fonts --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    {{-- external-allowed: google-fonts --}}
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    {{-- external-allowed: google-fonts --}}
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
     <script src="{{ asset('assets/static/js/jquery.min.js') }}"></script>
     <?php echo \App\Support\ViteAssets::includeAssets(['resources/css/app.css', 'resources/js/app.js']); ?>
+    <link rel="stylesheet" href="{{ asset('assets/static/css/themes/default.css') }}">
     <x-integrations.ga4 />
-    <link rel="stylesheet" href="{{ asset('assets/static/css/custom.css') }}?v={{ filemtime(public_path('assets/static/css/custom.css')) }}">
+    @php $customCssPath = base_path('../assets/static/css/custom.css'); @endphp
+    <link rel="stylesheet" href="{{ asset('assets/static/css/custom.css') }}?v={{ is_file($customCssPath) ? filemtime($customCssPath) : config('app.version', 1) }}">
     @stack('head')
 </head>
-<body class="min-h-screen bg-white text-gray-900 antialiased">
+<body class="theme-default min-h-screen antialiased selection:bg-lime selection:text-ink-900">
 
     {{-- Flash messages --}}
     <x-flash />

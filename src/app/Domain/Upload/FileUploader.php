@@ -35,9 +35,8 @@ class FileUploader
         $this->writeFile($file, $realMime, $path, $disk, $maxWidth ?? $config['max_width'] ?? null);
 
         // Step 4 — Return meta
-        $publicUrl = $config['public']
-            ? rtrim(request()->getSchemeAndHttpHost(), '/').'/assets/uploads/'.$path
-            : null;
+        // Store the relative path only; use upload_url() helper to build display URLs.
+        $publicUrl = $config['public'] ? $path : null;
 
         return new UploadedFileMeta(
             path: $path,
@@ -141,7 +140,7 @@ class FileUploader
 
             return $driver === 'local' ? 'uploads' : $driver;
         } catch (\Throwable) {
-            return 'uploads';
+           return 'uploads';
         }
     }
 

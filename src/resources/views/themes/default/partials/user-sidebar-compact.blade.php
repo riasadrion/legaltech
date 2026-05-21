@@ -1,96 +1,142 @@
-{{-- User Sidebar Navigation (Compact) --}}
-<nav class="rounded-xl border border-gray-200 bg-white p-4 shadow-sm h-fit sticky top-20">
-    {{-- Navigation Menu --}}
-    <div class="space-y-1">
-        {{-- Dashboard --}}
-        <a href="{{ route('user.dashboard') }}"
-           class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors {{ request()->routeIs('user.dashboard') ? 'bg-brand-50 text-brand-600' : 'text-gray-700 hover:bg-gray-50' }}">
-            <x-heroicon-o-home class="h-5 w-5 flex-shrink-0" />
-            <span>Dashboard</span>
-        </a>
+{{-- Brand --}}
+<div class="px-5 py-5 flex items-center gap-2 border-b border-white/8">
+    <a href="{{ route('home') }}" class="flex items-center gap-2">
+        @if($logo = setting('site.logo'))
+            <img src="{{ $logo }}" alt="{{ setting('site.name', config('app.name')) }}" class="h-8">
+        @else
+            <span class="grid place-items-center w-8 h-8 rounded-full bg-lime text-ink-900">
+                <x-heroicon-s-pencil class="h-4 w-4" />
+            </span>
+            <span class="font-display text-2xl text-white">{{ setting('site.name', config('app.name')) }}</span>
+        @endif
+    </a>
+</div>
 
-        {{-- Account Section --}}
-        <div class="pt-2">
-            <p class="px-3 text-xs font-semibold uppercase tracking-wider text-gray-500">Account</p>
-            <div class="mt-2 space-y-1">
-                <a href="{{ route('user.subscription.index') }}"
-                   class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors {{ request()->routeIs('user.subscription.*') ? 'bg-brand-50 text-brand-600' : 'text-gray-700 hover:bg-gray-50' }}">
-                    <x-heroicon-o-ticket class="h-5 w-5 flex-shrink-0" />
-                    <span>Subscription</span>
-                </a>
-                <a href="{{ route('user.wallet.index') }}"
-                   class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors {{ request()->routeIs('user.wallet.*') ? 'bg-brand-50 text-brand-600' : 'text-gray-700 hover:bg-gray-50' }}">
-                    <x-heroicon-o-wallet class="h-5 w-5 flex-shrink-0" />
-                    <span>Wallet</span>
-                </a>
-                <a href="{{ route('user.profile') }}"
-                   class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors {{ request()->routeIs('user.profile') ? 'bg-brand-50 text-brand-600' : 'text-gray-700 hover:bg-gray-50' }}">
-                    <x-heroicon-o-user class="h-5 w-5 flex-shrink-0" />
-                    <span>Profile</span>
-                </a>
-            </div>
+{{-- User pill --}}
+@auth('user')
+<div class="px-4 pt-4">
+    <a href="{{ route('user.profile') }}"
+       class="w-full flex items-center gap-2 rounded-xl px-3 py-2.5 bg-white/4 border border-white/8 hover:bg-white/6 transition">
+        <span class="w-7 h-7 rounded-md bg-gradient-to-br from-lime to-lime-deep grid place-items-center text-ink-900 font-bold text-[11px]">
+            {{ mb_strtoupper(mb_substr(auth('user')->user()->name ?? auth('user')->user()->email, 0, 1)) }}
+        </span>
+        <div class="text-left flex-1 min-w-0">
+            <div class="text-[13px] truncate text-white">{{ auth('user')->user()->name ?? __('Member') }}</div>
+            <div class="text-[10px] text-white/45 font-mono uppercase tracking-widest truncate">{{ auth('user')->user()->email }}</div>
         </div>
+    </a>
+</div>
+@endauth
 
-        {{-- Finances Section --}}
-        <div class="pt-2">
-            <p class="px-3 text-xs font-semibold uppercase tracking-wider text-gray-500">Finances</p>
-            <div class="mt-2 space-y-1">
-                <a href="{{ route('user.payment.index') }}"
-                   class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors {{ request()->routeIs('user.payment.*') ? 'bg-brand-50 text-brand-600' : 'text-gray-700 hover:bg-gray-50' }}">
-                    <x-heroicon-o-arrow-down-tray class="h-5 w-5 flex-shrink-0" />
-                    <span>Payments</span>
-                </a>
-                <a href="{{ route('user.payout.index') }}"
-                   class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors {{ request()->routeIs('user.payout.*') ? 'bg-brand-50 text-brand-600' : 'text-gray-700 hover:bg-gray-50' }}">
-                    <x-heroicon-o-arrow-up-tray class="h-5 w-5 flex-shrink-0" />
-                    <span>Payouts</span>
-                </a>
-            </div>
-        </div>
+{{-- Nav --}}
+@php
+    $isActive = fn (string $pattern) => request()->routeIs($pattern);
+    $linkBase = 'flex items-center gap-3 rounded-lg px-3 py-2 text-[13.5px] transition';
+    $linkInactive = 'text-white/70 hover:bg-white/5 hover:text-white';
+    $linkActive = 'bg-white/8 text-white';
+    $sectionLabel = 'text-[10px] font-mono uppercase tracking-widest text-white/35 px-3 mb-1 mt-5';
+@endphp
 
-        {{-- Compliance Section --}}
-        <div class="pt-2">
-            <p class="px-3 text-xs font-semibold uppercase tracking-wider text-gray-500">Compliance</p>
-            <div class="mt-2 space-y-1">
-                <a href="{{ route('user.kyc.index') }}"
-                   class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors {{ request()->routeIs('user.kyc.*') ? 'bg-brand-50 text-brand-600' : 'text-gray-700 hover:bg-gray-50' }}">
-                    <x-heroicon-o-identification class="h-5 w-5 flex-shrink-0" />
-                    <span>KYC</span>
-                </a>
-                <a href="{{ route('user.2fa.index') }}"
-                   class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors {{ request()->routeIs('user.2fa.*') ? 'bg-brand-50 text-brand-600' : 'text-gray-700 hover:bg-gray-50' }}">
-                    <x-heroicon-o-shield-check class="h-5 w-5 flex-shrink-0" />
-                    <span>Security</span>
-                </a>
-            </div>
-        </div>
+<nav class="mt-5 px-4 space-y-0.5 flex-1 overflow-y-auto no-sb">
 
-        {{-- Support Section --}}
-        <div class="pt-2">
-            <p class="px-3 text-xs font-semibold uppercase tracking-wider text-gray-500">Support</p>
-            <div class="mt-2 space-y-1">
-                <a href="{{ route('user.support.index') }}"
-                   class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors {{ request()->routeIs('user.support.*') ? 'bg-brand-50 text-brand-600' : 'text-gray-700 hover:bg-gray-50' }}">
-                    <x-heroicon-o-chat-bubble-left-right class="h-5 w-5 flex-shrink-0" />
-                    <span>Support</span>
-                </a>
-                <a href="{{ route('user.notifications.index') }}"
-                   class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors {{ request()->routeIs('user.notifications.*') ? 'bg-brand-50 text-brand-600' : 'text-gray-700 hover:bg-gray-50' }}">
-                    <x-heroicon-o-bell class="h-5 w-5 flex-shrink-0" />
-                    <span>Notifications</span>
-                </a>
-            </div>
-        </div>
+    {{-- Workspace --}}
+    <div class="text-[10px] font-mono uppercase tracking-widest text-white/35 px-3 mb-1">{{ __('Workspace') }}</div>
 
-        {{-- Logout --}}
-        <div class="border-t border-gray-200 pt-2 mt-2">
-            <form method="POST" action="{{ route('logout') }}" class="w-full">
-                @csrf
-                <button type="submit" class="flex items-center gap-3 w-full rounded-lg px-3 py-2 text-sm font-medium text-red-600 transition-colors hover:bg-red-50">
-                    <x-heroicon-o-arrow-left-on-rectangle class="h-5 w-5 flex-shrink-0" />
-                    <span>Logout</span>
-                </button>
-            </form>
-        </div>
-    </div>
+    <a href="{{ route('user.dashboard') }}"
+       class="{{ $linkBase }} {{ $isActive('user.dashboard') ? $linkActive : $linkInactive }}">
+        <x-heroicon-o-home class="h-4 w-4" />
+        {{ __('Dashboard') }}
+    </a>
+
+    <a href="{{ route('user.wallet.index') }}"
+       class="{{ $linkBase }} {{ $isActive('user.wallet.*') ? $linkActive : $linkInactive }}">
+        <x-heroicon-o-banknotes class="h-4 w-4" />
+        {{ __('Wallet') }}
+    </a>
+
+    <a href="{{ route('user.subscription.index') }}"
+       class="{{ $linkBase }} {{ $isActive('user.subscription.*') ? $linkActive : $linkInactive }}">
+        <x-heroicon-o-square-3-stack-3d class="h-4 w-4" />
+        {{ __('Subscription') }}
+    </a>
+
+    {{-- Finances --}}
+    <div class="{{ $sectionLabel }}">{{ __('Finances') }}</div>
+
+    <a href="{{ route('user.payment.index') }}"
+       class="{{ $linkBase }} {{ $isActive('user.payment.*') ? $linkActive : $linkInactive }}">
+        <x-heroicon-o-credit-card class="h-4 w-4" />
+        {{ __('Payments') }}
+    </a>
+
+    <a href="{{ route('user.payout.index') }}"
+       class="{{ $linkBase }} {{ $isActive('user.payout.*') ? $linkActive : $linkInactive }}">
+        <x-heroicon-o-arrow-up-tray class="h-4 w-4" />
+        {{ __('Payouts') }}
+    </a>
+
+    {{-- Account --}}
+    <div class="{{ $sectionLabel }}">{{ __('Account') }}</div>
+
+    <a href="{{ route('user.kyc.index') }}"
+       class="{{ $linkBase }} {{ $isActive('user.kyc.*') ? $linkActive : $linkInactive }}">
+        <x-heroicon-o-identification class="h-4 w-4" />
+        {{ __('Verification') }}
+    </a>
+
+    <a href="{{ route('user.2fa.index') }}"
+       class="{{ $linkBase }} {{ $isActive('user.2fa.*') ? $linkActive : $linkInactive }}">
+        <x-heroicon-o-shield-check class="h-4 w-4" />
+        {{ __('Security') }}
+    </a>
+
+    <a href="{{ route('user.notifications.index') }}"
+       class="{{ $linkBase }} {{ $isActive('user.notifications.*') ? $linkActive : $linkInactive }}">
+        <x-heroicon-o-bell class="h-4 w-4" />
+        {{ __('Notifications') }}
+    </a>
+
+    <a href="{{ route('user.support.index') }}"
+       class="{{ $linkBase }} {{ $isActive('user.support.*') ? $linkActive : $linkInactive }}">
+        <x-heroicon-o-lifebuoy class="h-4 w-4" />
+        {{ __('Support') }}
+    </a>
+
+    <a href="{{ route('user.profile') }}"
+       class="{{ $linkBase }} {{ $isActive('user.profile') ? $linkActive : $linkInactive }}">
+        <x-heroicon-o-user class="h-4 w-4" />
+        {{ __('Profile') }}
+    </a>
 </nav>
+
+{{-- Footer card --}}
+@auth('user')
+@php
+    $balanceCache = auth('user')->user()->balance_cache ?? 0;
+@endphp
+<div class="mt-auto p-4 shrink-0">
+    <div class="rounded-2xl border border-white/8 p-4 bg-white/2">
+        <div class="flex items-center justify-between">
+            <span class="text-[11px] font-mono uppercase tracking-widest text-white/45">{{ __('Wallet') }}</span>
+            <a href="{{ route('user.payment.create') }}" class="text-[10px] text-lime hover:underline">{{ __('Top up') }}</a>
+        </div>
+        <div class="mt-3 text-[15px] text-white font-medium">
+            {{ setting('site.currency_symbol', '$') }}{{ number_format($balanceCache / 100, 2) }}
+        </div>
+        <a href="{{ route('user.wallet.index') }}"
+           class="mt-3 text-[11px] text-lime hover:underline inline-flex items-center gap-1">
+            {{ __('View history') }}
+            <x-heroicon-o-arrow-right class="h-3 w-3" />
+        </a>
+    </div>
+
+    <form method="POST" action="{{ route('logout') }}" class="mt-3">
+        @csrf
+        <button type="submit"
+                class="w-full flex items-center gap-2 px-2 py-2 text-[12px] text-white/55 hover:text-white">
+            <x-heroicon-o-arrow-right-on-rectangle class="h-4 w-4" />
+            {{ __('Sign out') }}
+        </button>
+    </form>
+</div>
+@endauth

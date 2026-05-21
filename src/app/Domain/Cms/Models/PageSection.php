@@ -3,7 +3,6 @@
 namespace App\Domain\Cms\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PageSection extends Model
 {
@@ -12,17 +11,11 @@ class PageSection extends Model
         'enabled' => 'boolean',
     ];
 
-    public function page(): BelongsTo
-    {
-        return $this->belongsTo(Page::class);
-    }
-
     public function getLocaleData(?string $locale = null): array
     {
-        $locale ??= app()->getLocale();
-        $data = $this->data ?? [];
-
-        return $data[$locale] ?? $data['en'] ?? [];
+        // Locale parameter retained for backwards compatibility; sections are now single-locale.
+        // User-facing strings should be translated via __() in the theme blades.
+        return $this->data ?? [];
     }
 
     public function sectionConfig(): array

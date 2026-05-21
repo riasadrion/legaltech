@@ -35,6 +35,23 @@ if (! function_exists('safe_json')) {
     }
 }
 
+if (! function_exists('upload_url')) {
+    /**
+     * Build a public URL from a relative upload path (e.g. "sections/file.png").
+     * Returns the value unchanged if it is already an absolute URL.
+     */
+    function upload_url(?string $path): string
+    {
+        if (! $path) {
+            return '';
+        }
+        if (str_starts_with($path, 'http://') || str_starts_with($path, 'https://')) {
+            return $path;
+        }
+        return rtrim(request()->getSchemeAndHttpHost(), '') . '/assets/uploads/' . ltrim($path, '/');
+    }
+}
+
 if (! function_exists('isCryptoCurrency')) {
     /**
      * Check if a currency code is a cryptocurrency.

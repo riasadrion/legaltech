@@ -24,7 +24,6 @@ class DatabaseSeeder extends Seeder
             PayoutSeeder::class,
             TicketSeeder::class,
             BlogPostSeeder::class,
-            CmsSectionSeeder::class,
             NewsletterSubscriberSeeder::class,
         ]);
     }

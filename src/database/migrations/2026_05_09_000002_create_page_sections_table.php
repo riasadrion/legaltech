@@ -10,7 +10,6 @@ return new class extends Migration
     {
         Schema::create('page_sections', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('page_id')->constrained()->cascadeOnDelete();
             $table->string('type');        // registered section type key
             $table->json('data');          // translatable content + settings
             $table->boolean('enabled')->default(true);

@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Admin\Cms;
 
 use App\Domain\Cms\Models\Page;
 use App\Domain\Cms\Models\PageSection;
-use App\Domain\I18n\Models\Language;
+use App\Domain\Cms\SchemaNormalizer;
+use App\Domain\Cms\SectionDataProcessor;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -21,45 +22,53 @@ class PageSectionController extends Controller
         }
 
         if ($config['max_per_page'] !== null) {
-            $count = $page->sections()->where('type', $type)->count();
+            $count = $page->sections()->filter(fn ($s) => $s->type === $type)->count();
             if ($count >= $config['max_per_page']) {
                 return back()->with('error', 'This section type is already at its limit for this page.');
             }
         }
 
-        $maxSort = $page->sections()->max('sort') ?? -1;
-
         $section = new PageSection;
-        $section->page_id = $page->id;
         $section->type = $type;
-        $section->data = $config['default_data'];
+        $section->data = [];
         $section->enabled = true;
-        $section->sort = $maxSort + 1;
+        $section->sort = count($page->section_ids ?? []);
         $section->save();
+
+        $page->addSection($section);
 
         return redirect()->route('admin.cms.pages.edit', $page)->with('success', 'Section added.');
     }
 
     public function edit(Page $page, PageSection $section)
     {
-        abort_if($section->page_id !== $page->id, 404);
+        abort_unless(in_array($section->id, $page->section_ids ?? []), 404);
         abort_if(! config('sections.'.$section->type), 404);
 
-        $locales = Language::orderBy('is_default', 'desc')->get();
-
-        return view('admin.cms.sections.edit', compact('page', 'section', 'locales'));
+        return view('admin.cms.sections.edit', compact('page', 'section'));
     }
 
-    public function update(Request $request, Page $page, PageSection $section)
+    public function update(Request $request, Page $page, PageSection $section, SectionDataProcessor $processor)
     {
-        abort_if($section->page_id !== $page->id, 404);
+        abort_unless(in_array($section->id, $page->section_ids ?? []), 404);
 
         $config = config('sections.'.$section->type);
         abort_if(! $config, 404);
 
         $request->validate(['enabled' => ['boolean']]);
 
-        $data = $request->input('data', []);
+        $data = (array) $request->input('data', []);
+        $files = (array) $request->file('data', []);
+
+        if (! empty($config['fields'])) {
+            $schema = SchemaNormalizer::normalize($config['fields']);
+            $data = $processor->process(
+                schema: $schema,
+                input: $data,
+                files: $files,
+                previous: (array) ($section->data ?? []),
+            );
+        }
 
         $section->data = $data;
         $section->enabled = $request->boolean('enabled', true);
@@ -70,13 +79,14 @@ class PageSectionController extends Controller
 
     public function destroy(Page $page, PageSection $section)
     {
-        abort_if($section->page_id !== $page->id, 404);
+        abort_unless(in_array($section->id, $page->section_ids ?? []), 404);
 
         $config = config('sections.'.$section->type);
         if ($config && ! $config['deletable']) {
             return back()->with('error', 'This section cannot be deleted.');
         }
 
+        $page->removeSection($section->id);
         $section->delete();
 
         return back()->with('success', 'Section removed.');
@@ -86,16 +96,14 @@ class PageSectionController extends Controller
     {
         $request->validate(['order' => ['required', 'array'], 'order.*' => ['integer']]);
 
-        foreach ($request->input('order') as $sort => $id) {
-            $page->sections()->where('id', $id)->update(['sort' => $sort]);
-        }
+        $page->reorderSections(array_map('intval', $request->input('order')));
 
         return response()->json(['ok' => true]);
     }
 
     public function toggle(Page $page, PageSection $section)
     {
-        abort_if($section->page_id !== $page->id, 404);
+        abort_unless(in_array($section->id, $page->section_ids ?? []), 404);
 
         $section->enabled = ! $section->enabled;
         $section->save();

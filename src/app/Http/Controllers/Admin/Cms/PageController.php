@@ -46,7 +46,7 @@ class PageController extends Controller
 
     public function edit(Page $page)
     {
-        $sections = $page->sections;
+        $sections = $page->sections();
         $typeCounts = $sections->groupBy('type')->map->count();
         $allTypes = config('sections', []);
 
@@ -98,7 +98,7 @@ class PageController extends Controller
 
     public function preview(Page $page)
     {
-        $sections = $page->sections()->where('enabled', true)->orderBy('sort')->get();
+        $sections = $page->enabledSections();
 
         return view('theme::cms.page-preview', compact('page', 'sections'));
     }

@@ -1,10 +1,37 @@
-@php $d = $section->getLocaleData(); @endphp
-{{-- Section: logos --}}
-<section class="py-16">
-    <div class="mx-auto max-w-6xl px-4">
-        <p class="text-xs text-gray-400 font-mono">[logos section — customize this view]</p>
-        @if(isset($d['heading']) && $d['heading'])
-            <h2 class="text-3xl font-bold text-gray-900 mt-2">{{ $d['heading'] }}</h2>
+@php
+    $d = $section->getLocaleData();
+    $heading = $d['heading'] ?? '';
+    $logos = array_values(array_filter($d['logos'] ?? [], fn($l) => !empty($l['url'])));
+@endphp
+<section class="relative py-14 border-y border-white/8 bg-ink-900/70 overflow-hidden">
+    <div class="mx-auto max-w-7xl px-6">
+        @if($heading)
+            <p class="text-center text-sm font-mono uppercase tracking-[.25em] text-white/55">
+                {{ $heading }}
+            </p>
         @endif
     </div>
+
+    @if(!empty($logos))
+    <div class="mt-8 relative">
+        <div class="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-ink-900 to-transparent z-10 pointer-events-none"></div>
+        <div class="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-ink-900 to-transparent z-10 pointer-events-none"></div>
+        <div class="flex marquee gap-16 whitespace-nowrap text-white/55">
+            <div class="flex gap-16 items-center shrink-0">
+                @foreach($logos as $logo)
+                    <img src="{{ upload_url($logo['url']) }}"
+                         alt="{{ $logo['alt'] ?? '' }}"
+                         class="h-7 w-auto opacity-70 hover:opacity-100 transition" />
+                @endforeach
+            </div>
+            <div class="flex gap-16 items-center shrink-0" aria-hidden="true">
+                @foreach($logos as $logo)
+                    <img src="{{ upload_url($logo['url']) }}"
+                         alt=""
+                         class="h-7 w-auto opacity-70" />
+                @endforeach
+            </div>
+        </div>
+    </div>
+    @endif
 </section>

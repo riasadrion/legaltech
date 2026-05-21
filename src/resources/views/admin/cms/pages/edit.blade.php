@@ -65,11 +65,13 @@
                                     {{ $section->enabled ? __('Disable') : __('Enable') }}
                                 </button>
                             </form>
-                            <form method="POST" action="{{ route('admin.cms.sections.destroy', [$page, $section]) }}" class="inline">
-                                @csrf @method('DELETE')
-                                <button type="submit" data-confirm="{{ __('Remove this section?') }}"
-                                        class="text-xs text-red-500 hover:text-red-700">{{ __('Remove') }}</button>
-                            </form>
+                            @if(config('sections.' . $section->type . '.deletable', true))
+                                <form method="POST" action="{{ route('admin.cms.sections.destroy', [$page, $section]) }}" class="inline">
+                                    @csrf @method('DELETE')
+                                    <button type="submit" data-confirm="{{ __('Remove this section?') }}"
+                                            class="text-xs text-red-500 hover:text-red-700">{{ __('Remove') }}</button>
+                                </form>
+                            @endif
                         </div>
                     </li>
                     @endforeach

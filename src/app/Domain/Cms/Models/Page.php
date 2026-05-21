@@ -2,8 +2,8 @@
 
 namespace App\Domain\Cms\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Page extends Model
 {
@@ -12,11 +12,52 @@ class Page extends Model
         'meta_title' => 'array',
         'meta_description' => 'array',
         'is_system' => 'boolean',
+        'section_ids' => 'array',
     ];
 
-    public function sections(): HasMany
+    public function sections(): Collection
     {
-        return $this->hasMany(PageSection::class)->orderBy('sort');
+        $ids = $this->section_ids ?? [];
+        if (empty($ids)) {
+            return new Collection;
+        }
+
+        $sections = PageSection::whereIn('id', $ids)->get()->keyBy('id');
+
+        return (new Collection($ids))
+            ->map(fn ($id) => $sections->get($id))
+            ->filter()
+            ->values();
+    }
+
+    public function enabledSections(): Collection
+    {
+        return $this->sections()->filter(fn ($s) => $s->enabled)->values();
+    }
+
+    public function addSection(PageSection $section): void
+    {
+        $ids = $this->section_ids ?? [];
+        $ids[] = $section->id;
+        $this->section_ids = $ids;
+        $this->save();
+    }
+
+    public function removeSection(int $sectionId): void
+    {
+        $this->section_ids = array_values(array_filter(
+            $this->section_ids ?? [],
+            fn ($id) => $id !== $sectionId,
+        ));
+        $this->save();
+    }
+
+    public function reorderSections(array $orderedIds): void
+    {
+        $current = $this->section_ids ?? [];
+        $valid = array_filter($orderedIds, fn ($id) => in_array($id, $current));
+        $this->section_ids = array_values($valid);
+        $this->save();
     }
 
     public function getLocalTitle(?string $locale = null): string

@@ -3,7 +3,8 @@
 @section('content')
 <div class="max-w-3xl space-y-5">
 
-    <form method="POST" action="{{ route('admin.cms.sections.update', [$page, $section]) }}" class="space-y-5">
+    <form method="POST" action="{{ route('admin.cms.sections.update', [$page, $section]) }}"
+          enctype="multipart/form-data" class="space-y-5">
         @csrf @method('PUT')
 
         <div class="flex items-start gap-3">
@@ -31,76 +32,21 @@
             </div>
 
             @php
-                $localeData = $section->data;
-                $locale = 'en';
-                $d = $localeData[$locale] ?? [];
+                $d = $section->data ?? [];
+                $rawSchema = config('sections.' . $section->type . '.fields');
+                $schema = is_array($rawSchema) ? \App\Domain\Cms\SchemaNormalizer::normalize($rawSchema) : null;
             @endphp
 
-            @if($section->type === 'hero')
-                <x-form.input name="data[en][heading]"    label="Heading"    :value="old('data.en.heading',    $d['heading']    ?? '')" />
-                <x-form.input name="data[en][subheading]" label="Subheading" :value="old('data.en.subheading', $d['subheading'] ?? '')" />
-                <x-form.input name="data[en][cta_text]"   label="CTA text"   :value="old('data.en.cta_text',   $d['cta_text']   ?? '')" />
-                <x-form.input name="data[en][cta_url]"    label="CTA URL"    :value="old('data.en.cta_url',    $d['cta_url']    ?? '')" />
-
-            @elseif($section->type === 'cta')
-                <x-form.input name="data[en][heading]"        label="Heading"         :value="old('data.en.heading',        $d['heading']        ?? '')" />
-                <x-form.input name="data[en][body]"           label="Body"            :value="old('data.en.body',           $d['body']           ?? '')" />
-                <x-form.input name="data[en][primary_text]"   label="Primary button"  :value="old('data.en.primary_text',   $d['primary_text']   ?? '')" />
-                <x-form.input name="data[en][primary_url]"    label="Primary URL"     :value="old('data.en.primary_url',    $d['primary_url']    ?? '')" />
-                <x-form.input name="data[en][secondary_text]" label="Secondary button":value="old('data.en.secondary_text', $d['secondary_text'] ?? '')" />
-                <x-form.input name="data[en][secondary_url]"  label="Secondary URL"   :value="old('data.en.secondary_url',  $d['secondary_url']  ?? '')" />
-
-            @elseif($section->type === 'cta_strip')
-                <x-form.input name="data[en][text]"     label="Text"     :value="old('data.en.text',     $d['text']     ?? '')" />
-                <x-form.input name="data[en][cta_text]" label="CTA text" :value="old('data.en.cta_text', $d['cta_text'] ?? '')" />
-                <x-form.input name="data[en][cta_url]"  label="CTA URL"  :value="old('data.en.cta_url',  $d['cta_url']  ?? '')" />
+            @if(is_array($schema))
+                <x-cms.schema :schema="$schema" :data="$d" name-prefix="data" />
 
             @elseif($section->type === 'content')
-                <x-form.input name="data[en][heading]" label="Heading" :value="old('data.en.heading', $d['heading'] ?? '')" />
+                <x-form.input name="data[heading]" label="Heading" :value="old('data.heading', $d['heading'] ?? '')" />
                 <div>
                     <label class="mb-1.5 block text-sm font-medium text-gray-700">Body</label>
-                    <input type="hidden" name="data[en][body]" id="section_body" value="{{ old('data.en.body', $d['body'] ?? '') }}">
+                    <input type="hidden" name="data[body]" id="section_body" value="{{ old('data.body', $d['body'] ?? '') }}">
                     <div class="prose-editor-init" data-input="section_body"></div>
                 </div>
-
-            @elseif($section->type === 'custom_html')
-                <x-form.input name="data[en][title]" label="Block title" :value="old('data.en.title', $d['title'] ?? '')" />
-                <div>
-                    <label class="mb-1.5 block text-sm font-medium text-gray-700">HTML body</label>
-                    <textarea name="data[en][body]" rows="10"
-                              class="w-full rounded-lg border border-gray-300 px-3 py-2 font-mono text-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500">{{ old('data.en.body', $d['body'] ?? '') }}</textarea>
-                </div>
-                @can('cms.custom_html.raw')
-                <label class="flex items-center gap-2 text-sm text-gray-700">
-                    <input type="checkbox" name="data[trust_raw]" value="1"
-                           @checked(old('data.trust_raw', $localeData['trust_raw'] ?? false))
-                           class="rounded border-gray-300 text-brand-600">
-                    Trust HTML as-is (skip purifier)
-                </label>
-                @endcan
-
-            @elseif($section->type === 'features')
-                <x-form.input name="data[en][heading]" label="Heading" :value="old('data.en.heading', $d['heading'] ?? '')" />
-                <div>
-                    <label class="mb-1.5 block text-sm font-medium text-gray-700">Features (JSON)</label>
-                    <textarea name="data[en][features]" rows="6"
-                              class="w-full rounded-lg border border-gray-300 px-3 py-2 font-mono text-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500">{{ old('data.en.features', json_encode($d['features'] ?? [], JSON_PRETTY_PRINT)) }}</textarea>
-                    <p class="mt-1 text-xs text-gray-400">Array of {icon, title, body}</p>
-                </div>
-
-            @elseif($section->type === 'stats')
-                <x-form.input name="data[en][heading]" label="Heading" :value="old('data.en.heading', $d['heading'] ?? '')" />
-                <div>
-                    <label class="mb-1.5 block text-sm font-medium text-gray-700">Stats (JSON)</label>
-                    <textarea name="data[en][stats]" rows="6"
-                              class="w-full rounded-lg border border-gray-300 px-3 py-2 font-mono text-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500">{{ old('data.en.stats', json_encode($d['stats'] ?? [], JSON_PRETTY_PRINT)) }}</textarea>
-                    <p class="mt-1 text-xs text-gray-400">Array of {value, label}</p>
-                </div>
-
-            @elseif($section->type === 'latest_blog_posts')
-                <x-form.input name="data[en][heading]" label="Heading" :value="old('data.en.heading', $d['heading'] ?? '')" />
-                <x-form.input name="data[count]" label="Number of posts" type="number"
-                    :value="old('data.count', $localeData['count'] ?? 3)" />
 
             @else
                 <p class="text-sm text-gray-500">No editable fields for this section type.</p>
@@ -136,4 +82,5 @@ onAdminReady(function () {
     })
 })
 </script>
+@include('components.cms.repeater-script')
 @endpush

@@ -23,7 +23,7 @@ class CmsSeeder extends Seeder
                 'slug' => 'home',
                 'title' => ['en' => 'Home'],
                 'status' => 'published',
-                'sections' => ['hero', 'features', 'cta'],
+                'sections' => ['hero'],
             ],
             [
                 'slug' => 'about',
@@ -57,7 +57,7 @@ class CmsSeeder extends Seeder
             ],
         ];
 
-        foreach ($systemPages as $i => $pageData) {
+        foreach ($systemPages as $pageData) {
             $page = Page::firstOrNew(['slug' => $pageData['slug']]);
             $page->title = $pageData['title'];
             $page->status = $pageData['status'];
@@ -65,25 +65,16 @@ class CmsSeeder extends Seeder
             $page->save();
 
             // Add sections if none exist
-            if ($page->sections()->count() === 0) {
+            if (empty($page->section_ids)) {
                 foreach ($pageData['sections'] as $sort => $type) {
                     $section = new PageSection;
-                    $section->page_id = $page->id;
                     $section->type = $type;
-                    $section->data = config('sections.'.$type.'.default_data', []);
+                    $section->data = [];
                     $section->enabled = true;
                     $section->sort = $sort;
                     $section->save();
-                }
 
-                if ($pageData['slug'] === 'home') {
-                    $section = new PageSection;
-                    $section->page_id = $page->id;
-                    $section->type = 'custom_html';
-                    $section->data = ['en' => ['title' => 'Custom HTML demo', 'body' => '<p>This is a <strong>Custom HTML</strong> block. Edit or remove it from the admin panel.</p>']];
-                    $section->enabled = true;
-                    $section->sort = count($pageData['sections']);
-                    $section->save();
+                    $page->addSection($section);
                 }
             }
         }
@@ -106,12 +97,11 @@ class CmsSeeder extends Seeder
                 continue;
             }
 
-            // Default items for header menu
             if ($handle === 'header') {
                 $links = [
-                    ['label' => ['en' => 'Home'],    'url' => '/'],
-                    ['label' => ['en' => 'About'],   'url' => '/p/about'],
-                    ['label' => ['en' => 'Contact'],  'url' => '/contact'],
+                    ['label' => ['en' => 'Home'],       'url' => '/'],
+                    ['label' => ['en' => 'About'],      'url' => '/p/about'],
+                    ['label' => ['en' => 'Contact'],    'url' => '/contact'],
                 ];
 
                 foreach ($links as $sort => $link) {
@@ -121,6 +111,62 @@ class CmsSeeder extends Seeder
                     $item->url = $link['url'];
                     $item->sort = $sort;
                     $item->save();
+                }
+            }
+
+            if ($handle === 'footer') {
+                $columns = [
+                    [
+                        'label' => ['en' => 'Product'],
+                        'children' => [
+                            ['label' => ['en' => 'Features'],    'url' => '/#features'],
+                            ['label' => ['en' => 'How it works'], 'url' => '/#workflow'],
+                            ['label' => ['en' => 'Pricing'],     'url' => '/#pricing'],
+                            ['label' => ['en' => 'FAQ'],         'url' => '/#faq'],
+                        ],
+                    ],
+                    [
+                        'label' => ['en' => 'Resources'],
+                        'children' => [
+                            ['label' => ['en' => 'Blog'],    'url' => '/blog'],
+                            ['label' => ['en' => 'Contact'], 'url' => '/contact'],
+                        ],
+                    ],
+                    [
+                        'label' => ['en' => 'Company'],
+                        'children' => [
+                            ['label' => ['en' => 'About'],   'url' => '/p/about'],
+                            ['label' => ['en' => 'Contact'], 'url' => '/contact'],
+                        ],
+                    ],
+                    [
+                        'label' => ['en' => 'Legal'],
+                        'children' => [
+                            ['label' => ['en' => 'Terms'],   'url' => '/p/terms'],
+                            ['label' => ['en' => 'Privacy'], 'url' => '/p/privacy-policy'],
+                            ['label' => ['en' => 'Refund'],  'url' => '/p/refund-policy'],
+                            ['label' => ['en' => 'Cookies'], 'url' => '/p/cookie-policy'],
+                        ],
+                    ],
+                ];
+
+                foreach ($columns as $colSort => $column) {
+                    $parent = new MenuItem;
+                    $parent->menu_id = $menu->id;
+                    $parent->label = $column['label'];
+                    $parent->url = null;
+                    $parent->sort = $colSort;
+                    $parent->save();
+
+                    foreach ($column['children'] as $childSort => $child) {
+                        $item = new MenuItem;
+                        $item->menu_id = $menu->id;
+                        $item->parent_id = $parent->id;
+                        $item->label = $child['label'];
+                        $item->url = $child['url'];
+                        $item->sort = $childSort;
+                        $item->save();
+                    }
                 }
             }
         }

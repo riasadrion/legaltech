@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('og_image')->nullable();
             $table->enum('status', ['draft', 'published'])->default('draft');
             $table->boolean('is_system')->default(false); // system pages can't be deleted
+            $table->json('section_ids')->nullable();
             $table->timestamps();
         });
     }
