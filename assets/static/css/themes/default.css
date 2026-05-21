@@ -1,0 +1,211 @@
+/* ═══════════════════════════════════════════════════════════════
+   Default Theme — Visual Styles
+   Loaded by themes/default/layouts/frontend.blade.php (and auth/user).
+   All rules scoped under body.theme-default so the admin panel and
+   any other themes are untouched.
+
+   Tailwind tokens (colors, fonts, shadows) are declared in
+   src/resources/css/themes/default.css and processed by Vite.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── Scoped frontend reset ─── */
+body.theme-default {
+    background: #0B0B0F;
+    color: #fff;
+    font-family: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+    font-feature-settings: "ss01", "cv11";
+}
+
+.theme-default .font-display {
+    font-family: 'Instrument Serif', ui-serif, serif;
+    letter-spacing: -0.01em;
+}
+.theme-default .italic-display {
+    font-family: 'Instrument Serif', ui-serif, serif;
+    font-style: italic;
+}
+
+/* ─── Grid backgrounds ─── */
+.theme-default .bg-grid {
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 64px 64px;
+    background-position: -1px -1px;
+}
+.theme-default .bg-grid-cream {
+    background-image:
+        linear-gradient(rgba(11, 11, 15, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(11, 11, 15, 0.05) 1px, transparent 1px);
+    background-size: 56px 56px;
+}
+.theme-default .radial-fade {
+    -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+    mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+}
+
+/* ─── Glows ─── */
+.theme-default .glow-lime {
+    background: radial-gradient(45% 60% at 50% 50%, rgba(212, 255, 58, 0.35), rgba(212, 255, 58, 0) 70%);
+    filter: blur(10px);
+}
+.theme-default .glow-violet {
+    background: radial-gradient(50% 60% at 50% 50%, rgba(124, 92, 255, 0.45), rgba(124, 92, 255, 0) 70%);
+    filter: blur(20px);
+}
+
+/* ─── Animations ─── */
+@keyframes lt-marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+.theme-default .marquee { animation: lt-marquee 40s linear infinite; }
+
+@keyframes lt-blink { 50% { opacity: 0; } }
+.theme-default .caret::after {
+    content: "▌";
+    margin-left: 2px;
+    color: #D4FF3A;
+    animation: lt-blink 1s steps(1) infinite;
+}
+
+.theme-default .sig-path {
+    stroke-dasharray: 600;
+    stroke-dashoffset: 600;
+    animation: lt-drawSig 4s ease-in-out 0.6s forwards;
+}
+@keyframes lt-drawSig { to { stroke-dashoffset: 0; } }
+
+@keyframes lt-floaty {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-8px); }
+}
+.theme-default .floaty { animation: lt-floaty 7s ease-in-out infinite; }
+
+@keyframes lt-shimmer {
+    0%   { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+.theme-default .shimmer {
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.04));
+    background-size: 200% 100%;
+    animation: lt-shimmer 2.4s ease-in-out infinite;
+}
+
+@keyframes lt-pulseDot {
+    0%   { transform: scale(0.6); opacity: 0.8; }
+    100% { transform: scale(1.6); opacity: 0; }
+}
+.theme-default .pulse-dot { position: relative; }
+.theme-default .pulse-dot::before {
+    content: "";
+    position: absolute;
+    inset: -6px;
+    border-radius: 9999px;
+    background: rgba(212, 255, 58, 0.35);
+    animation: lt-pulseDot 1.6s ease-out infinite;
+}
+
+@keyframes lt-trail {
+    0%   { transform: translateX(-10px); opacity: 0; }
+    30%  { opacity: 1; }
+    100% { transform: translateX(140px); opacity: 0; }
+}
+.theme-default .trail span { animation: lt-trail 2.6s ease-in-out infinite; }
+.theme-default .trail span:nth-child(2) { animation-delay: 0.4s; }
+.theme-default .trail span:nth-child(3) { animation-delay: 0.8s; }
+.theme-default .trail span:nth-child(4) { animation-delay: 1.2s; }
+
+/* ─── Gradient text ─── */
+.theme-default .grad-text {
+    background: linear-gradient(180deg, #fff 0%, #fff 55%, rgba(255, 255, 255, 0.55) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+.theme-default .lime-grad {
+    background: linear-gradient(180deg, #E9FF7A 0%, #D4FF3A 60%, #A8D420 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* ─── Buttons ─── */
+.theme-default .btn-lime {
+    background: #D4FF3A;
+    color: #0B0B0F;
+    font-weight: 600;
+    box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.6) inset,
+        0 -1px 0 rgba(0, 0, 0, 0.15) inset,
+        0 12px 30px -10px rgba(212, 255, 58, 0.55);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+.theme-default .btn-lime:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.04);
+    box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.7) inset,
+        0 -1px 0 rgba(0, 0, 0, 0.2) inset,
+        0 18px 40px -10px rgba(212, 255, 58, 0.7);
+}
+.theme-default .btn-ghost {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    color: #fff;
+    backdrop-filter: blur(8px);
+}
+.theme-default .btn-ghost:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.18);
+}
+
+/* ─── Glass cards ─── */
+.theme-default .glass {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.015));
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(14px);
+}
+.theme-default .glass-nav {
+    background: rgba(11, 11, 15, 0.40);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    backdrop-filter: blur(20px);
+}
+.theme-default .glass-cream {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.6));
+    border: 1px solid rgba(11, 11, 15, 0.06);
+    backdrop-filter: blur(10px);
+}
+
+/* ─── Misc utilities ─── */
+.theme-default .no-sb::-webkit-scrollbar { display: none; }
+.theme-default .no-sb { scrollbar-width: none; }
+
+.theme-default details > summary { list-style: none; cursor: pointer; }
+.theme-default details > summary::-webkit-details-marker { display: none; }
+.theme-default details[open] .acc-icon { transform: rotate(45deg); }
+.theme-default .acc-icon { transition: transform 0.25s ease; }
+
+.theme-default section[id] { scroll-margin-top: 100px; }
+
+.theme-default .lift {
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.theme-default .lift:hover { transform: translateY(-4px); }
+
+.theme-default .tab-active { color: #fff; }
+.theme-default .tab-active::after {
+    content: "";
+    display: block;
+    height: 2px;
+    background: #D4FF3A;
+    margin-top: 6px;
+    border-radius: 2px;
+}
+
+.theme-default .stripes {
+    background-image: repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0 8px, transparent 8px 16px);
+}
+.theme-default .stripes-dark {
+    background-image: repeating-linear-gradient(135deg, rgba(11, 11, 15, 0.05) 0 8px, transparent 8px 16px);
+}

@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Create account · LegalTech</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme:{ extend:{
+    fontFamily:{
+      serif:['"Instrument Serif"','serif'],
+      sans:['Manrope','ui-sans-serif'],
+      mono:['"JetBrains Mono"','ui-monospace'],
+    },
+    colors:{
+      ink:{950:'#08090C',900:'#0B0B0F',800:'#13141A',700:'#1B1D26',600:'#262834',500:'#3A3D4D',400:'#6B6E7E'},
+      cream:{50:'#FBFAF6',100:'#F5F2EA',200:'#EDE8DC',300:'#D9D2BF'},
+      lime:{DEFAULT:'#D4FF3A',soft:'#E6FF6B',deep:'#A8D420'},
+      violet:{glow:'#7C5CFF'},
+    }
+  }}
+}
+</script>
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+<script defer src="https://unpkg.com/alpinejs@3.13.10/dist/cdn.min.js"></script>
+
+<style>
+  html,body{ background:#08090C; color:#fff; min-height:100vh; }
+  body{ font-family:Manrope,sans-serif; }
+  .font-display{ font-family:"Instrument Serif",serif; letter-spacing:-0.01em; }
+  .italic-display{ font-family:"Instrument Serif",serif; font-style:italic; }
+
+  ::selection{ background:#D4FF3A; color:#0B0B0F; }
+
+  /* bg grid */
+  .bg-grid{
+    background-image:
+      linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+    background-size:48px 48px;
+  }
+  .radial-fade{
+    -webkit-mask-image: radial-gradient(ellipse at 30% 50%, #000 25%, transparent 75%);
+            mask-image: radial-gradient(ellipse at 30% 50%, #000 25%, transparent 75%);
+  }
+  .glow-lime{ background:radial-gradient(45% 60% at 50% 50%, rgba(212,255,58,.32), transparent 70%); filter:blur(12px); }
+  .glow-violet{ background:radial-gradient(50% 60% at 50% 50%, rgba(124,92,255,.45), transparent 70%); filter:blur(20px); }
+
+  /* glass */
+  .glass{
+    background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.08);
+    backdrop-filter:blur(14px);
+  }
+
+  /* btn */
+  .btn-lime{ background:#D4FF3A; color:#0B0B0F; font-weight:600;
+    box-shadow:0 1px 0 rgba(255,255,255,.6) inset, 0 -1px 0 rgba(0,0,0,.15) inset, 0 12px 30px -10px rgba(212,255,58,.55);
+    transition:transform .2s, filter .2s, box-shadow .2s; }
+  .btn-lime:hover{ transform:translateY(-1px); filter:brightness(1.04); }
+  .btn-lime:disabled{ opacity:.5; cursor:not-allowed; transform:none; }
+  .btn-ghost{ background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.10); color:#fff;
+    transition:background .15s, border-color .15s; }
+  .btn-ghost:hover{ background:rgba(255,255,255,.08); }
+
+  /* field */
+  .field{ background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.10); transition:border-color .2s, box-shadow .2s; }
+  .field:focus-within{ border-color:rgba(212,255,58,.55); box-shadow:0 0 0 4px rgba(212,255,58,.12); }
+  input,select{ background:transparent; outline:none; }
+  select option{ background:#13141A; }
+
+  /* step indicator */
+  .step-line{ flex:1; height:1px; background:rgba(255,255,255,.10); }
+  .step-line.done{ background:#D4FF3A; }
+
+  /* plan card */
+  .plan-card{ cursor:pointer; border:1px solid rgba(255,255,255,.10); transition:border-color .2s, background .2s; }
+  .plan-card:hover{ border-color:rgba(255,255,255,.22); background:rgba(255,255,255,.04); }
+  .plan-card.selected{ border-color:rgba(212,255,58,.7); background:rgba(212,255,58,.07); }
+  .plan-card.selected .plan-radio{ background:#D4FF3A; }
+  .plan-radio{ width:18px; height:18px; border-radius:50%; border:2px solid rgba(255,255,255,.25); transition:background .2s, border-color .2s; flex-shrink:0; }
+  .plan-card.selected .plan-radio{ border-color:#D4FF3A; position:relative; }
+  .plan-card.selected .plan-radio::after{
+    content:""; position:absolute; top:50%; left:50%;
+    transform:translate(-50%,-50%);
+    width:6px; height:6px; border-radius:50%; background:#0B0B0F;
+  }
+
+  /* role chip */
+  .role-chip{ cursor:pointer; border:1px solid rgba(255,255,255,.10); transition:border-color .2s, background .2s; }
+  .role-chip:hover{ border-color:rgba(255,255,255,.22); background:rgba(255,255,255,.04); }
+  .role-chip.selected{ border-color:rgba(212,255,58,.7); background:rgba(212,255,58,.08); color:#fff; }
+
+  /* sig draw */
+  .sig-path{ stroke-dasharray:600; stroke-dashoffset:600; animation:drawSig 4.5s ease-in-out 0.6s infinite; }
+  @keyframes drawSig{
+    0%  { stroke-dashoffset:600; }
+    55% { stroke-dashoffset:0; }
+    90% { stroke-dashoffset:0; }
+    100%{ stroke-dashoffset:600; }
+  }
+
+  /* float */
+  @keyframes floaty{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+  .floaty{ animation:floaty 7s ease-in-out infinite; }
+
+  /* progress bar */
+  .prog-bar{ transition:width .5s cubic-bezier(.4,0,.2,1); }
+
+  /* slide transitions */
+  .step-panel{ display:none; }
+  .step-panel.active{ display:block; }
+  @keyframes stepIn{ from{opacity:0; transform:translateX(24px)} to{opacity:1; transform:translateX(0)} }
+  .step-panel.active{ animation:stepIn .35s ease-out; }
+
+  /* password strength */
+  .str-bar{ height:3px; border-radius:2px; transition:width .4s, background .4s; }
+</style>
+</head>
+
+<body class="min-h-screen">
+
+<div class="min-h-screen grid lg:grid-cols-12"
+  x-data="{
+    step: 1,
+    totalSteps: 3,
+    name: '',
+    email: '',
+    password: '',
+    showPass: false,
+    company: '',
+    size: '',
+    role: '',
+    plan: 'studio',
+    loading: false,
+
+    get passStrength(){
+      const p = this.password;
+      if(!p) return 0;
+      let s = 0;
+      if(p.length >= 8)  s++;
+      if(p.length >= 12) s++;
+      if(/[A-Z]/.test(p))  s++;
+      if(/[0-9]/.test(p))  s++;
+      if(/[^A-Za-z0-9]/.test(p)) s++;
+      return s;
+    },
+    get passLabel(){
+      return ['','Weak','Fair','Good','Strong','Excellent'][this.passStrength] || '';
+    },
+    get passColor(){
+      return ['','#ff4444','#ff9900','#f5d020','#D4FF3A','#D4FF3A'][this.passStrength] || '';
+    },
+    get passWidth(){
+      return (this.passStrength / 5 * 100) + '%';
+    },
+
+    canNext(){
+      if(this.step===1) return this.name.length>1 && this.email.includes('@') && this.password.length>=8;
+      if(this.step===2) return this.company.length>1 && this.size!=='' && this.role!=='';
+      return true;
+    },
+
+    next(){
+      if(!this.canNext()) return;
+      if(this.step < this.totalSteps){ this.step++; }
+      else { this.submit(); }
+    },
+    back(){ if(this.step>1) this.step--; },
+
+    submit(){
+      this.loading = true;
+      setTimeout(() => { window.location.href = 'LegalTech Dashboard.html'; }, 1200);
+    }
+  }"
+>
+
+  <!-- ============================  LEFT BRAND  ============================ -->
+  <aside class="hidden lg:flex lg:col-span-5 xl:col-span-5 relative overflow-hidden border-r border-white/8 flex-col">
+    <div class="absolute inset-0 bg-grid radial-fade pointer-events-none"></div>
+    <div class="absolute -top-40 -left-32 w-[600px] h-[600px] glow-violet pointer-events-none"></div>
+    <div class="absolute bottom-0 right-0 w-[400px] h-[400px] glow-lime opacity-60 pointer-events-none"></div>
+
+    <div class="relative flex flex-col h-full px-12 py-10">
+      <!-- logo -->
+      <a href="LegalTech Landing.html" class="flex items-center gap-2 w-fit">
+        <span class="grid place-items-center w-9 h-9 rounded-full bg-lime text-ink-900">
+          <i class="ri-quill-pen-fill text-[20px]"></i>
+        </span>
+        <span class="font-display text-3xl">LegalTech</span>
+      </a>
+
+      <!-- dynamic step context -->
+      <div class="mt-auto mb-auto pt-12">
+        <!-- Step 1 context -->
+        <div x-show="step===1" x-transition>
+          <div class="text-[11px] font-mono uppercase tracking-[.25em] text-lime mb-4">Step 1 of 3</div>
+          <h2 class="font-display text-5xl leading-[0.95]">Your next contract<br /><span class="italic-display">starts here.</span></h2>
+          <p class="text-white/60 mt-4 text-[15px] max-w-xs">Set up your account in under two minutes. No card needed.</p>
+
+          <ul class="mt-8 space-y-3 text-[14px]">
+            <li class="flex items-center gap-3"><i class="ri-checkbox-circle-fill text-lime text-lg"></i> 14-day free trial, no credit card</li>
+            <li class="flex items-center gap-3"><i class="ri-checkbox-circle-fill text-lime text-lg"></i> Full access to all features</li>
+            <li class="flex items-center gap-3"><i class="ri-checkbox-circle-fill text-lime text-lg"></i> Generate your first contract in 60s</li>
+          </ul>
+        </div>
+
+        <!-- Step 2 context -->
+        <div x-show="step===2" x-transition>
+          <div class="text-[11px] font-mono uppercase tracking-[.25em] text-lime mb-4">Step 2 of 3</div>
+          <h2 class="font-display text-5xl leading-[0.95]">Tell us about <span class="italic-display">your team.</span></h2>
+          <p class="text-white/60 mt-4 text-[15px] max-w-xs">We'll customise your workspace with the right templates and clause library.</p>
+
+          <!-- floating mini workspace card -->
+          <div class="mt-8 floaty">
+            <div class="glass rounded-2xl p-5 max-w-xs">
+              <div class="text-[11px] font-mono uppercase tracking-widest text-white/45">Workspace preview</div>
+              <div class="mt-2 flex items-center gap-2">
+                <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-lime to-lime-deep grid place-items-center font-bold text-[12px] text-ink-900"
+                      x-text="company ? company.slice(0,1).toUpperCase() : '?'"></span>
+                <div>
+                  <div class="text-[13px]" x-text="company || 'Your company'"></div>
+                  <div class="text-[10px] text-white/45 font-mono uppercase tracking-widest" x-text="size ? size + ' people' : 'size unknown'"></div>
+                </div>
+              </div>
+              <div class="mt-3 flex gap-1.5 flex-wrap">
+                <span class="text-[10px] rounded-full bg-white/6 border border-white/10 px-2 py-0.5">NDA</span>
+                <span class="text-[10px] rounded-full bg-white/6 border border-white/10 px-2 py-0.5">MSA</span>
+                <span class="text-[10px] rounded-full bg-lime/15 border border-lime/30 text-lime px-2 py-0.5" x-show="role">
+                  <span x-text="role"></span> templates
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3 context -->
+        <div x-show="step===3" x-transition>
+          <div class="text-[11px] font-mono uppercase tracking-[.25em] text-lime mb-4">Step 3 of 3</div>
+          <h2 class="font-display text-5xl leading-[0.95]">Almost there — pick <span class="italic-display">your plan.</span></h2>
+          <p class="text-white/60 mt-4 text-[15px] max-w-xs">Switch anytime. Your data and history follow you.</p>
+
+          <!-- signing animation card -->
+          <div class="mt-8 max-w-xs glass rounded-2xl p-5 floaty">
+            <div class="text-[10px] font-mono uppercase tracking-widest text-white/45">Sample contract</div>
+            <div class="font-display text-xl mt-1">NDA · Mutual</div>
+            <div class="mt-3 grid grid-cols-2 gap-3">
+              <div>
+                <div class="text-[10px] font-mono text-white/40 uppercase">You</div>
+                <svg viewBox="0 0 180 45" class="h-9 w-full">
+                  <path class="sig-path" d="M4 32 C 18 5, 30 44, 50 22 S 88 5, 108 28 S 148 46, 176 14"
+                        fill="none" stroke="#D4FF3A" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div>
+                <div class="text-[10px] font-mono text-white/40 uppercase">Counterparty</div>
+                <div class="h-9 border-b border-dashed border-white/20 flex items-end">
+                  <span class="text-[10px] font-mono text-white/30 pb-1">pending…</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- testimonial snippet -->
+      <div class="mt-auto">
+        <p class="font-display text-2xl leading-snug max-w-sm">"LegalTech paid for itself on the first contract."</p>
+        <div class="mt-4 flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full bg-gradient-to-br from-lime to-lime-deep grid place-items-center font-display text-lg text-ink-900">A</div>
+          <div>
+            <div class="text-sm">Adrien Chen</div>
+            <div class="text-xs text-white/50">Head of Ops · Helix/Law</div>
+          </div>
+          <div class="ml-auto flex items-center gap-0.5 text-lime">
+            <i class="ri-star-fill text-sm"></i><i class="ri-star-fill text-sm"></i><i class="ri-star-fill text-sm"></i><i class="ri-star-fill text-sm"></i><i class="ri-star-fill text-sm"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ============================  RIGHT FORM  ============================ -->
+  <main class="col-span-12 lg:col-span-7 xl:col-span-7 flex flex-col">
+    <!-- top bar -->
+    <div class="flex items-center justify-between px-6 py-5 lg:px-12 lg:py-8">
+      <a href="LegalTech Landing.html" class="flex lg:hidden items-center gap-2">
+        <span class="grid place-items-center w-8 h-8 rounded-full bg-lime text-ink-900">
+          <i class="ri-quill-pen-fill text-[18px]"></i>
+        </span>
+        <span class="font-display text-2xl">LegalTech</span>
+      </a>
+      <div class="ml-auto flex items-center gap-3 text-sm text-white/55">
+        Already have an account?
+        <a href="LegalTech Login.html" class="text-lime hover:underline font-medium">Sign in</a>
+      </div>
+    </div>
+
+    <!-- progress bar -->
+    <div class="mx-6 lg:mx-12 h-0.5 bg-white/8 rounded-full overflow-hidden">
+      <div class="prog-bar h-full bg-lime" :style="`width:${(step/totalSteps)*100}%`"></div>
+    </div>
+
+    <!-- step indicator pills -->
+    <div class="mt-5 px-6 lg:px-12 flex items-center gap-3">
+      <template x-for="n in totalSteps" :key="n">
+        <div class="flex items-center gap-3 flex-1">
+          <div class="flex items-center gap-2">
+            <!-- circle -->
+            <div class="w-7 h-7 rounded-full grid place-items-center text-[12px] font-semibold transition-all duration-300 flex-shrink-0"
+                 :class="step > n ? 'bg-lime text-ink-900' : step===n ? 'bg-lime/15 border border-lime text-lime' : 'bg-white/5 border border-white/15 text-white/40'">
+              <i x-show="step > n" class="ri-check-line text-[13px]"></i>
+              <span x-show="step <= n" x-text="n"></span>
+            </div>
+            <span class="text-[12px] hidden sm:inline"
+                  :class="step===n ? 'text-white' : 'text-white/40'"
+                  x-text="['Account details','Workspace setup','Choose plan'][n-1]"></span>
+          </div>
+          <!-- connector -->
+          <div x-show="n < totalSteps" class="flex-1 h-px"
+               :class="step > n ? 'bg-lime/50' : 'bg-white/10'"></div>
+        </div>
+      </template>
+    </div>
+
+    <!-- form scroll area -->
+    <div class="flex-1 flex items-start justify-center px-6 lg:px-12 pt-8 pb-12 overflow-y-auto">
+      <div class="w-full max-w-lg">
+
+        <!-- ======= STEP 1: Account ======= -->
+        <div :class="step===1 ? 'active' : ''" class="step-panel">
+          <h1 class="font-display text-4xl leading-tight">Create your account</h1>
+          <p class="text-white/60 mt-2 text-[15px]">Start your 14-day free trial — no credit card required.</p>
+
+          <!-- social -->
+          <div class="mt-7 grid grid-cols-3 gap-2">
+            <button type="button" class="rounded-xl py-3 bg-white/4 border border-white/10 hover:bg-white/8 text-[13px] flex items-center justify-center gap-2">
+              <i class="ri-google-fill"></i> Google
+            </button>
+            <button type="button" class="rounded-xl py-3 bg-white/4 border border-white/10 hover:bg-white/8 text-[13px] flex items-center justify-center gap-2">
+              <i class="ri-microsoft-fill"></i> Microsoft
+            </button>
+            <button type="button" class="rounded-xl py-3 bg-white/4 border border-white/10 hover:bg-white/8 text-[13px] flex items-center justify-center gap-2">
+              <i class="ri-key-2-line"></i> SSO
+            </button>
+          </div>
+
+          <div class="my-6 flex items-center gap-3 text-[11px] uppercase tracking-widest text-white/35 font-mono">
+            <span class="flex-1 h-px bg-white/10"></span> or with email <span class="flex-1 h-px bg-white/10"></span>
+          </div>
+
+          <div class="space-y-3">
+            <div>
+              <label class="text-[12px] text-white/55 font-medium">Full name</label>
+              <div class="field rounded-xl mt-1.5 flex items-center px-4">
+                <i class="ri-user-line text-white/40 mr-3"></i>
+                <input x-model="name" type="text" placeholder="Elena Martí" class="w-full py-3.5 text-[14px] placeholder:text-white/30" />
+              </div>
+            </div>
+
+            <div>
+              <label class="text-[12px] text-white/55 font-medium">Work email</label>
+              <div class="field rounded-xl mt-1.5 flex items-center px-4">
+                <i class="ri-mail-line text-white/40 mr-3"></i>
+                <input x-model="email" type="email" placeholder="elena@company.com" class="w-full py-3.5 text-[14px] placeholder:text-white/30" />
+              </div>
+            </div>
+
+            <div>
+              <div class="flex items-center justify-between">
+                <label class="text-[12px] text-white/55 font-medium">Password</label>
+                <span class="text-[11px] font-medium transition-colors" :style="`color:${passColor}`" x-text="passLabel"></span>
+              </div>
+              <div class="field rounded-xl mt-1.5 flex items-center px-4">
+                <i class="ri-lock-2-line text-white/40 mr-3"></i>
+                <input x-model="password" :type="showPass ? 'text' : 'password'" placeholder="Minimum 8 characters" class="w-full py-3.5 text-[14px] placeholder:text-white/30" />
+                <button type="button" @click="showPass=!showPass" class="text-white/40 hover:text-white">
+                  <i :class="showPass ? 'ri-eye-off-line' : 'ri-eye-line'"></i>
+                </button>
+              </div>
+              <!-- strength bar -->
+              <div class="mt-2 flex gap-1">
+                <template x-for="i in 5" :key="i">
+                  <div class="str-bar flex-1" :style="`background:${i<=passStrength ? passColor : 'rgba(255,255,255,.08)'}`"></div>
+                </template>
+              </div>
+              <div class="mt-1.5 text-[11px] text-white/40">Use 8+ characters, a number, and a symbol for the best security.</div>
+            </div>
+          </div>
+
+          <div class="mt-5 flex items-start gap-2.5 text-[12px] text-white/60">
+            <input type="checkbox" id="terms" class="accent-lime mt-0.5 w-3.5 h-3.5 flex-shrink-0" checked />
+            <label for="terms">I agree to LegalTech's <a href="#" class="text-lime hover:underline">Terms of Service</a> and <a href="#" class="text-lime hover:underline">Privacy Policy</a>. I understand my data is encrypted and never used for training.</label>
+          </div>
+        </div>
+
+        <!-- ======= STEP 2: Workspace ======= -->
+        <div :class="step===2 ? 'active' : ''" class="step-panel">
+          <h1 class="font-display text-4xl leading-tight">Set up your workspace</h1>
+          <p class="text-white/60 mt-2 text-[15px]">We'll load the right templates and clause library for your team.</p>
+
+          <div class="mt-7 space-y-4">
+            <div>
+              <label class="text-[12px] text-white/55 font-medium">Company name</label>
+              <div class="field rounded-xl mt-1.5 flex items-center px-4">
+                <i class="ri-building-2-line text-white/40 mr-3"></i>
+                <input x-model="company" type="text" placeholder="Northbeam Inc." class="w-full py-3.5 text-[14px] placeholder:text-white/30" />
+              </div>
+            </div>
+
+            <div>
+              <label class="text-[12px] text-white/55 font-medium">Company size</label>
+              <div class="field rounded-xl mt-1.5 flex items-center px-4">
+                <i class="ri-team-line text-white/40 mr-3"></i>
+                <select x-model="size" class="w-full py-3.5 text-[14px] text-white appearance-none cursor-pointer">
+                  <option value="" disabled selected>Select headcount</option>
+                  <option value="1">Just me</option>
+                  <option value="2–10">2 – 10 people</option>
+                  <option value="11–50">11 – 50 people</option>
+                  <option value="51–200">51 – 200 people</option>
+                  <option value="201+">201 + people</option>
+                </select>
+                <i class="ri-arrow-down-s-line text-white/40 pointer-events-none"></i>
+              </div>
+            </div>
+
+            <div>
+              <label class="text-[12px] text-white/55 font-medium mb-2 block">Your role</label>
+              <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 text-[13px]">
+                <template x-for="r in ['Founder / CEO','Legal Counsel','Operations','Finance','Sales','Other']" :key="r">
+                  <button type="button"
+                          @click="role=r"
+                          :class="role===r ? 'selected' : ''"
+                          class="role-chip rounded-xl px-3 py-2.5 text-center text-white/70"
+                          x-text="r">
+                  </button>
+                </template>
+              </div>
+            </div>
+
+            <div>
+              <label class="text-[12px] text-white/55 font-medium mb-2 block">Primary use case <span class="text-white/35">(optional)</span></label>
+              <div class="grid grid-cols-2 gap-2 text-[13px]">
+                <template x-for="u in ['Client contracts','Vendor agreements','Employment','M&A / fundraising','Real estate','Compliance & DPAs']" :key="u">
+                  <label class="flex items-center gap-2.5 rounded-xl border border-white/10 px-3 py-2.5 cursor-pointer hover:border-white/20">
+                    <input type="checkbox" class="accent-lime w-3.5 h-3.5 flex-shrink-0" />
+                    <span class="text-white/70" x-text="u"></span>
+                  </label>
+                </template>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ======= STEP 3: Plan ======= -->
+        <div :class="step===3 ? 'active' : ''" class="step-panel">
+          <h1 class="font-display text-4xl leading-tight">Pick your plan</h1>
+          <p class="text-white/60 mt-2 text-[15px]">14 days free on any plan. Switch or cancel whenever.</p>
+
+          <div class="mt-7 space-y-3">
+            <!-- Starter -->
+            <label @click="plan='starter'" :class="plan==='starter' ? 'selected' : ''" class="plan-card rounded-2xl p-5 flex items-start gap-4 cursor-pointer">
+              <div class="plan-radio mt-1"></div>
+              <div class="flex-1">
+                <div class="flex items-center justify-between">
+                  <span class="font-semibold text-[15px]">Starter</span>
+                  <span class="font-mono text-[14px]">€19 <span class="text-white/45 text-[12px]">/ contract</span></span>
+                </div>
+                <p class="text-[12px] text-white/55 mt-1">For founders &amp; freelancers. Pay only when you generate a contract.</p>
+                <div class="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-[11px] text-white/55">
+                  <span class="flex items-center gap-1"><i class="ri-check-line text-lime"></i> AI generation</span>
+                  <span class="flex items-center gap-1"><i class="ri-check-line text-lime"></i> 2 signers</span>
+                  <span class="flex items-center gap-1"><i class="ri-check-line text-lime"></i> 30+ templates</span>
+                </div>
+              </div>
+            </label>
+
+            <!-- Studio (default) -->
+            <label @click="plan='studio'" :class="plan==='studio' ? 'selected' : ''" class="plan-card rounded-2xl p-5 flex items-start gap-4 cursor-pointer relative">
+              <div class="plan-radio mt-1"></div>
+              <div class="flex-1">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <span class="font-semibold text-[15px]">Studio</span>
+                    <span class="text-[10px] font-semibold uppercase tracking-wider bg-lime text-ink-900 px-2 py-0.5 rounded-full">Most popular</span>
+                  </div>
+                  <span class="font-mono text-[14px]">€89 <span class="text-white/45 text-[12px]">/ mo</span></span>
+                </div>
+                <p class="text-[12px] text-white/55 mt-1">For growing teams — unlimited drafts, redlines, and 25 signers per document.</p>
+                <div class="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-[11px] text-white/55">
+                  <span class="flex items-center gap-1"><i class="ri-check-line text-lime"></i> Unlimited drafts</span>
+                  <span class="flex items-center gap-1"><i class="ri-check-line text-lime"></i> 25 signers</span>
+                  <span class="flex items-center gap-1"><i class="ri-check-line text-lime"></i> Custom clauses</span>
+                  <span class="flex items-center gap-1"><i class="ri-check-line text-lime"></i> Qualified eIDAS</span>
+                </div>
+              </div>
+            </label>
+
+            <!-- Firm -->
+            <label @click="plan='firm'" :class="plan==='firm' ? 'selected' : ''" class="plan-card rounded-2xl p-5 flex items-start gap-4 cursor-pointer">
+              <div class="plan-radio mt-1"></div>
+              <div class="flex-1">
+                <div class="flex items-center justify-between">
+                  <span class="font-semibold text-[15px]">Firm</span>
+                  <span class="font-mono text-[14px] text-white/55">Custom pricing</span>
+                </div>
+                <p class="text-[12px] text-white/55 mt-1">For legal departments &amp; agencies — SSO, SCIM, dedicated model &amp; 24/5 support.</p>
+                <div class="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-[11px] text-white/55">
+                  <span class="flex items-center gap-1"><i class="ri-check-line text-lime"></i> Everything in Studio</span>
+                  <span class="flex items-center gap-1"><i class="ri-check-line text-lime"></i> SSO &amp; SCIM</span>
+                  <span class="flex items-center gap-1"><i class="ri-check-line text-lime"></i> Dedicated CSM</span>
+                </div>
+              </div>
+            </label>
+          </div>
+
+          <p class="mt-4 text-[11px] text-white/40 text-center">No credit card needed to start. Trial ends, you choose to continue.</p>
+        </div>
+
+        <!-- ======= Navigation ======= -->
+        <div class="mt-8 flex items-center gap-3">
+          <button x-show="step > 1"
+                  @click="back()"
+                  type="button"
+                  class="btn-ghost rounded-xl px-5 py-3.5 text-[14px] flex items-center gap-2">
+            <i class="ri-arrow-left-line"></i> Back
+          </button>
+
+          <button @click="next()"
+                  :disabled="!canNext() || loading"
+                  class="btn-lime flex-1 rounded-xl py-3.5 text-[14px] flex items-center justify-center gap-2">
+            <template x-if="loading">
+              <span class="flex items-center gap-2"><i class="ri-loader-4-line animate-spin"></i> Setting up workspace…</span>
+            </template>
+            <template x-if="!loading">
+              <span class="flex items-center gap-2">
+                <span x-text="step < totalSteps ? 'Continue' : 'Start my free trial'"></span>
+                <i x-show="step < totalSteps" class="ri-arrow-right-line"></i>
+                <i x-show="step >= totalSteps" class="ri-sparkling-2-fill"></i>
+              </span>
+            </template>
+          </button>
+        </div>
+
+        <!-- trust strip -->
+        <div class="mt-8 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[10px] text-white/45 font-mono uppercase tracking-widest">
+          <span class="flex items-center gap-1.5"><i class="ri-shield-check-line text-lime"></i> SOC 2 Type II</span>
+          <span>·</span>
+          <span class="flex items-center gap-1.5"><i class="ri-bank-card-line text-lime"></i> GDPR</span>
+          <span>·</span>
+          <span class="flex items-center gap-1.5"><i class="ri-lock-2-line text-lime"></i> AES-256 encrypted</span>
+          <span>·</span>
+          <span class="flex items-center gap-1.5"><i class="ri-time-line text-lime"></i> 14-day free trial</span>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+</body>
+</html>

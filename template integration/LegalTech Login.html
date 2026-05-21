@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Sign in · LegalTech</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme:{ extend:{
+    fontFamily:{
+      serif:['"Instrument Serif"','serif'],
+      sans:['Manrope','ui-sans-serif','system-ui'],
+      mono:['"JetBrains Mono"','ui-monospace','monospace'],
+    },
+    colors:{
+      ink:{950:'#08090C',900:'#0B0B0F',800:'#13141A',700:'#1B1D26',600:'#262834',500:'#3A3D4D',400:'#6B6E7E'},
+      cream:{50:'#FBFAF6',100:'#F5F2EA',200:'#EDE8DC',300:'#D9D2BF'},
+      lime:{DEFAULT:'#D4FF3A',soft:'#E6FF6B',deep:'#A8D420'},
+      violet:{glow:'#7C5CFF'},
+    }
+  }}
+}
+</script>
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+<script defer src="https://unpkg.com/alpinejs@3.13.10/dist/cdn.min.js"></script>
+
+<style>
+  html,body{ background:#08090C; color:#fff; }
+  body{ font-family:Manrope, sans-serif; }
+  .font-display{ font-family:"Instrument Serif",serif; letter-spacing:-0.01em; }
+  .italic-display{ font-family:"Instrument Serif",serif; font-style:italic; }
+
+  .bg-grid{
+    background-image:
+      linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+  .radial-fade{
+    -webkit-mask-image: radial-gradient(ellipse at 30% 40%, #000 30%, transparent 80%);
+            mask-image: radial-gradient(ellipse at 30% 40%, #000 30%, transparent 80%);
+  }
+  .glow-lime{ background: radial-gradient(45% 60% at 50% 50%, rgba(212,255,58,.30), transparent 70%); filter: blur(10px); }
+  .glow-violet{ background: radial-gradient(50% 60% at 50% 50%, rgba(124,92,255,.45), transparent 70%); filter: blur(20px); }
+
+  .btn-lime{ background:#D4FF3A; color:#0B0B0F; font-weight:600;
+    box-shadow: 0 1px 0 rgba(255,255,255,.6) inset, 0 -1px 0 rgba(0,0,0,.15) inset, 0 12px 30px -10px rgba(212,255,58,.55);
+    transition: transform .2s ease, filter .2s ease, box-shadow .2s ease; }
+  .btn-lime:hover{ transform:translateY(-1px); filter:brightness(1.04); }
+
+  .field{ background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.10); }
+  .field:focus-within{ border-color: rgba(212,255,58,.55); box-shadow: 0 0 0 4px rgba(212,255,58,.12); }
+  input{ background:transparent; outline:none; }
+  .glass{ background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.08); backdrop-filter: blur(14px); }
+
+  /* signature draw */
+  .sig-path{ stroke-dasharray:600; stroke-dashoffset:600; animation: drawSig 4.5s ease-in-out 0.6s infinite; }
+  @keyframes drawSig {
+    0%   { stroke-dashoffset: 600; }
+    55%  { stroke-dashoffset: 0;   }
+    90%  { stroke-dashoffset: 0;   }
+    100% { stroke-dashoffset: 600; }
+  }
+
+  /* selection */
+  ::selection{ background:#D4FF3A; color:#0B0B0F; }
+
+  /* tab indicator */
+  .tab-active{ background:rgba(255,255,255,.07); color:#fff; border:1px solid rgba(255,255,255,.10); }
+</style>
+</head>
+
+<body class="min-h-screen">
+
+<div class="min-h-screen grid lg:grid-cols-12">
+  <!-- ============================ LEFT VISUAL ============================ -->
+  <aside class="hidden lg:flex lg:col-span-6 relative overflow-hidden border-r border-white/8">
+    <!-- bg layers -->
+    <div class="absolute inset-0 bg-grid radial-fade"></div>
+    <div class="absolute -top-32 -left-32 w-[600px] h-[600px] glow-violet"></div>
+    <div class="absolute -bottom-32 -right-20 w-[500px] h-[500px] glow-lime opacity-60"></div>
+
+    <div class="relative flex flex-col justify-between p-12 w-full">
+      <!-- brand -->
+      <a href="LegalTech Landing.html" class="flex items-center gap-2 w-fit">
+        <span class="grid place-items-center w-9 h-9 rounded-full bg-lime text-ink-900">
+          <i class="ri-quill-pen-fill text-[20px]"></i>
+        </span>
+        <span class="font-display text-3xl">LegalTech</span>
+      </a>
+
+      <!-- pull quote + floating contract -->
+      <div class="relative">
+        <!-- Doc card -->
+        <div class="relative max-w-md rounded-2xl bg-cream-50 text-ink-900 p-6 shadow-2xl rotate-[-2deg]">
+          <div class="text-[10px] font-mono uppercase tracking-widest text-ink-400">MSA · v3.draft</div>
+          <div class="font-display text-2xl mt-1 leading-tight">Master Services Agreement — Acme Co.</div>
+          <p class="text-[12px] leading-relaxed text-ink-600 mt-3">
+            This Agreement commences on the Effective Date and continues for an initial period of
+            <span class="underline decoration-lime decoration-2 underline-offset-2">twenty-four (24) months</span>…
+          </p>
+          <div class="mt-5 flex items-end justify-between">
+            <div>
+              <div class="text-[10px] font-mono uppercase text-ink-400">Client</div>
+              <svg viewBox="0 0 200 50" class="h-10 w-44">
+                <path class="sig-path" d="M5 35 C 20 5, 35 50, 55 25 S 95 5, 115 30 S 160 50, 195 15"
+                      fill="none" stroke="#0B0B0F" stroke-width="2" stroke-linecap="round" />
+              </svg>
+              <div class="text-[10px] text-ink-500">Elena Martí · 12 May 2026</div>
+            </div>
+            <span class="text-[10px] rounded-full bg-lime/70 text-ink-900 font-semibold px-2.5 py-1">SEALED</span>
+          </div>
+        </div>
+
+        <!-- toast cards -->
+        <div class="absolute -right-4 -top-10 w-60 glass rounded-2xl p-4 rotate-[3deg]">
+          <div class="flex items-center gap-2 text-[11px] text-white/65">
+            <span class="w-2 h-2 rounded-full bg-lime"></span> AI clause check
+          </div>
+          <p class="text-[13px] mt-1.5">2 indemnity provisions added to §4.2</p>
+        </div>
+
+        <div class="absolute -bottom-8 -right-2 w-64 glass rounded-2xl p-4 rotate-[-3deg]">
+          <div class="text-[11px] text-white/65 mb-2">Signature status</div>
+          <div class="flex items-center gap-2">
+            <div class="w-7 h-7 rounded-full bg-lime grid place-items-center text-[11px] font-semibold text-ink-900">EM</div>
+            <div class="flex-1 text-[12px]">Elena · <span class="text-lime">signed</span></div>
+            <i class="ri-checkbox-circle-fill text-lime"></i>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="font-display text-3xl leading-tight max-w-md">
+          "We replaced a four-person redlining bottleneck with a single <span class="italic-display lime-text" style="color:#D4FF3A">LegalTech</span> workspace."
+        </p>
+        <div class="mt-5 flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-lime to-lime-deep grid place-items-center font-display text-lg text-ink-900">M</div>
+          <div>
+            <div class="text-sm">Mara Vukov</div>
+            <div class="text-xs text-white/55">General Counsel · Northbeam</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ============================ RIGHT FORM ============================ -->
+  <main class="col-span-12 lg:col-span-6 flex flex-col">
+    <!-- top bar (mobile brand + back to home) -->
+    <div class="flex items-center justify-between px-6 py-5 lg:px-12 lg:py-8">
+      <a href="LegalTech Landing.html" class="flex lg:hidden items-center gap-2">
+        <span class="grid place-items-center w-8 h-8 rounded-full bg-lime text-ink-900">
+          <i class="ri-quill-pen-fill text-[18px]"></i>
+        </span>
+        <span class="font-display text-2xl">LegalTech</span>
+      </a>
+      <a href="LegalTech Landing.html" class="ml-auto text-sm text-white/55 hover:text-white flex items-center gap-1.5">
+        <i class="ri-arrow-left-line"></i> Back to home
+      </a>
+    </div>
+
+    <div x-data="{ mode:'signin' }" class="flex-1 flex items-center justify-center px-6 lg:px-12 pb-12">
+      <div class="w-full max-w-md">
+        <div class="text-[11px] font-mono uppercase tracking-[.25em] text-lime mb-3">— Welcome back</div>
+        <h1 class="font-display text-5xl leading-[0.95]">
+          Sign in to <span class="italic-display">LegalTech.</span>
+        </h1>
+        <p class="text-white/60 mt-3 text-[15px]">
+          Pick up where you left off — your drafts, audit trails, and signature queue are waiting.
+        </p>
+
+        <!-- Tabs -->
+        <div class="mt-7 grid grid-cols-2 gap-2 p-1 rounded-full bg-white/4 border border-white/8 text-sm">
+          <button @click="mode='signin'" :class="mode==='signin' ? 'tab-active' : 'text-white/55'" class="rounded-full py-2 transition">Sign in</button>
+          <button @click="mode='signup'" :class="mode==='signup' ? 'tab-active' : 'text-white/55'" class="rounded-full py-2 transition">Create account</button>
+        </div>
+
+        <!-- Social -->
+        <div class="mt-6 grid grid-cols-3 gap-2">
+          <button class="rounded-xl py-2.5 bg-white/4 border border-white/10 hover:bg-white/8 text-sm flex items-center justify-center gap-2">
+            <i class="ri-google-fill"></i> Google
+          </button>
+          <button class="rounded-xl py-2.5 bg-white/4 border border-white/10 hover:bg-white/8 text-sm flex items-center justify-center gap-2">
+            <i class="ri-microsoft-fill"></i> Microsoft
+          </button>
+          <button class="rounded-xl py-2.5 bg-white/4 border border-white/10 hover:bg-white/8 text-sm flex items-center justify-center gap-2">
+            <i class="ri-key-2-line"></i> SSO
+          </button>
+        </div>
+
+        <div class="my-6 flex items-center gap-3 text-[11px] uppercase tracking-widest text-white/35 font-mono">
+          <span class="flex-1 h-px bg-white/10"></span> or with email <span class="flex-1 h-px bg-white/10"></span>
+        </div>
+
+        <!-- Form -->
+        <form class="space-y-3" onsubmit="event.preventDefault(); window.location.href='LegalTech Dashboard.html';">
+          <!-- name (signup only) -->
+          <div x-show="mode==='signup'" x-transition>
+            <label class="text-[12px] text-white/55 font-medium">Full name</label>
+            <div class="field rounded-xl mt-1.5 flex items-center px-4">
+              <i class="ri-user-line text-white/40 mr-3"></i>
+              <input type="text" placeholder="Elena Martí" class="w-full py-3.5 text-[14px] placeholder:text-white/30" />
+            </div>
+          </div>
+
+          <div>
+            <label class="text-[12px] text-white/55 font-medium">Email</label>
+            <div class="field rounded-xl mt-1.5 flex items-center px-4">
+              <i class="ri-mail-line text-white/40 mr-3"></i>
+              <input type="email" required placeholder="elena@northbeam.com" class="w-full py-3.5 text-[14px] placeholder:text-white/30" value="elena@northbeam.com" />
+            </div>
+          </div>
+
+          <div x-data="{ show:false }">
+            <div class="flex items-center justify-between">
+              <label class="text-[12px] text-white/55 font-medium">Password</label>
+              <a x-show="mode==='signin'" href="#" class="text-[12px] text-white/55 hover:text-lime">Forgot?</a>
+            </div>
+            <div class="field rounded-xl mt-1.5 flex items-center px-4">
+              <i class="ri-lock-2-line text-white/40 mr-3"></i>
+              <input :type="show ? 'text' : 'password'" required placeholder="••••••••••" class="w-full py-3.5 text-[14px] placeholder:text-white/30" value="hunter2-with-extras" />
+              <button type="button" @click="show=!show" class="text-white/40 hover:text-white">
+                <i :class="show ? 'ri-eye-off-line' : 'ri-eye-line'"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- remember / terms -->
+          <div class="flex items-center justify-between pt-1">
+            <label class="flex items-center gap-2 text-[12px] text-white/60 cursor-pointer">
+              <input type="checkbox" class="accent-lime w-3.5 h-3.5" checked />
+              <span x-text="mode==='signin' ? 'Keep me signed in' : 'I agree to the Terms & Privacy'"></span>
+            </label>
+            <span class="text-[11px] font-mono text-white/35">2FA · ready</span>
+          </div>
+
+          <button class="btn-lime w-full rounded-xl py-3.5 text-sm flex items-center justify-center gap-2 mt-2">
+            <span x-text="mode==='signin' ? 'Sign in to dashboard' : 'Create my account'"></span>
+            <i class="ri-arrow-right-line"></i>
+          </button>
+        </form>
+
+        <p class="text-center text-[12px] text-white/45 mt-6" x-show="mode==='signin'">
+          New to LegalTech? <a href="LegalTech Register.html" class="text-lime hover:underline">Create a free account</a>
+        </p>
+        <p class="text-center text-[12px] text-white/45 mt-6" x-show="mode==='signup'">
+          Already have one? <button @click="mode='signin'" class="text-lime hover:underline">Sign in instead</button>
+        </p>
+
+        <!-- trust strip -->
+        <div class="mt-10 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[10px] text-white/45 font-mono uppercase tracking-widest">
+          <span class="flex items-center gap-1.5"><i class="ri-shield-check-line text-lime"></i> SOC 2</span>
+          <span>·</span>
+          <span class="flex items-center gap-1.5"><i class="ri-bank-card-line text-lime"></i> GDPR</span>
+          <span>·</span>
+          <span class="flex items-center gap-1.5"><i class="ri-quill-pen-line text-lime"></i> eIDAS</span>
+          <span>·</span>
+          <span class="flex items-center gap-1.5"><i class="ri-lock-2-line text-lime"></i> AES-256</span>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+</body>
+</html>

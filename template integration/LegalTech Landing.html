@@ -1,0 +1,1192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>LegalTech — AI contracts, signed in minutes</title>
+<meta name="description" content="Generate, negotiate, and sign airtight contracts in minutes. LegalTech pairs a legal-grade language model with a full e-signature workflow." />
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: {
+        serif: ['"Instrument Serif"', 'serif'],
+        sans: ['Manrope', 'ui-sans-serif', 'system-ui'],
+        mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+      },
+      colors: {
+        ink: {
+          950: '#08090C',
+          900: '#0B0B0F',
+          800: '#13141A',
+          700: '#1B1D26',
+          600: '#262834',
+          500: '#3A3D4D',
+          400: '#6B6E7E',
+        },
+        cream: {
+          50:  '#FBFAF6',
+          100: '#F5F2EA',
+          200: '#EDE8DC',
+          300: '#D9D2BF',
+        },
+        lime: {
+          DEFAULT: '#D4FF3A',
+          soft: '#E6FF6B',
+          deep: '#A8D420',
+        },
+        violet: {
+          glow: '#7C5CFF',
+        }
+      },
+      boxShadow: {
+        glow: '0 0 80px -10px rgba(212,255,58,.45)',
+        card: '0 30px 60px -20px rgba(0,0,0,.35), 0 8px 20px -8px rgba(0,0,0,.25)',
+      },
+    }
+  }
+}
+</script>
+
+<!-- Icons -->
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+
+<!-- AOS -->
+<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+
+<!-- Alpine -->
+<script defer src="https://unpkg.com/alpinejs@3.13.10/dist/cdn.min.js"></script>
+
+<style>
+  :root{
+    --ink:#0B0B0F;
+    --cream:#F5F2EA;
+    --lime:#D4FF3A;
+  }
+  html,body{ background:var(--ink); color:#fff; }
+  body{ font-family:Manrope, sans-serif; font-feature-settings:"ss01","cv11"; }
+  .font-display{ font-family:"Instrument Serif", serif; letter-spacing:-0.01em; }
+  .italic-display{ font-family:"Instrument Serif", serif; font-style:italic; }
+
+  /* Grid line texture for hero */
+  .bg-grid{
+    background-image:
+      linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+    background-size: 64px 64px;
+    background-position: -1px -1px;
+  }
+  .bg-grid-cream{
+    background-image:
+      linear-gradient(rgba(11,11,15,.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(11,11,15,.05) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+  .radial-fade{
+    -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+            mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+  }
+
+  /* Hero glows */
+  .glow-lime{
+    background: radial-gradient(45% 60% at 50% 50%, rgba(212,255,58,.35), rgba(212,255,58,0) 70%);
+    filter: blur(10px);
+  }
+  .glow-violet{
+    background: radial-gradient(50% 60% at 50% 50%, rgba(124,92,255,.45), rgba(124,92,255,0) 70%);
+    filter: blur(20px);
+  }
+
+  /* Marquee */
+  @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+  .marquee { animation: marquee 40s linear infinite; }
+
+  /* Type cursor */
+  @keyframes blink { 50%{opacity:0} }
+  .caret::after{ content:"▌"; margin-left:2px; color:var(--lime); animation: blink 1s steps(1) infinite; }
+
+  /* signature draw */
+  .sig-path{
+    stroke-dasharray: 600;
+    stroke-dashoffset: 600;
+    animation: drawSig 4s ease-in-out 0.6s forwards;
+  }
+  @keyframes drawSig { to { stroke-dashoffset: 0; } }
+
+  /* dashboard floating */
+  @keyframes floaty { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+  .floaty{ animation: floaty 7s ease-in-out infinite; }
+
+  /* Gradient text */
+  .grad-text{
+    background: linear-gradient(180deg,#fff 0%, #fff 55%, rgba(255,255,255,.55) 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .lime-grad{
+    background: linear-gradient(180deg,#E9FF7A 0%, #D4FF3A 60%, #A8D420 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+
+  /* Buttons */
+  .btn-lime{
+    background:#D4FF3A; color:#0B0B0F; font-weight:600;
+    box-shadow: 0 1px 0 rgba(255,255,255,.6) inset, 0 -1px 0 rgba(0,0,0,.15) inset, 0 12px 30px -10px rgba(212,255,58,.55);
+    transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+  }
+  .btn-lime:hover{ transform: translateY(-1px); filter: brightness(1.04); box-shadow: 0 1px 0 rgba(255,255,255,.7) inset, 0 -1px 0 rgba(0,0,0,.2) inset, 0 18px 40px -10px rgba(212,255,58,.7); }
+  .btn-ghost{
+    background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.10); color:#fff;
+    backdrop-filter: blur(8px);
+  }
+  .btn-ghost:hover{ background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.18); }
+
+  /* Glass card */
+  .glass{
+    background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.015));
+    border: 1px solid rgba(255,255,255,.08);
+    backdrop-filter: blur(14px);
+  }
+  .glass-nav{
+    background: rgba(11,11,15,0.40);
+    border: 1px solid rgba(255,255,255,.10);
+    backdrop-filter: blur(20px);
+  }
+  .glass-cream{
+    background: linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.6));
+    border: 1px solid rgba(11,11,15,.06);
+    backdrop-filter: blur(10px);
+  }
+
+  /* Pulse dot */
+  .pulse-dot{ position:relative; }
+  .pulse-dot::before{
+    content:""; position:absolute; inset:-6px; border-radius:9999px;
+    background: rgba(212,255,58,.35); animation: pulseDot 1.6s ease-out infinite;
+  }
+  @keyframes pulseDot { 0%{transform:scale(.6); opacity:.8} 100%{transform:scale(1.6); opacity:0} }
+
+  /* Tiny chart shimmer */
+  @keyframes shimmer { 0%{background-position:-200% 0} 100%{background-position:200% 0} }
+  .shimmer{
+    background: linear-gradient(90deg, rgba(255,255,255,.04), rgba(255,255,255,.14), rgba(255,255,255,.04));
+    background-size: 200% 100%; animation: shimmer 2.4s ease-in-out infinite;
+  }
+
+  /* scrollbar hide */
+  .no-sb::-webkit-scrollbar{ display:none } .no-sb{ scrollbar-width:none }
+
+  /* Accordion */
+  details > summary { list-style:none; cursor:pointer; }
+  details > summary::-webkit-details-marker { display:none; }
+  details[open] .acc-icon { transform: rotate(45deg); }
+  .acc-icon { transition: transform .25s ease; }
+
+  /* Section anchor scroll offset */
+  section[id]{ scroll-margin-top: 100px; }
+
+  /* Hover lift */
+  .lift{ transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+  .lift:hover{ transform: translateY(-4px); }
+
+  /* Tab underline */
+  .tab-active{ color:#fff; }
+  .tab-active::after{ content:""; display:block; height:2px; background:var(--lime); margin-top:6px; border-radius:2px; }
+
+  /* Diagonal stripe (placeholders) */
+  .stripes{
+    background-image: repeating-linear-gradient(135deg, rgba(255,255,255,.04) 0 8px, transparent 8px 16px);
+  }
+  .stripes-dark{
+    background-image: repeating-linear-gradient(135deg, rgba(11,11,15,.05) 0 8px, transparent 8px 16px);
+  }
+
+  /* AI dot trail */
+  @keyframes trail { 0%{transform:translateX(-10px); opacity:0} 30%{opacity:1} 100%{transform:translateX(140px); opacity:0} }
+  .trail span{ animation: trail 2.6s ease-in-out infinite; }
+  .trail span:nth-child(2){ animation-delay:.4s }
+  .trail span:nth-child(3){ animation-delay:.8s }
+  .trail span:nth-child(4){ animation-delay:1.2s }
+</style>
+</head>
+
+<body class="antialiased selection:bg-lime selection:text-ink-900">
+
+<!-- ============================ NAV ============================ -->
+<header class="fixed top-0 inset-x-0 z-50">
+  <div class="mx-auto max-w-7xl px-6 pt-5">
+    <nav class="glass-nav rounded-full px-3 py-2.5 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-2 pl-3">
+        <span class="relative grid place-items-center w-8 h-8 rounded-full bg-lime text-ink-900">
+          <i class="ri-quill-pen-fill text-[18px]"></i>
+        </span>
+        <span class="font-display text-2xl tracking-tight">LegalTech</span>
+        <span class="hidden md:inline text-[10px] font-mono uppercase tracking-[.2em] text-ink-400 ml-1">v3</span>
+      </a>
+      <ul class="hidden lg:flex items-center gap-7 text-sm text-white/70">
+        <li><a href="#features" class="hover:text-white transition">Product</a></li>
+        <li><a href="#workflow" class="hover:text-white transition">How it works</a></li>
+        <li><a href="#preview" class="hover:text-white transition">Platform</a></li>
+        <li><a href="#pricing" class="hover:text-white transition">Pricing</a></li>
+        <li><a href="#faq" class="hover:text-white transition">FAQ</a></li>
+      </ul>
+      <div class="flex items-center gap-2">
+        <a href="LegalTech Login.html" class="hidden sm:inline text-sm px-4 py-2 text-white/80 hover:text-white">Sign in</a>
+        <a href="LegalTech Login.html" class="btn-lime rounded-full px-5 py-2.5 text-sm flex items-center gap-2">
+          Start free trial <i class="ri-arrow-right-up-line"></i>
+        </a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- ============================ HERO ============================ -->
+<section class="relative pt-36 pb-28 overflow-hidden">
+  <!-- bg layers -->
+  <div class="absolute inset-0 bg-grid radial-fade pointer-events-none"></div>
+  <div class="absolute -top-32 left-1/2 -translate-x-1/2 w-[900px] h-[420px] glow-violet"></div>
+  <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[700px] h-[260px] glow-lime"></div>
+
+  <div class="relative mx-auto max-w-7xl px-6">
+
+    <!-- announcement pill -->
+    <div class="flex justify-center" data-aos="fade-down">
+      <a href="#" class="group inline-flex items-center gap-3 rounded-full glass px-2 py-1.5 pr-4 text-sm text-white/80">
+        <span class="rounded-full bg-lime text-ink-900 font-semibold text-xs px-2.5 py-1">NEW</span>
+        Clause-aware redlining is live in LegalTech 3.0
+        <i class="ri-arrow-right-line transition group-hover:translate-x-0.5"></i>
+      </a>
+    </div>
+
+    <!-- headline -->
+    <h1 class="mt-8 text-center font-display text-[60px] leading-[0.93] sm:text-[80px] md:text-[104px] tracking-tight" data-aos="fade-up">
+      <span class="grad-text">Contracts, </span><span class="italic-display lime-grad">drafted</span><br class="hidden sm:block" />
+      <span class="grad-text">and signed </span><span class="italic-display text-white/75">in minutes.</span>
+    </h1>
+
+    <p class="mx-auto mt-6 max-w-xl text-center text-lg text-white/60" data-aos="fade-up" data-aos-delay="100">
+      An AI that writes airtight contracts. A signing workflow your counterparties actually use.
+      <span class="text-white">All in one place.</span>
+    </p>
+
+    <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3" data-aos="fade-up" data-aos-delay="200">
+      <a href="LegalTech Register.html" class="btn-lime rounded-full px-6 py-3.5 text-[15px] flex items-center gap-2">
+        Start free — no card needed <i class="ri-sparkling-2-fill"></i>
+      </a>
+      <a href="#preview" class="btn-ghost rounded-full px-6 py-3.5 text-[15px] flex items-center gap-2">
+        <i class="ri-play-circle-line text-lg"></i> See a demo
+      </a>
+    </div>
+
+
+
+    <!-- HERO MOCKUP -->
+    <div class="relative mt-14 floaty" data-aos="fade-up" data-aos-delay="350">
+      <div class="relative mx-auto max-w-5xl rounded-[28px] glass shadow-card p-2.5">
+        <div class="rounded-[22px] bg-ink-900/80 border border-white/8 overflow-hidden">
+
+          <!-- chrome -->
+          <div class="flex items-center gap-4 px-4 py-3 border-b border-white/8 bg-ink-800/70">
+            <div class="flex gap-1.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-white/15"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-white/15"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-white/15"></span>
+            </div>
+            <div class="flex-1 flex justify-center">
+              <div class="text-[11px] font-mono text-white/38 flex items-center gap-1.5 bg-white/5 rounded-full px-3 py-1">
+                <i class="ri-lock-2-line text-[10px]"></i> app.legaltech.io / contracts / msa-acme-2026
+              </div>
+            </div>
+            <div class="w-16"></div>
+          </div>
+
+          <!-- body grid -->
+          <div class="grid grid-cols-12 min-h-[420px]">
+
+            <!-- sidebar -->
+            <aside class="col-span-3 hidden md:flex flex-col border-r border-white/8 p-4 gap-0.5">
+              <div class="flex items-center gap-2 px-2 py-1.5 mb-3">
+                <span class="w-7 h-7 rounded-full bg-lime grid place-items-center"><i class="ri-quill-pen-fill text-[13px] text-ink-900"></i></span>
+                <span class="font-display text-lg">LegalTech</span>
+              </div>
+              <div class="flex items-center gap-2 rounded-lg bg-white/4 border border-white/8 px-2.5 py-2 mb-3">
+                <span class="w-5 h-5 rounded-md bg-lime grid place-items-center text-[9px] font-bold text-ink-900">N</span>
+                <div>
+                  <div class="text-[12px] leading-none">Northbeam</div>
+                  <div class="text-[9px] font-mono text-white/40 uppercase tracking-widest mt-0.5">Studio</div>
+                </div>
+              </div>
+              <div class="text-[9px] font-mono uppercase tracking-[.15em] text-white/30 px-2 mb-1">Workspace</div>
+              <div class="flex items-center gap-2 rounded-lg bg-white/6 border border-white/10 px-2.5 py-1.5 text-[12px] text-white">
+                <i class="ri-file-text-line text-lime text-xs"></i> Contracts
+                <span class="ml-auto text-[10px] font-mono text-white/40">42</span>
+              </div>
+              <div class="flex items-center gap-2 px-2.5 py-1.5 text-[12px] text-white/50"><i class="ri-stack-line text-xs"></i> Templates</div>
+              <div class="flex items-center gap-2 px-2.5 py-1.5 text-[12px] text-white/50">
+                <i class="ri-quill-pen-line text-xs"></i> Signatures
+                <span class="ml-auto text-[9px] rounded-full bg-lime text-ink-900 font-bold px-1.5 py-0.5">3</span>
+              </div>
+              <div class="flex items-center gap-2 px-2.5 py-1.5 text-[12px] text-white/50"><i class="ri-team-line text-xs"></i> Counterparties</div>
+              <div class="flex items-center gap-2 px-2.5 py-1.5 text-[12px] text-white/50"><i class="ri-archive-line text-xs"></i> Archive</div>
+            </aside>
+
+            <!-- editor -->
+            <main class="col-span-12 md:col-span-9 p-5 md:p-6">
+
+              <!-- doc header -->
+              <div class="flex items-start justify-between mb-4">
+                <div>
+                  <div class="text-[10px] font-mono text-white/38 uppercase tracking-widest">MSA · v3.draft</div>
+                  <h3 class="font-display text-xl mt-0.5">Master Services Agreement — Acme Co.</h3>
+                </div>
+                <div class="flex items-center gap-2 shrink-0 ml-4">
+                  <span class="text-[10px] rounded-full bg-lime/15 text-lime px-2.5 py-1 border border-lime/25">AI · drafting</span>
+                  <button class="text-[11px] rounded-lg bg-white/5 border border-white/10 px-2.5 py-1.5">Share</button>
+                </div>
+              </div>
+
+              <!-- AI generating banner — fixed height stops layout jump -->
+              <div class="rounded-xl bg-ink-800/60 border border-white/8 p-4" style="height:90px; overflow:hidden;">
+                <div class="flex items-center gap-2 text-[10px] font-mono text-white/40 mb-2">
+                  <span class="w-1.5 h-1.5 rounded-full bg-lime"></span>
+                  LEGALTECH · GENERATING CLAUSE 4.2
+                </div>
+                <p id="hero-typer" class="text-[12.5px] font-mono text-white/82 caret leading-relaxed" style="height:36px; overflow:hidden; display:block;"></p>
+              </div>
+
+              <!-- two-column: doc + panels -->
+              <div class="mt-4 grid grid-cols-12 gap-3">
+
+                <!-- cream document card -->
+                <div class="col-span-12 md:col-span-7 rounded-xl bg-cream-50 text-ink-900 p-5">
+                  <div class="text-[9px] font-mono uppercase tracking-widest text-ink-400">Schedule A · Scope</div>
+                  <div class="font-display text-lg mt-1.5">1. Definitions</div>
+                  <p class="text-[11px] leading-relaxed text-ink-600 mt-1.5">
+                    "Services" means development and maintenance of the platform described in
+                    <span class="bg-lime/60 rounded px-0.5">Schedule B</span>, including deliverables in a Statement of Work…
+                  </p>
+                  <div class="font-display text-lg mt-3">2. Term &amp; Termination</div>
+                  <p class="text-[11px] leading-relaxed text-ink-600 mt-1.5">
+                    This Agreement continues for an initial period of
+                    <span class="underline decoration-lime decoration-2 underline-offset-2">twenty-four (24) months</span>…
+                  </p>
+                  <div class="mt-4 grid grid-cols-2 gap-3">
+                    <div>
+                      <div class="text-[9px] font-mono uppercase text-ink-400">Client</div>
+                      <svg viewBox="0 0 180 40" class="h-8 w-full mt-0.5">
+                        <path class="sig-path" d="M4 28 C18 5,30 38,48 20 S84 4,102 24 S140 40,176 12" fill="none" stroke="#0B0B0F" stroke-width="1.8" stroke-linecap="round"/>
+                      </svg>
+                      <div class="text-[9px] text-ink-500">Elena Martí · 12 May 2026</div>
+                    </div>
+                    <div>
+                      <div class="text-[9px] font-mono uppercase text-ink-400">Provider</div>
+                      <div class="h-8 border-b border-dashed border-ink-300 flex items-end">
+                        <span class="text-[9px] text-ink-400 font-mono pb-0.5">awaiting…</span>
+                      </div>
+                      <div class="text-[9px] text-ink-500 mt-0.5">Julien Rouvier · pending</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- right panels -->
+                <div class="col-span-12 md:col-span-5 flex flex-col gap-2.5">
+                  <!-- risk score -->
+                  <div class="rounded-xl border border-white/8 bg-ink-800/40 p-4">
+                    <div class="flex items-center justify-between mb-1.5">
+                      <div class="text-[10px] font-mono text-white/40 uppercase tracking-widest">Risk score</div>
+                      <div class="text-[10px] text-lime font-semibold">LOW</div>
+                    </div>
+                    <div class="flex items-end gap-3">
+                      <div class="font-display text-4xl">12<span class="text-white/35 text-base">/100</span></div>
+                      <div class="flex-1 h-1.5 rounded-full bg-white/8 overflow-hidden mb-2">
+                        <div class="h-full w-[12%] bg-lime"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- suggested edit -->
+                  <div class="rounded-xl border border-lime/30 bg-lime/5 p-4 flex-1">
+                    <div class="text-[10px] font-mono text-lime uppercase tracking-widest mb-1.5">Suggested edit</div>
+                    <p class="text-[12px] text-white/85 leading-snug">Add a 30-day cure period to §8 termination for cause.</p>
+                    <div class="mt-3 flex gap-2">
+                      <button class="text-[11px] rounded-full bg-lime text-ink-900 font-semibold px-3 py-1">Accept</button>
+                      <button class="text-[11px] rounded-full bg-white/8 border border-white/10 px-3 py-1">Reject</button>
+                    </div>
+                  </div>
+                  <!-- signature status -->
+                  <div class="rounded-xl border border-white/8 bg-ink-800/40 p-3.5">
+                    <div class="text-[10px] font-mono text-white/40 uppercase tracking-widest mb-2">Signatures</div>
+                    <div class="flex items-center gap-2.5 mb-2">
+                      <div class="w-6 h-6 rounded-full bg-lime grid place-items-center text-[10px] font-bold text-ink-900">EM</div>
+                      <div class="flex-1 min-w-0">
+                        <div class="text-[12px]">Elena Martí</div>
+                        <div class="text-[10px] text-white/40">Signed · 11:42 GMT</div>
+                      </div>
+                      <i class="ri-checkbox-circle-fill text-lime text-base"></i>
+                    </div>
+                    <div class="flex items-center gap-2.5">
+                      <div class="w-6 h-6 rounded-full bg-white/10 grid place-items-center text-[10px] text-white/60">JR</div>
+                      <div class="flex-1 min-w-0">
+                        <div class="text-[12px]">Julien Rouvier</div>
+                        <div class="text-[10px] text-white/40">Awaiting signature…</div>
+                      </div>
+                      <span class="w-3.5 h-1 rounded-full bg-white/20"></span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </main>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- floating glass cards -->
+
+    <!-- bottom-left: live activity -->
+    <div class="absolute bottom-6 left-6 z-10 rounded-2xl px-4 py-3 flex items-center gap-3 shadow-card" style="backdrop-filter:blur(18px); background:rgba(11,11,15,.52); border:1px solid rgba(255,255,255,.12);">
+      <span class="relative flex h-2.5 w-2.5 shrink-0">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-lime opacity-60"></span>
+        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-lime"></span>
+      </span>
+      <div>
+        <div class="text-[11px] font-semibold text-white leading-none">127 contracts</div>
+        <div class="text-[10px] text-white/45 mt-0.5">signed in the last hour</div>
+      </div>
+    </div>
+
+    <!-- top-right: AI confidence -->
+    <div class="absolute top-6 right-6 z-10 rounded-2xl px-4 py-3 shadow-card" style="backdrop-filter:blur(18px); background:rgba(11,11,15,.52); border:1px solid rgba(255,255,255,.12); min-width:148px;">
+      <div class="text-[10px] font-mono text-white/40 uppercase tracking-widest mb-1.5">AI Confidence</div>
+      <div class="flex items-end gap-1.5">
+        <span class="font-display text-3xl text-white leading-none">98</span>
+        <span class="text-lime font-semibold text-sm mb-0.5">%</span>
+      </div>
+      <div class="mt-2 flex gap-0.5">
+        <div class="h-1 flex-1 rounded-full bg-lime"></div>
+        <div class="h-1 flex-1 rounded-full bg-lime"></div>
+        <div class="h-1 flex-1 rounded-full bg-lime"></div>
+        <div class="h-1 flex-1 rounded-full bg-lime"></div>
+        <div class="h-1 w-3 rounded-full bg-white/20"></div>
+      </div>
+    </div>
+
+    <!-- bottom-right: time saved -->
+    <div class="absolute bottom-6 right-6 z-10 rounded-2xl px-4 py-3 shadow-card" style="backdrop-filter:blur(18px); background:rgba(11,11,15,.52); border:1px solid rgba(255,255,255,.12);">
+      <div class="text-[10px] font-mono text-white/40 uppercase tracking-widest mb-1">Time saved</div>
+      <div class="flex items-baseline gap-1">
+        <span class="font-display text-2xl text-white leading-none">4.2×</span>
+        <span class="text-[11px] text-white/50">faster than Word</span>
+      </div>
+    </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================ TRUSTED BY ============================ -->
+<section class="relative py-14 border-y border-white/8 bg-ink-900/70 overflow-hidden">
+  <div class="mx-auto max-w-7xl px-6">
+    <p class="text-center text-[11px] font-mono uppercase tracking-[.25em] text-white/45">
+      Trusted by 4,200+ legal teams, founders &amp; agencies
+    </p>
+  </div>
+  <div class="mt-8 relative">
+    <div class="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-ink-900 to-transparent z-10 pointer-events-none"></div>
+    <div class="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-ink-900 to-transparent z-10 pointer-events-none"></div>
+    <div class="flex marquee gap-16 whitespace-nowrap text-white/55">
+      <!-- pseudo-logos: typographic + glyph; original, not real brands -->
+      <div class="flex gap-16 items-center">
+        <span class="font-display text-3xl">Northbeam<span class="text-lime">.</span></span>
+        <span class="font-mono text-xl tracking-tight">◢ KAIROS</span>
+        <span class="font-display italic text-3xl">Quill &amp; Co</span>
+        <span class="font-sans font-extrabold text-2xl tracking-tight">HELIX/LAW</span>
+        <span class="font-mono text-xl">‹/&gt; petrichor</span>
+        <span class="font-display text-3xl">Atelier 14</span>
+        <span class="font-sans font-bold text-2xl">◐ Sablecourt</span>
+        <span class="font-mono text-xl">⌘ MERIDIAN</span>
+      </div>
+      <div class="flex gap-16 items-center" aria-hidden="true">
+        <span class="font-display text-3xl">Northbeam<span class="text-lime">.</span></span>
+        <span class="font-mono text-xl tracking-tight">◢ KAIROS</span>
+        <span class="font-display italic text-3xl">Quill &amp; Co</span>
+        <span class="font-sans font-extrabold text-2xl tracking-tight">HELIX/LAW</span>
+        <span class="font-mono text-xl">‹/&gt; petrichor</span>
+        <span class="font-display text-3xl">Atelier 14</span>
+        <span class="font-sans font-bold text-2xl">◐ Sablecourt</span>
+        <span class="font-mono text-xl">⌘ MERIDIAN</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ FEATURES ============================ -->
+<section id="features" class="relative py-28">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="grid md:grid-cols-2 gap-10 items-end mb-14">
+      <div>
+        <div class="text-[11px] font-mono uppercase tracking-[.25em] text-lime mb-3">— Capabilities</div>
+        <h2 class="font-display text-5xl md:text-6xl leading-[0.95]">
+          The full <span class="italic-display">contract lifecycle</span>,<br />
+          re-engineered for AI.
+        </h2>
+      </div>
+      <p class="text-white/65 text-lg max-w-md md:justify-self-end">
+        Six modules, one workspace. Each piece is designed to feel native to your legal team —
+        and powerful enough to ship a contract before your coffee gets cold.
+      </p>
+    </div>
+
+    <!-- features grid -->
+    <div class="grid md:grid-cols-3 gap-4">
+      <!-- 1 generation -->
+      <div class="md:col-span-2 row-span-2 rounded-3xl glass p-8 lift relative overflow-hidden">
+        <div class="absolute -right-20 -top-20 w-80 h-80 glow-lime opacity-60"></div>
+        <div class="flex items-center gap-2 text-[11px] font-mono uppercase tracking-widest text-lime">
+          <i class="ri-sparkling-2-fill"></i> 01 · AI Generation
+        </div>
+        <h3 class="font-display text-4xl mt-3">Draft any agreement from a single sentence.</h3>
+        <p class="text-white/65 mt-3 max-w-xl">
+          Describe the deal in plain English. LegalTech produces a jurisdiction-aware first
+          draft, cites the clauses it borrowed from, and flags every risky term.
+        </p>
+
+        <!-- mini prompt -->
+        <div class="mt-7 rounded-2xl border border-white/10 bg-ink-900/60 p-4 max-w-2xl">
+          <div class="flex items-center gap-2 text-[11px] font-mono text-white/45">
+            <i class="ri-cursor-line"></i> PROMPT
+          </div>
+          <p class="mt-1 text-[14px] text-white/90">
+            “Generate a <span class="text-lime">SaaS reseller agreement</span> for a UK distributor, 24-month term,
+            with EU data processing addendum.”
+          </p>
+          <div class="mt-4 flex items-center gap-3 text-[11px] font-mono text-white/50">
+            <span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-lime"></span> Drafting · 12 clauses</span>
+            <span>·</span>
+            <span>UK · England &amp; Wales</span>
+            <span>·</span>
+            <span>3,412 tokens</span>
+          </div>
+          <div class="mt-3 grid grid-cols-12 gap-1">
+            <div class="col-span-3 h-1 bg-lime rounded"></div>
+            <div class="col-span-4 h-1 bg-lime/70 rounded"></div>
+            <div class="col-span-2 h-1 bg-lime/40 rounded"></div>
+            <div class="col-span-3 h-1 bg-white/10 rounded"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2 e-sign -->
+      <div class="rounded-3xl glass p-7 lift relative overflow-hidden">
+        <div class="text-[11px] font-mono uppercase tracking-widest text-white/45">02 · E-signature</div>
+        <h3 class="font-display text-3xl mt-2">Sign &amp; counter-sign in one place.</h3>
+        <svg viewBox="0 0 260 60" class="mt-4 w-full">
+          <path d="M5 45 C 25 5, 45 60, 70 30 S 130 5, 155 35 S 215 55, 255 20"
+                fill="none" stroke="#D4FF3A" stroke-width="2.5" stroke-linecap="round" />
+        </svg>
+        <div class="mt-1 flex items-center justify-between text-[11px] text-white/55 font-mono">
+          <span>eIDAS qualified</span>
+          <span>audit trail · ✓</span>
+        </div>
+      </div>
+
+      <!-- 3 templates -->
+      <div class="rounded-3xl glass p-7 lift">
+        <div class="text-[11px] font-mono uppercase tracking-widest text-white/45">03 · Smart templates</div>
+        <h3 class="font-display text-3xl mt-2">120+ jurisdiction-aware templates.</h3>
+        <div class="mt-4 flex flex-wrap gap-1.5">
+          <span class="text-[11px] rounded-full bg-white/5 border border-white/10 px-2.5 py-1">NDA</span>
+          <span class="text-[11px] rounded-full bg-white/5 border border-white/10 px-2.5 py-1">MSA</span>
+          <span class="text-[11px] rounded-full bg-white/5 border border-white/10 px-2.5 py-1">SOW</span>
+          <span class="text-[11px] rounded-full bg-lime text-ink-900 font-semibold px-2.5 py-1">Reseller</span>
+          <span class="text-[11px] rounded-full bg-white/5 border border-white/10 px-2.5 py-1">DPA</span>
+          <span class="text-[11px] rounded-full bg-white/5 border border-white/10 px-2.5 py-1">Employment</span>
+          <span class="text-[11px] rounded-full bg-white/5 border border-white/10 px-2.5 py-1">Vesting</span>
+          <span class="text-[11px] rounded-full bg-white/5 border border-white/10 px-2.5 py-1">SaaS T&amp;Cs</span>
+          <span class="text-[11px] rounded-full bg-white/5 border border-white/10 px-2.5 py-1">+112 more</span>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================ HOW IT WORKS ============================ -->
+<section id="workflow" class="relative py-28 bg-cream-100 text-ink-900">
+  <div class="absolute inset-0 bg-grid-cream radial-fade pointer-events-none"></div>
+  <div class="relative mx-auto max-w-7xl px-6">
+    <div class="flex flex-wrap items-end justify-between gap-6 mb-16">
+      <div>
+        <div class="text-[11px] font-mono uppercase tracking-[.25em] text-ink-500 mb-3">— Workflow</div>
+        <h2 class="font-display text-5xl md:text-6xl leading-[0.95]">From <span class="italic-display">brief</span> to <span class="italic-display">binding</span><br />in four moves.</h2>
+      </div>
+      <a href="#pricing" class="hidden md:inline-flex items-center gap-2 rounded-full bg-ink-900 text-white px-5 py-3 text-sm font-medium">
+        See it in action <i class="ri-arrow-right-line"></i>
+      </a>
+    </div>
+
+    <div class="grid md:grid-cols-4 gap-4">
+      <!-- step card pattern -->
+      <div class="relative rounded-3xl bg-white p-7 shadow-card lift">
+        <div class="flex items-center justify-between">
+          <span class="font-display text-5xl text-ink-900">01</span>
+          <span class="text-[11px] font-mono uppercase tracking-widest text-ink-400">brief</span>
+        </div>
+        <h3 class="font-display text-2xl mt-6">Describe the deal.</h3>
+        <p class="text-ink-500 text-sm mt-2 leading-relaxed">
+          Type a sentence, paste an email thread, or upload a deal memo. LegalTech extracts the structure.
+        </p>
+
+      </div>
+
+      <div class="relative rounded-3xl bg-white p-7 shadow-card lift">
+        <div class="flex items-center justify-between">
+          <span class="font-display text-5xl text-ink-900">02</span>
+          <span class="text-[11px] font-mono uppercase tracking-widest text-ink-400">draft</span>
+        </div>
+        <h3 class="font-display text-2xl mt-6">AI assembles the contract.</h3>
+        <p class="text-ink-500 text-sm mt-2 leading-relaxed">
+          Clauses are selected from your library, jurisdiction is set, and every variable is filled in.
+        </p>
+
+      </div>
+
+      <div class="relative rounded-3xl bg-white p-7 shadow-card lift">
+        <div class="flex items-center justify-between">
+          <span class="font-display text-5xl text-ink-900">03</span>
+          <span class="text-[11px] font-mono uppercase tracking-widest text-ink-400">review</span>
+        </div>
+        <h3 class="font-display text-2xl mt-6">Negotiate &amp; redline.</h3>
+        <p class="text-ink-500 text-sm mt-2 leading-relaxed">
+          Share with counterparties, redline in real time, and accept AI-suggested fallbacks.
+        </p>
+
+      </div>
+
+      <div class="relative rounded-3xl bg-ink-900 text-white p-7 shadow-card lift overflow-hidden">
+        <div class="absolute -right-10 -bottom-10 w-48 h-48 glow-lime"></div>
+        <div class="relative flex items-center justify-between">
+          <span class="font-display text-5xl">04</span>
+          <span class="text-[11px] font-mono uppercase tracking-widest text-lime">sign</span>
+        </div>
+        <h3 class="font-display text-2xl mt-6 relative">Both parties sign.</h3>
+        <p class="text-white/65 text-sm mt-2 leading-relaxed relative">
+          Sequential or parallel signing, eIDAS qualified, with a tamper-proof audit certificate
+          attached to the PDF.
+        </p>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ PRICING ============================ -->
+<section id="pricing" class="relative py-28">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="text-center max-w-3xl mx-auto">
+      <div class="text-[11px] font-mono uppercase tracking-[.25em] text-lime mb-3">— Pricing</div>
+      <h2 class="font-display text-5xl md:text-6xl leading-[0.95]">
+        Pay <span class="italic-display">per contract.</span><br />Or pay <span class="italic-display">monthly.</span>
+      </h2>
+      <p class="text-white/65 mt-4">Two ways to run LegalTech. Switch anytime — your library and audit history follow you.</p>
+    </div>
+
+    <div x-data="{ mode: 'monthly' }" class="mt-12">
+      <!-- toggle -->
+      <div class="flex justify-center">
+        <div class="glass rounded-full p-1 flex items-center text-sm">
+          <button @click="mode='per'"
+                  :class="mode==='per' ? 'bg-lime text-ink-900' : 'text-white/65'"
+                  class="rounded-full px-5 py-2 font-medium transition">Pay per contract</button>
+          <button @click="mode='monthly'"
+                  :class="mode==='monthly' ? 'bg-lime text-ink-900' : 'text-white/65'"
+                  class="rounded-full px-5 py-2 font-medium transition">Monthly · save 20%</button>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-5 mt-10">
+        <!-- Starter / per-contract -->
+        <div class="rounded-3xl glass p-7 lift">
+          <div class="flex items-center justify-between">
+            <h3 class="font-display text-3xl">Starter</h3>
+            <span class="text-[11px] font-mono text-white/45">Per contract</span>
+          </div>
+          <p class="text-white/55 text-sm mt-1">For founders &amp; freelancers shipping a few deals.</p>
+          <div class="mt-6 flex items-baseline gap-1">
+            <span x-show="mode==='per'" class="font-display text-6xl">€19</span>
+            <span x-show="mode==='monthly'" class="font-display text-6xl">€29</span>
+            <span class="text-white/45" x-text="mode==='per' ? '/ contract' : '/ month'"></span>
+          </div>
+          <ul class="mt-6 space-y-2.5 text-sm text-white/75">
+            <li class="flex items-start gap-2"><i class="ri-check-line text-lime mt-0.5"></i> AI contract generation</li>
+            <li class="flex items-start gap-2"><i class="ri-check-line text-lime mt-0.5"></i> 2 signers per document</li>
+            <li class="flex items-start gap-2"><i class="ri-check-line text-lime mt-0.5"></i> 30+ starter templates</li>
+            <li class="flex items-start gap-2"><i class="ri-check-line text-lime mt-0.5"></i> Standard e-signature (eIDAS Advanced)</li>
+            <li class="flex items-start gap-2"><i class="ri-check-line text-lime mt-0.5"></i> Email support</li>
+          </ul>
+          <a href="#" class="btn-ghost mt-7 rounded-full px-5 py-3 text-sm w-full inline-flex justify-center">Start free trial</a>
+        </div>
+
+        <!-- Studio / recommended -->
+        <div class="relative rounded-3xl p-[1px] bg-gradient-to-b from-lime via-lime/40 to-transparent lift">
+          <div class="rounded-[23px] bg-ink-900 p-7 relative overflow-hidden h-full">
+            <div class="absolute -right-10 -top-10 w-56 h-56 glow-lime"></div>
+            <div class="relative flex items-center justify-between">
+              <h3 class="font-display text-3xl">Studio</h3>
+              <span class="text-[10px] font-semibold uppercase tracking-widest bg-lime text-ink-900 px-2.5 py-1 rounded-full">Recommended</span>
+            </div>
+            <p class="text-white/65 text-sm mt-1 relative">For growing teams running contracts as a workflow.</p>
+            <div class="mt-6 flex items-baseline gap-1 relative">
+              <span x-show="mode==='per'" class="font-display text-6xl">€14</span>
+              <span x-show="mode==='monthly'" class="font-display text-6xl">€89</span>
+              <span class="text-white/45" x-text="mode==='per' ? '/ contract · vol.' : '/ month'"></span>
+            </div>
+            <ul class="mt-6 space-y-2.5 text-sm text-white/85 relative">
+              <li class="flex items-start gap-2"><i class="ri-check-line text-lime mt-0.5"></i> Everything in Starter</li>
+              <li class="flex items-start gap-2"><i class="ri-check-line text-lime mt-0.5"></i> Unlimited drafts &amp; redlines</li>
+              <li class="flex items-start gap-2"><i class="ri-check-line text-lime mt-0.5"></i> Up to 25 signers per document</li>
+              <li class="flex items-start gap-2"><i class="ri-check-line text-lime mt-0.5"></i> Custom clause library &amp; playbooks</li>
+              <li class="flex items-start gap-2"><i class="ri-check-line text-lime mt-0.5"></i> Qualified eIDAS signatures</li>
+              <li class="flex items-start gap-2"><i class="ri-check-line text-lime mt-0.5"></i> Slack &amp; Notion integrations</li>
+            </ul>
+            <a href="#" class="btn-lime mt-7 rounded-full px-5 py-3 text-sm w-full inline-flex items-center justify-center gap-2 relative">
+              Start 14-day trial <i class="ri-arrow-right-line"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Firm / enterprise -->
+        <div class="rounded-3xl glass p-7 lift">
+          <div class="flex items-center justify-between">
+            <h3 class="font-display text-3xl">Firm</h3>
+            <span class="text-[11px] font-mono text-white/45">Enterprise</span>
+          </div>
+          <p class="text-white/55 text-sm mt-1">For legal departments &amp; agencies at scale.</p>
+          <div class="mt-6 flex items-baseline gap-1">
+            <span class="font-display text-6xl">Custom</span>
+          </div>
+          <ul class="mt-6 space-y-2.5 text-sm text-white/75">
+            <li class="flex items-start gap-2"><i class="ri-check-line text-lime mt-0.5"></i> Everything in Studio</li>
+            <li class="flex items-start gap-2"><i class="ri-check-line text-lime mt-0.5"></i> SSO · SCIM · region pinning</li>
+            <li class="flex items-start gap-2"><i class="ri-check-line text-lime mt-0.5"></i> Dedicated drafting model</li>
+            <li class="flex items-start gap-2"><i class="ri-check-line text-lime mt-0.5"></i> Custom DPA &amp; security review</li>
+            <li class="flex items-start gap-2"><i class="ri-check-line text-lime mt-0.5"></i> Named CSM &amp; 24/5 support</li>
+          </ul>
+          <a href="#" class="btn-ghost mt-7 rounded-full px-5 py-3 text-sm w-full inline-flex justify-center">Talk to sales</a>
+        </div>
+      </div>
+
+      <p class="text-center text-xs text-white/45 mt-8">All plans include unlimited audit history, AES-256 encryption, and full export of your data. No credit card to start the trial.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ WHY US ============================ -->
+<section class="relative py-28 bg-cream-100 text-ink-900">
+  <div class="absolute inset-0 bg-grid-cream radial-fade pointer-events-none"></div>
+  <div class="relative mx-auto max-w-7xl px-6 grid md:grid-cols-2 gap-12 items-center">
+    <div>
+      <div class="text-[11px] font-mono uppercase tracking-[.25em] text-ink-500 mb-3">— Why LegalTech</div>
+      <h2 class="font-display text-5xl md:text-6xl leading-[0.95]">
+        Engineered by lawyers.<br />
+        <span class="italic-display">Loved by everyone else.</span>
+      </h2>
+      <p class="mt-5 text-ink-500 text-lg max-w-md">
+        Most legal tools were built for legal teams. LegalTech was built for the whole company —
+        so the lawyers can focus on the deals that actually need a lawyer.
+      </p>
+
+      <dl class="mt-10 grid grid-cols-2 gap-6">
+        <div>
+          <dt class="font-display text-5xl">94<span class="text-ink-400 text-2xl">%</span></dt>
+          <dd class="text-sm text-ink-500 mt-1">faster from brief to executed contract</dd>
+        </div>
+        <div>
+          <dt class="font-display text-5xl">€38k</dt>
+          <dd class="text-sm text-ink-500 mt-1">average annual savings per legal seat</dd>
+        </div>
+        <div>
+          <dt class="font-display text-5xl">4.9<span class="text-ink-400 text-2xl">/5</span></dt>
+          <dd class="text-sm text-ink-500 mt-1">across 1,200+ G2 &amp; Capterra reviews</dd>
+        </div>
+        <div>
+          <dt class="font-display text-5xl">0</dt>
+          <dd class="text-sm text-ink-500 mt-1">contracts lost. Ever. We have receipts.</dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="grid grid-cols-2 gap-3">
+      <div class="rounded-3xl bg-white shadow-card p-6 lift">
+        <i class="ri-shield-keyhole-fill text-2xl text-ink-900"></i>
+        <h4 class="font-display text-xl mt-3">Defensible</h4>
+        <p class="text-sm text-ink-500 mt-1">Every AI suggestion ships with a citation to the clause it was learned from.</p>
+      </div>
+      <div class="rounded-3xl bg-ink-900 text-white shadow-card p-6 lift">
+        <i class="ri-sparkling-2-fill text-2xl text-lime"></i>
+        <h4 class="font-display text-xl mt-3">Genuinely smart</h4>
+        <p class="text-sm text-white/65 mt-1">Trained on 4M+ executed contracts across 38 jurisdictions. Not a wrapper.</p>
+      </div>
+      <div class="rounded-3xl bg-ink-900 text-white shadow-card p-6 lift">
+        <i class="ri-flashlight-fill text-2xl text-lime"></i>
+        <h4 class="font-display text-xl mt-3">Built to scale</h4>
+        <p class="text-sm text-white/65 mt-1">Run one contract a month or ten thousand. Same speed, same audit-grade trail.</p>
+      </div>
+      <div class="rounded-3xl bg-white shadow-card p-6 lift">
+        <i class="ri-customer-service-2-fill text-2xl text-ink-900"></i>
+        <h4 class="font-display text-xl mt-3">Real humans</h4>
+        <p class="text-sm text-ink-500 mt-1">Talk to a licensed paralegal in under 4 minutes, any business day.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ TESTIMONIALS ============================ -->
+<section class="relative py-28">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="flex flex-wrap items-end justify-between gap-6 mb-14">
+      <div>
+        <div class="text-[11px] font-mono uppercase tracking-[.25em] text-lime mb-3">— Customer stories</div>
+        <h2 class="font-display text-5xl md:text-6xl leading-[0.95]">
+          The receipt drawer of <span class="italic-display">happy counsel.</span>
+        </h2>
+      </div>
+      <div class="flex items-center gap-2 text-sm text-white/60">
+        <i class="ri-star-fill text-lime"></i>
+        <span>4.9 · 1,247 reviews on G2</span>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-4">
+      <!-- big quote -->
+      <div class="md:col-span-2 md:row-span-2 rounded-3xl glass p-9 lift relative overflow-hidden">
+        <div class="absolute -right-10 -top-10 w-60 h-60 glow-lime opacity-50"></div>
+        <i class="ri-double-quotes-l text-5xl text-lime relative"></i>
+        <p class="font-display text-3xl md:text-4xl leading-tight mt-4 relative">
+          We replaced a four-person redlining bottleneck with a single LegalTech workspace.
+          Our reseller deals close in days instead of months — and the lawyers finally sleep.
+        </p>
+        <div class="mt-8 flex items-center gap-3 relative">
+          <div class="w-12 h-12 rounded-full bg-gradient-to-br from-lime to-lime-deep grid place-items-center font-display text-xl text-ink-900">M</div>
+          <div>
+            <div class="font-medium">Mara Vukov</div>
+            <div class="text-sm text-white/55">General Counsel · Northbeam</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-3xl glass p-6 lift">
+        <i class="ri-double-quotes-l text-3xl text-lime"></i>
+        <p class="mt-2 text-[15px] leading-snug">"The clause library alone paid for itself in three weeks. Our NDAs are out the door in 90 seconds flat."</p>
+        <div class="mt-5 flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-violet-glow/40 grid place-items-center font-display text-ink-900 bg-cream-100">A</div>
+          <div>
+            <div class="text-sm">Adrien Chen</div>
+            <div class="text-xs text-white/50">Head of Ops · Helix/Law</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-3xl glass p-6 lift">
+        <i class="ri-double-quotes-l text-3xl text-lime"></i>
+        <p class="mt-2 text-[15px] leading-snug">"I run a one-woman practice. LegalTech is the only reason I have a weekend."</p>
+        <div class="mt-5 flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-cream-100 grid place-items-center font-display text-ink-900">S</div>
+          <div>
+            <div class="text-sm">Sara Aoun</div>
+            <div class="text-xs text-white/50">Solo Practitioner · Beirut</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="md:col-span-3 grid md:grid-cols-3 gap-4">
+        <div class="rounded-3xl glass p-6 lift">
+          <p class="text-[15px] leading-snug">"The audit trail saved us in two due-diligence calls. That alone is worth the seat."</p>
+          <div class="mt-5 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-lime/40 grid place-items-center font-display text-ink-900">P</div>
+            <div>
+              <div class="text-sm">Priya Raman</div>
+              <div class="text-xs text-white/50">VP Legal · Kairos AI</div>
+            </div>
+          </div>
+        </div>
+        <div class="rounded-3xl glass p-6 lift">
+          <p class="text-[15px] leading-snug">"Counsel signs once, the AI handles the next 80%. Our cycle time dropped 71% in a quarter."</p>
+          <div class="mt-5 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-violet-glow/40 grid place-items-center font-display text-white">T</div>
+            <div>
+              <div class="text-sm">Tomás Iglesias</div>
+              <div class="text-xs text-white/50">COO · Sablecourt</div>
+            </div>
+          </div>
+        </div>
+        <div class="rounded-3xl glass p-6 lift">
+          <p class="text-[15px] leading-snug">"I expected another e-sign tool. What I got was a junior associate that never sleeps."</p>
+          <div class="mt-5 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-cream-100 grid place-items-center font-display text-ink-900">F</div>
+            <div>
+              <div class="text-sm">Florent Ndiaye</div>
+              <div class="text-xs text-white/50">Partner · Atelier 14</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ FAQ ============================ -->
+<section id="faq" class="relative py-28">
+  <div class="mx-auto max-w-5xl px-6">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <div class="text-[11px] font-mono uppercase tracking-[.25em] text-lime mb-3">— Questions</div>
+      <h2 class="font-display text-5xl md:text-6xl leading-[0.95]">
+        Things people <span class="italic-display">actually ask</span> before they buy.
+      </h2>
+    </div>
+
+    <div class="divide-y divide-white/8 rounded-3xl glass overflow-hidden">
+      <!-- FAQ items -->
+      <details class="group p-6">
+        <summary class="flex items-center justify-between gap-6">
+          <span class="font-display text-xl md:text-2xl">Is the AI safe to use on real, binding contracts?</span>
+          <span class="acc-icon w-9 h-9 rounded-full glass grid place-items-center"><i class="ri-add-line"></i></span>
+        </summary>
+        <p class="mt-4 text-white/65 max-w-3xl">
+          Yes. Every clause LegalTech drafts is sourced from a curated, lawyer-reviewed library — not free-form
+          model output. You see exactly which clauses were used, what jurisdiction they map to, and you can
+          override any of them before signature.
+        </p>
+      </details>
+
+      <details class="group p-6">
+        <summary class="flex items-center justify-between gap-6">
+          <span class="font-display text-xl md:text-2xl">Are LegalTech signatures legally binding in my country?</span>
+          <span class="acc-icon w-9 h-9 rounded-full glass grid place-items-center"><i class="ri-add-line"></i></span>
+        </summary>
+        <p class="mt-4 text-white/65 max-w-3xl">
+          LegalTech supports eIDAS (EU/UK), ESIGN &amp; UETA (US), ZertES (Switzerland), and 30+ other regulated
+          frameworks. Qualified Electronic Signatures are available on Studio and Firm plans.
+        </p>
+      </details>
+
+      <details class="group p-6">
+        <summary class="flex items-center justify-between gap-6">
+          <span class="font-display text-xl md:text-2xl">What's the difference between pay-per-contract and monthly?</span>
+          <span class="acc-icon w-9 h-9 rounded-full glass grid place-items-center"><i class="ri-add-line"></i></span>
+        </summary>
+        <p class="mt-4 text-white/65 max-w-3xl">
+          Pay-per-contract is ideal if you ship fewer than ~6 contracts per month — you only pay when you
+          generate and send one. Monthly subscriptions unlock unlimited drafts, redlines, and templates,
+          and are billed at a flat rate. Switch between modes any time from your billing settings.
+        </p>
+      </details>
+
+      <details class="group p-6">
+        <summary class="flex items-center justify-between gap-6">
+          <span class="font-display text-xl md:text-2xl">Do you train your AI on my contracts?</span>
+          <span class="acc-icon w-9 h-9 rounded-full glass grid place-items-center"><i class="ri-add-line"></i></span>
+        </summary>
+        <p class="mt-4 text-white/65 max-w-3xl">
+          Never, unless you explicitly opt in. Customer data is logically isolated, encrypted with
+          per-tenant keys, and excluded from any training corpus by default.
+        </p>
+      </details>
+
+      <details class="group p-6">
+        <summary class="flex items-center justify-between gap-6">
+          <span class="font-display text-xl md:text-2xl">Can I import my existing templates and playbooks?</span>
+          <span class="acc-icon w-9 h-9 rounded-full glass grid place-items-center"><i class="ri-add-line"></i></span>
+        </summary>
+        <p class="mt-4 text-white/65 max-w-3xl">
+          Absolutely. Drag in your .docx files, and LegalTech will parse them into structured clauses you
+          can reuse across the workspace. Most teams import their first 20 templates in under an hour.
+        </p>
+      </details>
+
+      <details class="group p-6">
+        <summary class="flex items-center justify-between gap-6">
+          <span class="font-display text-xl md:text-2xl">What happens to my data if I cancel?</span>
+          <span class="acc-icon w-9 h-9 rounded-full glass grid place-items-center"><i class="ri-add-line"></i></span>
+        </summary>
+        <p class="mt-4 text-white/65 max-w-3xl">
+          You can export every contract, audit certificate, and template as PDF + .docx at any time —
+          including for 90 days after cancellation. No lock-in, no goodbye fee.
+        </p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ FINAL CTA ============================ -->
+<section class="relative py-28 overflow-hidden">
+  <div class="absolute inset-0 bg-grid radial-fade pointer-events-none"></div>
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] glow-lime opacity-80"></div>
+
+  <div class="relative mx-auto max-w-5xl px-6 text-center">
+    <div class="inline-flex items-center gap-2 rounded-full glass px-3 py-1.5 text-xs text-white/75">
+      <span class="w-2 h-2 rounded-full bg-lime pulse-dot"></span>
+      4,200+ teams already shipping faster with LegalTech
+    </div>
+    <h2 class="font-display text-6xl md:text-8xl leading-[0.95] mt-6">
+      Your next contract<br />
+      <span class="italic-display lime-grad">is one sentence away.</span>
+    </h2>
+    <p class="text-white/65 text-lg mt-6 max-w-xl mx-auto">
+      Start your 14-day free trial. No credit card. Generate, sign, and send your first contract before lunch.
+    </p>
+    <div class="mt-9 flex flex-col sm:flex-row items-center justify-center gap-3">
+      <a href="#" class="btn-lime rounded-full px-7 py-4 text-[15px] flex items-center gap-2">
+        Start free trial <i class="ri-arrow-right-up-line"></i>
+      </a>
+      <a href="#" class="btn-ghost rounded-full px-7 py-4 text-[15px] flex items-center gap-2">
+        <i class="ri-calendar-line"></i> Book a 20-min demo
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ FOOTER ============================ -->
+<footer class="relative border-t border-white/8 bg-ink-950">
+  <div class="mx-auto max-w-7xl px-6 py-20">
+    <div class="grid md:grid-cols-12 gap-10">
+      <div class="md:col-span-4">
+        <a href="#" class="flex items-center gap-2">
+          <span class="grid place-items-center w-9 h-9 rounded-full bg-lime text-ink-900">
+            <i class="ri-quill-pen-fill text-[20px]"></i>
+          </span>
+          <span class="font-display text-3xl">LegalTech</span>
+        </a>
+        <p class="text-white/55 text-sm mt-4 max-w-sm">
+          The AI contract platform for modern teams. Draft, redline, and sign anything — without leaving the browser.
+        </p>
+
+        <!-- newsletter -->
+        <form class="mt-8 flex items-center gap-2 glass rounded-full p-1.5 pl-4 max-w-sm" onsubmit="event.preventDefault(); this.querySelector('input').value=''; this.querySelector('button').innerHTML='Subscribed ✓';">
+          <i class="ri-mail-line text-white/40"></i>
+          <input type="email" required placeholder="you@company.com" class="flex-1 bg-transparent outline-none text-sm placeholder:text-white/35 py-2" />
+          <button class="btn-lime rounded-full text-sm px-4 py-2">Subscribe</button>
+        </form>
+        <p class="text-[11px] text-white/40 mt-2">One short email a month. No tracking pixels.</p>
+      </div>
+
+      <div class="md:col-span-2">
+        <div class="text-[11px] font-mono uppercase tracking-widest text-white/40 mb-4">Product</div>
+        <ul class="space-y-2 text-sm text-white/70">
+          <li><a href="#features" class="hover:text-white">AI Generation</a></li>
+          <li><a href="#features" class="hover:text-white">E-signature</a></li>
+          <li><a href="#features" class="hover:text-white">Templates</a></li>
+          <li><a href="#features" class="hover:text-white">Collaboration</a></li>
+          <li><a href="#pricing" class="hover:text-white">Pricing</a></li>
+        </ul>
+      </div>
+      <div class="md:col-span-2">
+        <div class="text-[11px] font-mono uppercase tracking-widest text-white/40 mb-4">Resources</div>
+        <ul class="space-y-2 text-sm text-white/70">
+          <li><a href="#" class="hover:text-white">Clause library</a></li>
+          <li><a href="#" class="hover:text-white">Help center</a></li>
+          <li><a href="#" class="hover:text-white">Changelog</a></li>
+          <li><a href="#" class="hover:text-white">API docs</a></li>
+          <li><a href="#" class="hover:text-white">Status</a></li>
+        </ul>
+      </div>
+      <div class="md:col-span-2">
+        <div class="text-[11px] font-mono uppercase tracking-widest text-white/40 mb-4">Company</div>
+        <ul class="space-y-2 text-sm text-white/70">
+          <li><a href="#" class="hover:text-white">About</a></li>
+          <li><a href="#" class="hover:text-white">Careers <span class="text-lime text-[10px] ml-1">·8</span></a></li>
+          <li><a href="#" class="hover:text-white">Customers</a></li>
+          <li><a href="#" class="hover:text-white">Press kit</a></li>
+          <li><a href="#" class="hover:text-white">Contact</a></li>
+        </ul>
+      </div>
+      <div class="md:col-span-2">
+        <div class="text-[11px] font-mono uppercase tracking-widest text-white/40 mb-4">Legal</div>
+        <ul class="space-y-2 text-sm text-white/70">
+          <li><a href="#" class="hover:text-white">Terms</a></li>
+          <li><a href="#" class="hover:text-white">Privacy</a></li>
+          <li><a href="#" class="hover:text-white">Security</a></li>
+          <li><a href="#" class="hover:text-white">DPA</a></li>
+          <li><a href="#" class="hover:text-white">Trust center</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-14 pt-8 border-t border-white/8 flex flex-wrap items-center justify-between gap-4">
+      <div class="text-xs text-white/45">© 2026 LegalTech Technologies S.L. · Calle de Velázquez 24, Madrid · VAT ESB‑88247901</div>
+      <div class="flex items-center gap-3 text-white/55">
+        <a href="#" aria-label="Twitter" class="w-9 h-9 grid place-items-center rounded-full glass hover:text-white"><i class="ri-twitter-x-line"></i></a>
+        <a href="#" aria-label="LinkedIn" class="w-9 h-9 grid place-items-center rounded-full glass hover:text-white"><i class="ri-linkedin-line"></i></a>
+        <a href="#" aria-label="GitHub" class="w-9 h-9 grid place-items-center rounded-full glass hover:text-white"><i class="ri-github-line"></i></a>
+        <a href="#" aria-label="YouTube" class="w-9 h-9 grid place-items-center rounded-full glass hover:text-white"><i class="ri-youtube-line"></i></a>
+      </div>
+      <div class="text-[11px] font-mono text-white/35">eu‑west‑1 · all systems normal <span class="text-lime">●</span></div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================ SCRIPTS ============================ -->
+<!-- AOS -->
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<!-- GSAP -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<!-- Lenis -->
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+
+<script>
+  // AOS
+  AOS.init({ duration: 800, once: true, offset: 60, easing: 'ease-out-cubic' });
+
+  // Lenis smooth scrolling
+  try {
+    const lenis = new Lenis({ smoothWheel: true, lerp: 0.09 });
+    function raf(time){ lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+    // anchor links integrate with lenis
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        const id = a.getAttribute('href');
+        if(id.length>1){
+          const el = document.querySelector(id);
+          if(el){ e.preventDefault(); lenis.scrollTo(el, { offset:-80, duration:1.1 }); }
+        }
+      });
+    });
+  } catch(e){}
+
+
+  // Subtle parallax on hero glow with GSAP
+  if(window.gsap){
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.utils.toArray('.glow-violet, .glow-lime').forEach(el=>{
+      gsap.to(el, {
+        yPercent: 30,
+        ease:'none',
+        scrollTrigger:{ trigger: el, start:'top bottom', end:'bottom top', scrub:true }
+      });
+    });
+  }
+
+  // Hero typewriter
+  (function(){
+    const text = '4.2 Indemnification — Each party (the "Indemnifying Party") shall defend, indemnify, and hold harmless the other party from any third-party claim arising out of gross negligence or willful misconduct…';
+    const el = document.getElementById('hero-typer');
+    if(!el) return;
+    let i = 0;
+    function tick(){
+      if(i <= text.length){ el.textContent = text.slice(0,i); i++; setTimeout(tick, 24 + Math.random()*38); }
+      else { setTimeout(()=>{ i=0; el.textContent=''; tick(); }, 3000); }
+    }
+    tick();
+  })();
+
+</script>

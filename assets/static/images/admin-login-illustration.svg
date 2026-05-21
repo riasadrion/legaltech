@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 480" fill="none">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#4f46e5"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.18)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0.06)"/>
+    </linearGradient>
+    <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#a78bfa"/>
+      <stop offset="100%" stop-color="#38bdf8"/>
+    </linearGradient>
+    <filter id="blur1">
+      <feGaussianBlur stdDeviation="28"/>
+    </filter>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="rgba(0,0,0,0.25)"/>
+    </filter>
+  </defs>
+
+  <!-- Glow blobs -->
+  <circle cx="100" cy="120" r="110" fill="#6366f1" opacity="0.35" filter="url(#blur1)"/>
+  <circle cx="420" cy="360" r="120" fill="#7c3aed" opacity="0.3" filter="url(#blur1)"/>
+  <circle cx="400" cy="80" r="70" fill="#38bdf8" opacity="0.15" filter="url(#blur1)"/>
+
+  <!-- Grid dots -->
+  <g opacity="0.12" fill="white">
+    <rect x="30" y="30" width="2.5" height="2.5" rx="1.25"/>
+    <rect x="70" y="30" width="2.5" height="2.5" rx="1.25"/>
+    <rect x="110" y="30" width="2.5" height="2.5" rx="1.25"/>
+    <rect x="150" y="30" width="2.5" height="2.5" rx="1.25"/>
+    <rect x="190" y="30" width="2.5" height="2.5" rx="1.25"/>
+    <rect x="30" y="70" width="2.5" height="2.5" rx="1.25"/>
+    <rect x="70" y="70" width="2.5" height="2.5" rx="1.25"/>
+    <rect x="110" y="70" width="2.5" height="2.5" rx="1.25"/>
+    <rect x="150" y="70" width="2.5" height="2.5" rx="1.25"/>
+    <rect x="330" y="380" width="2.5" height="2.5" rx="1.25"/>
+    <rect x="370" y="380" width="2.5" height="2.5" rx="1.25"/>
+    <rect x="410" y="380" width="2.5" height="2.5" rx="1.25"/>
+    <rect x="450" y="380" width="2.5" height="2.5" rx="1.25"/>
+    <rect x="490" y="380" width="2.5" height="2.5" rx="1.25"/>
+    <rect x="330" y="420" width="2.5" height="2.5" rx="1.25"/>
+    <rect x="370" y="420" width="2.5" height="2.5" rx="1.25"/>
+    <rect x="410" y="420" width="2.5" height="2.5" rx="1.25"/>
+    <rect x="450" y="420" width="2.5" height="2.5" rx="1.25"/>
+  </g>
+
+  <!-- Main dashboard card -->
+  <rect x="80" y="100" width="360" height="260" rx="20" fill="url(#cardGrad)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" filter="url(#shadow)"/>
+
+  <!-- Card header bar -->
+  <rect x="80" y="100" width="360" height="48" rx="20" fill="rgba(255,255,255,0.1)"/>
+  <rect x="80" y="128" width="360" height="20" fill="rgba(255,255,255,0.1)"/>
+  <!-- window dots -->
+  <circle cx="110" cy="124" r="5" fill="#f87171" opacity="0.8"/>
+  <circle cx="128" cy="124" r="5" fill="#fbbf24" opacity="0.8"/>
+  <circle cx="146" cy="124" r="5" fill="#34d399" opacity="0.8"/>
+
+  <!-- Stat mini cards row -->
+  <rect x="104" y="168" width="72" height="48" rx="10" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+  <rect x="188" y="168" width="72" height="48" rx="10" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+  <rect x="272" y="168" width="72" height="48" rx="10" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+  <rect x="356" y="168" width="68" height="48" rx="10" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+
+  <!-- Stat labels -->
+  <rect x="114" y="176" width="30" height="4" rx="2" fill="rgba(255,255,255,0.4)"/>
+  <rect x="114" y="186" width="46" height="7" rx="3" fill="white" opacity="0.9"/>
+  <rect x="198" y="176" width="30" height="4" rx="2" fill="rgba(255,255,255,0.4)"/>
+  <rect x="198" y="186" width="40" height="7" rx="3" fill="white" opacity="0.9"/>
+  <rect x="282" y="176" width="30" height="4" rx="2" fill="rgba(255,255,255,0.4)"/>
+  <rect x="282" y="186" width="44" height="7" rx="3" fill="white" opacity="0.9"/>
+  <rect x="366" y="176" width="30" height="4" rx="2" fill="rgba(255,255,255,0.4)"/>
+  <rect x="366" y="186" width="36" height="7" rx="3" fill="white" opacity="0.9"/>
+
+  <!-- Chart area -->
+  <rect x="104" y="232" width="200" height="100" rx="10" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+  <!-- Chart line -->
+  <polyline points="120,310 140,295 160,300 185,275 210,280 230,255 255,248 285,232" stroke="url(#lineGrad)" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Area fill -->
+  <polygon points="120,310 140,295 160,300 185,275 210,280 230,255 255,248 285,232 285,320 120,320" fill="url(#lineGrad)" opacity="0.12"/>
+  <!-- Chart grid lines -->
+  <line x1="120" y1="285" x2="285" y2="285" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <line x1="120" y1="265" x2="285" y2="265" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <line x1="120" y1="245" x2="285" y2="245" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+
+  <!-- Donut / pie mini chart -->
+  <circle cx="368" cy="283" r="38" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="12"/>
+  <circle cx="368" cy="283" r="38" fill="none" stroke="#a78bfa" stroke-width="12" stroke-dasharray="90 149" stroke-linecap="round" transform="rotate(-90 368 283)"/>
+  <circle cx="368" cy="283" r="38" fill="none" stroke="#38bdf8" stroke-width="12" stroke-dasharray="55 184" stroke-linecap="round" transform="rotate(32 368 283)"/>
+  <circle cx="368" cy="283" r="38" fill="none" stroke="#34d399" stroke-width="12" stroke-dasharray="40 199" stroke-linecap="round" transform="rotate(132 368 283)"/>
+  <circle cx="368" cy="283" r="20" fill="rgba(255,255,255,0.08)"/>
+
+  <!-- Bottom row skeleton lines -->
+  <rect x="104" y="344" width="120" height="5" rx="2.5" fill="rgba(255,255,255,0.2)"/>
+  <rect x="104" y="355" width="80" height="4" rx="2" fill="rgba(255,255,255,0.12)"/>
+  <rect x="280" y="344" width="140" height="5" rx="2.5" fill="rgba(255,255,255,0.2)"/>
+  <rect x="280" y="355" width="100" height="4" rx="2" fill="rgba(255,255,255,0.12)"/>
+
+  <!-- Floating badge top right -->
+  <rect x="360" y="68" width="120" height="40" rx="12" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.25)" stroke-width="1" filter="url(#shadow)"/>
+  <circle cx="381" cy="88" r="8" fill="#34d399" opacity="0.9"/>
+  <rect x="396" y="82" width="50" height="5" rx="2.5" fill="rgba(255,255,255,0.7)"/>
+  <rect x="396" y="92" width="36" height="4" rx="2" fill="rgba(255,255,255,0.4)"/>
+
+  <!-- Floating badge bottom left -->
+  <rect x="30" y="340" width="130" height="44" rx="12" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.25)" stroke-width="1" filter="url(#shadow)"/>
+  <rect x="48" y="354" width="40" height="5" rx="2.5" fill="rgba(255,255,255,0.7)"/>
+  <rect x="48" y="364" width="60" height="4" rx="2" fill="rgba(255,255,255,0.4)"/>
+  <rect x="120" y="350" width="28" height="18" rx="6" fill="#6366f1"/>
+  <rect x="126" y="355" width="16" height="3" rx="1.5" fill="white" opacity="0.9"/>
+  <rect x="126" y="361" width="10" height="3" rx="1.5" fill="white" opacity="0.6"/>
+</svg>

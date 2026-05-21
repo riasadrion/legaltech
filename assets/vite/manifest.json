@@ -1,0 +1,33 @@
+{
+  "_ui-C9iznqy6.js": {
+    "file": "ui-C9iznqy6.js",
+    "name": "ui"
+  },
+  "resources/css/app.css": {
+    "file": "app-Cb3oJGhu.css",
+    "name": "app",
+    "names": [
+      "app.css"
+    ],
+    "src": "resources/css/app.css",
+    "isEntry": true
+  },
+  "resources/js/admin.js": {
+    "file": "admin-BgYWHvZN.js",
+    "name": "admin",
+    "src": "resources/js/admin.js",
+    "isEntry": true,
+    "imports": [
+      "_ui-C9iznqy6.js"
+    ]
+  },
+  "resources/js/app.js": {
+    "file": "app-BdhMDVDJ.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true,
+    "imports": [
+      "_ui-C9iznqy6.js"
+    ]
+  }
+}

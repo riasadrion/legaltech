@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Dashboard · LegalTech</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme:{ extend:{
+    fontFamily:{
+      serif:['"Instrument Serif"','serif'],
+      sans:['Manrope','ui-sans-serif','system-ui'],
+      mono:['"JetBrains Mono"','ui-monospace','monospace'],
+    },
+    colors:{
+      ink:{950:'#08090C',900:'#0B0B0F',800:'#13141A',700:'#1B1D26',600:'#262834',500:'#3A3D4D',400:'#6B6E7E'},
+      cream:{50:'#FBFAF6',100:'#F5F2EA',200:'#EDE8DC',300:'#D9D2BF'},
+      lime:{DEFAULT:'#D4FF3A',soft:'#E6FF6B',deep:'#A8D420'},
+      violet:{glow:'#7C5CFF'},
+    },
+    boxShadow:{
+      card:'0 30px 60px -20px rgba(0,0,0,.35), 0 8px 20px -8px rgba(0,0,0,.25)',
+    }
+  }}
+}
+</script>
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+<script defer src="https://unpkg.com/alpinejs@3.13.10/dist/cdn.min.js"></script>
+
+<style>
+  html,body{ background:#08090C; color:#fff; }
+  body{ font-family:Manrope, sans-serif; }
+  .font-display{ font-family:"Instrument Serif",serif; letter-spacing:-0.01em; }
+  .italic-display{ font-family:"Instrument Serif",serif; font-style:italic; }
+
+  .glass{ background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.08); backdrop-filter: blur(14px); }
+  .glow-lime{ background: radial-gradient(45% 60% at 50% 50%, rgba(212,255,58,.35), transparent 70%); filter: blur(10px); }
+  .glow-violet{ background: radial-gradient(50% 60% at 50% 50%, rgba(124,92,255,.45), transparent 70%); filter: blur(20px); }
+
+  .btn-lime{ background:#D4FF3A; color:#0B0B0F; font-weight:600;
+    box-shadow: 0 1px 0 rgba(255,255,255,.6) inset, 0 -1px 0 rgba(0,0,0,.15) inset, 0 12px 30px -10px rgba(212,255,58,.55);
+    transition: transform .2s ease, filter .2s ease; }
+  .btn-lime:hover{ transform:translateY(-1px); filter:brightness(1.04); }
+  .btn-ghost{ background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.10); color:#fff; }
+  .btn-ghost:hover{ background:rgba(255,255,255,.08); }
+
+  /* Sidebar nav */
+  .nav-item{ display:flex; align-items:center; gap:.625rem; padding:.55rem .75rem; border-radius:.625rem; color:rgba(255,255,255,.6); transition:background .15s, color .15s; }
+  .nav-item:hover{ color:#fff; background:rgba(255,255,255,.05); }
+  .nav-item.active{ color:#fff; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.10); }
+  .nav-item.active .nav-dot{ background:#D4FF3A; }
+  .nav-dot{ width:5px; height:5px; border-radius:9999px; background:rgba(255,255,255,.25); }
+
+  ::selection{ background:#D4FF3A; color:#0B0B0F; }
+
+  /* status pill base */
+  .pill{ font-size:10px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; padding:3px 8px; border-radius:9999px; }
+  .pill-sign{ background:#D4FF3A; color:#0B0B0F; }
+  .pill-draft{ background:rgba(255,255,255,.07); color:rgba(255,255,255,.7); border:1px solid rgba(255,255,255,.10); }
+  .pill-review{ background:rgba(124,92,255,.18); color:#A899FF; border:1px solid rgba(124,92,255,.25); }
+  .pill-done{ background:rgba(255,255,255,.04); color:rgba(255,255,255,.45); border:1px solid rgba(255,255,255,.08); }
+
+  /* pulse dot */
+  .pulse-dot{ position:relative; }
+  .pulse-dot::before{ content:""; position:absolute; inset:-5px; border-radius:9999px; background:rgba(212,255,58,.35); animation: pulseDot 1.6s ease-out infinite; }
+  @keyframes pulseDot { 0%{transform:scale(.6); opacity:.8} 100%{transform:scale(1.6); opacity:0} }
+
+  /* sig draw */
+  .sig-path{ stroke-dasharray:600; stroke-dashoffset:0; }
+
+  /* tab underline */
+  .tab{ padding-bottom:6px; color:rgba(255,255,255,.55); cursor:pointer; }
+  .tab.active{ color:#fff; border-bottom:2px solid #D4FF3A; }
+
+  /* scrollbar hide */
+  .no-sb::-webkit-scrollbar{ display:none } .no-sb{ scrollbar-width:none }
+
+  /* tiny chart */
+  .spark{ stroke:#D4FF3A; fill:none; stroke-width:2; stroke-linecap:round; }
+
+  /* table row hover */
+  tbody tr{ transition: background .15s; }
+  tbody tr:hover{ background: rgba(255,255,255,.03); }
+
+  /* typing caret */
+  @keyframes blink { 50%{opacity:0} }
+  .caret::after{ content:"▌"; margin-left:2px; color:#D4FF3A; animation: blink 1s steps(1) infinite; }
+</style>
+</head>
+
+<body class="min-h-screen">
+
+<div class="min-h-screen flex overflow-x-hidden" x-data="{
+  sidebar:'contracts',
+  filter:'all',
+  query:'',
+  toast:null,
+  contracts:[
+    {id:'C-3128', title:'MSA · Acme Co.',          party:'Acme Co.',       value:'€84,000', status:'sign',   updated:'2m',  signers:['EM','JR'] },
+    {id:'C-3127', title:'NDA · Helix/Law',         party:'Helix/Law',      value:'—',       status:'draft',  updated:'18m', signers:['SA']       },
+    {id:'C-3126', title:'DPA · Petrichor',         party:'Petrichor',      value:'€12,400', status:'review', updated:'1h',  signers:['PR','JR']  },
+    {id:'C-3125', title:'Reseller · Kairos AI',    party:'Kairos',         value:'€146,800',status:'draft',  updated:'2h',  signers:['MV']       },
+    {id:'C-3124', title:'SOW · Atelier 14',        party:'Atelier 14',     value:'€8,200',  status:'done',   updated:'1d',  signers:['FN','JR']  },
+    {id:'C-3123', title:'Employment · J. Daoust',  party:'Internal',       value:'€72k/yr', status:'sign',   updated:'1d',  signers:['JD','MV']  },
+    {id:'C-3122', title:'NDA · Sablecourt',        party:'Sablecourt',     value:'—',       status:'done',   updated:'2d',  signers:['TI','JR']  },
+    {id:'C-3121', title:'MSA · Meridian Group',    party:'Meridian',       value:'€240,000',status:'review', updated:'3d',  signers:['MV','EM']  },
+  ],
+  get filtered(){
+    return this.contracts.filter(c =>
+      (this.filter==='all' || c.status===this.filter) &&
+      (this.query==='' || c.title.toLowerCase().includes(this.query.toLowerCase()) || c.party.toLowerCase().includes(this.query.toLowerCase()))
+    );
+  },
+  statusLabel(s){ return ({sign:'Awaiting sign',draft:'Drafting',review:'In review',done:'Signed'})[s]; },
+  statusClass(s){ return 'pill pill-'+s; },
+  showToast(msg){ this.toast=msg; setTimeout(()=>this.toast=null, 2400); },
+  ai:{ prompt:'', loading:false }
+}">
+
+  <!-- ============================ SIDEBAR ============================ -->
+  <aside class="hidden md:flex md:flex-col w-64 shrink-0 border-r border-white/8 bg-ink-950">
+    <div class="px-5 py-5 flex items-center gap-2 border-b border-white/8">
+      <a href="LegalTech Landing.html" class="flex items-center gap-2">
+        <span class="grid place-items-center w-8 h-8 rounded-full bg-lime text-ink-900">
+          <i class="ri-quill-pen-fill text-[18px]"></i>
+        </span>
+        <span class="font-display text-2xl">LegalTech</span>
+      </a>
+      <span class="ml-auto text-[10px] font-mono uppercase tracking-widest text-white/35">v3</span>
+    </div>
+
+    <!-- workspace switcher -->
+    <div class="px-4 pt-4">
+      <button class="w-full flex items-center gap-2 rounded-xl px-3 py-2.5 bg-white/4 border border-white/8 hover:bg-white/6">
+        <span class="w-7 h-7 rounded-md bg-gradient-to-br from-lime to-lime-deep grid place-items-center text-ink-900 font-bold text-[11px]">N</span>
+        <div class="text-left flex-1 min-w-0">
+          <div class="text-[13px] truncate">Northbeam</div>
+          <div class="text-[10px] text-white/45 font-mono uppercase tracking-widest">Studio · 12 seats</div>
+        </div>
+        <i class="ri-expand-up-down-line text-white/45 text-[14px]"></i>
+      </button>
+    </div>
+
+    <!-- nav -->
+    <nav class="mt-5 px-4 space-y-0.5 text-sm">
+      <div class="text-[10px] font-mono uppercase tracking-widest text-white/35 px-3 mb-1">Workspace</div>
+      <a @click.prevent="sidebar='contracts'"     :class="sidebar==='contracts' && 'active'"     href="#" class="nav-item">
+        <i class="ri-file-text-line text-base"></i> Contracts
+        <span class="ml-auto text-[10px] font-mono text-white/45">42</span>
+      </a>
+      <a @click.prevent="sidebar='templates'"    :class="sidebar==='templates' && 'active'"    href="#" class="nav-item">
+        <i class="ri-stack-line text-base"></i> Templates
+        <span class="ml-auto text-[10px] font-mono text-white/45">28</span>
+      </a>
+      <a @click.prevent="sidebar='signatures'"   :class="sidebar==='signatures' && 'active'"   href="#" class="nav-item">
+        <i class="ri-quill-pen-line text-base"></i> Signatures
+        <span class="ml-auto pill pill-sign">3</span>
+      </a>
+      <a @click.prevent="sidebar='counterparties'" :class="sidebar==='counterparties' && 'active'" href="#" class="nav-item">
+        <i class="ri-team-line text-base"></i> Counterparties
+      </a>
+      <a @click.prevent="sidebar='archive'"      :class="sidebar==='archive' && 'active'"      href="#" class="nav-item">
+        <i class="ri-archive-line text-base"></i> Archive
+      </a>
+
+      <div class="text-[10px] font-mono uppercase tracking-widest text-white/35 px-3 mt-5 mb-1">Insights</div>
+      <a @click.prevent="sidebar='analytics'"    :class="sidebar==='analytics' && 'active'"    href="#" class="nav-item">
+        <i class="ri-bar-chart-2-line text-base"></i> Analytics
+      </a>
+      <a @click.prevent="sidebar='audit'"        :class="sidebar==='audit' && 'active'"        href="#" class="nav-item">
+        <i class="ri-shield-check-line text-base"></i> Audit log
+      </a>
+
+      <div class="text-[10px] font-mono uppercase tracking-widest text-white/35 px-3 mt-5 mb-1">Account</div>
+      <a @click.prevent="sidebar='billing'"      :class="sidebar==='billing' && 'active'"      href="#" class="nav-item">
+        <i class="ri-bank-card-line text-base"></i> Billing
+      </a>
+      <a @click.prevent="sidebar='settings'"     :class="sidebar==='settings' && 'active'"     href="#" class="nav-item">
+        <i class="ri-settings-3-line text-base"></i> Settings
+      </a>
+    </nav>
+
+    <!-- usage card -->
+    <div class="mt-auto p-4">
+      <div class="rounded-2xl border border-white/8 p-4 bg-white/2">
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-mono uppercase tracking-widest text-white/45">Plan usage</span>
+          <span class="text-[10px] text-lime">Studio</span>
+        </div>
+        <div class="mt-3 text-[13px]">42 / unlimited contracts</div>
+        <div class="mt-2 h-1.5 rounded-full bg-white/8 overflow-hidden">
+          <div class="h-full w-[62%] bg-lime"></div>
+        </div>
+        <a href="LegalTech Landing.html#pricing" class="mt-3 text-[11px] text-lime hover:underline inline-flex items-center gap-1">
+          Manage plan <i class="ri-arrow-right-line"></i>
+        </a>
+      </div>
+      <a href="LegalTech Login.html" class="mt-3 flex items-center gap-2 px-2 py-2 text-[12px] text-white/55 hover:text-white">
+        <i class="ri-logout-box-r-line"></i> Sign out
+      </a>
+    </div>
+  </aside>
+
+  <!-- ============================ MAIN ============================ -->
+  <div class="flex-1 min-w-0 flex flex-col overflow-x-hidden">
+
+    <!-- topbar -->
+    <header class="sticky top-0 z-30 bg-ink-950/80 backdrop-blur border-b border-white/8">
+      <div class="relative flex items-center gap-3 px-6 py-3.5">
+        <!-- mobile burger -->
+        <button class="md:hidden w-9 h-9 grid place-items-center rounded-lg border border-white/10 text-white/70"><i class="ri-menu-line"></i></button>
+
+        <!-- breadcrumb -->
+        <div class="hidden md:flex items-center gap-2 text-[13px] text-white/55 shrink-0">
+          <i class="ri-home-4-line"></i>
+          <span>Northbeam</span>
+          <i class="ri-arrow-right-s-line text-white/30"></i>
+          <span class="text-white capitalize" x-text="sidebar"></span>
+        </div>
+
+        <!-- left spacer -->
+        <div class="flex-1"></div>
+
+        <!-- search — centred via spacers -->
+        <div class="w-full max-w-xs md:max-w-sm hidden sm:block shrink-0">
+          <div class="flex items-center gap-2 rounded-xl bg-white/4 border border-white/10 px-3 py-2">
+            <i class="ri-search-line text-white/40"></i>
+            <input x-model="query" placeholder="Search contracts…" class="flex-1 bg-transparent outline-none text-[13px] placeholder:text-white/35 w-0 min-w-0" />
+            <kbd class="hidden md:inline text-[10px] font-mono text-white/35 border border-white/10 rounded px-1.5 py-0.5">⌘K</kbd>
+          </div>
+        </div>
+
+        <!-- right spacer -->
+        <div class="flex-1"></div>
+
+        <!-- right cluster — pinned to far right -->
+        <div class="flex items-center gap-2 shrink-0">
+          <button class="w-9 h-9 grid place-items-center rounded-lg bg-white/4 border border-white/10 text-white/70 relative">
+            <i class="ri-notification-3-line"></i>
+            <span class="absolute -top-1 -right-1 w-4 h-4 grid place-items-center text-[9px] font-bold rounded-full bg-lime text-ink-900">3</span>
+          </button>
+          <button class="hidden sm:flex btn-lime rounded-lg px-3 py-2 text-sm items-center gap-1.5">
+            <i class="ri-sparkling-2-fill"></i> New contract
+          </button>
+          <button class="flex items-center gap-2 rounded-lg pl-1 pr-2 py-1 bg-white/4 border border-white/10">
+            <span class="w-7 h-7 rounded-md bg-gradient-to-br from-lime to-lime-deep grid place-items-center font-bold text-[11px] text-ink-900">EM</span>
+            <span class="text-[12px] hidden md:inline">Elena</span>
+            <i class="ri-arrow-down-s-line text-[14px] text-white/45"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- scroll area -->
+    <main class="flex-1 overflow-y-auto">
+      <div class="px-6 py-7 w-full">
+
+        <!-- =========== Welcome + AI prompt =========== -->
+        <section class="relative rounded-3xl glass overflow-hidden p-7 md:p-9">
+          <div class="absolute -right-20 -top-20 w-80 h-80 glow-lime opacity-70"></div>
+          <div class="absolute -left-10 -bottom-20 w-72 h-72 glow-violet opacity-40"></div>
+
+          <div class="relative grid md:grid-cols-12 gap-7 items-center">
+            <div class="md:col-span-7">
+              <div class="text-[11px] font-mono uppercase tracking-[.25em] text-lime mb-2">— Tuesday · 12 May 2026</div>
+              <h1 class="font-display text-5xl md:text-6xl leading-[0.95]">
+                Welcome back, <span class="italic-display">Elena.</span>
+              </h1>
+              <p class="text-white/65 mt-3 max-w-md">
+                You've got <span class="text-white">3 contracts awaiting signature</span> and 2 renewals coming up this month.
+              </p>
+
+              <!-- AI prompt -->
+              <form @submit.prevent="
+                if(!ai.prompt.trim()) return;
+                ai.loading=true;
+                setTimeout(()=>{ ai.loading=false; showToast('Draft created · MSA-' + Math.floor(1000+Math.random()*9000)); ai.prompt=''; }, 1400);
+              " class="mt-7 max-w-xl">
+                <div class="flex items-center gap-2 rounded-2xl bg-ink-900/70 border border-white/10 p-2 pl-4">
+                  <i class="ri-sparkling-2-fill text-lime"></i>
+                  <input x-model="ai.prompt" :disabled="ai.loading" placeholder="Generate a contract — e.g. 'NDA with Helix/Law, mutual, UK law'" class="flex-1 bg-transparent outline-none text-[14px] placeholder:text-white/35 py-2" />
+                  <button class="btn-lime rounded-xl px-4 py-2 text-[13px] flex items-center gap-1.5 disabled:opacity-60" :disabled="ai.loading">
+                    <span x-show="!ai.loading">Generate</span>
+                    <span x-show="ai.loading" x-cloak class="flex items-center gap-1.5"><i class="ri-loader-4-line animate-spin"></i> Drafting…</span>
+                  </button>
+                </div>
+                <div class="mt-2 flex flex-wrap gap-1.5">
+                  <template x-for="s in ['Mutual NDA · UK','SaaS T&Cs · EU','Reseller · 24mo','SOW from email thread','Employment · remote']">
+                    <button type="button" @click="ai.prompt=s" class="text-[11px] rounded-full bg-white/4 border border-white/10 px-2.5 py-1 hover:bg-white/8" x-text="s"></button>
+                  </template>
+                </div>
+              </form>
+            </div>
+
+            <!-- Right preview card -->
+            <div class="md:col-span-5">
+              <div class="relative rounded-2xl bg-ink-900/70 border border-white/10 p-5">
+                <div class="flex items-center justify-between">
+                  <div class="text-[11px] font-mono text-white/45">MOST RECENT</div>
+                  <span class="pill pill-sign">Awaiting sign</span>
+                </div>
+                <h3 class="font-display text-xl mt-1">MSA · Acme Co.</h3>
+                <p class="text-[12px] text-white/55 mt-1">Counter-signature pending from Julien Rouvier</p>
+
+                <div class="mt-4 grid grid-cols-2 gap-3">
+                  <div>
+                    <div class="text-[10px] font-mono text-white/40 uppercase tracking-widest">Client</div>
+                    <svg viewBox="0 0 200 50" class="h-9 w-full">
+                      <path class="sig-path" d="M5 35 C 20 5, 35 50, 55 25 S 95 5, 115 30 S 160 50, 195 15"
+                            fill="none" stroke="#D4FF3A" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                    <div class="text-[10px] text-white/50 mt-1">Elena · signed</div>
+                  </div>
+                  <div>
+                    <div class="text-[10px] font-mono text-white/40 uppercase tracking-widest">Provider</div>
+                    <div class="h-9 border-b border-dashed border-white/20 flex items-end">
+                      <span class="text-[10px] font-mono text-white/35 pb-1">awaiting…</span>
+                    </div>
+                    <div class="text-[10px] text-white/50 mt-1">Julien · pending</div>
+                  </div>
+                </div>
+
+                <div class="mt-5 flex items-center gap-2">
+                  <button class="btn-lime rounded-lg px-3 py-2 text-[12px] flex items-center gap-1.5">
+                    <i class="ri-send-plane-2-line"></i> Nudge signer
+                  </button>
+                  <button class="btn-ghost rounded-lg px-3 py-2 text-[12px] flex items-center gap-1.5">
+                    <i class="ri-external-link-line"></i> Open
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- =========== Stats =========== -->
+        <section class="mt-6 grid grid-cols-2 md:grid-cols-4 gap-3">
+          <!-- card -->
+          <div class="rounded-2xl glass p-5 relative overflow-hidden">
+            <div class="flex items-center justify-between">
+              <span class="text-[11px] font-mono uppercase tracking-widest text-white/45">In flight</span>
+              <i class="ri-file-text-line text-white/45"></i>
+            </div>
+            <div class="font-display text-5xl mt-2">42</div>
+            <div class="mt-2 flex items-center gap-1.5 text-[11px] text-lime"><i class="ri-arrow-up-line"></i> +18% vs. last month</div>
+            <svg viewBox="0 0 120 30" class="absolute right-2 bottom-2 w-20 h-7">
+              <path class="spark" d="M0 22 Q 20 8 40 16 T 80 6 T 120 12"/>
+            </svg>
+          </div>
+
+          <div class="rounded-2xl glass p-5 relative overflow-hidden">
+            <div class="flex items-center justify-between">
+              <span class="text-[11px] font-mono uppercase tracking-widest text-white/45">Awaiting sign</span>
+              <i class="ri-quill-pen-line text-lime"></i>
+            </div>
+            <div class="font-display text-5xl mt-2">3 <span class="text-base text-white/45 align-middle">contracts</span></div>
+            <div class="mt-2 flex items-center gap-1.5 text-[11px]">
+              <span class="pulse-dot inline-block w-1.5 h-1.5 rounded-full bg-lime"></span>
+              <span class="text-white/55">avg time-to-sign · 18 min</span>
+            </div>
+          </div>
+
+          <div class="rounded-2xl glass p-5 relative overflow-hidden">
+            <div class="flex items-center justify-between">
+              <span class="text-[11px] font-mono uppercase tracking-widest text-white/45">Signed this month</span>
+              <i class="ri-checkbox-circle-line text-white/45"></i>
+            </div>
+            <div class="font-display text-5xl mt-2">18</div>
+            <div class="mt-2 flex items-end gap-0.5 h-6">
+              <div class="w-1.5 bg-white/12 rounded-sm h-2"></div>
+              <div class="w-1.5 bg-white/12 rounded-sm h-3"></div>
+              <div class="w-1.5 bg-white/15 rounded-sm h-2"></div>
+              <div class="w-1.5 bg-lime/40 rounded-sm h-4"></div>
+              <div class="w-1.5 bg-lime/50 rounded-sm h-5"></div>
+              <div class="w-1.5 bg-lime/70 rounded-sm h-4"></div>
+              <div class="w-1.5 bg-lime rounded-sm h-6"></div>
+            </div>
+          </div>
+
+          <div class="rounded-2xl glass p-5 relative overflow-hidden">
+            <div class="flex items-center justify-between">
+              <span class="text-[11px] font-mono uppercase tracking-widest text-white/45">Contract value</span>
+              <i class="ri-coins-line text-white/45"></i>
+            </div>
+            <div class="font-display text-5xl mt-2">€2.4<span class="text-base text-white/45">M</span></div>
+            <div class="mt-2 flex items-center gap-1.5 text-[11px] text-lime"><i class="ri-arrow-up-line"></i> +€312k this quarter</div>
+          </div>
+        </section>
+
+        <!-- =========== Body grid =========== -->
+        <section class="mt-6 grid lg:grid-cols-12 gap-5">
+          <!-- LEFT · Contracts table -->
+          <div class="lg:col-span-12 rounded-2xl glass overflow-hidden">
+            <!-- tabs + filters -->
+            <div class="px-5 pt-5 flex flex-wrap items-end justify-between gap-3 border-b border-white/8 pb-3">
+              <div>
+                <h2 class="font-display text-2xl">My contracts</h2>
+                <div class="text-[12px] text-white/50 mt-0.5" x-text="filtered.length + ' of ' + contracts.length + ' shown'"></div>
+              </div>
+              <div class="flex items-center gap-4 text-[13px]">
+                <span class="tab" :class="filter==='all' && 'active'"    @click="filter='all'">All</span>
+                <span class="tab" :class="filter==='draft' && 'active'"  @click="filter='draft'">Drafts</span>
+                <span class="tab" :class="filter==='review' && 'active'" @click="filter='review'">In review</span>
+                <span class="tab" :class="filter==='sign' && 'active'"   @click="filter='sign'">Signing</span>
+                <span class="tab" :class="filter==='done' && 'active'"   @click="filter='done'">Signed</span>
+              </div>
+            </div>
+
+            <!-- table -->
+            <div class="overflow-x-auto">
+              <table class="w-full text-[13px]">
+                <thead class="text-[10px] font-mono uppercase tracking-widest text-white/40">
+                  <tr class="border-b border-white/6">
+                    <th class="text-left font-medium px-5 py-3">Contract</th>
+                    <th class="text-left font-medium py-3">Counterparty</th>
+                    <th class="text-left font-medium py-3">Value</th>
+                    <th class="text-left font-medium py-3">Status</th>
+                    <th class="text-left font-medium py-3">Signers</th>
+                    <th class="text-right font-medium py-3 pr-5">Updated</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-white/5">
+                  <template x-for="c in filtered" :key="c.id">
+                    <tr>
+                      <td class="px-5 py-3.5">
+                        <div class="flex items-center gap-3">
+                          <span class="w-9 h-9 rounded-lg bg-white/4 border border-white/8 grid place-items-center">
+                            <i class="ri-file-text-line text-white/65"></i>
+                          </span>
+                          <div>
+                            <div class="text-[13.5px]" x-text="c.title"></div>
+                            <div class="text-[11px] font-mono text-white/35" x-text="c.id"></div>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="py-3.5 text-white/70" x-text="c.party"></td>
+                      <td class="py-3.5 font-mono text-white/85" x-text="c.value"></td>
+                      <td class="py-3.5">
+                        <span :class="statusClass(c.status)" x-text="statusLabel(c.status)"></span>
+                      </td>
+                      <td class="py-3.5">
+                        <div class="flex -space-x-2">
+                          <template x-for="(s,i) in c.signers" :key="i">
+                            <span class="w-7 h-7 rounded-full ring-2 ring-ink-950 grid place-items-center text-[10px] font-bold"
+                                  :class="i===0 ? 'bg-lime text-ink-900' : 'bg-violet-glow/40 text-white'" x-text="s"></span>
+                          </template>
+                        </div>
+                      </td>
+                      <td class="py-3.5 pr-5 text-right text-white/55" x-text="c.updated + ' ago'"></td>
+                    </tr>
+                  </template>
+                  <tr x-show="filtered.length===0">
+                    <td colspan="6" class="px-5 py-10 text-center text-white/45 text-sm">No contracts match — try another filter.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- footer -->
+            <div class="px-5 py-3 border-t border-white/8 flex items-center justify-between text-[12px] text-white/50">
+              <span>Showing <span class="text-white" x-text="filtered.length"></span> of <span x-text="contracts.length"></span></span>
+              <div class="flex items-center gap-1">
+                <button class="w-7 h-7 grid place-items-center rounded-md hover:bg-white/5"><i class="ri-arrow-left-s-line"></i></button>
+                <span class="px-2">1</span>
+                <span class="px-2 text-white/35">2</span>
+                <span class="px-2 text-white/35">3</span>
+                <button class="w-7 h-7 grid place-items-center rounded-md hover:bg-white/5"><i class="ri-arrow-right-s-line"></i></button>
+              </div>
+            </div>
+          </div>
+
+
+        <div class="h-10"></div>
+      </div>
+    </main>
+  </div>
+
+  <!-- toast -->
+  <div x-show="toast" x-transition class="fixed bottom-6 right-6 z-50 glass rounded-xl px-4 py-3 flex items-center gap-3 shadow-card">
+    <i class="ri-checkbox-circle-fill text-lime text-xl"></i>
+    <span class="text-sm" x-text="toast"></span>
+  </div>
+</div>
+
+</body>
+</html>
