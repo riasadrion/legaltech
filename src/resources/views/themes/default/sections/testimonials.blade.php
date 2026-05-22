@@ -22,7 +22,7 @@
                     <div class="text-[11px] font-mono uppercase tracking-[.25em] text-lime mb-3">— {{ __($eyebrow) }}</div>
                 @endif
                 @if($heading)
-                    <h2 class="font-display text-5xl md:text-6xl leading-[0.95]"><?php echo __($heading); ?></h2>
+                    <h2 class="font-display text-4xl md:text-5xl lg:text-6xl leading-[0.95]"><?php echo __($heading); ?></h2>
                 @endif
             </div>
             @if($rating)
@@ -36,7 +36,7 @@
         @if(!empty($items))
 
         {{-- Top: featured (2/3) + side stack (1/3) --}}
-        <div class="grid md:grid-cols-3 gap-4 items-stretch">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-stretch">
 
             {{-- Featured — no quote icon, large display text --}}
             @if($featured)
@@ -80,7 +80,7 @@
 
         {{-- Bottom row — no quote icon --}}
         @if(!empty($bottom))
-        <div class="grid md:grid-cols-3 gap-4 mt-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
             @foreach($bottom as $i => $t)
             <div class="rounded-3xl glass p-6 lift flex flex-col">
                 <p class="text-[15px] leading-snug flex-1">"{{ __($t['quote']) }}"</p>

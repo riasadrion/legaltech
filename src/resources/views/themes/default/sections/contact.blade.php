@@ -14,28 +14,8 @@
     $gid        = 'ct-' . $section->id;
 @endphp
 
-{{-- Hero --}}
-<section class="relative pt-44 pb-20 overflow-hidden">
-    <div class="absolute inset-0 bg-grid radial-fade pointer-events-none"></div>
-    <div class="absolute -top-32 left-1/2 -translate-x-1/2 w-[800px] h-[380px] glow-violet pointer-events-none"></div>
-    <div class="absolute bottom-0 right-1/4 w-[500px] h-[200px] glow-lime opacity-50 pointer-events-none"></div>
-
-    <div class="relative mx-auto max-w-7xl px-6">
-        @if($eyebrow)
-            <div class="text-[11px] font-mono uppercase tracking-[.25em] text-lime mb-4">— {{ __($eyebrow) }}</div>
-        @endif
-        <h1 class="font-display text-6xl md:text-7xl leading-[0.93] tracking-tight text-white">
-            {{ __($heading) }}
-            @if($italic)<br /><span class="italic-display text-white/55">{{ __($italic) }}</span>@endif
-        </h1>
-        @if($sub)
-            <p class="text-white/55 text-lg mt-6 max-w-lg leading-relaxed">{{ __($sub) }}</p>
-        @endif
-    </div>
-</section>
-
 {{-- Form + Info --}}
-<section class="relative pb-32">
+<section class="relative py-20">
     <div class="mx-auto max-w-7xl px-6">
         <div class="ct-grid">
 
@@ -73,7 +53,7 @@
 
                     {{-- Topic chips --}}
                     @if(!empty($topics))
-                    <div class="mb-7">
+                    <div class="ct-topic">
                         <div class="text-[11px] font-mono uppercase tracking-widest text-white/40 mb-3">{{ __('Topic') }}</div>
                         <div class="flex flex-wrap gap-2" id="{{ $gid }}-chips">
                             @foreach($topics as $i => $topic)
@@ -128,7 +108,7 @@
             </div>
 
             {{-- Sidebar --}}
-            <div class="flex flex-col gap-4">
+            <div class="ct-sidebar gap-4">
 
                 {{-- Response time --}}
                 <div class="glass rounded-3xl p-7 relative overflow-hidden lift">

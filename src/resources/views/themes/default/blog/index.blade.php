@@ -12,7 +12,7 @@
         <div class="inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-xs font-medium text-white/50 mb-6">
             <i class="ri-article-line text-lime"></i>{{ __('Articles & insights') }}
         </div>
-        <h1 class="font-display text-5xl sm:text-6xl text-white mb-4">{{ __('The LegalTech Blog') }}</h1>
+        <h1 class="font-display text-4xl sm:text-5xl md:text-6xl text-white mb-4">{{ __('The LegalTech Blog') }}</h1>
         <p class="text-lg text-white/40 max-w-xl mx-auto">
             {{ __('Contract law, AI automation, and the future of legal work — written for teams who ship.') }}
         </p>

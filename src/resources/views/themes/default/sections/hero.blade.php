@@ -85,13 +85,12 @@
                             <span class="w-2.5 h-2.5 rounded-full bg-white/15"></span>
                             <span class="w-2.5 h-2.5 rounded-full bg-white/15"></span>
                         </div>
-                        <div class="flex-1 flex justify-center">
-                            <div class="text-[11px] font-mono text-white/40 flex items-center gap-1.5 bg-white/5 rounded-full px-3 py-1">
-                                <x-heroicon-s-lock-closed class="h-3 w-3" />
+                        <div class="flex-1 flex justify-center px-4">
+                            <div class="text-[11px] font-mono text-white/40 flex items-center gap-1.5 bg-white/5 rounded-full px-3 py-1 w-full">
+                                <x-heroicon-s-lock-closed class="h-3 w-3 shrink-0" />
                                 {{ parse_url(config('app.url'), PHP_URL_HOST) }} / contracts / msa-acme-2026
                             </div>
                         </div>
-                        <div class="w-16"></div>
                     </div>
 
                     {{-- body grid --}}
@@ -237,7 +236,7 @@
             </div>
 
             {{-- floating glass cards --}}
-            <div class="absolute bottom-6 left-6 z-10 rounded-2xl px-4 py-3 flex items-center gap-3 shadow-card hero-float-card">
+            <div class="absolute bottom-6 left-6 z-10 rounded-2xl px-4 py-3 flex items-center gap-3 shadow-card hero-float-card hidden md:flex">
                 <span class="relative flex h-2.5 w-2.5 shrink-0">
                     <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-lime opacity-60"></span>
                     <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-lime"></span>
@@ -248,7 +247,7 @@
                 </div>
             </div>
 
-            <div class="absolute top-6 right-6 z-10 rounded-2xl px-4 py-3 shadow-card hero-float-card hero-float-card-ai">
+            <div class="absolute top-6 right-6 z-10 rounded-2xl px-4 py-3 shadow-card hero-float-card hero-float-card-ai hidden md:block">
                 <div class="text-[10px] font-mono text-white/40 uppercase tracking-widest mb-1.5">AI Confidence</div>
                 <div class="flex items-end gap-1.5">
                     <span class="font-display text-3xl text-white leading-none">98</span>
@@ -263,7 +262,7 @@
                 </div>
             </div>
 
-            <div class="absolute bottom-6 right-6 z-10 rounded-2xl px-4 py-3 shadow-card hero-float-card">
+            <div class="absolute bottom-6 right-6 z-10 rounded-2xl px-4 py-3 shadow-card hero-float-card hidden md:block">
                 <div class="text-[10px] font-mono text-white/40 uppercase tracking-widest mb-1">Time saved</div>
                 <div class="flex items-baseline gap-1">
                     <span class="font-display text-2xl text-white leading-none">4.2×</span>

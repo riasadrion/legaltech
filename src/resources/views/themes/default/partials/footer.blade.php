@@ -14,7 +14,7 @@
 <footer class="relative border-t border-white/8 bg-ink-950">
     <div class="mx-auto max-w-7xl px-6 py-20">
 
-        <div class="grid md:grid-cols-12 gap-10">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-10">
 
             {{-- Brand + newsletter --}}
             <div class="md:col-span-4">
@@ -53,9 +53,10 @@
             </div>
 
             {{-- Dynamic footer columns from menu --}}
+            <div class="md:col-span-8 grid grid-cols-2 sm:grid-cols-4 gap-8">
             @foreach($footerColumns as $column)
                 @if($column->children->isNotEmpty())
-                <div class="md:col-span-2">
+                <div>
                     <div class="text-[11px] font-mono uppercase tracking-widest text-white/40 mb-4">
                         {{ $column->getLocalLabel() }}
                     </div>
@@ -72,7 +73,7 @@
                     </ul>
                 </div>
                 @else
-                <div class="md:col-span-2">
+                <div>
                     <a href="{{ $column->resolvedUrl() }}"
                        @if($column->open_in_new_tab) target="_blank" rel="noopener noreferrer" @endif
                        class="text-sm text-white/70 hover:text-white transition">
@@ -81,6 +82,7 @@
                 </div>
                 @endif
             @endforeach
+            </div>
 
         </div>
 

@@ -30,7 +30,7 @@
                 <div class="text-[11px] font-mono uppercase tracking-[.25em] text-lime mb-3">— {{ __($eyebrow) }}</div>
             @endif
             @if($heading)
-                <h2 class="font-display text-5xl md:text-6xl leading-[0.95]"><?php echo __($heading); ?></h2>
+                <h2 class="font-display text-4xl md:text-5xl lg:text-6xl leading-[0.95]"><?php echo __($heading); ?></h2>
             @endif
             @if($subhead)
                 <p class="text-white/65 mt-4">{{ __($subhead) }}</p>
@@ -56,7 +56,7 @@
         </div>
 
         {{-- Plan cards --}}
-        <div class="grid md:grid-cols-3 gap-5 mt-10">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mt-10">
             @foreach($tiers as $tierName => $cycles)
                 @php
                     $plan    = $cycles['per_contract'] ?? $cycles['monthly'] ?? $cycles['yearly'] ?? null;
@@ -95,12 +95,12 @@
                                 <div class="pricing-price flex items-baseline gap-1 {{ $cycle !== 'per_contract' ? 'hidden' : '' }}"
                                      data-cycle="{{ $cycle }}">
                                     @if($cp && $cp->price > 0)
-                                        <span class="font-display text-6xl">{{ $symbol }}{{ number_format($cp->price, 0) }}</span>
+                                        <span class="font-display text-5xl md:text-6xl">{{ $symbol }}{{ number_format($cp->price, 0) }}</span>
                                         <span class="text-white/45">
                                             {{ $cycle === 'per_contract' ? __('/ contract') : ($cycle === 'monthly' ? __('/ month') : __('/ year')) }}
                                         </span>
                                     @else
-                                        <span class="font-display text-6xl">{{ __('Custom') }}</span>
+                                        <span class="font-display text-5xl md:text-6xl">{{ __('Custom') }}</span>
                                     @endif
                                 </div>
                             @endforeach

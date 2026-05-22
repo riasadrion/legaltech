@@ -27,7 +27,7 @@
                     <div class="text-[11px] font-mono uppercase tracking-[.25em] text-lime mb-3">— {{ __($eyebrow) }}</div>
                 @endif
                 @if($heading)
-                    <h2 class="font-display text-5xl md:text-6xl leading-[0.95]"><?php echo __($heading); ?></h2>
+                    <h2 class="font-display text-4xl md:text-5xl lg:text-6xl leading-[0.95]"><?php echo __($heading); ?></h2>
                 @endif
             </div>
             <a href="{{ $linkUrl }}" class="hidden md:inline-flex items-center gap-2 rounded-full border border-white/15 px-5 py-3 text-sm text-white/70 hover:text-white hover:border-white/30 transition">
@@ -36,7 +36,7 @@
         </div>
 
         @if($posts->isNotEmpty())
-        <div class="grid md:grid-cols-3 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 
             {{-- Featured post --}}
             @if($featured)

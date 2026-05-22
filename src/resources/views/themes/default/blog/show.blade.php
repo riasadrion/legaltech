@@ -32,7 +32,7 @@
             @endif
         </div>
 
-        <h1 class="font-display text-4xl sm:text-5xl text-white leading-tight mb-6">
+        <h1 class="font-display text-3xl sm:text-4xl md:text-5xl text-white leading-tight mb-6">
             {{ $post->getLocalTitle() }}
         </h1>
 

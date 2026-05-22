@@ -17,7 +17,7 @@
                     <div class="text-[11px] font-mono uppercase tracking-[.25em] text-ink-500 mb-3">— {{ __($eyebrow) }}</div>
                 @endif
                 @if($heading)
-                    <h2 class="font-display text-5xl md:text-6xl leading-[0.95]"><?php echo __($heading); ?></h2>
+                    <h2 class="font-display text-4xl md:text-5xl lg:text-6xl leading-[0.95]"><?php echo __($heading); ?></h2>
                 @endif
             </div>
             @if($cta_text && $cta_url)
@@ -29,7 +29,7 @@
         </div>
 
         @if(!empty($steps))
-        <div class="grid md:grid-cols-4 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
             @foreach($steps as $i => $step)
                 @php $last = $i === count($steps) - 1; @endphp
                 <div class="relative rounded-3xl p-7 shadow-card lift overflow-hidden

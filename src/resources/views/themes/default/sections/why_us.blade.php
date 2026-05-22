@@ -9,7 +9,7 @@
 
 <section class="relative py-28 bg-cream-100 text-ink-900">
     <div class="absolute inset-0 bg-grid-cream radial-fade pointer-events-none"></div>
-    <div class="relative mx-auto max-w-7xl px-6 grid md:grid-cols-2 gap-12 items-center">
+    <div class="relative mx-auto max-w-7xl px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
 
         {{-- Left --}}
         <div>
@@ -17,7 +17,7 @@
                 <div class="text-[11px] font-mono uppercase tracking-[.25em] text-ink-500 mb-3">— {{ __($eyebrow) }}</div>
             @endif
             @if($heading)
-                <h2 class="font-display text-5xl md:text-6xl leading-[0.95]"><?php echo __($heading); ?></h2>
+                <h2 class="font-display text-4xl md:text-5xl lg:text-6xl leading-[0.95]"><?php echo __($heading); ?></h2>
             @endif
             @if($body)
                 <p class="mt-5 text-ink-500 text-lg max-w-md">{{ __($body) }}</p>

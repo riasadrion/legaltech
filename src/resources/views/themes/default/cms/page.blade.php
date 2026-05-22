@@ -8,7 +8,7 @@
 @php $sections = $page->enabledSections(); @endphp
 
 @php
-    $isContentPage = $sections->count() === 1 && $sections->first()->type === 'custom_html';
+    $isContentPage = $sections->count() === 1 && in_array($sections->first()->type, ['custom_html', 'contact']);
     $isSectionPage = !$isContentPage && $sections->isNotEmpty();
 @endphp
 

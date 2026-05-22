@@ -264,9 +264,12 @@ body.theme-default {
 }
 .theme-default .page-hero {
     position: relative;
-    padding-top: calc(72px + 80px);
-    padding-bottom: 7rem;
+    padding-top: calc(72px + 40px);
+    padding-bottom: 4rem;
     overflow: hidden;
+}
+@media (min-width: 768px) {
+    .theme-default .page-hero { padding-top: calc(72px + 80px); padding-bottom: 7rem; }
 }
 .theme-default .page-hero-orb-top {
     position: absolute; top: 0; left: 50%; transform: translateX(-50%);
@@ -289,6 +292,8 @@ body.theme-default {
 }
 
 /* ─── Contact section ─── */
+.theme-default .ct-hero { padding-top: calc(72px + 40px); padding-bottom: 3rem; overflow: hidden; }
+@media (min-width: 768px) { .theme-default .ct-hero { padding-top: calc(72px + 80px); padding-bottom: 5rem; } }
 .theme-default .ct-field {
     width: 100%;
     background: rgba(255,255,255,0.04);
@@ -303,13 +308,17 @@ body.theme-default {
     resize: vertical;
 }
 .theme-default .ct-field::placeholder { color: rgba(255,255,255,0.32); }
-.theme-default textarea.ct-field { min-height: 140px; }
+.theme-default textarea.ct-field { min-height: 220px; }
+.theme-default .ct-topic { margin-bottom: 2rem; }
 
 /* ─── Custom HTML section body card ─── */
 .theme-default .html-body-card {
     border: 1px solid rgba(255,255,255,0.06);
     border-radius: 16px;
-    padding: 48px 64px;
+    padding: 32px 24px;
+}
+@media (min-width: 768px) {
+    .theme-default .html-body-card { padding: 48px 64px; }
 }
 
 /* ─── Cookie consent banner ─── */
@@ -334,8 +343,10 @@ body.theme-default {
     background: rgba(212,255,58,0.10);
     color: #D4FF3A;
 }
-.theme-default .ct-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: start; }
+.theme-default .ct-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; align-items: stretch; }
 @media (min-width: 1024px) { .theme-default .ct-grid { grid-template-columns: 7fr 5fr; } }
+.theme-default .ct-sidebar { display: flex; flex-direction: column; }
+.theme-default .ct-sidebar .glass-cream { flex: 1; }
 .theme-default .ct-icon-wrap {
     width: 2.5rem; height: 2.5rem; border-radius: 0.75rem; flex-shrink: 0;
     background: rgba(255,255,255,0.05);
