@@ -14,10 +14,10 @@
 <footer class="relative border-t border-white/8 bg-ink-950">
     <div class="mx-auto max-w-7xl px-6 py-20">
 
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-10">
+        <div class="footer-main-grid">
 
             {{-- Brand + newsletter --}}
-            <div class="md:col-span-4">
+            <div class="footer-brand">
                 <a href="{{ route('home') }}" class="flex items-center gap-2">
                     @if($logo = setting('site.logo'))
                         <img src="{{ $logo }}" alt="{{ setting('site.name', config('app.name')) }}" class="h-9">
@@ -53,7 +53,7 @@
             </div>
 
             {{-- Dynamic footer columns from menu --}}
-            <div class="md:col-span-8 grid grid-cols-2 sm:grid-cols-4 gap-8">
+            <div class="footer-nav-grid">
             @foreach($footerColumns as $column)
                 @if($column->children->isNotEmpty())
                 <div>

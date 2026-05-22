@@ -21,7 +21,8 @@
 
     <script src="{{ asset('assets/static/js/jquery.min.js') }}"></script>
     <?php echo \App\Support\ViteAssets::includeAssets(['resources/css/app.css', 'resources/js/app.js']); ?>
-    <link rel="stylesheet" href="{{ asset('assets/static/css/themes/default.css') }}">
+    @php $themeCssPath = base_path('../assets/static/css/themes/default.css'); @endphp
+    <link rel="stylesheet" href="{{ asset('assets/static/css/themes/default.css') }}?v={{ is_file($themeCssPath) ? filemtime($themeCssPath) : 1 }}">
     <x-integrations.ga4 />
     @php $customCssPath = base_path('../assets/static/css/custom.css'); @endphp
     <link rel="stylesheet" href="{{ asset('assets/static/css/custom.css') }}?v={{ is_file($customCssPath) ? filemtime($customCssPath) : config('app.version', 1) }}">
