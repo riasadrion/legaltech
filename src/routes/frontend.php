@@ -5,52 +5,52 @@ use App\Domain\Cms\Models\Page;
 use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Frontend\GuestTicketController;
+use App\Http\Controllers\Frontend\LocaleController;
 use App\Http\Controllers\Frontend\NewsletterController;
 use App\Http\Controllers\Frontend\PageController;
 use App\Http\Controllers\Frontend\PlansController;
 use App\Http\Controllers\UnsubscribeController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('{locale?}')
-    ->where(['locale' => '[a-z]{2}(-[A-Z]{2})?'])
-    ->middleware(['language', 'maintenance'])
-    ->group(function () {
-        Route::get('/', [PageController::class, 'home'])->name('home');
+Route::middleware(['language', 'maintenance'])->group(function () {
+    Route::get('/', [PageController::class, 'home'])->name('home');
 
-        // Contact
-        Route::get('/contact', [ContactController::class, 'show'])->name('contact');
-        Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
+    // Locale switcher (session/cookie based — no URL prefix)
+    Route::post('/locale/{code}', [LocaleController::class, 'set'])
+        ->where('code', '[a-z]{2}(-[A-Z]{2})?')
+        ->name('locale.set');
 
-        // Blog
-        Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
-        Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
-        Route::get('/blog/category/{slug}', [BlogController::class, 'category'])->name('blog.category');
-        Route::get('/blog/tag/{slug}', [BlogController::class, 'tag'])->name('blog.tag');
+    // Contact
+    Route::get('/contact', [ContactController::class, 'show'])->name('contact');
+    Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
 
-        // Plans
-        Route::get('/plans', [PlansController::class, 'index'])->name('plans');
+    // Blog
+    Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+    Route::get('/blog/category/{slug}', [BlogController::class, 'category'])->name('blog.category');
+    Route::get('/blog/tag/{slug}', [BlogController::class, 'tag'])->name('blog.tag');
+    Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 
-        // Newsletter
-        Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
-        Route::get('/newsletter/confirm/{token}', [NewsletterController::class, 'confirm'])->name('newsletter.confirm');
-        Route::get('/newsletter/unsubscribe/{token}', [NewsletterController::class, 'unsubscribe'])->name('newsletter.unsubscribe');
+    // Plans
+    Route::get('/plans', [PlansController::class, 'index'])->name('plans');
 
-        // Guest support tickets
-        Route::get('/support', [GuestTicketController::class, 'create'])->name('support.guest.create');
-        Route::post('/support', [GuestTicketController::class, 'store'])->name('support.guest.store');
-        Route::get('/support/verify/{token}', [GuestTicketController::class, 'verify'])->name('support.guest.verify');
-        Route::get('/support/ticket/{reference}', [GuestTicketController::class, 'show'])->name('support.guest.show');
-        Route::post('/support/ticket/{reference}/reply', [GuestTicketController::class, 'reply'])->name('support.guest.reply');
+    // Newsletter
+    Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
+    Route::get('/newsletter/confirm/{token}', [NewsletterController::class, 'confirm'])->name('newsletter.confirm');
+    Route::get('/newsletter/unsubscribe/{token}', [NewsletterController::class, 'unsubscribe'])->name('newsletter.unsubscribe');
 
-        // CMS pages with locale prefix (e.g. /ar/about)
-        Route::get('/{slug}', [PageController::class, 'show'])->where('slug', '[^/]+')->name('page.show');
-    });
+    // Guest support tickets
+    Route::get('/support', [GuestTicketController::class, 'create'])->name('support.guest.create');
+    Route::post('/support', [GuestTicketController::class, 'store'])->name('support.guest.store');
+    Route::get('/support/verify/{token}', [GuestTicketController::class, 'verify'])->name('support.guest.verify');
+    Route::get('/support/ticket/{reference}', [GuestTicketController::class, 'show'])->name('support.guest.show');
+    Route::post('/support/ticket/{reference}/reply', [GuestTicketController::class, 'reply'])->name('support.guest.reply');
+});
 
-// Email unsubscribe (no locale prefix — linked from emails)
+// Email unsubscribe
 Route::get('/unsubscribe', [UnsubscribeController::class, 'show'])->name('notifications.unsubscribe');
 Route::post('/unsubscribe', [UnsubscribeController::class, 'handle'])->name('notifications.unsubscribe.handle');
 
-// Sitemap, robots & RSS (no locale prefix)
+// Sitemap, robots & RSS
 Route::get('/sitemap.xml', function () {
     $pages = Page::published()->get();
     $posts = BlogPost::published()->latest('published_at')->get();

@@ -1,61 +1,141 @@
 @extends('theme::layouts.frontend')
 
-@section('title', 'Blog')
+@section('title', __('Blog'))
 
 @section('content')
-<div class="mx-auto max-w-6xl px-4 py-12">
-    <div class="flex items-center justify-between mb-8">
-        <h1 class="text-3xl font-bold text-gray-900">Blog</h1>
-        <a href="{{ route('blog.rss') }}" class="text-sm text-gray-400 hover:text-brand-600 flex items-center gap-1">
-            <x-heroicon-o-rss class="h-4 w-4" />
-            RSS
-        </a>
-    </div>
 
-    {{-- Category filter --}}
-    @if($categories->isNotEmpty())
-    <div class="flex flex-wrap gap-2 mb-8">
-        <a href="{{ route('blog.index') }}"
-           class="rounded-full px-4 py-1.5 text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200">All</a>
-        @foreach($categories as $category)
-        <a href="{{ route('blog.category', $category->slug) }}"
-           class="rounded-full px-4 py-1.5 text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200">
-            {{ $category->getLocalName() }}
-        </a>
-        @endforeach
+{{-- Hero --}}
+<div class="relative bg-ink-950 pt-36 pb-20 overflow-hidden">
+    <div class="absolute inset-0 bg-grid opacity-[0.03] pointer-events-none"></div>
+    <div class="radial-fade pointer-events-none"></div>
+    <div class="relative mx-auto max-w-4xl px-6 text-center">
+        <div class="inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-xs font-medium text-white/50 mb-6">
+            <i class="ri-article-line text-lime"></i>{{ __('Articles & insights') }}
+        </div>
+        <h1 class="font-display text-5xl sm:text-6xl text-white mb-4">{{ __('The LegalTech Blog') }}</h1>
+        <p class="text-lg text-white/40 max-w-xl mx-auto">
+            {{ __('Contract law, AI automation, and the future of legal work — written for teams who ship.') }}
+        </p>
     </div>
-    @endif
-
-    <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        @forelse($posts as $post)
-        <article class="group">
-            @if($post->cover_image)
-            <div class="aspect-video rounded-xl overflow-hidden bg-gray-100 mb-4">
-                <img src="{{ asset('storage/' . $post->cover_image) }}" alt="{{ $post->getLocalTitle() }}"
-                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-            </div>
-            @endif
-            <div class="space-y-2">
-                @if($post->category)
-                <a href="{{ route('blog.category', $post->category->slug) }}"
-                   class="text-xs font-semibold text-brand-600 uppercase tracking-wide">
-                    {{ $post->category->getLocalName() }}
-                </a>
-                @endif
-                <h2 class="font-bold text-gray-900 text-lg leading-snug group-hover:text-brand-600">
-                    <a href="{{ route('blog.show', $post->slug) }}">{{ $post->getLocalTitle() }}</a>
-                </h2>
-                @if($post->getLocalExcerpt())
-                <p class="text-gray-500 text-sm line-clamp-2">{{ $post->getLocalExcerpt() }}</p>
-                @endif
-                <p class="text-xs text-gray-400">{{ $post->published_at->format('M j, Y') }}</p>
-            </div>
-        </article>
-        @empty
-        <div class="col-span-3 py-16 text-center text-gray-400">No posts yet.</div>
-        @endforelse
-    </div>
-
-    <div class="mt-10">{{ $posts->links() }}</div>
 </div>
+
+<div class="bg-ink-950 pb-4">
+    <div class="mx-auto max-w-6xl px-6">
+
+        {{-- Category / tag filter bar --}}
+        @if($categories->isNotEmpty())
+        <div class="flex flex-wrap items-center gap-2 py-6 border-b border-white/8">
+            <a href="{{ route('blog.index') }}"
+               class="rounded-full px-4 py-1.5 text-sm font-medium transition
+                      {{ !request()->routeIs('blog.category') && !request()->routeIs('blog.tag')
+                         ? 'bg-lime text-ink-900' : 'glass text-white/60 hover:text-white' }}">
+                {{ __('All') }}
+            </a>
+            @foreach($categories as $cat)
+            <a href="{{ route('blog.category', $cat->slug) }}"
+               class="rounded-full px-4 py-1.5 text-sm font-medium transition glass text-white/60 hover:text-white">
+                {{ $cat->getLocalName() }}
+            </a>
+            @endforeach
+
+            <a href="{{ route('blog.rss') }}"
+               class="ml-auto flex items-center gap-1.5 text-sm text-white/30 hover:text-white/60 transition">
+                <i class="ri-rss-line"></i>RSS
+            </a>
+        </div>
+        @endif
+
+    </div>
+</div>
+
+{{-- Posts grid --}}
+<div class="bg-ink-950 py-16">
+    <div class="mx-auto max-w-6xl px-6">
+
+        @if($posts->isEmpty())
+        <div class="py-24 text-center text-white/30">
+            <i class="ri-article-line text-5xl mb-4 block text-white/10"></i>
+            {{ __('No posts yet.') }}
+        </div>
+        @else
+
+        @foreach($posts as $post)
+        @if($loop->first)
+        {{-- Featured first post --}}
+        <article class="group relative glass rounded-3xl overflow-hidden mb-8 lift">
+            <a href="{{ route('blog.show', $post->slug) }}" class="flex flex-col md:flex-row">
+                @if($post->cover_image)
+                <div class="md:w-1/2 aspect-video md:aspect-auto overflow-hidden">
+                    <img src="{{ upload_url($post->cover_image) }}" alt="{{ $post->getLocalTitle() }}"
+                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                </div>
+                @endif
+                <div class="p-8 md:p-10 md:w-1/2 flex flex-col justify-center">
+                    @if($post->category)
+                    <span class="text-[11px] font-semibold text-lime uppercase tracking-widest mb-3">
+                        {{ $post->category->getLocalName() }}
+                    </span>
+                    @endif
+                    <h2 class="font-display text-3xl text-white leading-tight mb-4 group-hover:text-lime transition">
+                        {{ $post->getLocalTitle() }}
+                    </h2>
+                    @if($post->getLocalExcerpt())
+                    <p class="text-white/50 leading-relaxed mb-6 line-clamp-3">{{ $post->getLocalExcerpt() }}</p>
+                    @endif
+                    <div class="flex items-center gap-3 text-sm text-white/30">
+                        <time>{{ $post->published_at->format('M j, Y') }}</time>
+                    </div>
+                    <div class="mt-6 inline-flex items-center gap-2 text-sm font-medium text-lime">
+                        {{ __('Read article') }} <i class="ri-arrow-right-line"></i>
+                    </div>
+                </div>
+            </a>
+        </article>
+        @if($posts->count() > 1)
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        @endif
+        @else
+        {{-- Rest of posts --}}
+            <article class="group glass rounded-2xl overflow-hidden lift flex flex-col">
+                @if($post->cover_image)
+                <div class="aspect-video overflow-hidden">
+                    <img src="{{ upload_url($post->cover_image) }}" alt="{{ $post->getLocalTitle() }}"
+                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                </div>
+                @endif
+                <div class="p-6 flex flex-col flex-1">
+                    @if($post->category)
+                    <a href="{{ route('blog.category', $post->category->slug) }}"
+                       class="text-[11px] font-semibold text-lime uppercase tracking-widest mb-2 block">
+                        {{ $post->category->getLocalName() }}
+                    </a>
+                    @endif
+                    <h2 class="font-semibold text-white leading-snug group-hover:text-lime transition mb-3 flex-1">
+                        <a href="{{ route('blog.show', $post->slug) }}">{{ $post->getLocalTitle() }}</a>
+                    </h2>
+                    @if($post->getLocalExcerpt())
+                    <p class="text-sm text-white/40 line-clamp-2 mb-4">{{ $post->getLocalExcerpt() }}</p>
+                    @endif
+                    <div class="text-xs text-white/30 mt-auto pt-4 border-t border-white/8">
+                        <time>{{ $post->published_at->format('M j, Y') }}</time>
+                    </div>
+                </div>
+            </article>
+        @endif
+        @endforeach
+        @if($posts->count() > 1)
+        </div>
+        @endif
+
+        {{-- Pagination --}}
+        @if($posts->hasPages())
+        <div class="mt-12 flex justify-center">
+            {{ $posts->links() }}
+        </div>
+        @endif
+
+        @endif
+    </div>
+</div>
+
 @endsection

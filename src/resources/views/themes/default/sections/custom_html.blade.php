@@ -1,12 +1,14 @@
 @php
     $d = $section->getLocaleData();
-    $body = (string) ($d['body'] ?? '');
+    $body = (string) ($d['content'] ?? $d['body'] ?? '');
     $clean = \App\Domain\Cms\Sanitizer\HtmlPurifier::purify($body);
 @endphp
 @if($clean !== '')
-<section class="relative py-16">
-    <div class="mx-auto max-w-4xl px-6 prose prose-invert">
-        <?php echo $clean; ?>
+<section class="relative py-20">
+    <div class="mx-auto max-w-7xl px-6">
+        <div class="blog-body" style="border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; padding: 48px 64px;">
+            <?php echo $clean; ?>
+        </div>
     </div>
 </section>
 @endif

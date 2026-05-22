@@ -35,12 +35,10 @@ class ResolveLocale
 
     private function resolveLocale(Request $request): string
     {
-        // 1. URL prefix segment (e.g. /ar/blog → 'ar')
-        $segment = $request->segment(1);
-        if ($segment && $this->isValidLocale($segment)) {
-            cookie()->queue('locale', $segment, 60 * 24 * 365);
-
-            return $segment;
+        // 1. Session (set by LocaleController when user picks a language)
+        $session = $request->session()->get('locale');
+        if ($session && $this->isValidLocale($session)) {
+            return $session;
         }
 
         // 2. Authenticated user's saved locale
@@ -50,7 +48,7 @@ class ResolveLocale
             return $user->locale;
         }
 
-        // 3. Cookie
+        // 3. Cookie (long-lived, set by LocaleController)
         $cookie = $request->cookie('locale');
         if ($cookie && $this->isValidLocale($cookie)) {
             return $cookie;

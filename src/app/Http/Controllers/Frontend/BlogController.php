@@ -27,7 +27,7 @@ class BlogController extends Controller
 
         $related = BlogPost::published()
             ->where('id', '!=', $post->id)
-            ->where('blog_category_id', $post->blog_category_id)
+            ->with(['category', 'author'])
             ->latest('published_at')
             ->limit(3)
             ->get();
