@@ -8,14 +8,26 @@
         <nav class="glass-nav rounded-full px-3 py-2.5 flex items-center justify-between">
 
             {{-- Logo / Brand --}}
+            @php
+                $navSiteName = setting('site.name', config('app.name'));
+                $navLogo     = setting('site.logo');
+                $navDarkLogo = setting('site.dark_logo');
+            @endphp
             <a href="{{ route('home') }}" class="flex items-center gap-2 pl-3">
-                @if($logo = setting('site.logo'))
-                    <img src="{{ $logo }}" alt="{{ setting('site.name', config('app.name')) }}" class="h-8">
+                @if($navLogo || $navDarkLogo)
+                    @if($navLogo)
+                        <img src="{{ $navLogo }}" alt="{{ $navSiteName }}" class="nav-brand-logo nav-brand-logo-light">
+                    @endif
+                    @if($navDarkLogo)
+                        <img src="{{ $navDarkLogo }}" alt="{{ $navSiteName }}" class="nav-brand-logo nav-brand-logo-dark">
+                    @elseif($navLogo)
+                        <img src="{{ $navLogo }}" alt="{{ $navSiteName }}" class="nav-brand-logo nav-brand-logo-dark">
+                    @endif
                 @else
                     <span class="relative grid place-items-center w-8 h-8 rounded-full bg-lime text-ink-900">
                         <x-heroicon-s-pencil class="h-4 w-4" />
                     </span>
-                    <span class="font-display text-2xl tracking-tight text-white">{{ setting('site.name', config('app.name')) }}</span>
+                    <span class="font-display text-2xl tracking-tight text-white">{{ $navSiteName }}</span>
                 @endif
             </a>
 

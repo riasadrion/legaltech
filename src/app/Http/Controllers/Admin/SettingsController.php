@@ -62,11 +62,12 @@ class SettingsController extends Controller
     private function updateBrand(Request $request, FileUploader $uploader): void
     {
         $data = $request->validate([
-            'site_font'   => ['nullable', 'string', 'max:100'],
-            'site_logo'   => ['nullable', 'file', 'image', 'max:2048'],
+            'site_font'      => ['nullable', 'string', 'max:100'],
+            'site_logo'      => ['nullable', 'file', 'image', 'max:2048'],
+            'site_dark_logo' => ['nullable', 'file', 'image', 'max:2048'],
             'site_favicon'   => ['nullable', 'file', 'image', 'max:512'],
             'site_og_image'  => ['nullable', 'file', 'image', 'max:2048'],
-            'custom_css'  => ['nullable', 'string', 'max:65535'],
+            'custom_css'     => ['nullable', 'string', 'max:65535'],
         ]);
 
         Settings::set('site.font', $data['site_font'] ?? 'system', 'string', 'general');
@@ -82,6 +83,17 @@ class SettingsController extends Controller
                 Settings::set('site.logo', upload_url($meta->url), 'string', 'general');
             } catch (\Throwable $e) {
                 Log::error('Logo upload failed: '.$e->getMessage());
+                throw $e;
+            }
+        }
+
+        if ($request->hasFile('site_dark_logo')) {
+            try {
+                $this->deleteOldUpload(Settings::string('site.dark_logo'));
+                $meta = $uploader->store($request->file('site_dark_logo'), 'brand');
+                Settings::set('site.dark_logo', upload_url($meta->url), 'string', 'general');
+            } catch (\Throwable $e) {
+                Log::error('Dark logo upload failed: '.$e->getMessage());
                 throw $e;
             }
         }

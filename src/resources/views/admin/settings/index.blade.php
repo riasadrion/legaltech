@@ -207,16 +207,16 @@
                         </div>
                     </div>
 
-                    {{-- Logo --}}
+                    {{-- Logo (light bg / default) --}}
                     <div>
-                        <label class="mb-1.5 block text-sm font-medium text-gray-700">{{ __('Logo') }}</label>
+                        <label class="mb-1.5 block text-sm font-medium text-gray-700">{{ __('Logo') }} <span class="text-xs text-gray-400 font-normal">{{ __('(for dark backgrounds)') }}</span></label>
                         @php $logo = setting('site.logo'); @endphp
                         <label class="upload-drop relative flex flex-col w-full h-44 rounded-lg border-2 border-dashed border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-800/50 hover:bg-gray-100 dark:hover:bg-slate-800 transition cursor-pointer overflow-hidden">
-                            <div class="upload-preview flex-1 flex items-center justify-center min-h-0 p-3">
+                            <div class="upload-preview flex-1 flex items-center justify-center min-h-0 p-3 bg-ink-900 rounded-t-md">
                                 @if($logo)
                                     <img src="{{ $logo }}" alt="Logo" class="max-h-full max-w-full object-contain">
                                 @else
-                                    <x-heroicon-o-photo class="h-8 w-8 text-gray-300 dark:text-slate-600" />
+                                    <x-heroicon-o-photo class="h-8 w-8 text-gray-600" />
                                 @endif
                             </div>
                             <div class="upload-info shrink-0 flex flex-col items-center gap-0.5 bg-white/70 dark:bg-slate-900/60 border-t border-gray-200 dark:border-slate-700 px-3 py-2">
@@ -224,6 +224,26 @@
                                 <span class="text-xs text-gray-500 dark:text-slate-400 text-center">{{ __('PNG, JPG, WebP — max 500px wide, max 2 MB') }}</span>
                             </div>
                             <input type="file" name="site_logo" accept="image/*" class="hidden">
+                        </label>
+                    </div>
+
+                    {{-- Logo dark (for light backgrounds) --}}
+                    <div>
+                        <label class="mb-1.5 block text-sm font-medium text-gray-700">{{ __('Logo (Light Mode)') }} <span class="text-xs text-gray-400 font-normal">{{ __('(for light backgrounds)') }}</span></label>
+                        @php $darkLogo = setting('site.dark_logo'); @endphp
+                        <label class="upload-drop relative flex flex-col w-full h-44 rounded-lg border-2 border-dashed border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-800/50 hover:bg-gray-100 dark:hover:bg-slate-800 transition cursor-pointer overflow-hidden">
+                            <div class="upload-preview upload-preview-light flex-1 flex items-center justify-center min-h-0 p-3 rounded-t-md">
+                                @if($darkLogo)
+                                    <img src="{{ $darkLogo }}" alt="Logo Light Mode" class="max-h-full max-w-full object-contain">
+                                @else
+                                    <x-heroicon-o-photo class="h-8 w-8 text-gray-300" />
+                                @endif
+                            </div>
+                            <div class="upload-info shrink-0 flex flex-col items-center gap-0.5 bg-white/70 dark:bg-slate-900/60 border-t border-gray-200 dark:border-slate-700 px-3 py-2">
+                                <span class="text-sm font-medium text-gray-700 dark:text-slate-100 truncate max-w-full">{{ __('Click or drop files') }}</span>
+                                <span class="text-xs text-gray-500 dark:text-slate-400 text-center">{{ __('PNG, JPG, WebP — max 500px wide, max 2 MB') }}</span>
+                            </div>
+                            <input type="file" name="site_dark_logo" accept="image/*" class="hidden">
                         </label>
                     </div>
 

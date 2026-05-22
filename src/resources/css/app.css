@@ -76,6 +76,13 @@
     font-size: 13px; font-weight: 700; color: #fff;
 }
 .sidebar-brand-logo { height: 30px; width: auto; object-fit: contain; flex-shrink: 0; }
+.upload-preview-light { background: #ffffff !important; }
+/* Dark theme (default): show dark-bg logo, hide light-bg logo */
+.sidebar-brand-logo-light { display: none; }
+.sidebar-brand-logo-dark  { display: block; }
+/* Light theme: show light-bg logo, hide dark-bg logo */
+[data-theme="light"] .sidebar-brand-logo-light { display: block; }
+[data-theme="light"] .sidebar-brand-logo-dark  { display: none; }
 .sidebar-brand-text { font-size: 15px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
 .sidebar-nav { flex: 1; overflow-y: auto; overflow-x: visible; padding: 10px 10px 0; }
 .sidebar-nav::-webkit-scrollbar { width: 4px; }

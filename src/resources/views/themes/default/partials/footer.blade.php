@@ -17,15 +17,27 @@
         <div class="footer-main-grid">
 
             {{-- Brand + newsletter --}}
+            @php
+                $footerSiteName = setting('site.name', config('app.name'));
+                $footerLogo     = setting('site.logo');
+                $footerDarkLogo = setting('site.dark_logo');
+            @endphp
             <div class="footer-brand">
                 <a href="{{ route('home') }}" class="flex items-center gap-2">
-                    @if($logo = setting('site.logo'))
-                        <img src="{{ $logo }}" alt="{{ setting('site.name', config('app.name')) }}" class="h-9">
+                    @if($footerLogo || $footerDarkLogo)
+                        @if($footerLogo)
+                            <img src="{{ $footerLogo }}" alt="{{ $footerSiteName }}" class="nav-brand-logo nav-brand-logo-light h-9">
+                        @endif
+                        @if($footerDarkLogo)
+                            <img src="{{ $footerDarkLogo }}" alt="{{ $footerSiteName }}" class="nav-brand-logo nav-brand-logo-dark h-9">
+                        @elseif($footerLogo)
+                            <img src="{{ $footerLogo }}" alt="{{ $footerSiteName }}" class="nav-brand-logo nav-brand-logo-dark h-9">
+                        @endif
                     @else
                         <span class="grid place-items-center w-9 h-9 rounded-full bg-lime text-ink-900">
                             <x-heroicon-s-pencil class="h-5 w-5" />
                         </span>
-                        <span class="font-display text-3xl text-white">{{ setting('site.name', config('app.name')) }}</span>
+                        <span class="font-display text-3xl text-white">{{ $footerSiteName }}</span>
                     @endif
                 </a>
                 <p class="text-white/55 text-sm mt-4 max-w-sm">

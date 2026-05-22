@@ -1,43 +1,44 @@
 @extends('theme::layouts.auth')
 
-@section('heading', 'Set new password')
+@section('heading', __('Set new password'))
+@section('subheading', __('Choose a strong password for your account.'))
 
 @section('content')
-<form method="POST" action="{{ route('password.update') }}" class="space-y-5">
+
+@if($errors->any())
+    <div class="auth-alert auth-alert-err mb-5">
+        @foreach($errors->all() as $e)<p>{{ $e }}</p>@endforeach
+    </div>
+@endif
+
+<form method="POST" action="{{ route('password.update') }}" class="space-y-4">
     @csrf
     <input type="hidden" name="token" value="{{ $token }}">
 
-    <x-form.input
-        name="email"
-        label="Email address"
-        type="email"
-        :value="$email ?? old('email')"
-        placeholder="you@example.com"
-        autocomplete="email"
-        required
-    />
+    <div class="auth-field-wrap">
+        <label class="auth-label" for="email">{{ __('Email address') }}</label>
+        <input id="email" name="email" type="email" value="{{ $email ?? old('email') }}"
+               placeholder="you@example.com" autocomplete="email" required
+               class="auth-input {{ $errors->has('email') ? 'auth-input-err' : '' }}">
+    </div>
 
-    <x-form.input
-        name="password"
-        label="New password"
-        type="password"
-        placeholder="Min 8 characters"
-        autocomplete="new-password"
-        required
-    />
+    <div class="auth-field-wrap">
+        <label class="auth-label" for="password">{{ __('New password') }}</label>
+        <input id="password" name="password" type="password"
+               placeholder="{{ __('Min 8 characters') }}" autocomplete="new-password" required
+               class="auth-input {{ $errors->has('password') ? 'auth-input-err' : '' }}">
+    </div>
 
-    <x-form.input
-        name="password_confirmation"
-        label="Confirm new password"
-        type="password"
-        placeholder="Repeat password"
-        autocomplete="new-password"
-        required
-    />
+    <div class="auth-field-wrap">
+        <label class="auth-label" for="password_confirmation">{{ __('Confirm new password') }}</label>
+        <input id="password_confirmation" name="password_confirmation" type="password"
+               placeholder="{{ __('Repeat password') }}" autocomplete="new-password" required
+               class="auth-input">
+    </div>
 
-    <button type="submit"
-            class="w-full rounded-xl bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500">
-        Reset password
+    <button type="submit" class="auth-btn-primary w-full">
+        {{ __('Reset password') }}
     </button>
 </form>
+
 @endsection

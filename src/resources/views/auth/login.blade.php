@@ -1,46 +1,50 @@
 @extends('theme::layouts.auth')
 
-@section('heading', 'Sign in to your account')
+@section('heading', __('Sign in'))
+@section('subheading', __('Welcome back. Enter your details to continue.'))
 
 @section('content')
-@if (session('status'))
-    <div class="mb-4 rounded-lg bg-green-50 px-4 py-3 text-sm text-green-700">{{ session('status') }}</div>
+
+@if(session('status'))
+    <div class="auth-alert auth-alert-ok">{{ session('status') }}</div>
 @endif
 
-<form method="POST" action="{{ route('login.store') }}" class="space-y-5">
+@if($errors->any())
+    <div class="auth-alert auth-alert-err mb-5">
+        @foreach($errors->all() as $e)<p>{{ $e }}</p>@endforeach
+    </div>
+@endif
+
+<form method="POST" action="{{ route('login.store') }}" class="space-y-4">
     @csrf
 
-    <x-form.input
-        name="email"
-        label="Email address"
-        type="email"
-        :value="old('email')"
-        placeholder="you@example.com"
-        autocomplete="email"
-        required
-    />
-
-    <div>
-        <x-form.input
-            name="password"
-            label="Password"
-            type="password"
-            placeholder="Your password"
-            autocomplete="current-password"
-            required
-        />
-        <div class="mt-1 text-end">
-            <a href="{{ route('password.request') }}" class="text-xs text-brand-600 hover:text-brand-700">Forgot password?</a>
-        </div>
+    <div class="auth-field-wrap">
+        <label class="auth-label" for="email">{{ __('Email address') }}</label>
+        <input id="email" name="email" type="email" value="{{ old('email') }}"
+               placeholder="you@example.com" autocomplete="email" required
+               class="auth-input {{ $errors->has('email') ? 'auth-input-err' : '' }}">
     </div>
 
-    <x-form.checkbox name="remember" label="Remember me" />
+    <div class="auth-field-wrap">
+        <div class="flex items-center justify-between mb-1.5">
+            <label class="auth-label mb-0" for="password">{{ __('Password') }}</label>
+            <a href="{{ route('password.request') }}" class="auth-link text-xs">{{ __('Forgot password?') }}</a>
+        </div>
+        <input id="password" name="password" type="password"
+               placeholder="••••••••" autocomplete="current-password" required
+               class="auth-input {{ $errors->has('password') ? 'auth-input-err' : '' }}">
+    </div>
+
+    <div class="flex items-center gap-2">
+        <input id="remember" name="remember" type="checkbox"
+               class="auth-checkbox" {{ old('remember') ? 'checked' : '' }}>
+        <label for="remember" class="text-sm text-white/60 cursor-pointer">{{ __('Remember me') }}</label>
+    </div>
 
     <x-turnstile />
 
-    <button type="submit"
-            class="w-full rounded-xl bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500">
-        Sign in
+    <button type="submit" class="auth-btn-primary w-full">
+        {{ __('Sign in') }}
     </button>
 </form>
 
@@ -49,23 +53,17 @@ $anySocial = collect(['google','facebook','twitter','linkedin'])
     ->contains(fn($p) => setting('social.'.$p.'.enabled') === '1' && setting('social.'.$p.'.client_id') !== '');
 @endphp
 @if($anySocial)
-<div class="mt-6">
-    <div class="relative">
-        <div class="absolute inset-0 flex items-center">
-            <div class="w-full border-t border-gray-200"></div>
-        </div>
-        <div class="relative flex justify-center text-sm">
-            <span class="bg-white px-3 text-gray-500">Or continue with</span>
-        </div>
-    </div>
-    @include('auth.partials.social-buttons')
+<div class="auth-divider">
+    <span>{{ __('Or continue with') }}</span>
 </div>
+@include('auth.partials.social-buttons')
 @endif
 
 @if(setting('controls.registration_enabled', '1') === '1')
-<p class="mt-6 text-center text-sm text-gray-500">
-    Don't have an account?
-    <a href="{{ route('register') }}" class="font-medium text-brand-600 hover:text-brand-700">Sign up</a>
+<p class="mt-6 text-center text-sm text-white/50">
+    {{ __("Don't have an account?") }}
+    <a href="{{ route('register') }}" class="auth-link font-medium">{{ __('Sign up') }}</a>
 </p>
 @endif
+
 @endsection

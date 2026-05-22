@@ -18,7 +18,8 @@
 
     <script src="{{ asset('assets/static/js/jquery.min.js') }}"></script>
     <?php echo \App\Support\ViteAssets::includeAssets(['resources/css/app.css', 'resources/js/app.js']); ?>
-    <link rel="stylesheet" href="{{ asset('assets/static/css/themes/default.css') }}">
+    @php $themeCssPath = base_path('../assets/static/css/themes/default.css'); @endphp
+    <link rel="stylesheet" href="{{ asset('assets/static/css/themes/default.css') }}?v={{ is_file($themeCssPath) ? filemtime($themeCssPath) : 1 }}">
     <x-integrations.ga4 />
     @stack('head')
 </head>
@@ -37,14 +38,26 @@
 
             <div class="relative w-full p-12 flex flex-col">
                 {{-- brand --}}
+                @php
+                    $authSiteName = setting('site.name', config('app.name'));
+                    $authLogo     = setting('site.logo');
+                    $authDarkLogo = setting('site.dark_logo');
+                @endphp
                 <a href="{{ route('home') }}" class="flex items-center gap-2">
-                    @if($logo = setting('site.logo'))
-                        <img src="{{ $logo }}" alt="{{ setting('site.name', config('app.name')) }}" class="h-9">
+                    @if($authLogo || $authDarkLogo)
+                        @if($authLogo)
+                            <img src="{{ $authLogo }}" alt="{{ $authSiteName }}" class="nav-brand-logo nav-brand-logo-light h-9">
+                        @endif
+                        @if($authDarkLogo)
+                            <img src="{{ $authDarkLogo }}" alt="{{ $authSiteName }}" class="nav-brand-logo nav-brand-logo-dark h-9">
+                        @elseif($authLogo)
+                            <img src="{{ $authLogo }}" alt="{{ $authSiteName }}" class="nav-brand-logo nav-brand-logo-dark h-9">
+                        @endif
                     @else
                         <span class="grid place-items-center w-9 h-9 rounded-full bg-lime text-ink-900">
                             <x-heroicon-s-pencil class="h-5 w-5" />
                         </span>
-                        <span class="font-display text-2xl tracking-tight text-white">{{ setting('site.name', config('app.name')) }}</span>
+                        <span class="font-display text-2xl tracking-tight text-white">{{ $authSiteName }}</span>
                     @endif
                 </a>
 
@@ -74,10 +87,21 @@
             {{-- top bar (mobile brand + back to home) --}}
             <div class="flex items-center justify-between px-6 py-5 lg:px-10">
                 <a href="{{ route('home') }}" class="flex items-center gap-2 lg:hidden">
-                    <span class="grid place-items-center w-8 h-8 rounded-full bg-lime text-ink-900">
-                        <x-heroicon-s-pencil class="h-4 w-4" />
-                    </span>
-                    <span class="font-display text-xl text-white">{{ setting('site.name', config('app.name')) }}</span>
+                    @if($authLogo || $authDarkLogo)
+                        @if($authLogo)
+                            <img src="{{ $authLogo }}" alt="{{ $authSiteName }}" class="nav-brand-logo nav-brand-logo-light h-8">
+                        @endif
+                        @if($authDarkLogo)
+                            <img src="{{ $authDarkLogo }}" alt="{{ $authSiteName }}" class="nav-brand-logo nav-brand-logo-dark h-8">
+                        @elseif($authLogo)
+                            <img src="{{ $authLogo }}" alt="{{ $authSiteName }}" class="nav-brand-logo nav-brand-logo-dark h-8">
+                        @endif
+                    @else
+                        <span class="grid place-items-center w-8 h-8 rounded-full bg-lime text-ink-900">
+                            <x-heroicon-s-pencil class="h-4 w-4" />
+                        </span>
+                        <span class="font-display text-xl text-white">{{ $authSiteName }}</span>
+                    @endif
                 </a>
                 <a href="{{ route('home') }}" class="text-sm text-white/60 hover:text-white inline-flex items-center gap-1.5 ml-auto">
                     <x-heroicon-o-arrow-left class="h-4 w-4" />
