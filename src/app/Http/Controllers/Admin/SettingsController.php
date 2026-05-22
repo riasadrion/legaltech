@@ -73,13 +73,13 @@ class SettingsController extends Controller
 
         $css = $this->sanitizeCss($data['custom_css'] ?? '');
         Settings::set('site.custom_css', $css, 'string', 'general');
-        file_put_contents(public_path('assets/static/css/custom.css'), $css);
+        file_put_contents(base_path('../assets/static/css/custom.css'), $css);
 
         if ($request->hasFile('site_logo')) {
             try {
                 $this->deleteOldUpload(Settings::string('site.logo'));
                 $meta = $uploader->store($request->file('site_logo'), 'brand');
-                Settings::set('site.logo', $meta->url, 'string', 'general');
+                Settings::set('site.logo', upload_url($meta->url), 'string', 'general');
             } catch (\Throwable $e) {
                 Log::error('Logo upload failed: '.$e->getMessage());
                 throw $e;
@@ -90,7 +90,7 @@ class SettingsController extends Controller
             try {
                 $this->deleteOldUpload(Settings::string('site.favicon'));
                 $meta = $uploader->store($request->file('site_favicon'), 'brand', maxWidth: 80);
-                Settings::set('site.favicon', $meta->url, 'string', 'general');
+                Settings::set('site.favicon', upload_url($meta->url), 'string', 'general');
             } catch (\Throwable $e) {
                 Log::error('Favicon upload failed: '.$e->getMessage());
                 throw $e;
@@ -101,7 +101,7 @@ class SettingsController extends Controller
             try {
                 $this->deleteOldUpload(Settings::string('site.og_image'));
                 $meta = $uploader->store($request->file('site_og_image'), 'brand');
-                Settings::set('site.og_image', $meta->url, 'string', 'general');
+                Settings::set('site.og_image', upload_url($meta->url), 'string', 'general');
             } catch (\Throwable $e) {
                 Log::error('OG image upload failed: '.$e->getMessage());
                 throw $e;

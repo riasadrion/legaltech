@@ -38,9 +38,13 @@
     {{-- Sidebar --}}
     <aside class="admin-sidebar" id="adminSidebar">
         <a href="{{ route('admin.dashboard') }}" class="sidebar-brand hover:opacity-75 transition-opacity">
-            @php $siteName = setting('site.name', config('app.name')); @endphp
-            <div class="sidebar-brand-icon">{{ strtoupper(substr($siteName, 0, 1)) }}</div>
-            <span class="sidebar-brand-text">{{ $siteName }}</span>
+            @php $siteName = setting('site.name', config('app.name')); $siteLogo = setting('site.logo'); @endphp
+            @if($siteLogo)
+                <img src="{{ $siteLogo }}" alt="{{ $siteName }}" class="sidebar-brand-logo">
+            @else
+                <div class="sidebar-brand-icon">{{ strtoupper(substr($siteName, 0, 1)) }}</div>
+                <span class="sidebar-brand-text">{{ $siteName }}</span>
+            @endif
         </a>
 
         <div class="sidebar-nav">

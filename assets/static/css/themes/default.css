@@ -12,7 +12,7 @@
 body.theme-default {
     background: #0B0B0F;
     color: #fff;
-    font-family: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+    font-family: var(--font-frontend, 'Manrope', ui-sans-serif, system-ui, sans-serif);
     font-feature-settings: "ss01", "cv11";
 }
 
@@ -322,7 +322,7 @@ body.theme-default {
 }
 
 /* ─── Cookie consent banner ─── */
-.theme-default #cookie-banner { display: none; }
+/* (cookie banner styles live in the GDPR Cookie Consent section below) */
 
 /* ─── Footer layout ─── */
 .theme-default .footer-main-grid {
@@ -383,4 +383,382 @@ body.theme-default {
     background: rgba(239,68,68,0.08);
     border: 1px solid rgba(239,68,68,0.2);
     margin-bottom: 1.5rem;
+}
+
+/* ─── Frontend preloader ─── */
+#fe-preloader {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: #0B0B0F;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+#fe-preloader.fe-preloader-done {
+    opacity: 0;
+    visibility: hidden;
+}
+#fe-preloader-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 2px;
+    width: 0%;
+    background: linear-gradient(90deg, #D4FF3A, #A8D420);
+    box-shadow: 0 0 12px rgba(212,255,58,0.6);
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 0 2px 2px 0;
+}
+
+/* pen + line writing animation */
+#fe-preloader-writer {
+    position: relative;
+    width: 240px;
+    height: 56px;
+}
+/* horizontal writing line — centered vertically in the writer, this is where the pen tip sits */
+#fe-preloader-line {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    margin-top: 8px; /* push line slightly below center so pen body sits above it */
+    height: 1.5px;
+    width: 0;
+    background: linear-gradient(90deg, rgba(212,255,58,0.12), rgba(212,255,58,0.55));
+    border-radius: 2px;
+    animation: fe-draw-line 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+/*
+   Pen SVG: 40×40, tip at viewBox (1, 39) → essentially bottom-left corner.
+   The wrapper positions the pen so its tip lands at the line's growing edge.
+   left = tip x-position. We offset the SVG by -1px left so tip aligns with `left`.
+*/
+#fe-preloader-pen-wrap {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 0;
+    height: 0;
+    margin-top: 8px; /* same as line — tip sits on line */
+    animation: fe-move-pen 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+#fe-preloader-pen {
+    position: absolute;
+    bottom: -1px;
+    left: -1px;
+    width: 50px;
+    height: 50px;
+    filter: drop-shadow(0 0 8px rgba(212,255,58,0.55));
+}
+#fe-preloader-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 18px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    font-weight: 500;
+}
+/* line and pen tip travel from 0 → 240px in perfect sync */
+@keyframes fe-draw-line {
+    0%   { width: 0;    opacity: 0; }
+    8%   { opacity: 1; }
+    80%  { width: 240px; opacity: 1; }
+    90%  { width: 240px; opacity: 1; }
+    100% { width: 240px; opacity: 0; }
+}
+@keyframes fe-move-pen {
+    0%   { left: 0;     opacity: 0; }
+    8%   { opacity: 1; }
+    80%  { left: 240px; opacity: 1; }
+    90%  { left: 240px; opacity: 1; }
+    100% { left: 240px; opacity: 0; }
+}
+
+/* ─── GDPR Cookie Consent ─── */
+/* Banner — bottom-right dark glass card, hidden by default */
+.theme-default .cc-banner {
+    position: fixed;
+    bottom: 1.25rem;
+    right: 1.25rem;
+    left: auto;
+    z-index: 60;
+    width: calc(100% - 2.5rem);
+    max-width: 24rem;
+    opacity: 0;
+    transform: translateY(16px);
+    visibility: hidden;
+    transition: opacity 0.35s ease, transform 0.35s ease, visibility 0.35s ease;
+}
+.theme-default .cc-banner.cc-open {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+}
+.theme-default .cc-card {
+    position: relative;
+    background: rgba(15, 16, 22, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 1.25rem;
+    padding: 1.25rem;
+    box-shadow: 0 20px 60px -10px rgba(0,0,0,0.6), 0 0 40px -10px rgba(212,255,58,0.12);
+}
+.theme-default .cc-banner-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 1.75rem;
+    height: 1.75rem;
+    display: grid;
+    place-items: center;
+    background: transparent;
+    border: 0;
+    color: rgba(255,255,255,0.4);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: color 0.2s ease, background 0.2s ease;
+}
+.theme-default .cc-banner-close:hover {
+    color: #fff;
+    background: rgba(255,255,255,0.06);
+}
+.theme-default .cc-card-head {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.875rem;
+    margin-bottom: 1rem;
+}
+.theme-default .cc-icon-wrap {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 0.75rem;
+    background: rgba(212,255,58,0.12);
+    border: 1px solid rgba(212,255,58,0.25);
+    color: #D4FF3A;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+}
+.theme-default .cc-card-body { flex: 1; min-width: 0; }
+.theme-default .cc-title {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: #fff;
+    margin: 0 0 0.25rem 0;
+}
+.theme-default .cc-desc {
+    font-size: 0.8125rem;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.55;
+    margin: 0;
+}
+.theme-default .cc-link {
+    color: #D4FF3A;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: opacity 0.2s ease;
+}
+.theme-default .cc-link:hover { opacity: 0.75; }
+.theme-default .cc-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+.theme-default .cc-btn {
+    flex: 1;
+    border-radius: 0.625rem;
+    padding: 0.625rem 1rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+    border: 1px solid transparent;
+}
+.theme-default .cc-btn-primary {
+    background: #D4FF3A;
+    color: #0B0B0F;
+    border-color: #D4FF3A;
+}
+.theme-default .cc-btn-primary:hover {
+    background: #E6FF6B;
+    border-color: #E6FF6B;
+}
+.theme-default .cc-btn-ghost {
+    background: rgba(255,255,255,0.04);
+    color: rgba(255,255,255,0.75);
+    border-color: rgba(255,255,255,0.12);
+}
+.theme-default .cc-btn-ghost:hover {
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+    border-color: rgba(255,255,255,0.2);
+}
+
+/* Modal */
+.theme-default .cc-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 70;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+.theme-default .cc-modal.cc-open {
+    opacity: 1;
+    visibility: visible;
+}
+.theme-default .cc-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(8, 9, 12, 0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+.theme-default .cc-modal-panel {
+    position: relative;
+    width: 100%;
+    max-width: 32rem;
+    max-height: calc(100vh - 2rem);
+    overflow-y: auto;
+    background: #0F1016;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 1.25rem;
+    padding: 1.75rem;
+    box-shadow: 0 20px 60px -10px rgba(0,0,0,0.6);
+    transform: translateY(8px);
+    transition: transform 0.25s ease;
+}
+.theme-default .cc-modal.cc-open .cc-modal-panel { transform: translateY(0); }
+.theme-default .cc-modal-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+}
+.theme-default .cc-modal-title {
+    font-family: var(--font-display, 'Instrument Serif'), serif;
+    font-size: 1.75rem;
+    font-weight: 400;
+    color: #fff;
+    margin: 0;
+}
+.theme-default .cc-modal-close {
+    color: rgba(255,255,255,0.5);
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 0.5rem;
+    transition: color 0.2s ease, background 0.2s ease;
+}
+.theme-default .cc-modal-close:hover {
+    color: #fff;
+    background: rgba(255,255,255,0.05);
+}
+.theme-default .cc-modal-intro {
+    font-size: 0.875rem;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.6;
+    margin: 0 0 1.5rem 0;
+}
+.theme-default .cc-cat-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+.theme-default .cc-cat {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 0.875rem;
+    padding: 1rem 1.125rem;
+}
+.theme-default .cc-cat-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+}
+.theme-default .cc-cat-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #fff;
+    margin: 0 0 0.25rem 0;
+}
+.theme-default .cc-cat-desc {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.55;
+    margin: 0;
+}
+.theme-default .cc-pill {
+    font-size: 0.6875rem;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.625rem;
+    border-radius: 9999px;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+.theme-default .cc-pill-locked {
+    background: rgba(212,255,58,0.12);
+    color: #D4FF3A;
+    border: 1px solid rgba(212,255,58,0.25);
+}
+.theme-default .cc-modal-actions {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+}
+.theme-default .cc-modal-actions .cc-btn { flex: 0 0 auto; min-width: 8rem; }
+
+/* Re-open pill — hidden by default, shown after consent saved */
+.theme-default .cc-reopen {
+    position: fixed;
+    bottom: 1rem;
+    left: 1rem;
+    z-index: 55;
+    display: none;
+    align-items: center;
+    gap: 0.375rem;
+    background: rgba(15, 16, 22, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.7);
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.5rem 0.875rem;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+.theme-default .cc-reopen.cc-open { display: inline-flex; }
+.theme-default .cc-reopen:hover {
+    color: #fff;
+    border-color: rgba(212,255,58,0.4);
+    background: rgba(15, 16, 22, 0.95);
+}
+
+/* Mobile tweaks */
+@media (max-width: 480px) {
+    .theme-default .cc-banner {
+        bottom: 0.75rem;
+        right: 0.75rem;
+        width: calc(100% - 1.5rem);
+    }
+    .theme-default .cc-actions { flex-direction: column-reverse; }
+    .theme-default .cc-modal-actions { flex-direction: column-reverse; }
+    .theme-default .cc-modal-actions .cc-btn { width: 100%; }
 }

@@ -1,55 +1,157 @@
 @if(setting('controls.cookie_consent') === '1')
-<div id="cookie-banner"
-     class="fixed bottom-0 left-0 right-0 z-50 px-4 pb-4 sm:bottom-4 sm:left-auto sm:right-4 sm:max-w-sm"
->
-    <div class="rounded-2xl border border-gray-200 bg-white shadow-xl p-5">
-        <div class="flex items-start gap-3 mb-3">
-            <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-teal-50 text-teal-600">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.955 11.955 0 003 12c0 6.627 5.373 12 12 12 6.628 0 12-5.373 12-12 0-1.993-.487-3.867-1.349-5.521"/>
+{{-- ───────────────── GDPR Cookie Consent ─────────────────
+     - Banner: bottom-right dark glass card
+     - Stores consent in localStorage as JSON with version + timestamp
+     - Re-openable via floating "Cookie settings" pill
+     - All styles in default.css (no inline styles)
+─────────────────────────────────────────────────────── --}}
+
+{{-- Initial banner --}}
+<div id="cookie-banner" class="cc-banner" role="dialog" aria-live="polite" aria-label="{{ __('Cookie consent') }}">
+    <div class="cc-card">
+        <button type="button" id="cookie-reject" class="cc-banner-close" aria-label="{{ __('Reject non-essential cookies') }}">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+        </button>
+        <div class="cc-card-head">
+            <div class="cc-icon-wrap">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M21.598 11.064a1.006 1.006 0 0 0-.854-.172A2.938 2.938 0 0 1 20 11a3 3 0 0 1-3-3 1 1 0 0 0-1-1 3 3 0 0 1-2.84-3.94 1 1 0 0 0-.21-1A10 10 0 1 0 22 12a1.06 1.06 0 0 0-.402-.936zM12 20a8 8 0 0 1-7.992-8.39 8 8 0 0 1 7.6-7.6 5 5 0 0 0 4.486 5.91A5 5 0 0 0 21 14.31 8 8 0 0 1 12 20z"/>
+                    <circle cx="12" cy="14" r="1"/>
+                    <circle cx="16" cy="17" r="1"/>
+                    <circle cx="8" cy="12" r="1"/>
+                    <circle cx="11" cy="9" r="1"/>
                 </svg>
             </div>
-            <div>
-                <p class="text-sm font-semibold text-gray-900">{{ __('We use cookies') }}</p>
-                <p class="mt-0.5 text-xs text-gray-500 leading-relaxed">
-                    {{ __('We use cookies to improve your experience. By continuing, you agree to our') }}
-                    <a href="/cookie-policy" class="underline text-teal-600 hover:text-teal-700">{{ __('Cookie Policy') }}</a>.
+            <div class="cc-card-body">
+                <p class="cc-title">{{ __('We use cookies') }}</p>
+                <p class="cc-desc">
+                    {{ __('We use strictly necessary cookies to make this site work — session, security, and language preference. We never set marketing or tracking cookies without your consent.') }}
+                    <a href="{{ route('page.show', 'cookie-policy') }}" class="cc-link">{{ __('Learn more') }}</a>
                 </p>
             </div>
         </div>
-        <div class="flex gap-2">
-            <button id="cookie-accept"
-                class="flex-1 rounded-lg bg-teal-600 px-3 py-2 text-xs font-semibold text-white hover:bg-teal-700 transition-colors">
-                {{ __('Accept All') }}
+
+        <div class="cc-actions">
+            <button type="button" id="cookie-accept" class="cc-btn cc-btn-primary">
+                {{ __('Accept') }}
             </button>
-            <button id="cookie-decline"
-                class="flex-1 rounded-lg border border-gray-200 bg-white px-3 py-2 text-xs font-semibold text-gray-600 hover:bg-gray-50 transition-colors">
-                {{ __('Decline') }}
+            <button type="button" id="cookie-prefs" class="cc-btn cc-btn-ghost">
+                {{ __('Preferences') }}
             </button>
         </div>
     </div>
 </div>
 
+{{-- Preferences modal --}}
+<div id="cookie-prefs-modal" class="cc-modal" role="dialog" aria-modal="true" aria-labelledby="cc-prefs-title">
+    <div class="cc-modal-backdrop" data-cc-close></div>
+    <div class="cc-modal-panel">
+        <div class="cc-modal-head">
+            <h3 id="cc-prefs-title" class="cc-modal-title">{{ __('Cookie preferences') }}</h3>
+            <button type="button" class="cc-modal-close" data-cc-close aria-label="{{ __('Close') }}">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
+        </div>
+
+        <p class="cc-modal-intro">
+            {{ __('We respect your privacy. Choose what you want to allow. You can change this anytime via the cookie settings link in the footer.') }}
+        </p>
+
+        <ul class="cc-cat-list">
+            <li class="cc-cat">
+                <div class="cc-cat-head">
+                    <div>
+                        <p class="cc-cat-title">{{ __('Strictly necessary') }}</p>
+                        <p class="cc-cat-desc">{{ __('Required for the site to function: session, CSRF protection, language. Cannot be disabled.') }}</p>
+                    </div>
+                    <span class="cc-pill cc-pill-locked">{{ __('Always on') }}</span>
+                </div>
+            </li>
+        </ul>
+
+        <div class="cc-modal-actions">
+            <button type="button" class="cc-btn cc-btn-ghost" data-cc-close>{{ __('Cancel') }}</button>
+            <button type="button" id="cookie-save-prefs" class="cc-btn cc-btn-primary">{{ __('Save preferences') }}</button>
+        </div>
+    </div>
+</div>
+
+{{-- Re-open settings pill (only shown after consent given) --}}
+<button type="button" id="cookie-reopen" class="cc-reopen" aria-label="{{ __('Cookie settings') }}">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21.598 11.064a1.006 1.006 0 0 0-.854-.172A2.938 2.938 0 0 1 20 11a3 3 0 0 1-3-3 1 1 0 0 0-1-1 3 3 0 0 1-2.84-3.94 1 1 0 0 0-.21-1A10 10 0 1 0 22 12a1.06 1.06 0 0 0-.402-.936z"/>
+    </svg>
+    {{ __('Cookies') }}
+</button>
+
+@push('scripts')
 <script>
 (function () {
-    var STORAGE_KEY = 'cookie_consent';
+    'use strict';
+
+    var STORAGE_KEY = 'cc_consent_v1';
     var banner = document.getElementById('cookie-banner');
-    if (!banner) return;
+    var modal = document.getElementById('cookie-prefs-modal');
+    var reopen = document.getElementById('cookie-reopen');
+    if (!banner || !modal || !reopen) return;
 
-    if (!localStorage.getItem(STORAGE_KEY)) {
-        setTimeout(function () { banner.style.display = ''; }, 600);
+    function readConsent() {
+        try { return JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch (e) { return null; }
     }
 
-    function dismiss(value) {
-        localStorage.setItem(STORAGE_KEY, value);
-        banner.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-        banner.style.opacity = '0';
-        banner.style.transform = 'translateY(12px)';
-        setTimeout(function () { banner.style.display = 'none'; }, 320);
+    function writeConsent(payload) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
     }
 
-    document.getElementById('cookie-accept').addEventListener('click', function () { dismiss('accepted'); });
-    document.getElementById('cookie-decline').addEventListener('click', function () { dismiss('declined'); });
+    function show(el)  { el.classList.add('cc-open');  }
+    function hide(el)  { el.classList.remove('cc-open'); }
+
+    function showBanner()    { show(banner);  hide(reopen); }
+    function hideBanner()    { hide(banner);  show(reopen); }
+    function openPrefs()     { show(modal); }
+    function closePrefs()    { hide(modal); }
+
+    function setConsent(decision) {
+        writeConsent({
+            version: 1,
+            timestamp: new Date().toISOString(),
+            decision: decision,
+            categories: { necessary: true }
+        });
+        hideBanner();
+        closePrefs();
+    }
+
+    // Initial state
+    var saved = readConsent();
+    if (saved && saved.decision) {
+        hide(banner);
+        show(reopen);
+    } else {
+        setTimeout(function () { show(banner); }, 600);
+    }
+
+    // Wire buttons
+    document.getElementById('cookie-accept').addEventListener('click', function () { setConsent('accepted'); });
+    document.getElementById('cookie-reject').addEventListener('click', function () { setConsent('rejected'); });
+    document.getElementById('cookie-prefs').addEventListener('click', openPrefs);
+    document.getElementById('cookie-save-prefs').addEventListener('click', function () { setConsent('saved'); });
+    reopen.addEventListener('click', openPrefs);
+
+    // Close modal via backdrop / X / Cancel
+    modal.querySelectorAll('[data-cc-close]').forEach(function (el) {
+        el.addEventListener('click', closePrefs);
+    });
+
+    // Escape to close modal
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && modal.classList.contains('cc-open')) closePrefs();
+    });
 })();
 </script>
+@endpush
 @endif

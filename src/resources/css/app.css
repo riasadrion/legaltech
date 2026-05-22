@@ -44,7 +44,8 @@
 .admin-sidebar.collapsed .sidebar-user-role { display: none; }
 .admin-sidebar.collapsed .sidebar-link { justify-content: center; padding: 9px 0; }
 .admin-sidebar.collapsed .sidebar-link-icon { margin: 0; font-size: 17px; }
-.admin-sidebar.collapsed .sidebar-brand-icon { margin: 0 auto; }
+.admin-sidebar.collapsed .sidebar-brand-icon,
+.admin-sidebar.collapsed .sidebar-brand-logo { margin: 0 auto; }
 .admin-sidebar.collapsed .sidebar-brand { justify-content: center; }
 .admin-sidebar.collapsed .sidebar-user { padding: 8px; }
 .admin-sidebar.collapsed .sidebar-user-inner { justify-content: center; padding: 6px; }
@@ -74,6 +75,7 @@
     display: flex; align-items: center; justify-content: center;
     font-size: 13px; font-weight: 700; color: #fff;
 }
+.sidebar-brand-logo { height: 30px; width: auto; object-fit: contain; flex-shrink: 0; }
 .sidebar-brand-text { font-size: 15px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
 .sidebar-nav { flex: 1; overflow-y: auto; overflow-x: visible; padding: 10px 10px 0; }
 .sidebar-nav::-webkit-scrollbar { width: 4px; }

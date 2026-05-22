@@ -16,8 +16,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     {{-- external-allowed: google-fonts --}}
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    @php $siteFont = setting('site.font', 'system'); @endphp
     {{-- external-allowed: google-fonts --}}
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600{{ $siteFont !== 'system' ? '&family=' . urlencode($siteFont) . ':wght@300;400;500;600;700;800' : '' }}&display=swap" rel="stylesheet">
+    @if($siteFont !== 'system')
+    <style>.theme-default { --font-frontend: '{{ $siteFont }}', ui-sans-serif, system-ui, sans-serif; }</style>
+    @endif
 
     <script src="{{ asset('assets/static/js/jquery.min.js') }}"></script>
     <?php echo \App\Support\ViteAssets::includeAssets(['resources/css/app.css', 'resources/js/app.js']); ?>
@@ -29,6 +33,8 @@
     @stack('head')
 </head>
 <body class="theme-default min-h-screen antialiased selection:bg-lime selection:text-ink-900">
+
+    <x-preloader />
 
     {{-- Flash messages --}}
     <x-flash />
@@ -52,8 +58,8 @@
     {{-- Global Confirm Modal --}}
     <x-confirm-modal />
 
-    @stack('scripts')
     <x-integrations.tawk />
     @include('theme::partials.cookie-consent')
+    @stack('scripts')
 </body>
 </html>
