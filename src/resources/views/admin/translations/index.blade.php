@@ -105,8 +105,8 @@
             <thead class="bg-gray-50">
                 <tr>
                     <th class="px-5 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wide w-12"></th>
-                    <th class="px-5 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wide" style="width:50%">{{ __('English Text') }}</th>
-                    <th class="px-5 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wide" style="width:50%">
+                    <th class="px-5 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wide" class="col-w-half">{{ __('English Text') }}</th>
+                    <th class="px-5 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wide" class="col-w-half">
                         <span class="text-brand-600">{{ strtoupper($locale) }} {{ __('Translation') }}</span>
                     </th>
                 </tr>

@@ -31,7 +31,7 @@
                 <span class="stat-change up">+12.5%</span>
                 <span class="stat-period">vs last month</span>
             </div>
-            <div id="spark1" style="height:36px"></div>
+            <div id="spark1" class="spark-chart"></div>
         </div>
 
         <div class="stat-card stat-green p-5 relative overflow-hidden">
@@ -49,7 +49,7 @@
                 <span class="stat-change up">+18.4%</span>
                 <span class="stat-period">vs last month</span>
             </div>
-            <div id="spark2" style="height:36px"></div>
+            <div id="spark2" class="spark-chart"></div>
         </div>
 
         <div class="stat-card stat-amber p-5 relative overflow-hidden">
@@ -67,7 +67,7 @@
                 <span class="stat-change down">-8.1%</span>
                 <span class="stat-period">vs last month</span>
             </div>
-            <div id="spark3" style="height:36px"></div>
+            <div id="spark3" class="spark-chart"></div>
         </div>
 
         <div class="stat-card stat-purple-dk p-5 relative overflow-hidden">
@@ -85,7 +85,7 @@
                 <span class="stat-change up">+2.1%</span>
                 <span class="stat-period">vs last month</span>
             </div>
-            <div id="spark4" style="height:36px"></div>
+            <div id="spark4" class="spark-chart"></div>
         </div>
     </div>
 

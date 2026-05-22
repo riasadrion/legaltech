@@ -1,7 +1,7 @@
 @if(setting('controls.cookie_consent') === '1')
 <div id="cookie-banner"
      class="fixed bottom-0 left-0 right-0 z-50 px-4 pb-4 sm:bottom-4 sm:left-auto sm:right-4 sm:max-w-sm"
-     style="display:none;">
+>
     <div class="rounded-2xl border border-gray-200 bg-white shadow-xl p-5">
         <div class="flex items-start gap-3 mb-3">
             <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-teal-50 text-teal-600">

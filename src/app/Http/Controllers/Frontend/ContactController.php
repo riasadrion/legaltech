@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Domain\Cms\Models\Page;
 use App\Http\Controllers\Controller;
 use App\Support\Turnstile;
 use Illuminate\Http\Request;
@@ -11,7 +12,10 @@ class ContactController extends Controller
 {
     public function show()
     {
-        return view('theme::contact');
+        $page = Page::where('slug', 'contact')->published()->firstOrFail();
+        $sections = $page->enabledSections();
+
+        return view('theme::cms.page', compact('page', 'sections'));
     }
 
     public function submit(Request $request)
@@ -30,7 +34,7 @@ class ContactController extends Controller
         ];
 
         if (Turnstile::enabled()) {
-            $rules['cf-turnstile-response'] = ['required', function ($attr, $value, $fail) use ($request) {
+            $rules['cf-turnstile-response'] = ['required', function ($_, $value, $fail) use ($request) {
                 if (! Turnstile::verify($value, $request->ip())) {
                     $fail(__('Captcha verification failed. Please try again.'));
                 }
@@ -47,6 +51,6 @@ class ContactController extends Controller
                 ->replyTo($data['email'], $data['name'])
         );
 
-        return back()->with('success', 'Your message has been sent. We\'ll be in touch shortly.');
+        return back()->with('contact_success', true);
     }
 }

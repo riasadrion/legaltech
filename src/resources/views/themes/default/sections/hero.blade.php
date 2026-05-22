@@ -147,13 +147,12 @@
                             </div>
 
                             {{-- typer banner --}}
-                            <div class="rounded-xl bg-ink-800/60 border border-white/8 p-4" style="height:90px; overflow:hidden;">
+                            <div class="rounded-xl bg-ink-800/60 border border-white/8 p-4 hero-typer-wrap">
                                 <div class="flex items-center gap-2 text-[10px] font-mono text-white/40 mb-2">
                                     <span class="w-1.5 h-1.5 rounded-full bg-lime"></span>
                                     {{ setting('site.name', config('app.name')) }} · GENERATING CLAUSE 4.2
                                 </div>
-                                <p id="{{ $heroTyperId }}" class="text-[12.5px] font-mono text-white/82 caret leading-relaxed"
-                                   style="height:36px; overflow:hidden; display:block;"></p>
+                                <p id="{{ $heroTyperId }}" class="text-[12.5px] font-mono text-white/82 caret leading-relaxed hero-typer-text"></p>
                             </div>
 
                             <div class="mt-4 grid grid-cols-12 gap-3">
@@ -238,8 +237,7 @@
             </div>
 
             {{-- floating glass cards --}}
-            <div class="absolute bottom-6 left-6 z-10 rounded-2xl px-4 py-3 flex items-center gap-3 shadow-card"
-                 style="backdrop-filter:blur(8px); background:rgba(11,11,15,.28); border:1px solid rgba(255,255,255,.12);">
+            <div class="absolute bottom-6 left-6 z-10 rounded-2xl px-4 py-3 flex items-center gap-3 shadow-card hero-float-card">
                 <span class="relative flex h-2.5 w-2.5 shrink-0">
                     <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-lime opacity-60"></span>
                     <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-lime"></span>
@@ -250,8 +248,7 @@
                 </div>
             </div>
 
-            <div class="absolute top-6 right-6 z-10 rounded-2xl px-4 py-3 shadow-card"
-                 style="backdrop-filter:blur(8px); background:rgba(11,11,15,.28); border:1px solid rgba(255,255,255,.12); min-width:148px;">
+            <div class="absolute top-6 right-6 z-10 rounded-2xl px-4 py-3 shadow-card hero-float-card hero-float-card-ai">
                 <div class="text-[10px] font-mono text-white/40 uppercase tracking-widest mb-1.5">AI Confidence</div>
                 <div class="flex items-end gap-1.5">
                     <span class="font-display text-3xl text-white leading-none">98</span>
@@ -266,8 +263,7 @@
                 </div>
             </div>
 
-            <div class="absolute bottom-6 right-6 z-10 rounded-2xl px-4 py-3 shadow-card"
-                 style="backdrop-filter:blur(8px); background:rgba(11,11,15,.28); border:1px solid rgba(255,255,255,.12);">
+            <div class="absolute bottom-6 right-6 z-10 rounded-2xl px-4 py-3 shadow-card hero-float-card">
                 <div class="text-[10px] font-mono text-white/40 uppercase tracking-widest mb-1">Time saved</div>
                 <div class="flex items-baseline gap-1">
                     <span class="font-display text-2xl text-white leading-none">4.2×</span>

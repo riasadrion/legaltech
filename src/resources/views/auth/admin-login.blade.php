@@ -109,6 +109,8 @@
         .al-divider::before, .al-divider::after { content: ''; flex: 1; height: 1px; background: #f3f4f6; }
 
         .al-secure { display: flex; align-items: center; justify-content: center; gap-6px; gap: 6px; }
+        .al-input-pwd { padding-right: 42px; }
+        .al-success { background:#f0fdf4; border:1px solid #bbf7d0; color:#15803d; padding:10px 14px; border-radius:10px; font-size:13px; margin-bottom:18px; }
         .al-secure-dot { width: 6px; height: 6px; border-radius: 50%; background: #34d399; }
         .al-secure span { font-size: 12px; color: #9ca3af; }
 
@@ -159,9 +161,7 @@
         @endif
 
         @if(session('status'))
-        <div style="background:#f0fdf4;border:1px solid #bbf7d0;color:#15803d;padding:10px 14px;border-radius:10px;font-size:13px;margin-bottom:18px;">
-            {{ session('status') }}
-        </div>
+        <div class="al-success">{{ session('status') }}</div>
         @endif
 
         <form method="POST" action="{{ route('admin.login.store') }}">
@@ -176,7 +176,7 @@
             <div class="al-field">
                 <label class="al-label" for="password">Password</label>
                 <div class="al-input-wrap">
-                    <input id="password" name="password" type="password" class="al-input" style="padding-right:42px;"
+                    <input id="password" name="password" type="password" class="al-input al-input-pwd"
                            placeholder="Your password" autocomplete="current-password" required>
                     <button type="button" class="al-eye" id="togglePwd" aria-label="Toggle password">
                         <svg id="eyeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

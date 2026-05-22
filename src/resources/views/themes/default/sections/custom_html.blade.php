@@ -6,7 +6,7 @@
 @if($clean !== '')
 <section class="relative py-20">
     <div class="mx-auto max-w-7xl px-6">
-        <div class="blog-body" style="border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; padding: 48px 64px;">
+        <div class="blog-body html-body-card">
             <?php echo $clean; ?>
         </div>
     </div>

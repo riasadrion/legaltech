@@ -239,3 +239,114 @@ body.theme-default {
 .theme-default .blog-body table { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; }
 .theme-default .blog-body th { color: rgba(255,255,255,0.5); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; padding: 0.625rem 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.1); text-align: left; }
 .theme-default .blog-body td { padding: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.06); vertical-align: top; }
+
+/* ─── Hero section UI ─── */
+.theme-default .hero-typer-wrap { height: 90px; overflow: hidden; }
+.theme-default .hero-typer-text { height: 36px; overflow: hidden; display: block; }
+.theme-default .hero-float-card {
+    backdrop-filter: blur(8px);
+    background: rgba(11,11,15,0.28);
+    border: 1px solid rgba(255,255,255,0.12);
+}
+.theme-default .hero-float-card-ai { min-width: 148px; }
+
+/* ─── Page hero (CMS content pages) ─── */
+.theme-default .page-hero-wrap { background: #08090C; position: relative; }
+.theme-default .page-hero-glow-bl {
+    position: absolute; bottom: 0; left: 0;
+    width: 700px; height: 700px; pointer-events: none;
+    background: radial-gradient(circle at 0% 100%, rgba(212,255,58,0.10) 0%, transparent 55%);
+}
+.theme-default .page-hero-glow-tr {
+    position: absolute; top: 33%; right: 0;
+    width: 600px; height: 600px; pointer-events: none;
+    background: radial-gradient(circle at 100% 50%, rgba(124,58,237,0.11) 0%, transparent 55%);
+}
+.theme-default .page-hero {
+    position: relative;
+    padding-top: calc(72px + 80px);
+    padding-bottom: 7rem;
+    overflow: hidden;
+}
+.theme-default .page-hero-orb-top {
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 800px; height: 400px; pointer-events: none;
+    background: radial-gradient(ellipse at 50% 0%, rgba(212,255,58,0.13) 0%, transparent 70%);
+}
+.theme-default .page-hero-orb-bl {
+    position: absolute; bottom: 0; left: 0;
+    width: 500px; height: 400px; pointer-events: none;
+    background: radial-gradient(ellipse at 0% 100%, rgba(124,58,237,0.10) 0%, transparent 65%);
+}
+.theme-default .page-hero-orb-tr {
+    position: absolute; top: 0; right: 0;
+    width: 400px; height: 350px; pointer-events: none;
+    background: radial-gradient(ellipse at 100% 0%, rgba(124,58,237,0.08) 0%, transparent 65%);
+}
+.theme-default .page-hero-shimmer {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 1px; pointer-events: none;
+    background: linear-gradient(90deg, transparent, rgba(212,255,58,0.2) 40%, rgba(212,255,58,0.2) 60%, transparent);
+}
+
+/* ─── Contact section ─── */
+.theme-default .ct-field {
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 14px;
+    padding: 14px 18px;
+    color: #fff;
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.875rem;
+    outline: none;
+    transition: border-color 0.2s ease, background 0.2s ease;
+    resize: vertical;
+}
+.theme-default .ct-field::placeholder { color: rgba(255,255,255,0.32); }
+.theme-default textarea.ct-field { min-height: 140px; }
+
+/* ─── Custom HTML section body card ─── */
+.theme-default .html-body-card {
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px;
+    padding: 48px 64px;
+}
+
+/* ─── Cookie consent banner ─── */
+.theme-default #cookie-banner { display: none; }
+.theme-default .ct-field:focus {
+    border-color: rgba(212,255,58,0.5);
+    background: rgba(212,255,58,0.04);
+}
+.theme-default .ct-chip {
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid rgba(255,255,255,0.10);
+    background: rgba(255,255,255,0.04);
+    color: rgba(255,255,255,0.65);
+    cursor: pointer;
+    transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+.theme-default .ct-chip:hover { border-color: rgba(255,255,255,0.25); }
+.theme-default .ct-chip.ct-active {
+    border-color: rgba(212,255,58,0.4);
+    background: rgba(212,255,58,0.10);
+    color: #D4FF3A;
+}
+.theme-default .ct-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: start; }
+@media (min-width: 1024px) { .theme-default .ct-grid { grid-template-columns: 7fr 5fr; } }
+.theme-default .ct-icon-wrap {
+    width: 2.5rem; height: 2.5rem; border-radius: 0.75rem; flex-shrink: 0;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: #D4FF3A;
+    display: grid; place-items: center;
+}
+.theme-default .ct-error-box {
+    border-radius: 1rem; padding: 1rem;
+    font-size: 0.875rem; color: rgba(255,255,255,0.7);
+    background: rgba(239,68,68,0.08);
+    border: 1px solid rgba(239,68,68,0.2);
+    margin-bottom: 1.5rem;
+}

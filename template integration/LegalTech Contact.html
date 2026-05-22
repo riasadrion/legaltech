@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Contact — LegalTech</title>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: {
+        serif: ['"Instrument Serif"', 'serif'],
+        sans: ['Manrope', 'ui-sans-serif', 'system-ui'],
+        mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+      },
+      colors: {
+        ink: {
+          950: '#08090C',
+          900: '#0B0B0F',
+          800: '#13141A',
+          700: '#1B1D26',
+          600: '#262834',
+          500: '#3A3D4D',
+          400: '#6B6E7E',
+        },
+        cream: {
+          50:  '#FBFAF6',
+          100: '#F5F2EA',
+          200: '#EDE8DC',
+          300: '#D9D2BF',
+        },
+        lime: {
+          DEFAULT: '#D4FF3A',
+          soft: '#E6FF6B',
+          deep: '#A8D420',
+        },
+        violet: { glow: '#7C5CFF' }
+      },
+      boxShadow: {
+        glow: '0 0 80px -10px rgba(212,255,58,.45)',
+        card: '0 30px 60px -20px rgba(0,0,0,.35), 0 8px 20px -8px rgba(0,0,0,.25)',
+      },
+    }
+  }
+}
+</script>
+
+<!-- Icons -->
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+
+<!-- AOS -->
+<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+
+<style>
+  :root{ --ink:#0B0B0F; --cream:#F5F2EA; --lime:#D4FF3A; }
+  html,body{ background:var(--ink); color:#fff; }
+  body{ font-family:Manrope, sans-serif; font-feature-settings:"ss01","cv11"; }
+  .font-display{ font-family:"Instrument Serif", serif; letter-spacing:-0.01em; }
+  .italic-display{ font-family:"Instrument Serif", serif; font-style:italic; }
+
+  .bg-grid{
+    background-image:
+      linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+    background-size: 64px 64px;
+    background-position: -1px -1px;
+  }
+  .radial-fade{
+    -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+            mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+  }
+  .glow-lime{
+    background: radial-gradient(45% 60% at 50% 50%, rgba(212,255,58,.35), rgba(212,255,58,0) 70%);
+    filter: blur(10px);
+  }
+  .glow-violet{
+    background: radial-gradient(50% 60% at 50% 50%, rgba(124,92,255,.45), rgba(124,92,255,0) 70%);
+    filter: blur(20px);
+  }
+
+  /* Glass */
+  .glass{
+    background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.015));
+    border: 1px solid rgba(255,255,255,.08);
+    backdrop-filter: blur(14px);
+  }
+  .glass-nav{
+    background: rgba(11,11,15,0.40);
+    border: 1px solid rgba(255,255,255,.10);
+    backdrop-filter: blur(20px);
+  }
+
+  /* Buttons */
+  .btn-lime{
+    background:#D4FF3A; color:#0B0B0F; font-weight:600;
+    box-shadow: 0 1px 0 rgba(255,255,255,.6) inset, 0 -1px 0 rgba(0,0,0,.15) inset, 0 12px 30px -10px rgba(212,255,58,.55);
+    transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+  }
+  .btn-lime:hover{ transform: translateY(-1px); filter: brightness(1.04); }
+
+  /* Form inputs */
+  .field{
+    width: 100%;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 14px;
+    padding: 14px 18px;
+    color: #fff;
+    font-family: Manrope, sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: border-color .2s ease, background .2s ease;
+  }
+  .field::placeholder{ color: rgba(255,255,255,.32); }
+  .field:focus{
+    border-color: rgba(212,255,58,.5);
+    background: rgba(212,255,58,.04);
+  }
+  textarea.field{ resize: vertical; min-height: 140px; }
+  select.field{ appearance: none; cursor: pointer; }
+  select.field option{ background: #13141A; color: #fff; }
+
+  /* Lift */
+  .lift{ transition: transform .25s ease, box-shadow .25s ease; }
+  .lift:hover{ transform: translateY(-3px); }
+
+  /* Sent state */
+  .form-sent{ display: none; }
+  .form-done .form-fields{ display: none; }
+  .form-done .form-sent{ display: flex; }
+</style>
+</head>
+
+<body class="antialiased">
+
+<!-- ======================== NAV ======================== -->
+<header class="fixed top-0 inset-x-0 z-50">
+  <div class="mx-auto max-w-7xl px-6 pt-5">
+    <nav class="glass-nav rounded-full px-3 py-2.5 flex items-center justify-between">
+      <a href="LegalTech Landing.html" class="flex items-center gap-2 pl-3">
+        <span class="relative grid place-items-center w-8 h-8 rounded-full bg-lime text-ink-900">
+          <i class="ri-quill-pen-fill text-[18px]"></i>
+        </span>
+        <span class="font-display text-2xl tracking-tight">LegalTech</span>
+        <span class="hidden md:inline text-[10px] font-mono uppercase tracking-[.2em] text-ink-400 ml-1">v3</span>
+      </a>
+      <ul class="hidden lg:flex items-center gap-7 text-sm text-white/70">
+        <li><a href="LegalTech Landing.html#features" class="hover:text-white transition">Product</a></li>
+        <li><a href="LegalTech Landing.html#workflow" class="hover:text-white transition">How it works</a></li>
+        <li><a href="LegalTech Landing.html#pricing" class="hover:text-white transition">Pricing</a></li>
+        <li><a href="LegalTech Landing.html#faq" class="hover:text-white transition">FAQ</a></li>
+      </ul>
+      <div class="flex items-center gap-2">
+        <a href="#" class="hidden sm:inline text-sm px-4 py-2 text-white/80 hover:text-white">Sign in</a>
+        <a href="#" class="btn-lime rounded-full px-5 py-2.5 text-sm flex items-center gap-2">
+          Start free trial <i class="ri-arrow-right-up-line"></i>
+        </a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- ======================== HERO ======================== -->
+<section class="relative pt-44 pb-20 overflow-hidden">
+  <div class="absolute inset-0 bg-grid radial-fade pointer-events-none"></div>
+  <div class="absolute -top-32 left-1/2 -translate-x-1/2 w-[800px] h-[380px] glow-violet"></div>
+  <div class="absolute bottom-0 right-1/4 w-[500px] h-[200px] glow-lime opacity-50"></div>
+
+  <div class="relative mx-auto max-w-7xl px-6">
+    <div class="max-w-2xl" data-aos="fade-up">
+      <div class="text-[11px] font-mono uppercase tracking-[.25em] text-lime mb-4">— Get in touch</div>
+      <h1 class="font-display text-6xl md:text-7xl leading-[0.93] tracking-tight">
+        Let's talk<br /><span class="italic-display text-white/55">contracts.</span>
+      </h1>
+      <p class="text-white/55 text-lg mt-6 max-w-lg leading-relaxed">
+        Whether you're evaluating the platform, need a custom plan, or just have a question — we're here. Usually reply within two hours.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== MAIN ======================== -->
+<section class="relative pb-32">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="grid lg:grid-cols-12 gap-8 items-start">
+
+      <!-- ---- FORM (left, wide) ---- -->
+      <div class="lg:col-span-7" data-aos="fade-up">
+        <div class="glass rounded-3xl p-8 md:p-10 form-wrap">
+
+          <!-- fields -->
+          <div class="form-fields">
+            <h2 class="font-display text-3xl mb-8">Send us a message.</h2>
+
+            <form id="contact-form" novalidate>
+
+              <!-- topic chips -->
+              <div class="mb-7">
+                <div class="text-[11px] font-mono uppercase tracking-widest text-white/40 mb-3">Topic</div>
+                <div class="flex flex-wrap gap-2" id="topic-chips">
+                  <button type="button" data-topic="Sales" class="chip-btn active rounded-full text-sm px-4 py-2 border border-lime/40 bg-lime/10 text-lime transition">Sales inquiry</button>
+                  <button type="button" data-topic="Support" class="chip-btn rounded-full text-sm px-4 py-2 border border-white/10 bg-white/4 text-white/65 hover:border-white/25 transition">Support</button>
+                  <button type="button" data-topic="Enterprise" class="chip-btn rounded-full text-sm px-4 py-2 border border-white/10 bg-white/4 text-white/65 hover:border-white/25 transition">Enterprise</button>
+                  <button type="button" data-topic="Partnership" class="chip-btn rounded-full text-sm px-4 py-2 border border-white/10 bg-white/4 text-white/65 hover:border-white/25 transition">Partnership</button>
+                  <button type="button" data-topic="Press" class="chip-btn rounded-full text-sm px-4 py-2 border border-white/10 bg-white/4 text-white/65 hover:border-white/25 transition">Press</button>
+                  <button type="button" data-topic="Other" class="chip-btn rounded-full text-sm px-4 py-2 border border-white/10 bg-white/4 text-white/65 hover:border-white/25 transition">Other</button>
+                </div>
+                <input type="hidden" id="selected-topic" value="Sales" />
+              </div>
+
+              <!-- name + email -->
+              <div class="grid sm:grid-cols-2 gap-4 mb-4">
+                <div>
+                  <label class="block text-[11px] font-mono uppercase tracking-widest text-white/40 mb-2">Full name</label>
+                  <input type="text" placeholder="Elena Martí" class="field" required />
+                </div>
+                <div>
+                  <label class="block text-[11px] font-mono uppercase tracking-widest text-white/40 mb-2">Work email</label>
+                  <input type="email" placeholder="you@company.com" class="field" required />
+                </div>
+              </div>
+
+              <!-- company + size -->
+              <div class="grid sm:grid-cols-2 gap-4 mb-4">
+                <div>
+                  <label class="block text-[11px] font-mono uppercase tracking-widest text-white/40 mb-2">Company</label>
+                  <input type="text" placeholder="Northbeam Studio" class="field" />
+                </div>
+                <div>
+                  <label class="block text-[11px] font-mono uppercase tracking-widest text-white/40 mb-2">Team size</label>
+                  <div class="relative">
+                    <select class="field pr-10">
+                      <option value="">Select…</option>
+                      <option>Just me</option>
+                      <option>2–10</option>
+                      <option>11–50</option>
+                      <option>51–200</option>
+                      <option>200+</option>
+                    </select>
+                    <i class="ri-arrow-down-s-line absolute right-4 top-1/2 -translate-y-1/2 text-white/40 pointer-events-none"></i>
+                  </div>
+                </div>
+              </div>
+
+              <!-- message -->
+              <div class="mb-8">
+                <label class="block text-[11px] font-mono uppercase tracking-widest text-white/40 mb-2">Message</label>
+                <textarea class="field" placeholder="Tell us what you're working on…" required></textarea>
+              </div>
+
+              <!-- footer row -->
+              <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <p class="text-[12px] text-white/35 max-w-xs">
+                  By sending you agree to our <a href="#" class="underline underline-offset-2 hover:text-white/60">Privacy Policy</a>. We never sell data.
+                </p>
+                <button type="submit" class="btn-lime rounded-full px-7 py-3.5 text-[15px] flex items-center gap-2 shrink-0">
+                  Send message <i class="ri-send-plane-2-line"></i>
+                </button>
+              </div>
+
+            </form>
+          </div>
+
+          <!-- sent confirmation -->
+          <div class="form-sent flex-col items-center justify-center py-16 text-center gap-5">
+            <div class="w-16 h-16 rounded-full bg-lime/15 border border-lime/30 grid place-items-center mx-auto">
+              <i class="ri-checkbox-circle-fill text-lime text-3xl"></i>
+            </div>
+            <div>
+              <h3 class="font-display text-3xl mt-2">Message sent.</h3>
+              <p class="text-white/50 text-sm mt-2">We'll get back to you within two hours on business days.</p>
+            </div>
+            <button onclick="document.querySelector('.form-wrap').classList.remove('form-done'); document.getElementById('contact-form').reset();" class="mt-2 text-sm text-lime underline underline-offset-4 hover:text-lime-soft">Send another</button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ---- INFO (right) ---- -->
+      <div class="lg:col-span-5 flex flex-col gap-4" data-aos="fade-up" data-aos-delay="100">
+
+        <!-- response time -->
+        <div class="glass rounded-3xl p-7 relative overflow-hidden lift">
+          <div class="absolute -right-10 -bottom-10 w-52 h-52 glow-lime opacity-50 pointer-events-none"></div>
+          <div class="relative">
+            <div class="text-[11px] font-mono uppercase tracking-widest text-lime mb-4">Response time</div>
+            <div class="flex items-end gap-2">
+              <span class="font-display text-6xl leading-none">~2h</span>
+            </div>
+            <p class="text-white/50 text-sm mt-3">On business days. We read every message ourselves — no bots, no ticket queues.</p>
+            <div class="mt-5 flex items-center gap-2 text-[12px] text-white/40">
+              <span class="relative flex h-2 w-2 shrink-0">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-lime opacity-60"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-lime"></span>
+              </span>
+              Support is online · Mon–Fri, 09:00–18:00 CET
+            </div>
+          </div>
+        </div>
+
+        <!-- contact channels -->
+        <div class="glass rounded-3xl p-7 lift">
+          <div class="text-[11px] font-mono uppercase tracking-widest text-white/40 mb-5">Reach us directly</div>
+          <ul class="flex flex-col gap-4">
+            <li class="flex items-center gap-4">
+              <span class="w-10 h-10 rounded-xl bg-white/5 border border-white/8 grid place-items-center text-lime shrink-0">
+                <i class="ri-mail-line text-lg"></i>
+              </span>
+              <div>
+                <div class="text-[11px] font-mono text-white/40 uppercase tracking-widest">Email</div>
+                <a href="/cdn-cgi/l/email-protection#620a070e0e0d220e0705030e1607010a4c0b0d" class="text-sm text-white hover:text-lime transition"><span class="__cf_email__" data-cfemail="84ece1e8e8ebc4e8e1e3e5e8f0e1e7ecaaedeb">[email&#160;protected]</span></a>
+              </div>
+            </li>
+            <li class="flex items-center gap-4">
+              <span class="w-10 h-10 rounded-xl bg-white/5 border border-white/8 grid place-items-center text-lime shrink-0">
+                <i class="ri-map-pin-line text-lg"></i>
+              </span>
+              <div>
+                <div class="text-[11px] font-mono text-white/40 uppercase tracking-widest">HQ</div>
+                <span class="text-sm text-white">Calle de Velázquez 24, Madrid</span>
+              </div>
+            </li>
+            <li class="flex items-center gap-4">
+              <span class="w-10 h-10 rounded-xl bg-white/5 border border-white/8 grid place-items-center text-lime shrink-0">
+                <i class="ri-twitter-x-line text-lg"></i>
+              </span>
+              <div>
+                <div class="text-[11px] font-mono text-white/40 uppercase tracking-widest">Twitter / X</div>
+                <a href="#" class="text-sm text-white hover:text-lime transition">@legaltech_io</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- enterprise card -->
+        <div class="rounded-3xl bg-cream-100 text-ink-900 p-7 lift relative overflow-hidden">
+          <div class="text-[11px] font-mono uppercase tracking-widest text-ink-400 mb-3">Enterprise</div>
+          <h3 class="font-display text-2xl leading-snug">Need a custom plan for your firm?</h3>
+          <p class="text-ink-500 text-sm mt-2 leading-relaxed">Volume pricing, SSO, dedicated support, custom clause training, and SLA guarantees.</p>
+          <a href="#" class="mt-5 inline-flex items-center gap-2 rounded-full bg-ink-900 text-white text-sm font-medium px-5 py-2.5 hover:bg-ink-800 transition">
+            Talk to sales <i class="ri-arrow-right-line"></i>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== FOOTER ======================== -->
+<footer class="relative border-t border-white/8 bg-ink-950">
+  <div class="mx-auto max-w-7xl px-6 py-20">
+    <div class="grid md:grid-cols-12 gap-10">
+      <div class="md:col-span-4">
+        <a href="LegalTech Landing.html" class="flex items-center gap-2">
+          <span class="grid place-items-center w-9 h-9 rounded-full bg-lime text-ink-900">
+            <i class="ri-quill-pen-fill text-[20px]"></i>
+          </span>
+          <span class="font-display text-3xl">LegalTech</span>
+        </a>
+        <p class="text-white/55 text-sm mt-4 max-w-sm">
+          The AI contract platform for modern teams. Draft, redline, and sign anything — without leaving the browser.
+        </p>
+      </div>
+      <div class="md:col-span-2">
+        <div class="text-[11px] font-mono uppercase tracking-widest text-white/40 mb-4">Product</div>
+        <ul class="space-y-2 text-sm text-white/70">
+          <li><a href="LegalTech Landing.html#features" class="hover:text-white">AI Generation</a></li>
+          <li><a href="LegalTech Landing.html#features" class="hover:text-white">E-signature</a></li>
+          <li><a href="LegalTech Landing.html#features" class="hover:text-white">Templates</a></li>
+          <li><a href="LegalTech Landing.html#pricing" class="hover:text-white">Pricing</a></li>
+        </ul>
+      </div>
+      <div class="md:col-span-2">
+        <div class="text-[11px] font-mono uppercase tracking-widest text-white/40 mb-4">Resources</div>
+        <ul class="space-y-2 text-sm text-white/70">
+          <li><a href="#" class="hover:text-white">Help center</a></li>
+          <li><a href="#" class="hover:text-white">Changelog</a></li>
+          <li><a href="#" class="hover:text-white">API docs</a></li>
+          <li><a href="#" class="hover:text-white">Status</a></li>
+        </ul>
+      </div>
+      <div class="md:col-span-2">
+        <div class="text-[11px] font-mono uppercase tracking-widest text-white/40 mb-4">Company</div>
+        <ul class="space-y-2 text-sm text-white/70">
+          <li><a href="#" class="hover:text-white">About</a></li>
+          <li><a href="#" class="hover:text-white">Careers <span class="text-lime text-[10px] ml-1">·8</span></a></li>
+          <li><a href="LegalTech Contact.html" class="text-white font-medium">Contact</a></li>
+          <li><a href="#" class="hover:text-white">Press kit</a></li>
+        </ul>
+      </div>
+      <div class="md:col-span-2">
+        <div class="text-[11px] font-mono uppercase tracking-widest text-white/40 mb-4">Legal</div>
+        <ul class="space-y-2 text-sm text-white/70">
+          <li><a href="#" class="hover:text-white">Terms</a></li>
+          <li><a href="#" class="hover:text-white">Privacy</a></li>
+          <li><a href="#" class="hover:text-white">Security</a></li>
+          <li><a href="#" class="hover:text-white">DPA</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="mt-14 pt-8 border-t border-white/8 flex flex-wrap items-center justify-between gap-4">
+      <div class="text-xs text-white/45">© 2026 LegalTech Technologies S.L. · Calle de Velázquez 24, Madrid · VAT ESB‑88247901</div>
+      <div class="flex items-center gap-3 text-white/55">
+        <a href="#" class="w-9 h-9 grid place-items-center rounded-full glass hover:text-white"><i class="ri-twitter-x-line"></i></a>
+        <a href="#" class="w-9 h-9 grid place-items-center rounded-full glass hover:text-white"><i class="ri-linkedin-line"></i></a>
+        <a href="#" class="w-9 h-9 grid place-items-center rounded-full glass hover:text-white"><i class="ri-github-line"></i></a>
+      </div>
+      <div class="text-[11px] font-mono text-white/35">eu‑west‑1 · all systems normal <span class="text-lime">●</span></div>
+    </div>
+  </div>
+</footer>
+
+<!-- AOS -->
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({ once: true, duration: 600, easing: 'ease-out-cubic', offset: 40 });
+
+  // Topic chip toggle
+  const chips = document.querySelectorAll('.chip-btn');
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      chips.forEach(c => {
+        c.classList.remove('active','border-lime/40','bg-lime/10','text-lime');
+        c.classList.add('border-white/10','bg-white/4','text-white/65');
+      });
+      chip.classList.add('active','border-lime/40','bg-lime/10','text-lime');
+      chip.classList.remove('border-white/10','bg-white/4','text-white/65');
+      document.getElementById('selected-topic').value = chip.dataset.topic;
+    });
+  });
+
+  // Form submit
+  document.getElementById('contact-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    this.closest('.form-wrap').classList.add('form-done');
+  });
+</script>
+</body>
+</html>

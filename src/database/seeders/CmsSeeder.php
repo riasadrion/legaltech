@@ -25,6 +25,7 @@ class CmsSeeder extends Seeder
                 'status' => 'published',
                 'sections' => ['hero'],
             ],
+            ['slug' => 'contact',        'title' => ['en' => 'Contact'],          'status' => 'published', 'sections' => ['contact']],
             ['slug' => 'about',          'title' => ['en' => 'About Us'],         'status' => 'published', 'sections' => []],
             ['slug' => 'privacy-policy', 'title' => ['en' => 'Privacy Policy'],   'status' => 'published', 'sections' => []],
             ['slug' => 'terms',          'title' => ['en' => 'Terms of Service'], 'status' => 'published', 'sections' => []],

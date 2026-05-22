@@ -18,18 +18,16 @@
 <body class="antialiased text-gray-900">
 
 {{-- Global page loader --}}
-{{-- Global page loader --}}
-<div id="page-loader" style="display:none;position:fixed;inset:0;z-index:9999;align-items:center;justify-content:center;">
-    <div style="position:relative;width:90px;height:90px;background:rgba(0,0,0,0.55);border-radius:50%;display:flex;align-items:center;justify-content:center;">
-        <svg width="90" height="90" style="position:absolute;inset:0;transform:rotate(-90deg);">
+<div id="page-loader">
+    <div class="page-loader-inner">
+        <svg width="90" height="90" class="page-loader-svg">
             <circle cx="45" cy="45" r="38" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="6"/>
             <circle id="loader-ring" cx="45" cy="45" r="38" fill="none" stroke="#6366f1" stroke-width="6"
                     stroke-linecap="round"
                     stroke-dasharray="238.8"
-                    stroke-dashoffset="238.8"
-                    style="transition:stroke-dashoffset 0.1s linear;"/>
+                    stroke-dashoffset="238.8"/>
         </svg>
-        <div id="loader-count" style="position:relative;z-index:1;font-size:14px;font-weight:700;color:#fff;font-family:'Outfit',sans-serif;line-height:1;">0%</div>
+        <div id="loader-count">0%</div>
     </div>
 </div>
 
@@ -138,7 +136,7 @@
             </div>
 
             {{-- Settings tabs for search --}}
-            <div id="settings-tabs-data" style="display: none;" data-tabs="{{ json_encode([
+            <div id="settings-tabs-data" data-tabs="{{ json_encode([
                 ['name' => 'General Settings', 'link' => route('admin.settings.index').'#general'],
                 ['name' => 'Global Controls', 'link' => route('admin.settings.index').'#controls'],
                 ['name' => 'Brand & Appearance', 'link' => route('admin.settings.index').'#brand'],

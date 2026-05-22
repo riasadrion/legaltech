@@ -683,3 +683,47 @@
     .admin-content form .w-52 { width: 100% !important; }
 }
 
+
+/* ─── Spark chart containers ─── */
+.spark-chart { height: 36px; }
+
+/* ─── Page loader ─── */
+#page-loader {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+}
+.page-loader-inner {
+    position: relative;
+    width: 90px;
+    height: 90px;
+    background: rgba(0,0,0,0.55);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.page-loader-svg {
+    position: absolute;
+    inset: 0;
+    transform: rotate(-90deg);
+}
+#loader-ring { transition: stroke-dashoffset 0.1s linear; }
+#loader-count {
+    position: relative;
+    z-index: 1;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    font-family: 'Outfit', sans-serif;
+    line-height: 1;
+}
+
+/* ─── Settings tabs data (hidden data holder) ─── */
+#settings-tabs-data { display: none; }
+
+/* ─── Translations table column widths ─── */
+.col-w-half { width: 50%; }
