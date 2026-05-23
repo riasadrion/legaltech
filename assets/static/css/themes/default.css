@@ -59,6 +59,51 @@ body.theme-default {
     mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
 }
 
+/* ─── Table row hover ─── */
+.theme-default tbody tr { transition: background 0.15s; }
+.theme-default tbody tr:hover { background: rgba(255,255,255,0.03); }
+
+/* ─── Sparkline (from template) ─── */
+.theme-default .spark { stroke: #D4FF3A; fill: none; stroke-width: 2; stroke-linecap: round; }
+
+/* ─── Sidebar nav items (from template) ─── */
+.theme-default .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.55rem 0.75rem;
+    border-radius: 0.625rem;
+    color: rgba(255,255,255,0.6);
+    transition: background 0.15s, color 0.15s;
+    text-decoration: none;
+    font-size: 0.875rem;
+    border: 1px solid transparent;
+    list-style: none;
+}
+.theme-default .nav-item:hover {
+    color: #fff;
+    background: rgba(255,255,255,0.05);
+}
+.theme-default .nav-item.active {
+    color: #fff;
+    background: rgba(255,255,255,0.07);
+    border-color: rgba(255,255,255,0.10);
+}
+
+/* ─── Status pills (from template) ─── */
+.theme-default .pill {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 9999px;
+}
+.theme-default .pill-sign   { background: #D4FF3A; color: #0B0B0F; }
+.theme-default .pill-draft  { background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.10); }
+.theme-default .pill-review { background: rgba(124,92,255,0.18); color: #A899FF; border: 1px solid rgba(124,92,255,0.25); }
+.theme-default .pill-done   { background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.45); border: 1px solid rgba(255,255,255,0.08); }
+
 /* ─── Glows ─── */
 .theme-default .glow-lime {
     background: radial-gradient(45% 60% at 50% 50%, rgba(212, 255, 58, 0.35), rgba(212, 255, 58, 0) 70%);
@@ -804,6 +849,19 @@ body.theme-default {
     background: rgba(212,255,58,0.03);
 }
 .theme-default .auth-input-err { border-color: rgba(239,68,68,0.5) !important; }
+
+/* Phone component inside auth forms — match auth-input sizing */
+.theme-default .auth-field-wrap .phone-input-group {
+    border-radius: 0.75rem;
+}
+.theme-default .auth-field-wrap .phone-code-btn {
+    padding: 0 0.875rem;
+    font-size: 0.9375rem;
+}
+.theme-default .auth-field-wrap .phone-number-input {
+    padding: 0.75rem 1rem;
+    font-size: 0.9375rem;
+}
 .theme-default .auth-checkbox {
     width: 1rem;
     height: 1rem;
@@ -1155,6 +1213,7 @@ body.theme-default {
     opacity: 0.5;
     cursor: not-allowed;
 }
+.theme-default .ud-input-symbol-before { padding-left: 2rem; }
 .theme-default .ud-label {
     display: block;
     font-size: 0.75rem;
@@ -1167,15 +1226,194 @@ body.theme-default {
     color: #f87171;
     margin-top: 0.25rem;
 }
+.theme-default select.ud-select,
 .theme-default .ud-select {
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='rgba(255,255,255,0.3)' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 0.75rem center;
-    background-size: 1.25rem;
-    padding-right: 2.5rem;
+    width: 100% !important;
+    border: 1px solid rgba(255,255,255,0.10) !important;
+    border-radius: 0.625rem !important;
+    padding: 0.625rem 2.5rem 0.625rem 0.875rem !important;
+    font-size: 0.875rem !important;
+    color: #fff !important;
+    outline: none !important;
+    font-family: inherit !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+    background-color: rgba(255,255,255,0.04) !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='rgba(255,255,255,0.35)' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 0.75rem center !important;
+    background-size: 1.25rem !important;
+    cursor: pointer !important;
 }
+.theme-default select.ud-select:focus,
+.theme-default .ud-select:focus {
+    border-color: rgba(212,255,58,0.5) !important;
+    background-color: rgba(255,255,255,0.06) !important;
+}
+.theme-default select.ud-select option,
 .theme-default .ud-select option { background: #1a1a24; color: #fff; }
+
+/* Phone group — joined country code + number */
+/* Phone input component */
+.theme-default .phone-input-wrap {
+    position: relative;
+}
+.theme-default .phone-input-group {
+    display: flex;
+    width: 100%;
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 0.625rem;
+    background: rgba(255,255,255,0.04);
+    overflow: hidden;
+    transition: border-color 0.2s ease, background 0.2s ease;
+}
+.theme-default .phone-input-group:focus-within {
+    border-color: rgba(212,255,58,0.5);
+    background: rgba(255,255,255,0.06);
+}
+.theme-default .phone-code-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    flex-shrink: 0;
+    background: rgba(255,255,255,0.04);
+    border: none;
+    border-right: 1px solid rgba(255,255,255,0.10);
+    padding: 0 0.625rem;
+    cursor: pointer;
+    color: #fff;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: background 0.15s ease;
+}
+.theme-default .phone-code-btn:hover { background: rgba(255,255,255,0.08); }
+.theme-default .phone-flag { font-size: 0.7rem; letter-spacing: 0.02em; color: rgba(255,255,255,0.55); }
+.theme-default .phone-dial { color: #fff; }
+.theme-default .phone-chevron { width: 0.9rem; height: 0.9rem; color: rgba(255,255,255,0.35); flex-shrink: 0; }
+.theme-default .phone-number-input {
+    flex: 1;
+    min-width: 0;
+    background: transparent;
+    border: none;
+    padding: 0.625rem 0.875rem;
+    font-size: 0.875rem;
+    color: #fff;
+    outline: none;
+    font-family: inherit;
+}
+.theme-default .phone-number-input::placeholder { color: rgba(255,255,255,0.25); }
+/* Dropdown */
+.theme-default .phone-dropdown {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    z-index: 200;
+    width: 16rem;
+    background: #1c1c28;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 0.75rem;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.5);
+    overflow: hidden;
+}
+.theme-default .phone-dropdown.hidden { display: none; }
+.theme-default .phone-search-wrap { padding: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.theme-default .phone-search {
+    width: 100%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 0.5rem;
+    padding: 0.375rem 0.625rem;
+    font-size: 0.8125rem;
+    color: #fff;
+    outline: none;
+    font-family: inherit;
+}
+.theme-default .phone-search::placeholder { color: rgba(255,255,255,0.3); }
+.theme-default .phone-list {
+    list-style: none;
+    margin: 0;
+    padding: 0.25rem 0;
+    max-height: 14rem;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.15) transparent;
+}
+.theme-default .phone-option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.75rem;
+    cursor: pointer;
+    font-size: 0.8125rem;
+    color: rgba(255,255,255,0.75);
+    transition: background 0.1s;
+}
+.theme-default .phone-option:hover,
+.theme-default .phone-option.is-selected { background: rgba(212,255,58,0.08); color: #fff; }
+.theme-default .phone-option.is-selected .phone-opt-dial { color: #D4FF3A; }
+.theme-default .phone-opt-flag { font-size: 0.7rem; letter-spacing: 0.02em; color: rgba(255,255,255,0.4); min-width: 1.5rem; }
+.theme-default .phone-opt-name { flex: 1; }
+.theme-default .phone-opt-dial { color: rgba(255,255,255,0.35); font-size: 0.75rem; }
+
+/* Dropzone */
+.theme-default .ud-dropzone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    width: 100%;
+    min-height: 4.5rem;
+    border: 1.5px dashed rgba(255,255,255,0.14);
+    border-radius: 0.625rem;
+    background: rgba(255,255,255,0.03);
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background 0.2s ease;
+    text-align: center;
+}
+.theme-default .ud-dropzone:hover,
+.theme-default .ud-dropzone:focus-within {
+    border-color: rgba(212,255,58,0.45);
+    background: rgba(212,255,58,0.03);
+}
+.theme-default .ud-dropzone-text {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.55);
+}
+.theme-default .ud-dropzone-hint {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.28);
+}
+.theme-default .ud-file-list {
+    width: 100%;
+    margin-top: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    list-style: none;
+    padding: 0;
+}
+.theme-default .ud-file-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.6);
+    background: rgba(255,255,255,0.05);
+    border-radius: 0.5rem;
+    padding: 0.25rem 0.625rem;
+}
+.theme-default .ud-file-list li svg {
+    width: 0.875rem;
+    height: 0.875rem;
+    flex-shrink: 0;
+    color: rgba(212,255,58,0.7);
+}
+
 .theme-default .ud-btn-primary {
     display: inline-flex;
     align-items: center;
@@ -1303,4 +1541,251 @@ body.theme-default {
 .theme-default .ud-empty-body {
     font-size: 0.8125rem;
     margin-top: 0.375rem;
+}
+
+/* ─── Topbar search ─── */
+.theme-default .ud-topbar-search {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 0.625rem;
+    padding: 0.4rem 0.75rem;
+    cursor: pointer;
+    transition: border-color 0.15s;
+}
+.theme-default .ud-topbar-search:hover {
+    border-color: rgba(255,255,255,0.15);
+}
+.theme-default .ud-topbar-kbd {
+    font-size: 0.6875rem;
+    font-family: 'JetBrains Mono', monospace;
+    color: rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 0.3rem;
+    padding: 0.1rem 0.35rem;
+}
+
+/* ─── Notification badge ─── */
+.theme-default .ud-notif-badge {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    min-width: 16px;
+    height: 16px;
+    background: #D4FF3A;
+    color: #0B0B0F;
+    font-size: 9px;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 3px;
+    line-height: 1;
+    border: 2px solid #0B0B0F;
+}
+
+/* ─── User dropdown ─── */
+.theme-default .ud-user-dropdown {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 8px);
+    width: 220px;
+    background: #16161f;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 0.875rem;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.6);
+    z-index: 100;
+    overflow: hidden;
+}
+.theme-default .ud-user-dropdown-header {
+    padding: 0.875rem 1rem 0.75rem;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.theme-default .ud-user-dropdown-body {
+    padding: 0.375rem 0.5rem;
+}
+.theme-default .ud-user-dropdown-footer {
+    padding: 0.375rem 0.5rem 0.5rem;
+    border-top: 1px solid rgba(255,255,255,0.07);
+}
+.theme-default .ud-user-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.5rem 0.625rem;
+    border-radius: 0.5rem;
+    font-size: 0.8125rem;
+    color: rgba(255,255,255,0.65);
+    text-decoration: none;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    transition: background 0.12s, color 0.12s;
+    width: 100%;
+    text-align: left;
+}
+.theme-default .ud-user-dropdown-item:hover {
+    background: rgba(255,255,255,0.06);
+    color: #fff;
+}
+
+/* ─── Sidebar version badge ─── */
+.theme-default .ud-version-badge {
+    font-size: 0.625rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 0.3rem;
+    padding: 0.15rem 0.4rem;
+}
+
+/* ─── Sidebar workspace button ─── */
+.theme-default .ud-workspace-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 0.75rem;
+    padding: 0.5rem 0.625rem;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+    text-align: left;
+}
+.theme-default .ud-workspace-btn:hover {
+    background: rgba(255,255,255,0.07);
+    border-color: rgba(255,255,255,0.13);
+}
+.theme-default .ud-workspace-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 0.4rem;
+    background: linear-gradient(135deg, #D4FF3A 0%, #a8cc00 100%);
+    color: #0B0B0F;
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+}
+
+/* ─── Sidebar wallet card ─── */
+.theme-default .ud-sidebar-wallet {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 0.875rem;
+    padding: 0.875rem 1rem;
+}
+.theme-default .ud-sidebar-wallet-topup {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: #D4FF3A;
+    text-decoration: none;
+    transition: opacity 0.15s;
+}
+.theme-default .ud-sidebar-wallet-topup:hover { opacity: 0.75; }
+
+/* ─── Dashboard hero card ─── */
+.theme-default .ud-hero-card {
+    display: flex;
+    gap: 1.5rem;
+    background: radial-gradient(ellipse at 70% 50%, rgba(100,120,60,0.18) 0%, transparent 60%),
+                rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.09);
+    border-radius: 1.25rem;
+    padding: 2rem 2rem;
+    position: relative;
+    overflow: hidden;
+}
+.theme-default .ud-hero-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 80% -20%, rgba(212,255,58,0.07) 0%, transparent 55%);
+    pointer-events: none;
+}
+.theme-default .ud-hero-left {
+    flex: 1;
+    min-width: 0;
+    position: relative;
+    z-index: 1;
+}
+.theme-default .ud-hero-date {
+    font-size: 0.6875rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: #D4FF3A;
+    margin-bottom: 0.875rem;
+}
+.theme-default .ud-hero-title {
+    font-size: clamp(1.6rem, 3vw, 2.5rem);
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+}
+.theme-default .ud-hero-title em {
+    font-style: italic;
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+}
+.theme-default .ud-hero-sub {
+    font-size: 0.875rem;
+    color: rgba(255,255,255,0.5);
+    margin-top: 0.5rem;
+    max-width: 38ch;
+    line-height: 1.55;
+}
+.theme-default .ud-hero-recent {
+    flex-shrink: 0;
+    width: 200px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.09);
+    border-radius: 0.875rem;
+    padding: 1.25rem;
+    position: relative;
+    z-index: 1;
+}
+@media (max-width: 640px) {
+    .theme-default .ud-hero-card { flex-direction: column; }
+    .theme-default .ud-hero-recent { width: 100%; }
+}
+.theme-default .ud-hero-recent-label {
+    font-size: 0.6rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 0.625rem;
+}
+.theme-default .ud-hero-recent-title {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: #fff;
+}
+.theme-default .ud-hero-recent-sub {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.4);
+    margin-top: 0.2rem;
+}
+.theme-default .ud-hero-recent-amount {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #D4FF3A;
+    margin-top: 0.75rem;
 }

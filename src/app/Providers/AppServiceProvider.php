@@ -21,6 +21,7 @@ class AppServiceProvider extends ServiceProvider
         $this->configureMail();
         $this->configureSocialite();
         $this->registerAdminNavigation();
+        $this->registerRegistrationFields();
     }
 
     private function configureVite(): void
@@ -169,11 +170,9 @@ class AppServiceProvider extends ServiceProvider
                 'permission' => 'payments.view',
                 'sort' => 400,
                 'children' => [
-                    ['key' => 'payments',           'label' => 'Payments',          'route' => 'admin.payments.index',          'permission' => 'payments.view',   'icon' => 'heroicon-o-arrow-down-tray'],
-                    ['key' => 'payouts',            'label' => 'Payouts',           'route' => 'admin.payouts.index',           'permission' => 'payments.view',   'icon' => 'heroicon-o-arrow-up-tray'],
-                    ['key' => 'transactions',       'label' => 'Transactions',  'route' => 'admin.transactions.index',      'permission' => 'payments.view',   'icon' => 'heroicon-o-queue-list'],
-                    ['key' => 'payout-methods',     'label' => 'Payout Methods',    'route' => 'admin.payout-methods.index',    'permission' => 'payments.manage', 'icon' => 'heroicon-o-wrench-screwdriver'],
-                    ['key' => 'gateways',           'label' => 'Gateways',          'route' => 'admin.gateways.index',          'permission' => 'payments.manage', 'icon' => 'heroicon-o-credit-card'],
+                    ['key' => 'payments',           'label' => 'Payments',      'route' => 'admin.payments.index',      'permission' => 'payments.view',   'icon' => 'heroicon-o-arrow-down-tray'],
+                    ['key' => 'transactions',       'label' => 'Transactions',  'route' => 'admin.transactions.index',  'permission' => 'payments.view',   'icon' => 'heroicon-o-queue-list'],
+                    ['key' => 'gateways',           'label' => 'Gateways',      'route' => 'admin.gateways.index',      'permission' => 'payments.manage', 'icon' => 'heroicon-o-credit-card'],
                 ],
             ],
             [
@@ -259,5 +258,29 @@ class AppServiceProvider extends ServiceProvider
                 ],
             ],
         ]);
+    }
+
+    private function registerRegistrationFields(): void
+    {
+        try {
+            if (Settings::string('controls.sms_verification') === '1') {
+                \App\Domain\Auth\Registration\RegistrationFields::add('mobile', [
+                    'label'    => __('Phone number'),
+                    'type'     => 'tel',
+                    'required' => true,
+                    'rules'    => ['required', 'string', 'max:20'],
+                    'sort'     => 10,
+                ]);
+                \App\Domain\Auth\Registration\RegistrationFields::add('mobile_country_code', [
+                    'label'    => '',
+                    'type'     => 'hidden',
+                    'required' => false,
+                    'rules'    => ['nullable', 'string', 'max:10'],
+                    'sort'     => 11,
+                ]);
+            }
+        } catch (\Throwable) {
+            // Settings table may not exist during install
+        }
     }
 }

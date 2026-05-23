@@ -1,15 +1,69 @@
 @extends('theme::layouts.user')
 
+@section('breadcrumb', __('Notifications'))
+
 @section('content')
 <div class="space-y-6">
 
-    <div>
-        <h1 class="text-3xl font-bold text-gray-900">Notifications</h1>
-        <p class="mt-1 text-gray-500">Your activity and system notifications.</p>
+    <div class="flex items-center justify-between">
+        <div>
+            <h1 class="ud-page-title">{{ __('Notifications') }}</h1>
+            <p class="ud-page-sub">{{ __('Your activity and system notifications.') }}</p>
+        </div>
+        @if($notifications->isNotEmpty())
+        <form method="POST" action="{{ route('user.notifications.read-all') }}">
+            @csrf
+            <button type="submit" class="ud-btn-ghost text-xs">
+                <x-heroicon-o-check-circle class="h-4 w-4" />
+                {{ __('Mark all read') }}
+            </button>
+        </form>
+        @endif
     </div>
 
-    <div class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-        <p class="text-sm text-gray-500">Notifications center — coming soon.</p>
+    <div class="ud-card">
+        @if($notifications->isEmpty())
+            <div class="ud-empty py-16">
+                <x-heroicon-o-bell class="h-12 w-12" />
+                <div class="ud-empty-title">{{ __('No notifications yet') }}</div>
+                <div class="ud-empty-body">{{ __('You\'re all caught up. New activity will appear here.') }}</div>
+            </div>
+        @else
+            <div class="divide-y divide-white/6">
+                @foreach($notifications as $n)
+                <div class="flex items-start gap-4 px-5 py-4 {{ $n->read_at ? 'opacity-60' : '' }} hover:bg-white/3 transition-colors">
+                    {{-- unread dot --}}
+                    <div class="mt-1.5 shrink-0">
+                        @if(!$n->read_at)
+                            <span class="block h-2 w-2 rounded-full bg-lime"></span>
+                        @else
+                            <span class="block h-2 w-2 rounded-full bg-white/15"></span>
+                        @endif
+                    </div>
+
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-medium text-white leading-snug">{{ $n->title }}</p>
+                        @if($n->body)
+                            <p class="text-xs text-white/50 mt-0.5 leading-relaxed">{{ $n->body }}</p>
+                        @endif
+                        <p class="text-xs text-white/30 mt-1">{{ $n->created_at->diffForHumans() }}</p>
+                    </div>
+
+                    @if($n->url)
+                    <a href="{{ $n->url }}" class="shrink-0 text-xs text-lime/80 hover:text-lime whitespace-nowrap">
+                        {{ __('View') }} →
+                    </a>
+                    @endif
+                </div>
+                @endforeach
+            </div>
+
+            @if($notifications->hasPages())
+            <div class="border-t border-white/8 px-5 py-4 text-xs text-white/45">
+                {{ $notifications->links() }}
+            </div>
+            @endif
+        @endif
     </div>
 
 </div>

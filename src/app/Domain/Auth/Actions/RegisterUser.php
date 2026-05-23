@@ -15,6 +15,8 @@ class RegisterUser
         $user->name = $data['name'] ?? null;
         $user->email = $data['email'];
         $user->password = Hash::make($data['password']);
+        $user->mobile = $data['mobile'] ?? null;
+        $user->mobile_country_code = $data['mobile_country_code'] ?? null;
         $user->status = 'active';
         $user->save();
 

@@ -67,11 +67,11 @@ class LanguageController extends Controller
 
         $t3 = microtime(true);
 
-        // Create new language file with keys as placeholders (no auto-translate on creation)
-        // User can use the auto-translate feature later if they want
+        // Create new language file with keys only (empty values = needs translation)
+        // User can use the auto-translate feature to fill in translations
         $newTranslations = [];
         foreach ($defaultTranslations as $key => $value) {
-            $newTranslations[$key] = $key; // Placeholder: key = value (not translated yet)
+            $newTranslations[$key] = ''; // Empty value — needs translation
         }
         $this->writeJsonTranslations($language->code, $newTranslations);
 

@@ -7,7 +7,7 @@
     $user = auth('user')->user();
 @endphp
 
-<div class="space-y-8 max-w-2xl">
+<div class="space-y-6">
 
     {{-- Page heading --}}
     <div>
@@ -15,8 +15,10 @@
         <p class="ud-page-sub">{{ __('Manage your personal information and account security.') }}</p>
     </div>
 
-    {{-- ── Avatar & basic info ── --}}
-    <div class="ud-card">
+    <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+
+    {{-- ── Avatar & basic info — spans 2 cols ── --}}
+    <div class="ud-card lg:col-span-2">
         <div class="ud-card-header">
             <div>
                 <div class="ud-section-title">{{ __('Personal Information') }}</div>
@@ -74,27 +76,15 @@
             </div>
 
             {{-- Contact --}}
-            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-4">
-                <div>
-                    <label class="ud-label" for="mobile">{{ __('Phone number') }}</label>
-                    <div class="flex gap-2">
-                        <input type="text" name="mobile_country_code" value="{{ old('mobile_country_code', $user->mobile_country_code) }}"
-                               placeholder="+1" class="ud-input w-20 flex-shrink-0">
-                        <input type="text" id="mobile" name="mobile" value="{{ old('mobile', $user->mobile) }}"
-                               class="ud-input flex-1 @error('mobile') border-red-500/50 @enderror">
-                    </div>
-                    @error('mobile') <div class="ud-field-err">{{ $message }}</div> @enderror
-                </div>
-                <div>
-                    <label class="ud-label" for="timezone">{{ __('Timezone') }}</label>
-                    <select id="timezone" name="timezone" class="ud-input ud-select @error('timezone') border-red-500/50 @enderror">
-                        <option value="">— {{ __('Select timezone') }} —</option>
-                        @foreach($timezones as $tz)
-                            <option value="{{ $tz }}" @selected(old('timezone', $user->timezone) === $tz)>{{ $tz }}</option>
-                        @endforeach
-                    </select>
-                    @error('timezone') <div class="ud-field-err">{{ $message }}</div> @enderror
-                </div>
+            <div class="mt-4">
+                <label class="ud-label">{{ __('Phone number') }}</label>
+                <x-phone-input
+                    name="mobile"
+                    code-name="mobile_country_code"
+                    :code-value="old('mobile_country_code', $user->mobile_country_code ?? '')"
+                    :mobile-value="old('mobile', $user->mobile ?? '')"
+                />
+                @error('mobile') <div class="ud-field-err">{{ $message }}</div> @enderror
             </div>
 
             {{-- Address --}}
@@ -120,7 +110,7 @@
             </div>
             <div class="mt-4">
                 <label class="ud-label" for="country_code">{{ __('Country') }}</label>
-                <select id="country_code" name="country_code" class="ud-input ud-select">
+                <select id="country_code" name="country_code" class="ud-select">
                     <option value="">— {{ __('Select country') }} —</option>
                     @foreach($countries as $code => $name)
                         <option value="{{ $code }}" @selected(old('country_code', $user->country_code) === $code)>{{ $name }}</option>
@@ -137,66 +127,73 @@
         </form>
     </div>
 
-    {{-- ── Email (read-only + verified badge) ── --}}
-    <div class="ud-card">
-        <div class="ud-card-header">
-            <div>
-                <div class="ud-section-title">{{ __('Email Address') }}</div>
-                <div class="ud-section-desc">{{ __('Your login email. Contact support to change it.') }}</div>
+    {{-- ── Right column: Email + Password ── --}}
+    <div class="space-y-6">
+
+        {{-- Email --}}
+        <div class="ud-card">
+            <div class="ud-card-header">
+                <div>
+                    <div class="ud-section-title">{{ __('Email Address') }}</div>
+                    <div class="ud-section-desc">{{ __('Your login email.') }}</div>
+                </div>
+                @if($user->hasVerifiedEmail())
+                    <span class="ud-badge ud-badge-green">{{ __('Verified') }}</span>
+                @else
+                    <span class="ud-badge ud-badge-amber">{{ __('Unverified') }}</span>
+                @endif
             </div>
-            @if($user->hasVerifiedEmail())
-                <span class="ud-badge ud-badge-green">{{ __('Verified') }}</span>
-            @else
-                <span class="ud-badge ud-badge-amber">{{ __('Unverified') }}</span>
+            <input type="email" value="{{ $user->email }}" class="ud-input" disabled>
+            @if(!$user->hasVerifiedEmail())
+            <p class="text-xs text-white/45 mt-2">
+                {{ __('Check your inbox or') }}
+                <a href="{{ route('verification.notice') }}" class="ud-card-link">{{ __('resend verification email') }}</a>.
+            </p>
             @endif
         </div>
-        <input type="email" value="{{ $user->email }}" class="ud-input" disabled>
-        @if(!$user->hasVerifiedEmail())
-        <p class="text-xs text-white/45 mt-2">
-            {{ __('Check your inbox or') }}
-            <a href="{{ route('verification.notice') }}" class="ud-card-link">{{ __('resend verification email') }}</a>.
-        </p>
-        @endif
-    </div>
 
-    {{-- ── Password ── --}}
-    <div class="ud-card">
-        <div class="ud-card-header">
-            <div>
-                <div class="ud-section-title">{{ __('Change Password') }}</div>
-                <div class="ud-section-desc">{{ __('Use a strong password with uppercase, lowercase, and numbers.') }}</div>
+        {{-- Password --}}
+        <div class="ud-card">
+            <div class="ud-card-header">
+                <div>
+                    <div class="ud-section-title">{{ __('Change Password') }}</div>
+                    <div class="ud-section-desc">{{ __('Use a strong, unique password.') }}</div>
+                </div>
             </div>
+
+            <form method="POST" action="{{ route('user.profile.password') }}">
+                @csrf
+                @method('PUT')
+
+                <div class="space-y-4">
+                    <div>
+                        <label class="ud-label" for="current_password">{{ __('Current password') }}</label>
+                        <input type="password" id="current_password" name="current_password" autocomplete="current-password"
+                               class="ud-input @error('current_password') border-red-500/50 @enderror">
+                        @error('current_password') <div class="ud-field-err">{{ $message }}</div> @enderror
+                    </div>
+                    <div>
+                        <label class="ud-label" for="password">{{ __('New password') }}</label>
+                        <input type="password" id="password" name="password" autocomplete="new-password"
+                               class="ud-input @error('password') border-red-500/50 @enderror">
+                        @error('password') <div class="ud-field-err">{{ $message }}</div> @enderror
+                    </div>
+                    <div>
+                        <label class="ud-label" for="password_confirmation">{{ __('Confirm new password') }}</label>
+                        <input type="password" id="password_confirmation" name="password_confirmation" autocomplete="new-password"
+                               class="ud-input">
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <button type="submit" class="ud-btn-primary">{{ __('Update password') }}</button>
+                </div>
+            </form>
         </div>
 
-        <form method="POST" action="{{ route('user.profile.password') }}">
-            @csrf
-            @method('PUT')
+    </div>{{-- end right column --}}
 
-            <div class="space-y-4">
-                <div>
-                    <label class="ud-label" for="current_password">{{ __('Current password') }}</label>
-                    <input type="password" id="current_password" name="current_password" autocomplete="current-password"
-                           class="ud-input @error('current_password') border-red-500/50 @enderror">
-                    @error('current_password') <div class="ud-field-err">{{ $message }}</div> @enderror
-                </div>
-                <div>
-                    <label class="ud-label" for="password">{{ __('New password') }}</label>
-                    <input type="password" id="password" name="password" autocomplete="new-password"
-                           class="ud-input @error('password') border-red-500/50 @enderror">
-                    @error('password') <div class="ud-field-err">{{ $message }}</div> @enderror
-                </div>
-                <div>
-                    <label class="ud-label" for="password_confirmation">{{ __('Confirm new password') }}</label>
-                    <input type="password" id="password_confirmation" name="password_confirmation" autocomplete="new-password"
-                           class="ud-input">
-                </div>
-            </div>
-
-            <div class="mt-6">
-                <button type="submit" class="ud-btn-primary">{{ __('Update password') }}</button>
-            </div>
-        </form>
-    </div>
+    </div>{{-- end grid --}}
 
 </div>
 

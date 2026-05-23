@@ -20,10 +20,6 @@ enum Permissions: string
     case PAYMENTS_VIEW = 'payments.view';
     case PAYMENTS_MANAGE = 'payments.manage';
 
-    // Payouts
-    case PAYOUTS_VIEW = 'payouts.view';
-    case PAYOUTS_MANAGE = 'payouts.manage';
-
     // KYC
     case KYC_REVIEW = 'kyc.review';
 
@@ -72,8 +68,6 @@ enum Permissions: string
                 self::USERS_VIEW->value,
                 self::USERS_MANAGE->value,
                 self::PAYMENTS_VIEW->value,
-                self::PAYOUTS_VIEW->value,
-                self::PAYOUTS_MANAGE->value,
                 self::KYC_REVIEW->value,
                 self::PLANS_MANAGE->value,
                 self::CMS_VIEW->value,

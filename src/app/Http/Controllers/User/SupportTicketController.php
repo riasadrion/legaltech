@@ -22,12 +22,12 @@ class SupportTicketController
             ->orderByDesc('updated_at')
             ->paginate(20);
 
-        return view('theme::support.index', compact('tickets'));
+        return view('user.support.index', compact('tickets'));
     }
 
     public function create(): View
     {
-        return view('theme::support.create');
+        return view('user.support.create');
     }
 
     public function store(Request $request): RedirectResponse
@@ -86,7 +86,7 @@ class SupportTicketController
 
         $ticket->load(['messages' => fn ($q) => $q->where('is_internal', false)->with(['author', 'attachments'])]);
 
-        return view('theme::support.show', compact('ticket'));
+        return view('user.support.show', compact('ticket'));
     }
 
     public function reply(Request $request, string $reference): RedirectResponse
@@ -145,7 +145,7 @@ class SupportTicketController
         $uploader = app(FileUploader::class);
 
         foreach ($request->file('attachments') as $file) {
-            $meta = $uploader->store($file, 'tickets');
+            $meta = $uploader->store($file, 'support');
 
             $attachment = new SupportAttachment;
             $attachment->support_message_id = $message->id;

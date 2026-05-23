@@ -15,10 +15,9 @@ class ProfileController extends Controller
     public function show(Request $request)
     {
         $user = $request->user('user');
-        $timezones = \DateTimeZone::listIdentifiers();
         $countries = $this->countryList();
 
-        return view('user.profile', compact('user', 'timezones', 'countries'));
+        return view('user.profile', compact('user', 'countries'));
     }
 
     public function update(Request $request)

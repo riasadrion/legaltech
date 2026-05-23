@@ -43,12 +43,29 @@
     </div>
 
     @foreach($extraFields as $field)
+    @if(($field['type'] ?? 'text') === 'hidden' || $field['key'] === 'mobile_country_code')
+        @continue
+    @endif
     <div class="auth-field-wrap">
         <label class="auth-label" for="{{ $field['key'] }}">{{ $field['label'] }}</label>
-        <input id="{{ $field['key'] }}" name="{{ $field['key'] }}"
-               type="{{ $field['type'] ?? 'text' }}" value="{{ old($field['key']) }}"
-               {{ ($field['required'] ?? false) ? 'required' : '' }}
-               class="auth-input {{ $errors->has($field['key']) ? 'auth-input-err' : '' }}">
+        @if($field['key'] === 'mobile')
+            <x-phone-input
+                name="mobile"
+                code-name="mobile_country_code"
+                :code-value="old('mobile_country_code', '')"
+                :mobile-value="old('mobile', '')"
+                :required="$field['required'] ?? false"
+                input-class="{{ $errors->has('mobile') ? 'auth-input-err' : '' }}"
+            />
+        @else
+            <input id="{{ $field['key'] }}" name="{{ $field['key'] }}"
+                   type="{{ $field['type'] ?? 'text' }}" value="{{ old($field['key']) }}"
+                   {{ ($field['required'] ?? false) ? 'required' : '' }}
+                   class="auth-input {{ $errors->has($field['key']) ? 'auth-input-err' : '' }}">
+        @endif
+        @error($field['key'])
+            <p class="mt-1 text-xs text-red-400">{{ $message }}</p>
+        @enderror
     </div>
     @endforeach
 

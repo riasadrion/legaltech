@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Domain\Payment\Models\Payment;
-use App\Domain\Payment\Models\Payout;
 use App\Domain\Support\Models\SupportTicket;
 use App\Models\Admin;
 use App\Models\AdminNotification;
@@ -35,22 +34,6 @@ class AdminNotificationSeeder extends Seeder
                     'read_at'    => null,
                     'created_at' => $payment->created_at,
                     'updated_at' => $payment->updated_at,
-                ];
-            }
-        });
-
-        Payout::with('user')->latest()->take(5)->get()->each(function ($payout) use ($admins, &$rows) {
-            $name = $payout->user?->name ?? 'A user';
-            foreach ($admins as $admin) {
-                $rows[] = [
-                    'admin_id'   => $admin->id,
-                    'type'       => 'payout',
-                    'title'      => 'New payout request',
-                    'body'       => $name.' requested $'.number_format($payout->amount, 2).' via '.optional($payout->payoutMethod)->name,
-                    'url'        => route('admin.payouts.show', $payout),
-                    'read_at'    => null,
-                    'created_at' => $payout->created_at,
-                    'updated_at' => $payout->updated_at,
                 ];
             }
         });

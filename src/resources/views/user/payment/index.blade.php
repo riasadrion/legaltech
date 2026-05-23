@@ -1,75 +1,116 @@
 @extends('theme::layouts.user')
 
+@section('breadcrumb', __('Payments'))
+
 @section('content')
+@php $currency = setting('site.currency_symbol', '$'); @endphp
 <div class="space-y-6">
 
+    {{-- Page heading --}}
     <div>
-        <h1 class="text-2xl font-bold text-gray-900">{{ __('Payment funds') }}</h1>
-        <p class="mt-1 text-sm text-gray-500">{{ __('Choose a payment method to top up your wallet.') }}</p>
+        <h1 class="ud-page-title">{{ __('Payments') }}</h1>
+        <p class="ud-page-sub">{{ __('Your wallet balance and payment history.') }}</p>
     </div>
 
-    @if($gateways->isEmpty())
-    <div class="rounded-xl border border-gray-200 bg-white p-10 text-center shadow-sm">
-        <p class="text-sm text-gray-500">{{ __('No payment methods are currently available. Please check back later.') }}</p>
-    </div>
-    @else
-    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        @foreach($gateways as $gateway)
-        <a href="{{ route('user.payment.create', ['gateway' => $gateway->driver, 'plan_id' => request('plan_id')]) }}"
-           class="group rounded-xl border border-gray-200 bg-white p-5 shadow-sm hover:border-brand-400 hover:shadow-md transition-all">
-            <div class="flex items-center gap-3">
-                <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600 group-hover:bg-brand-100">
-                    <x-heroicon-o-credit-card class="h-5 w-5" />
-                </div>
-                <div>
-                    <p class="font-semibold text-gray-900">{{ $gateway->name }}</p>
-                    <p class="text-xs text-gray-400">
-                        {{ __('Min :amount', ['amount' => $gateway->formatAmount($gateway->min_amount)]) }}
-                        @if($gateway->fee_flat > 0 || $gateway->fee_percent > 0)
-                            · {{ __('Fee applies') }}
-                        @else
-                            · {{ __('No fee') }}
-                        @endif
-                    </p>
-                </div>
+    {{-- Cards row: wallet + gateways --}}
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+
+        {{-- Wallet balance card --}}
+        <div class="rounded-2xl glass p-5 relative overflow-hidden">
+            <div class="flex items-center justify-between">
+                <span class="text-[11px] font-mono uppercase tracking-widest text-white/45">{{ __('Wallet') }}</span>
+                <x-heroicon-o-banknotes class="h-6 w-6 text-white/45" />
             </div>
-        </a>
-        @endforeach
-    </div>
-    @endif
-
-    {{-- Recent payments --}}
-    @if($payments->isNotEmpty())
-    <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
-        <div class="border-b border-gray-100 px-5 py-3.5">
-            <h2 class="text-sm font-semibold text-gray-900">{{ __('Recent payments') }}</h2>
+            <div class="font-display text-3xl md:text-5xl mt-2 text-white">{{ $balance->format() }}</div>
+            <div class="mt-2 text-[11px]">
+                <a href="{{ route('user.payment.create') }}" class="text-lime hover:underline">{{ __('Add funds') }} →</a>
+            </div>
+            <svg viewBox="0 0 120 30" class="absolute right-2 bottom-2 w-20 h-7">
+                <path class="spark" d="M0 22 Q 20 8 40 16 T 80 6 T 120 12"/>
+            </svg>
         </div>
-        <table class="w-full text-sm">
-            <thead>
-                <tr class="border-b border-gray-100 bg-gray-50/60">
-                    <th class="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">{{ __('Date') }}</th>
-                    <th class="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">{{ __('Method') }}</th>
-                    <th class="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">{{ __('Amount') }}</th>
-                    <th class="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">{{ __('Status') }}</th>
-                </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-100">
-                @foreach($payments as $payment)
-                <tr class="hover:bg-gray-50/50">
-                    <td class="px-5 py-3 text-xs text-gray-500">{{ $payment->created_at->format('d M Y H:i') }}</td>
-                    <td class="px-5 py-3 text-gray-700">{{ $payment->gateway->name }}</td>
-                    <td class="px-5 py-3 font-semibold text-gray-900">{{ $payment->formattedAmount() }}</td>
-                    <td class="px-5 py-3">
-                        @php $sc = match($payment->status) { 'completed' => 'bg-green-100 text-green-700', 'awaiting_approval' => 'bg-amber-100 text-amber-700', 'failed' => 'bg-red-100 text-red-700', default => 'bg-gray-100 text-gray-500' }; @endphp
-                        <span class="inline-flex rounded-full px-2.5 py-0.5 text-xs font-semibold {{ $sc }}">{{ __(ucfirst(str_replace('_', ' ', $payment->status))) }}</span>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
+
+        {{-- Gateway cards --}}
+        @foreach($gateways as $gateway)
+        @php $totalSpent = $gatewayTotals[$gateway->id] ?? 0; $logo = $gateway->logoUrl(); @endphp
+        <div class="rounded-2xl glass p-5 relative overflow-hidden">
+            <div class="flex items-center justify-between">
+                <span class="text-[11px] font-mono uppercase tracking-widest text-white/45">{{ $gateway->name }}</span>
+                @if($logo)
+                    <img src="{{ $logo }}" alt="{{ $gateway->name }}" class="h-6 w-6 rounded-lg object-contain opacity-70">
+                @else
+                    <x-heroicon-o-credit-card class="h-6 w-6 text-white/45" />
+                @endif
+            </div>
+            @if($totalSpent > 0)
+            <div class="font-display text-3xl md:text-5xl mt-2 text-white">{{ $currency }}{{ number_format((float) $totalSpent, 2) }}</div>
+            <div class="mt-2 text-[11px] text-white/40">{{ __('Total spent') }}</div>
+            @else
+            <div class="font-display text-3xl md:text-5xl mt-2 text-white/25">—</div>
+            <div class="mt-2 text-[11px] text-white/30">{{ __('No payments yet') }}</div>
+            @endif
+        </div>
+        @endforeach
+
+    </div>
+
+    {{-- Recent payments table --}}
+    @if($payments->isNotEmpty())
+    <section class="rounded-2xl glass overflow-hidden">
+        <div class="px-5 pt-5 flex flex-wrap items-end justify-between gap-3 border-b border-white/8 pb-3">
+            <div>
+                <h2 class="font-display text-2xl text-white">{{ __('Recent payments') }}</h2>
+                <div class="text-[12px] text-white/50 mt-0.5">{{ $payments->total() }} {{ __('transactions') }}</div>
+            </div>
+            <a href="{{ route('user.payment.create') }}" class="btn-lime rounded-lg px-3 py-2 text-[12px] flex items-center gap-1.5">
+                <x-heroicon-o-plus class="h-4 w-4" />
+                {{ __('Add funds') }}
+            </a>
+        </div>
+
+        <div class="overflow-x-auto">
+            <table class="w-full text-[13px]">
+                <thead class="text-[10px] font-mono uppercase tracking-widest text-white/40">
+                    <tr class="border-b border-white/6">
+                        <th class="text-left font-medium px-5 py-3">{{ __('Date') }}</th>
+                        <th class="text-left font-medium py-3 hidden sm:table-cell">{{ __('Method') }}</th>
+                        <th class="text-left font-medium py-3">{{ __('Amount') }}</th>
+                        <th class="text-left font-medium py-3">{{ __('Status') }}</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-white/5">
+                    @foreach($payments as $payment)
+                    @php
+                        $pillMap = ['completed' => 'pill-sign', 'awaiting_approval' => 'pill-review', 'failed' => 'pill-draft'];
+                        $pPill = $pillMap[$payment->status] ?? 'pill-done';
+                    @endphp
+                    <tr>
+                        <td class="px-5 py-3.5 text-white/55 whitespace-nowrap">{{ $payment->created_at->format('d M Y H:i') }}</td>
+                        <td class="py-3.5 text-white/70 hidden sm:table-cell">{{ $payment->gateway->name }}</td>
+                        <td class="py-3.5 font-mono text-white/85">{{ $payment->formattedAmount() }}</td>
+                        <td class="py-3.5">
+                            <span class="pill {{ $pPill }}">{{ __(ucfirst(str_replace('_', ' ', $payment->status))) }}</span>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+
         @if($payments->hasPages())
-        <div class="border-t border-gray-100 px-5 py-3">{{ $payments->links() }}</div>
+        <div class="px-5 py-3 border-t border-white/8 text-xs text-white/45">
+            {{ $payments->links() }}
+        </div>
         @endif
+    </section>
+    @else
+    <div class="rounded-2xl glass p-12 text-center text-white/40">
+        <x-heroicon-o-credit-card class="h-10 w-10 mx-auto mb-3 opacity-30" />
+        <div class="text-sm">{{ __('No payments yet — add funds to get started.') }}</div>
+        <a href="{{ route('user.payment.create') }}" class="btn-lime rounded-lg px-4 py-2 text-[13px] inline-flex items-center gap-1.5 mt-4">
+            <x-heroicon-o-plus class="h-4 w-4" />
+            {{ __('Add Funds') }}
+        </a>
     </div>
     @endif
 

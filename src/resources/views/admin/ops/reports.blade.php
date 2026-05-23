@@ -20,7 +20,7 @@
 
         <select name="type" data-auto-submit
                 class="h-9 rounded-lg border border-gray-300 px-3 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500">
-            @foreach(['transactions' => __('Transactions'), 'payments' => __('Payments'), 'payouts' => __('Payouts'), 'logins' => __('Login History'), 'notifications' => __('Notifications')] as $val => $lbl)
+            @foreach(['transactions' => __('Transactions'), 'payments' => __('Payments'), 'logins' => __('Login History'), 'notifications' => __('Notifications')] as $val => $lbl)
             <option value="{{ $val }}" {{ $type === $val ? 'selected' : '' }}>{{ $lbl }}</option>
             @endforeach
         </select>
@@ -83,13 +83,6 @@
                         <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">{{ __('Amount') }}</th>
                         <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">{{ __('Status') }}</th>
                         <th class="hide-mobile px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">{{ __('Date') }}</th>
-                    @elseif($type === 'payouts')
-                        <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">{{ __('ID') }}</th>
-                        <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">{{ __('User') }}</th>
-                        <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">{{ __('Method') }}</th>
-                        <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">{{ __('Amount') }}</th>
-                        <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">{{ __('Status') }}</th>
-                        <th class="hide-mobile px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">{{ __('Date') }}</th>
                     @elseif($type === 'logins')
                         <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">{{ __('ID') }}</th>
                         <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">{{ __('User') }}</th>
@@ -130,15 +123,6 @@
                         <td class="px-4 py-3 text-sm text-gray-700">{{ $row['gateway'] ?? '—' }}</td>
                         <td class="px-4 py-3 font-semibold text-sm text-gray-900">${{ number_format($row['amount'], 2) }}</td>
                         <td class="px-4 py-3"><span class="inline-flex rounded-full px-2.5 py-0.5 text-xs font-semibold {{ $sc }}">{{ ucfirst(str_replace('_', ' ', $row['status'])) }}</span></td>
-                        <td class="hide-mobile px-4 py-3 text-xs text-gray-400 whitespace-nowrap">{{ $row['created_at'] }}</td>
-
-                    @elseif($type === 'payouts')
-                        @php $sc = match($row['status'] ?? '') { 'approved'=>'bg-green-100 text-green-700','rejected'=>'bg-red-100 text-red-600','cancelled'=>'bg-gray-100 text-gray-500', default=>'bg-amber-100 text-amber-700' }; @endphp
-                        <td class="px-4 py-3 font-mono text-xs text-gray-400">#{{ $row['id'] }}</td>
-                        <td class="px-4 py-3 text-sm text-gray-700">{{ $row['user_email'] ?? '—' }}</td>
-                        <td class="px-4 py-3 text-sm text-gray-700">{{ $row['method'] ?? '—' }}</td>
-                        <td class="px-4 py-3 font-semibold text-sm text-gray-900">${{ number_format($row['amount'], 2) }}</td>
-                        <td class="px-4 py-3"><span class="inline-flex rounded-full px-2.5 py-0.5 text-xs font-semibold {{ $sc }}">{{ ucfirst($row['status'] ?? '—') }}</span></td>
                         <td class="hide-mobile px-4 py-3 text-xs text-gray-400 whitespace-nowrap">{{ $row['created_at'] }}</td>
 
                     @elseif($type === 'logins')

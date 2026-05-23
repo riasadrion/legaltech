@@ -69,7 +69,7 @@ class TranslationController extends Controller
         $data = $request->validate([
             'key' => ['required', 'string', 'max:255'],
             'locale' => ['required', 'string', 'size:2'],
-            'value' => ['required', 'string'],
+            'value' => ['nullable', 'string'],
         ]);
 
         $defaultLocale = Language::default()?->code ?? 'en';
@@ -79,10 +79,10 @@ class TranslationController extends Controller
         $defaultTranslations[$data['key']] = $data['key'];
         $this->writeJsonTranslations($defaultLocale, $defaultTranslations);
 
-        // Add translation for selected locale
+        // Add translation for selected locale (can be empty to mark untranslated)
         if ($data['locale'] !== $defaultLocale) {
             $localeTranslations = $this->readJsonTranslations($data['locale']);
-            $localeTranslations[$data['key']] = $data['value'];
+            $localeTranslations[$data['key']] = $data['value'] ?? '';
             $this->writeJsonTranslations($data['locale'], $localeTranslations);
         }
 
@@ -104,9 +104,8 @@ class TranslationController extends Controller
         foreach ($grouped as $locale => $items) {
             $translations = $this->readJsonTranslations($locale);
             foreach ($items as $item) {
-                if (($item['value'] ?? '') !== '') {
-                    $translations[$item['key']] = $item['value'];
-                }
+                // Always save the value (can be empty string to mark as untranslated)
+                $translations[$item['key']] = $item['value'] ?? '';
             }
             $this->writeJsonTranslations($locale, $translations);
         }
@@ -130,11 +129,13 @@ class TranslationController extends Controller
         $sourceTranslations = $this->readJsonTranslations($defaultLocale);
         $targetTranslations = $this->readJsonTranslations($locale);
 
-        // Get keys that still need translation (only missing from target)
+        // Get keys that still need translation
+        // A key is pending if: missing from target OR has empty/blank value
         $pendingKeys = [];
         foreach ($sourceTranslations as $key => $value) {
-            // A key is pending only if it doesn't exist in target language file
-            if (!isset($targetTranslations[$key])) {
+            $targetValue = $targetTranslations[$key] ?? '';
+            // Missing OR empty/whitespace (untranslated)
+            if (trim($targetValue) === '') {
                 $pendingKeys[] = ['key' => $key, 'value' => $value];
             }
         }
@@ -180,7 +181,7 @@ class TranslationController extends Controller
                 $localeTranslations = $this->readJsonTranslations($locale);
                 foreach ($newKeys as $key) {
                     if (! array_key_exists($key, $localeTranslations)) {
-                        $localeTranslations[$key] = $key;
+                        $localeTranslations[$key] = '';  // Empty value — needs translation
                     }
                 }
                 $this->writeJsonTranslations($locale, $localeTranslations);

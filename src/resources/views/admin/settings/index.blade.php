@@ -121,7 +121,7 @@
                             'icon' => 'heroicon-o-identification',
                             'tone' => 'bg-amber-50 text-amber-600',
                             'title' => __('KYC Verification'),
-                            'desc' => __('Require identity verification before payouts. When disabled, payouts are available immediately.'),
+                            'desc' => __('Require identity verification before accessing platform features. When disabled, users have access immediately.'),
                         ],
                         [
                             'name' => 'policy_agreement',

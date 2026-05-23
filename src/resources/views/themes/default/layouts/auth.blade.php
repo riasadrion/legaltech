@@ -130,6 +130,7 @@
     {{-- Global Confirm Modal --}}
     <x-confirm-modal />
 
+    <script src="{{ asset('assets/static/js/phone-input.js') }}"></script>
     @stack('scripts')
     <x-integrations.tawk />
 </body>

@@ -44,13 +44,6 @@ return [
             'pattern' => 'module',
             'max_width' => 200,
         ],
-        'payout-methods' => [
-            'mime' => ['image/jpeg', 'image/png', 'image/webp'],
-            'max_kb' => 4096,
-            'public' => true,
-            'pattern' => 'module',
-            'max_width' => 200,
-        ],
         'notifications' => [
             'mime' => ['image/jpeg', 'image/png', 'image/webp'],
             'max_kb' => 4096,
@@ -87,8 +80,14 @@ return [
         'tickets' => [
             'mime' => ['image/jpeg', 'image/png', 'image/webp', 'application/pdf', 'text/plain'],
             'max_kb' => 10240,
-            'public' => false,
-            'pattern' => 'module-yearmonth',
+            'public' => true,
+            'pattern' => 'module',
+        ],
+        'support' => [
+            'mime' => ['image/jpeg', 'image/png', 'image/webp', 'application/pdf', 'text/plain'],
+            'max_kb' => 10240,
+            'public' => true,
+            'pattern' => 'module',
         ],
     ],
 ];

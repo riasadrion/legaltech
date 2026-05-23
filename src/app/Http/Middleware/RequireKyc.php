@@ -23,7 +23,7 @@ class RequireKyc
 
         if ($user->kyc_status !== 'approved') {
             return redirect()->route('user.kyc.index')
-                ->with('warning', 'You must complete identity verification before requesting payouts.');
+                ->with('warning', 'You must complete identity verification to continue.');
         }
 
         return $next($request);

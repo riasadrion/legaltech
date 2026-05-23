@@ -14,17 +14,30 @@ use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
-    public function index()
+    public function index(WalletService $wallet)
     {
         $user = auth('user')->user();
         $gateways = Gateway::enabled()->orderBy('sort')->get();
         $payments = Payment::where('user_id', $user->id)->with('gateway')->latest()->paginate(10);
+        $balance  = $wallet->getBalance($user);
 
-        return view('user.payment.index', compact('gateways', 'payments'));
+        // Total spent per gateway (completed only, all pages)
+        $gatewayTotals = Payment::where('user_id', $user->id)
+            ->where('status', Payment::STATUS_COMPLETED)
+            ->selectRaw('gateway_id, SUM(amount) as total')
+            ->groupBy('gateway_id')
+            ->pluck('total', 'gateway_id');
+
+        return view('user.payment.index', compact('gateways', 'payments', 'gatewayTotals', 'balance'));
     }
 
     public function create(Request $request)
     {
+        if (!$request->gateway) {
+            $gateways = Gateway::enabled()->orderBy('sort')->get();
+            return view('user.payment.select', compact('gateways'));
+        }
+
         $gateway = Gateway::where('driver', $request->gateway)->enabled()->firstOrFail();
 
         return view('user.payment.create', compact('gateway'));

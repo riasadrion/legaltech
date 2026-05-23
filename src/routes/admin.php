@@ -30,8 +30,7 @@ use App\Http\Controllers\Admin\SubscriptionController;
 use App\Http\Controllers\Admin\Support\TicketController as SupportTicketController;
 use App\Http\Controllers\Admin\TranslationController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\PayoutController;
-use App\Http\Controllers\Admin\PayoutMethodController;
+
 use App\Models\Admin;
 use Illuminate\Auth\SessionGuard;
 use Illuminate\Support\Facades\Route;
@@ -82,21 +81,6 @@ Route::prefix('admin')
         Route::post('payments/{payment}/reject', [PaymentController::class, 'reject'])->name('payments.reject')->middleware('permission:payments.manage');
         Route::get('payments/{payment}/receipt', [PaymentController::class, 'receipt'])->name('payments.receipt')->middleware('permission:payments.view');
 
-        // Payouts
-        // Payout methods
-        Route::get('payout-methods', [PayoutMethodController::class, 'index'])->name('payout-methods.index')->middleware('permission:payments.view');
-        Route::get('payout-methods/create', [PayoutMethodController::class, 'create'])->name('payout-methods.create')->middleware('permission:payments.manage');
-        Route::post('payout-methods', [PayoutMethodController::class, 'store'])->name('payout-methods.store')->middleware('permission:payments.manage');
-        Route::get('payout-methods/{payoutMethod}/edit', [PayoutMethodController::class, 'edit'])->name('payout-methods.edit')->middleware('permission:payments.manage');
-        Route::put('payout-methods/{payoutMethod}', [PayoutMethodController::class, 'update'])->name('payout-methods.update')->middleware('permission:payments.manage');
-        Route::post('payout-methods/{payoutMethod}/toggle', [PayoutMethodController::class, 'toggleEnabled'])->name('payout-methods.toggle')->middleware('permission:payments.manage');
-        Route::delete('payout-methods/{payoutMethod}', [PayoutMethodController::class, 'destroy'])->name('payout-methods.destroy')->middleware('permission:payments.manage');
-
-        // Payouts
-        Route::get('payouts', [PayoutController::class, 'index'])->name('payouts.index')->middleware('permission:payments.view');
-        Route::get('payouts/{payout}', [PayoutController::class, 'show'])->name('payouts.show')->middleware('permission:payments.view');
-        Route::post('payouts/{payout}/approve', [PayoutController::class, 'approve'])->name('payouts.approve')->middleware('permission:payments.manage');
-        Route::post('payouts/{payout}/reject', [PayoutController::class, 'reject'])->name('payouts.reject')->middleware('permission:payments.manage');
 
         // KYC
         Route::get('kyc', [KycController::class, 'index'])->name('kyc.index')->middleware('permission:users.manage');

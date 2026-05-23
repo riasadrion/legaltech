@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Domain\Auth\Concerns\HasRoles;
 use App\Domain\Payment\Models\Payment;
-use App\Domain\Payment\Models\Payout;
+
 use App\Domain\Settings\Concerns\LogsActivity;
 use App\Domain\Subscription\Models\UserSubscription;
 use App\Notifications\Auth\VerifyEmail;
@@ -97,8 +97,4 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Payment::class);
     }
 
-    public function payouts()
-    {
-        return $this->hasMany(Payout::class);
-    }
 }

@@ -17,7 +17,6 @@ class ReportController extends Controller
         $data = match ($type) {
             'transactions' => $this->transactions($request),
             'payments' => $this->payments($request),
-            'payouts' => $this->payouts($request),
             'logins' => $this->logins($request),
             'notifications' => $this->notifications($request),
             default => collect(),
@@ -33,7 +32,6 @@ class ReportController extends Controller
         $data = match ($type) {
             'transactions' => $this->transactions($request, export: true),
             'payments' => $this->payments($request, export: true),
-            'payouts' => $this->payouts($request, export: true),
             'logins' => $this->logins($request, export: true),
             'notifications' => $this->notifications($request, export: true),
             default => collect(),
@@ -86,28 +84,6 @@ class ReportController extends Controller
             ->when($request->filled('to'), fn ($q) => $q->whereDate('payments.created_at', '<=', $request->input('to')))
             ->when($request->filled('status'), fn ($q) => $q->where('payments.status', $request->input('status')))
             ->orderByDesc('payments.created_at');
-
-        return $export ? $query->get() : $query->paginate(30)->withQueryString();
-    }
-
-    private function payouts(Request $request, bool $export = false)
-    {
-        $query = DB::table('payouts')
-            ->join('users', 'users.id', '=', 'payouts.user_id')
-            ->join('payout_methods', 'payout_methods.id', '=', 'payouts.payout_method_id')
-            ->select([
-                'payouts.id',
-                'users.email as user_email',
-                'payout_methods.name as method',
-                'payouts.amount',
-                'payouts.currency',
-                'payouts.status',
-                'payouts.created_at',
-            ])
-            ->when($request->filled('from'), fn ($q) => $q->whereDate('payouts.created_at', '>=', $request->input('from')))
-            ->when($request->filled('to'), fn ($q) => $q->whereDate('payouts.created_at', '<=', $request->input('to')))
-            ->when($request->filled('status'), fn ($q) => $q->where('payouts.status', $request->input('status')))
-            ->orderByDesc('payouts.created_at');
 
         return $export ? $query->get() : $query->paginate(30)->withQueryString();
     }
