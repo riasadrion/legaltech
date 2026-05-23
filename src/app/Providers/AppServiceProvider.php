@@ -188,6 +188,17 @@ class AppServiceProvider extends ServiceProvider
                 ],
             ],
             [
+                'key' => 'contracts',
+                'label' => 'Contracts',
+                'icon' => 'heroicon-o-document-check',
+                'permission' => 'contracts.manage',
+                'sort' => 250,
+                'children' => [
+                    ['key' => 'contract_templates',   'label' => 'Templates',   'route' => 'admin.contracts.templates.index',   'permission' => 'contracts.manage', 'icon' => 'heroicon-o-document-text'],
+                    ['key' => 'contract_categories',  'label' => 'Categories',  'route' => 'admin.contracts.categories.index',  'permission' => 'contracts.manage', 'icon' => 'heroicon-o-folder-open'],
+                ],
+            ],
+            [
                 'key' => 'contents',
                 'label' => 'Contents',
                 'icon' => 'heroicon-o-document-text',

@@ -10,6 +10,10 @@
             <x-heroicon-o-cog-6-tooth class="h-4 w-4" />
             {{ __('General') }}
         </button>
+        <button type="button" class="tab-button flex items-center gap-2 px-4 py-3 text-sm font-semibold text-gray-600 border-b-2 border-transparent hover:text-gray-900 whitespace-nowrap" data-tab="ai">
+            <x-heroicon-o-sparkles class="h-4 w-4" />
+            {{ __('AI Setup') }}
+        </button>
         <button type="button" class="tab-button flex items-center gap-2 px-4 py-3 text-sm font-semibold text-gray-600 border-b-2 border-transparent hover:text-gray-900 whitespace-nowrap" data-tab="controls">
             <x-heroicon-o-shield-check class="h-4 w-4" />
             {{ __('Global Controls') }}
@@ -774,6 +778,79 @@
                 </button>
             </form>
         </div>
+
+        {{-- AI Setup Tab --}}
+        <div id="ai" class="tab-content hidden">
+            <form method="POST" action="{{ route('admin.settings.update', 'ai') }}" class="space-y-5 max-w-xl">
+                @csrf @method('PUT')
+                <input type="hidden" name="_tab" value="ai">
+
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-900">{{ __('OpenAI API') }}</h3>
+                    <p class="text-sm text-gray-500 mt-0.5">{{ __('Used for AI-powered contract generation.') }}</p>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">{{ __('API Key') }}</label>
+                    <div class="flex gap-2">
+                        <input id="ai_openai_key_input" type="password" name="ai_openai_key"
+                               placeholder="{{ setting('ai.openai_key') ? __('Saved — enter new key to replace') : 'sk-...' }}"
+                               class="h-9 flex-1 rounded-lg border border-gray-300 px-3 text-sm font-mono shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500" />
+                        <button type="button" id="ai_show_key_btn"
+                                class="rounded-lg border border-gray-300 px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-50">{{ __('Show') }}</button>
+                    </div>
+                    <p class="mt-1 text-xs text-gray-400">{{ __('Leave blank to keep the existing key.') }}</p>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">{{ __('Model') }}</label>
+                    <select name="ai_openai_model"
+                            class="h-9 w-full rounded-lg border border-gray-300 px-3 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500">
+                        @foreach(['gpt-5.5', 'gpt-5.5-pro', 'gpt-5.4', 'gpt-5.4-pro', 'gpt-5.4-mini', 'gpt-5.4-nano', 'gpt-5-mini', 'gpt-5-nano', 'gpt-5', 'gpt-4.1', 'gpt-4o', 'gpt-4o-mini', 'gpt-4-turbo', 'gpt-3.5-turbo'] as $model)
+                            <option value="{{ $model }}" @selected(setting('ai.openai_model', 'gpt-4o') === $model)>{{ $model }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">{{ __('Max Tokens per Section') }}</label>
+                        <input type="number" name="ai_openai_max_tokens"
+                               value="{{ old('ai_openai_max_tokens', setting('ai.openai_max_tokens', 800)) }}"
+                               min="100" max="4000"
+                               class="h-9 w-full rounded-lg border border-gray-300 px-3 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500" />
+                        <p class="mt-1 text-xs text-gray-400">{{ __('100 – 4000') }}</p>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">{{ __('Temperature') }}</label>
+                        <input type="number" name="ai_openai_temperature" step="0.1"
+                               value="{{ old('ai_openai_temperature', setting('ai.openai_temperature', 0.3)) }}"
+                               min="0" max="2"
+                               class="h-9 w-full rounded-lg border border-gray-300 px-3 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500" />
+                        <p class="mt-1 text-xs text-gray-400">{{ __('0 = precise, 1 = creative, 2 = wild') }}</p>
+                    </div>
+                </div>
+
+                @if(setting('ai.openai_key'))
+                <div class="rounded-lg bg-green-50 border border-green-200 px-4 py-3 text-sm text-green-700">
+                    ✓ {{ __('API key is configured.') }}
+                    {{ __('Model:') }} <strong>{{ setting('ai.openai_model', 'gpt-4o') }}</strong>
+                </div>
+                @else
+                <div class="rounded-lg bg-yellow-50 border border-yellow-200 px-4 py-3 text-sm text-yellow-700">
+                    {{ __('No API key set — contract AI generation will fail until one is added.') }}
+                </div>
+                @endif
+
+                <div>
+                    <button type="submit" class="inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-brand-700">
+                        <x-heroicon-o-check class="h-4 w-4" />
+                        {{ __('Save AI Settings') }}
+                    </button>
+                </div>
+            </form>
+        </div>
+
     </div>
 </div>
 
@@ -933,4 +1010,18 @@ onAdminReady(function () {
 });
 </script>
 @endpush
+
+@push('scripts')
+<script>
+// AI Setup tab — show/hide key field
+$(function () {
+    $('#ai_show_key_btn').on('click', function () {
+        var inp = $('#ai_openai_key_input');
+        inp.attr('type', inp.attr('type') === 'password' ? 'text' : 'password');
+        $(this).text(inp.attr('type') === 'password' ? 'Show' : 'Hide');
+    });
+});
+</script>
+@endpush
+
 @endsection

@@ -1,0 +1,23 @@
+@extends('admin.layouts.app')
+
+@section('content')
+<div class="max-w-3xl space-y-5">
+
+    <div>
+        <h1 class="text-xl font-bold text-gray-900">{{ __('New Contract Template') }}</h1>
+        <p class="mt-0.5 text-sm text-gray-500">{{ __('Define the structure, AI prompt, and wizard fields for this template.') }}</p>
+    </div>
+
+    <form method="POST" action="{{ route('admin.contracts.templates.store') }}" class="space-y-5">
+        @csrf
+        @include('admin.contracts.templates._form')
+        <div class="flex items-center gap-3 pt-2">
+            <button type="submit" class="rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700">
+                {{ __('Create Template') }}
+            </button>
+            <a href="{{ route('admin.contracts.templates.index') }}" class="text-sm text-gray-500 hover:underline">{{ __('Cancel') }}</a>
+        </div>
+    </form>
+
+</div>
+@endsection

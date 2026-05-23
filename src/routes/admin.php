@@ -27,6 +27,8 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\StaffController;
 use App\Http\Controllers\Admin\SubscriptionController;
+use App\Http\Controllers\Admin\Contract\TemplateCategoryController as ContractCategoryController;
+use App\Http\Controllers\Admin\Contract\TemplateController as ContractTemplateController;
 use App\Http\Controllers\Admin\Support\TicketController as SupportTicketController;
 use App\Http\Controllers\Admin\TranslationController;
 use App\Http\Controllers\Admin\UserController;
@@ -222,6 +224,22 @@ Route::prefix('admin')
         Route::post('support/tickets/{ticket}/close', [SupportTicketController::class, 'close'])->name('support.tickets.close')->middleware('permission:support.manage');
         Route::post('support/tickets/{ticket}/reopen', [SupportTicketController::class, 'reopen'])->name('support.tickets.reopen')->middleware('permission:support.manage');
         Route::get('support/attachments/{attachment}', [SupportTicketController::class, 'attachment'])->name('support.attachment.download')->middleware('permission:support.view');
+
+        // Contract templates & categories
+        Route::get('contracts/templates', [ContractTemplateController::class, 'index'])->name('contracts.templates.index')->middleware('permission:contracts.manage');
+        Route::get('contracts/templates/create', [ContractTemplateController::class, 'create'])->name('contracts.templates.create')->middleware('permission:contracts.manage');
+        Route::post('contracts/templates', [ContractTemplateController::class, 'store'])->name('contracts.templates.store')->middleware('permission:contracts.manage');
+        Route::get('contracts/templates/{template}/edit', [ContractTemplateController::class, 'edit'])->name('contracts.templates.edit')->middleware('permission:contracts.manage');
+        Route::put('contracts/templates/{template}', [ContractTemplateController::class, 'update'])->name('contracts.templates.update')->middleware('permission:contracts.manage');
+        Route::delete('contracts/templates/{template}', [ContractTemplateController::class, 'destroy'])->name('contracts.templates.destroy')->middleware('permission:contracts.manage');
+        Route::post('contracts/templates/{template}/toggle', [ContractTemplateController::class, 'toggle'])->name('contracts.templates.toggle')->middleware('permission:contracts.manage');
+
+        Route::get('contracts/categories', [ContractCategoryController::class, 'index'])->name('contracts.categories.index')->middleware('permission:contracts.manage');
+        Route::get('contracts/categories/create', [ContractCategoryController::class, 'create'])->name('contracts.categories.create')->middleware('permission:contracts.manage');
+        Route::post('contracts/categories', [ContractCategoryController::class, 'store'])->name('contracts.categories.store')->middleware('permission:contracts.manage');
+        Route::get('contracts/categories/{category}/edit', [ContractCategoryController::class, 'edit'])->name('contracts.categories.edit')->middleware('permission:contracts.manage');
+        Route::put('contracts/categories/{category}', [ContractCategoryController::class, 'update'])->name('contracts.categories.update')->middleware('permission:contracts.manage');
+        Route::delete('contracts/categories/{category}', [ContractCategoryController::class, 'destroy'])->name('contracts.categories.destroy')->middleware('permission:contracts.manage');
 
         // Reports
         Route::get('reports', [ReportController::class, 'index'])->name('reports.index')->middleware('permission:reports.view');

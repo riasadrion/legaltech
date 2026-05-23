@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\User\ContractController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\PaymentController;
@@ -23,6 +24,19 @@ Route::middleware(['auth:user', 'account.active', 'verified.phone'])
         Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::put('profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password');
         Route::delete('profile/avatar', [ProfileController::class, 'deleteAvatar'])->name('profile.avatar.delete');
+
+        // Contracts
+        Route::get('contracts', [ContractController::class, 'index'])->name('contracts.index');
+        Route::get('contracts/create', [ContractController::class, 'create'])->name('contracts.create');
+        Route::get('contracts/{template}/wizard', [ContractController::class, 'wizard'])->name('contracts.wizard');
+        Route::post('contracts', [ContractController::class, 'store'])->name('contracts.store');
+        Route::get('contracts/{contract}', [ContractController::class, 'show'])->name('contracts.show');
+        Route::put('contracts/{contract}', [ContractController::class, 'update'])->name('contracts.update');
+        Route::post('contracts/{contract}/finalize', [ContractController::class, 'finalize'])->name('contracts.finalize');
+        Route::post('contracts/{contract}/revert', [ContractController::class, 'revertToDraft'])->name('contracts.revert');
+        Route::get('contracts/{contract}/pdf', [ContractController::class, 'pdf'])->name('contracts.pdf');
+        Route::post('contracts/{contract}/send-sign', [ContractController::class, 'sendSign'])->name('contracts.send-sign');
+        Route::delete('contracts/{contract}', [ContractController::class, 'destroy'])->name('contracts.destroy');
 
         // Payments
         Route::get('payment', [PaymentController::class, 'index'])->name('payment.index');

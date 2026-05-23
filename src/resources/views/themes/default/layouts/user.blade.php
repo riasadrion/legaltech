@@ -95,7 +95,7 @@
                     @endphp
                     <div class="flex items-center gap-2 shrink-0">
                         {{-- new contract button --}}
-                        <a href="{{ route('user.payment.create') }}" class="hidden sm:flex btn-lime rounded-lg px-3 py-2 text-sm items-center gap-1.5">
+                        <a href="{{ route('user.contracts.create') }}" class="hidden sm:flex btn-lime rounded-lg px-3 py-2 text-sm items-center gap-1.5">
                             <x-heroicon-o-sparkles class="h-4 w-4" />
                             {{ __('New contract') }}
                         </a>

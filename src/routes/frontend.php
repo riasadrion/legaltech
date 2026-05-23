@@ -2,6 +2,7 @@
 
 use App\Domain\Blog\Models\BlogPost;
 use App\Domain\Cms\Models\Page;
+use App\Http\Controllers\ContractSignatureController;
 use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Frontend\GuestTicketController;
@@ -65,3 +66,7 @@ Route::get('/robots.txt', function () {
     return response()->view('theme::robots')
         ->header('Content-Type', 'text/plain');
 })->name('robots');
+
+// Public contract e-signature
+Route::get('/sign/{token}', [ContractSignatureController::class, 'show'])->name('contracts.sign');
+Route::post('/sign/{token}', [ContractSignatureController::class, 'confirm'])->name('contracts.sign.confirm');

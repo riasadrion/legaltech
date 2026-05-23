@@ -29,6 +29,7 @@ class SettingsController extends Controller
             'integrations' => $this->updateIntegrations($request),
             'controls' => $this->updateControls($request),
             'social' => $this->updateSocial($request),
+            'ai' => $this->updateAi($request),
             default => null,
         };
 
@@ -346,6 +347,23 @@ class SettingsController extends Controller
         $css = preg_replace('/\bbehavior\s*:/i', '', $css);
 
         return trim($css);
+    }
+
+    private function updateAi(Request $request): void
+    {
+        $data = $request->validate([
+            'ai_openai_key'        => ['nullable', 'string', 'max:200'],
+            'ai_openai_model'      => ['required', 'string', 'max:60'],
+            'ai_openai_max_tokens' => ['required', 'integer', 'min:100', 'max:4000'],
+            'ai_openai_temperature'=> ['required', 'numeric', 'min:0', 'max:2'],
+        ]);
+
+        if (!empty($data['ai_openai_key'])) {
+            Settings::set('ai.openai_key', $data['ai_openai_key'], 'string', 'ai');
+        }
+        Settings::set('ai.openai_model', $data['ai_openai_model'], 'string', 'ai');
+        Settings::set('ai.openai_max_tokens', (int) $data['ai_openai_max_tokens'], 'integer', 'ai');
+        Settings::set('ai.openai_temperature', (float) $data['ai_openai_temperature'], 'string', 'ai');
     }
 
     private function deleteOldUpload(?string $url): void
