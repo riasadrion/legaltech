@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\User\DashboardController;
+use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\PaymentController;
 use App\Http\Controllers\User\KycController;
 use App\Http\Controllers\User\NotificationPreferenceController;
@@ -19,7 +20,10 @@ Route::middleware(['auth:user', 'account.active', 'verified.phone'])
         Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::post('dashboard/dismiss-nudge', [DashboardController::class, 'dismissNudge'])->name('dashboard.dismiss-nudge');
 
-        Route::get('profile', fn () => view('user.profile'))->name('profile');
+        Route::get('profile', [ProfileController::class, 'show'])->name('profile');
+        Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::put('profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password');
+        Route::delete('profile/avatar', [ProfileController::class, 'deleteAvatar'])->name('profile.avatar.delete');
 
         // Wallet
         Route::get('wallet', [WalletController::class, 'index'])->name('wallet.index');

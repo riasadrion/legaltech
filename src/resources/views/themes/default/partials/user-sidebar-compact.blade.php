@@ -1,13 +1,25 @@
 {{-- Brand --}}
+@php
+    $uSiteName   = setting('site.name', config('app.name'));
+    $uLogo       = setting('site.logo');
+    $uDarkLogo   = setting('site.dark_logo');
+@endphp
 <div class="px-5 py-5 flex items-center gap-2 border-b border-white/8">
     <a href="{{ route('home') }}" class="flex items-center gap-2">
-        @if($logo = setting('site.logo'))
-            <img src="{{ $logo }}" alt="{{ setting('site.name', config('app.name')) }}" class="h-8">
+        @if($uLogo || $uDarkLogo)
+            @if($uLogo)
+                <img src="{{ $uLogo }}" alt="{{ $uSiteName }}" class="nav-brand-logo nav-brand-logo-light h-8">
+            @endif
+            @if($uDarkLogo)
+                <img src="{{ $uDarkLogo }}" alt="{{ $uSiteName }}" class="nav-brand-logo nav-brand-logo-dark h-8">
+            @elseif($uLogo)
+                <img src="{{ $uLogo }}" alt="{{ $uSiteName }}" class="nav-brand-logo nav-brand-logo-dark h-8">
+            @endif
         @else
             <span class="grid place-items-center w-8 h-8 rounded-full bg-lime text-ink-900">
                 <x-heroicon-s-pencil class="h-4 w-4" />
             </span>
-            <span class="font-display text-2xl text-white">{{ setting('site.name', config('app.name')) }}</span>
+            <span class="font-display text-2xl text-white">{{ $uSiteName }}</span>
         @endif
     </a>
 </div>

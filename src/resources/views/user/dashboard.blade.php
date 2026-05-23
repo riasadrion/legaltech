@@ -1,150 +1,219 @@
 @extends('theme::layouts.user')
 
 @section('content')
+@php
+    $user         = auth('user')->user();
+    $subscription = $user->subscription;
+    $isActive     = $subscription && $subscription->isActive();
+    $balance      = $user->balance_cache ?? 0;
+    $currency     = setting('site.currency_symbol', '$');
+@endphp
+
 <div class="space-y-6">
 
-    {{-- Welcome Section --}}
-    <div>
-        <h1 class="text-2xl font-bold text-gray-900">{{ __('Welcome back, :name', ['name' => auth('user')->user()->name ?? 'User']) }}</h1>
-        <p class="mt-1 text-sm text-gray-500">{{ now()->format('l, F j, Y') }}</p>
+    {{-- Page heading --}}
+    <div class="flex items-center justify-between">
+        <div>
+            <h1 class="ud-page-title">{{ __('Welcome back') }}{{ $user->name ? ', ' . $user->name : '' }}</h1>
+            <p class="ud-page-sub">{{ now()->format('l, F j, Y') }}</p>
+        </div>
+        <a href="{{ route('user.payment.create') }}" class="ud-btn-primary hidden sm:inline-flex">
+            <x-heroicon-o-plus class="h-4 w-4" />
+            {{ __('Add Funds') }}
+        </a>
     </div>
 
-    {{-- Stats Grid --}}
-    <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-        {{-- Subscription Status --}}
-        @php $subscription = auth('user')->user()->subscription; @endphp
-        <div class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-            <div class="flex items-center justify-between">
-                <div>
-                    <p class="text-sm font-medium text-gray-500">{{ __('Subscription') }}</p>
-                    @if($subscription && $subscription->isActive())
-                        <p class="mt-2 text-xl font-bold text-brand-600">{{ $subscription->plan->name }}</p>
-                        <p class="mt-1 text-xs text-gray-500">{{ __('Active') }}</p>
-                    @else
-                        <p class="mt-2 text-xl font-bold text-gray-900">{{ __('No Plan') }}</p>
-                        <a href="{{ route('user.subscription.plans') }}" class="mt-1 text-xs font-semibold text-brand-600 hover:text-brand-700">{{ __('Browse plans') }} →</a>
-                    @endif
-                </div>
-                <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-50 text-brand-600 flex-shrink-0">
-                    <x-heroicon-o-ticket class="h-5 w-5" />
-                </div>
+    {{-- Nudges --}}
+    @if(count($nudges))
+    <div class="space-y-2" id="nudge-list">
+        @foreach($nudges as $nudge)
+        <div class="ud-nudge" data-nudge="{{ $nudge['key'] }}">
+            <x-heroicon-o-information-circle class="ud-nudge-icon h-5 w-5" />
+            <div class="flex-1 min-w-0">
+                <div class="ud-nudge-title">{{ $nudge['title'] }}</div>
+                <div class="ud-nudge-body">{{ $nudge['body'] }}</div>
             </div>
+            <a href="{{ $nudge['action'] }}" class="ud-nudge-action">{{ $nudge['label'] }} →</a>
+            <button type="button" class="ud-nudge-dismiss" data-dismiss-nudge="{{ $nudge['key'] }}" aria-label="{{ __('Dismiss') }}">
+                <x-heroicon-o-x-mark class="h-4 w-4" />
+            </button>
         </div>
-
-        {{-- Credits Remaining --}}
-        <div class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-            <div class="flex items-center justify-between">
-                <div>
-                    <p class="text-sm font-medium text-gray-500">{{ __('Credits') }}</p>
-                    @if($subscription && $subscription->isActive())
-                        <p class="mt-2 text-xl font-bold text-gray-900">{{ number_format($subscription->credits_remaining) }}</p>
-                        <p class="mt-1 text-xs text-gray-500">{{ __('Remaining') }}</p>
-                    @else
-                        <p class="mt-2 text-xl font-bold text-gray-400">—</p>
-                        <p class="mt-1 text-xs text-gray-500">{{ __('No active plan') }}</p>
-                    @endif
-                </div>
-                <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-amber-50 text-amber-600 flex-shrink-0">
-                    <x-heroicon-o-sparkles class="h-5 w-5" />
-                </div>
-            </div>
-        </div>
-    </div>
-
-    {{-- Subscription Details (if active) --}}
-    @if($subscription && $subscription->isActive())
-    <div class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-        <div class="flex items-center justify-between mb-4">
-            <h2 class="text-lg font-bold text-gray-900">{{ __('Subscription Details') }}</h2>
-            <a href="{{ route('user.subscription.index') }}" class="text-sm font-semibold text-brand-600 hover:text-brand-700">{{ __('Manage') }} →</a>
-        </div>
-
-        <div class="grid grid-cols-2 gap-4 md:grid-cols-3">
-            <div>
-                <p class="text-xs text-gray-500">{{ __('Plan') }}</p>
-                <p class="mt-1 text-sm font-semibold text-gray-900">{{ $subscription->plan->name }}</p>
-            </div>
-            <div>
-                <p class="text-xs text-gray-500">{{ __('Status') }}</p>
-                <p class="mt-1">
-                    <span class="inline-flex rounded-full bg-green-100 px-2 py-0.5 text-xs font-semibold text-green-700">
-                        {{ ucfirst($subscription->status) }}
-                    </span>
-                </p>
-            </div>
-            <div>
-                <p class="text-xs text-gray-500">{{ __('Ends') }}</p>
-                <p class="mt-1 text-sm font-semibold text-gray-900">{{ $subscription->current_period_end->format('M d, Y') }}</p>
-            </div>
-        </div>
+        @endforeach
     </div>
     @endif
 
-    {{-- Quick Actions --}}
+    {{-- Stats row --}}
+    <div class="ud-stat-grid">
+
+        {{-- Wallet balance --}}
+        <div class="ud-stat">
+            <div class="ud-stat-icon bg-lime/10">
+                <x-heroicon-o-banknotes class="h-4 w-4 text-lime" />
+            </div>
+            <div class="ud-stat-label">{{ __('Wallet') }}</div>
+            <div class="ud-stat-value">{{ $currency }}{{ number_format($balance / 100, 2) }}</div>
+            <div class="ud-stat-sub">
+                <a href="{{ route('user.wallet.index') }}" class="ud-card-link">{{ __('View history') }} →</a>
+            </div>
+        </div>
+
+        {{-- Subscription --}}
+        <div class="ud-stat">
+            <div class="ud-stat-icon bg-violet-500/10">
+                <x-heroicon-o-square-3-stack-3d class="h-4 w-4 text-violet-400" />
+            </div>
+            <div class="ud-stat-label">{{ __('Plan') }}</div>
+            @if($isActive)
+                <div class="ud-stat-value text-[1.1rem]">{{ $subscription->plan->name }}</div>
+                <div class="ud-stat-sub mt-1"><span class="ud-badge ud-badge-green">{{ __('Active') }}</span></div>
+            @else
+                <div class="ud-stat-value text-white/40 text-base">{{ __('None') }}</div>
+                <div class="ud-stat-sub">
+                    <a href="{{ route('user.subscription.plans') }}" class="ud-card-link">{{ __('Browse plans') }} →</a>
+                </div>
+            @endif
+        </div>
+
+        {{-- Credits --}}
+        <div class="ud-stat">
+            <div class="ud-stat-icon bg-amber-500/10">
+                <x-heroicon-o-sparkles class="h-4 w-4 text-amber-400" />
+            </div>
+            <div class="ud-stat-label">{{ __('Credits') }}</div>
+            @if($isActive)
+                <div class="ud-stat-value">{{ number_format($subscription->credits_remaining) }}</div>
+                <div class="ud-stat-sub">{{ __('Remaining') }}</div>
+            @else
+                <div class="ud-stat-value text-white/25">—</div>
+                <div class="ud-stat-sub">{{ __('No active plan') }}</div>
+            @endif
+        </div>
+
+        {{-- Subscription end --}}
+        <div class="ud-stat">
+            <div class="ud-stat-icon bg-sky-500/10">
+                <x-heroicon-o-calendar-days class="h-4 w-4 text-sky-400" />
+            </div>
+            <div class="ud-stat-label">{{ __('Renews') }}</div>
+            @if($isActive)
+                <div class="ud-stat-value text-base">{{ $subscription->current_period_end->format('M d') }}</div>
+                <div class="ud-stat-sub">{{ $subscription->current_period_end->format('Y') }}</div>
+            @else
+                <div class="ud-stat-value text-white/25">—</div>
+                <div class="ud-stat-sub">{{ __('No plan') }}</div>
+            @endif
+        </div>
+
+    </div>
+
+    {{-- Quick actions --}}
     <div>
-        <h3 class="mb-4 text-sm font-bold uppercase tracking-wide text-gray-500">{{ __('Quick Actions') }}</h3>
-        <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            <a href="{{ route('user.payment.index') }}" class="group rounded-lg border border-gray-200 bg-white p-4 shadow-sm hover:border-brand-400 hover:shadow-md transition-all">
-                <div class="flex items-center gap-3">
-                    <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-emerald-50 text-emerald-600 group-hover:bg-emerald-100">
-                        <x-heroicon-o-arrow-down-tray class="h-4 w-4" />
-                    </div>
-                    <div>
-                        <p class="font-semibold text-gray-900 text-sm">{{ __('Add Funds') }}</p>
-                        <p class="text-xs text-gray-400">{{ __('Payment funds') }}</p>
-                    </div>
+        <p class="ud-stat-label mb-3">{{ __('Quick Actions') }}</p>
+        <div class="ud-action-grid">
+            <a href="{{ route('user.payment.create') }}" class="ud-action">
+                <div class="ud-action-icon bg-emerald-500/10">
+                    <x-heroicon-o-arrow-down-on-square class="h-4 w-4 text-emerald-400" />
+                </div>
+                <div>
+                    <div class="ud-action-label">{{ __('Add Funds') }}</div>
+                    <div class="ud-action-desc">{{ __('Top up wallet') }}</div>
                 </div>
             </a>
-
-            <a href="{{ route('user.subscription.plans') }}" class="group rounded-lg border border-gray-200 bg-white p-4 shadow-sm hover:border-brand-400 hover:shadow-md transition-all">
-                <div class="flex items-center gap-3">
-                    <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-blue-50 text-blue-600 group-hover:bg-blue-100">
-                        <x-heroicon-o-ticket class="h-4 w-4" />
-                    </div>
-                    <div>
-                        <p class="font-semibold text-gray-900 text-sm">{{ __('Browse Plans') }}</p>
-                        <p class="text-xs text-gray-400">{{ __('Upgrade plan') }}</p>
-                    </div>
+            <a href="{{ route('user.subscription.plans') }}" class="ud-action">
+                <div class="ud-action-icon bg-violet-500/10">
+                    <x-heroicon-o-ticket class="h-4 w-4 text-violet-400" />
+                </div>
+                <div>
+                    <div class="ud-action-label">{{ __('Plans') }}</div>
+                    <div class="ud-action-desc">{{ __('Browse & upgrade') }}</div>
+                </div>
+            </a>
+            <a href="{{ route('user.payout.create') }}" class="ud-action">
+                <div class="ud-action-icon bg-amber-500/10">
+                    <x-heroicon-o-arrow-up-tray class="h-4 w-4 text-amber-400" />
+                </div>
+                <div>
+                    <div class="ud-action-label">{{ __('Payout') }}</div>
+                    <div class="ud-action-desc">{{ __('Withdraw funds') }}</div>
+                </div>
+            </a>
+            <a href="{{ route('user.support.create') }}" class="ud-action">
+                <div class="ud-action-icon bg-sky-500/10">
+                    <x-heroicon-o-lifebuoy class="h-4 w-4 text-sky-400" />
+                </div>
+                <div>
+                    <div class="ud-action-label">{{ __('Support') }}</div>
+                    <div class="ud-action-desc">{{ __('Open a ticket') }}</div>
                 </div>
             </a>
         </div>
     </div>
 
-    {{-- Recent Transactions --}}
+    {{-- Recent transactions --}}
     @php
         try {
-            $payments = auth('user')->user()->payments()->latest()->limit(5)->get();
+            $payments = $user->payments()->latest()->limit(6)->get();
         } catch (\Exception $e) {
             $payments = collect([]);
         }
     @endphp
-    @if($payments->isNotEmpty())
-    <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
-        <div class="border-b border-gray-100 px-6 py-3">
-            <h3 class="text-sm font-semibold text-gray-900">{{ __('Recent Activity') }}</h3>
+
+    <div class="ud-card">
+        <div class="ud-card-header">
+            <span class="ud-card-title">{{ __('Recent Payments') }}</span>
+            <a href="{{ route('user.payment.index') }}" class="ud-card-link">{{ __('View all') }} →</a>
         </div>
-        <div class="divide-y divide-gray-100">
+
+        @if($payments->isEmpty())
+            <div class="ud-empty">
+                <x-heroicon-o-credit-card class="h-10 w-10" />
+                <div class="ud-empty-title">{{ __('No payments yet') }}</div>
+                <div class="ud-empty-body">{{ __('Your payment history will appear here.') }}</div>
+            </div>
+        @else
             @foreach($payments as $payment)
-            <div class="flex items-center justify-between px-6 py-3 hover:bg-gray-50 transition-colors">
-                <div class="flex items-center gap-3 min-w-0 flex-1">
-                    <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-gray-100 flex-shrink-0">
-                        <x-heroicon-o-arrow-down-tray class="h-4 w-4 text-gray-600" />
-                    </div>
-                    <div class="min-w-0">
-                        <p class="text-xs font-medium text-gray-900 truncate">{{ $payment->gateway->name }}</p>
-                        <p class="text-xs text-gray-500">{{ $payment->created_at->format('M d, Y') }}</p>
-                    </div>
+            @php
+                $statusMap = [
+                    'completed'         => 'ud-badge-green',
+                    'awaiting_approval' => 'ud-badge-amber',
+                    'failed'            => 'ud-badge-red',
+                ];
+                $badgeClass = $statusMap[$payment->status] ?? 'ud-badge-gray';
+            @endphp
+            <div class="ud-row">
+                <div class="ud-row-icon">
+                    <x-heroicon-o-arrow-down-on-square class="h-4 w-4" />
                 </div>
-                <div class="text-right flex-shrink-0 ml-2">
-                    <p class="text-xs font-semibold text-gray-900">{{ $payment->formattedAmount() }}</p>
-                    @php $sc = match($payment->status) { 'completed' => 'bg-green-100 text-green-700', 'awaiting_approval' => 'bg-amber-100 text-amber-700', 'failed' => 'bg-red-100 text-red-700', default => 'bg-gray-100 text-gray-500' }; @endphp
-                    <span class="mt-0.5 inline-flex rounded-full px-1.5 py-0.5 text-xs font-semibold {{ $sc }}">{{ __(str_replace('_', ' ', $payment->status)) }}</span>
+                <div class="flex-1 min-w-0">
+                    <div class="ud-row-label truncate">{{ $payment->gateway->name ?? __('Payment') }}</div>
+                    <div class="ud-row-sub">{{ $payment->created_at->format('M d, Y') }}</div>
+                </div>
+                <div class="text-right">
+                    <div class="ud-row-amount">{{ $payment->formattedAmount() }}</div>
+                    <span class="ud-badge {{ $badgeClass }} mt-1">{{ __(str_replace('_', ' ', $payment->status)) }}</span>
                 </div>
             </div>
             @endforeach
-        </div>
+        @endif
     </div>
-    @endif
 
 </div>
+
+@push('scripts')
+<script>
+$(function () {
+    'use strict';
+    $(document).on('click', '[data-dismiss-nudge]', function () {
+        var key  = $(this).data('dismiss-nudge');
+        var $row = $(this).closest('[data-nudge]');
+        $row.fadeOut(200, function () { $row.remove(); });
+        $.post('{{ route('user.dashboard.dismiss-nudge') }}', {
+            _token: $('meta[name="csrf-token"]').attr('content'),
+            key: key
+        });
+    });
+});
+</script>
+@endpush
+
 @endsection

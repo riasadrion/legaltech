@@ -11,11 +11,15 @@
 /* ─── Dual-logo system (frontend nav, footer, auth) ─── */
 /* The frontend theme is always dark-background — show "light" logo, hide "dark" logo */
 .theme-default .nav-brand-logo {
-    height: auto;
     width: auto;
+    max-width: 9rem;    /* prevents wide wordmark logos from overflowing the nav */
     object-fit: contain;
     flex-shrink: 0;
 }
+/* Per-location heights — applied directly in markup via Tailwind h-* classes.
+   Fallback for nav partial which has no explicit h-* class: */
+.theme-default nav .nav-brand-logo { height: 2rem; }
+
 .theme-default .nav-brand-logo-light { display: block; }
 .theme-default .nav-brand-logo-dark  { display: none; }
 
@@ -890,4 +894,413 @@ body.theme-default {
     background: rgba(255,255,255,0.08);
     border-color: rgba(255,255,255,0.18);
     color: #fff;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   User Dashboard Shell & Page Components
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── Cards ─── */
+.theme-default .ud-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 1rem;
+    padding: 1.5rem;
+}
+.theme-default .ud-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+}
+.theme-default .ud-card-title {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: #fff;
+}
+.theme-default .ud-card-link {
+    font-size: 0.75rem;
+    color: #D4FF3A;
+    text-decoration: none;
+    transition: opacity 0.15s;
+}
+.theme-default .ud-card-link:hover { opacity: 0.75; }
+
+/* ─── Stat tiles ─── */
+.theme-default .ud-stat-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+@media (min-width: 640px) {
+    .theme-default .ud-stat-grid { grid-template-columns: repeat(4, 1fr); }
+}
+.theme-default .ud-stat {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 1rem;
+    padding: 1.25rem;
+}
+.theme-default .ud-stat-label {
+    font-size: 0.6875rem;
+    font-family: 'JetBrains Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 0.5rem;
+}
+.theme-default .ud-stat-value {
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.2;
+}
+.theme-default .ud-stat-sub {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.4);
+    margin-top: 0.25rem;
+}
+.theme-default .ud-stat-icon {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 0.625rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.75rem;
+    flex-shrink: 0;
+}
+
+/* ─── Badges ─── */
+.theme-default .ud-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.2rem 0.625rem;
+    border-radius: 999px;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+.theme-default .ud-badge-green  { background: rgba(52,211,153,0.12); color: #34d399; }
+.theme-default .ud-badge-amber  { background: rgba(251,191,36,0.12);  color: #fbbf24; }
+.theme-default .ud-badge-red    { background: rgba(248,113,113,0.12); color: #f87171; }
+.theme-default .ud-badge-gray   { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.45); }
+.theme-default .ud-badge-lime   { background: rgba(212,255,58,0.12);  color: #D4FF3A; }
+.theme-default .ud-badge-violet { background: rgba(124,92,255,0.12);  color: #a78bfa; }
+
+/* ─── Activity / transaction rows ─── */
+.theme-default .ud-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.theme-default .ud-row:last-child { border-bottom: none; }
+.theme-default .ud-row-icon {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0.5rem;
+    background: rgba(255,255,255,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: rgba(255,255,255,0.5);
+}
+.theme-default .ud-row-label {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: #fff;
+}
+.theme-default .ud-row-sub {
+    font-size: 0.6875rem;
+    color: rgba(255,255,255,0.4);
+    margin-top: 0.1rem;
+}
+.theme-default .ud-row-amount {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #fff;
+    text-align: right;
+    flex-shrink: 0;
+    margin-left: auto;
+}
+
+/* ─── Nudge / alert strip ─── */
+.theme-default .ud-nudge {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.875rem;
+    padding: 0.875rem 1rem;
+    background: rgba(212,255,58,0.05);
+    border: 1px solid rgba(212,255,58,0.15);
+    border-radius: 0.875rem;
+}
+.theme-default .ud-nudge-icon {
+    flex-shrink: 0;
+    color: #D4FF3A;
+    margin-top: 0.1rem;
+}
+.theme-default .ud-nudge-title {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #fff;
+}
+.theme-default .ud-nudge-body {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.5);
+    margin-top: 0.15rem;
+}
+.theme-default .ud-nudge-action {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #D4FF3A;
+    text-decoration: none;
+    white-space: nowrap;
+    margin-left: auto;
+    flex-shrink: 0;
+    align-self: center;
+    padding-left: 0.75rem;
+}
+.theme-default .ud-nudge-action:hover { opacity: 0.8; }
+.theme-default .ud-nudge-dismiss {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: rgba(255,255,255,0.3);
+    line-height: 1;
+    padding: 0;
+    flex-shrink: 0;
+    margin-left: 0.25rem;
+    align-self: center;
+    transition: color 0.15s;
+}
+.theme-default .ud-nudge-dismiss:hover { color: rgba(255,255,255,0.7); }
+
+/* ─── Quick action cards ─── */
+.theme-default .ud-action-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+}
+@media (min-width: 640px) {
+    .theme-default .ud-action-grid { grid-template-columns: repeat(4, 1fr); }
+}
+.theme-default .ud-action {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.625rem;
+    padding: 1rem;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 0.875rem;
+    text-decoration: none;
+    transition: background 0.15s, border-color 0.15s;
+}
+.theme-default .ud-action:hover {
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(255,255,255,0.14);
+}
+.theme-default .ud-action-icon {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.theme-default .ud-action-label {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #fff;
+}
+.theme-default .ud-action-desc {
+    font-size: 0.6875rem;
+    color: rgba(255,255,255,0.4);
+}
+
+/* ─── Profile form ─── */
+.theme-default .ud-section-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 0.25rem;
+}
+.theme-default .ud-section-desc {
+    font-size: 0.8125rem;
+    color: rgba(255,255,255,0.45);
+}
+.theme-default .ud-input {
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 0.625rem;
+    padding: 0.625rem 0.875rem;
+    font-size: 0.875rem;
+    color: #fff;
+    outline: none;
+    transition: border-color 0.2s ease, background 0.2s ease;
+    font-family: inherit;
+}
+.theme-default .ud-input::placeholder { color: rgba(255,255,255,0.25); }
+.theme-default .ud-input:focus {
+    border-color: rgba(212,255,58,0.5);
+    background: rgba(255,255,255,0.06);
+}
+.theme-default .ud-input:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+.theme-default .ud-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 0.375rem;
+}
+.theme-default .ud-field-err {
+    font-size: 0.6875rem;
+    color: #f87171;
+    margin-top: 0.25rem;
+}
+.theme-default .ud-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='rgba(255,255,255,0.3)' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1.25rem;
+    padding-right: 2.5rem;
+}
+.theme-default .ud-select option { background: #1a1a24; color: #fff; }
+.theme-default .ud-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.25rem;
+    background: #D4FF3A;
+    color: #0B0B0F;
+    font-size: 0.875rem;
+    font-weight: 700;
+    border-radius: 0.625rem;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.15s;
+    text-decoration: none;
+}
+.theme-default .ud-btn-primary:hover { opacity: 0.88; }
+.theme-default .ud-btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.25rem;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.10);
+    color: rgba(255,255,255,0.75);
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: 0.625rem;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+    text-decoration: none;
+}
+.theme-default .ud-btn-ghost:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(255,255,255,0.18);
+    color: #fff;
+}
+.theme-default .ud-btn-danger {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.25rem;
+    background: rgba(248,113,113,0.10);
+    border: 1px solid rgba(248,113,113,0.2);
+    color: #f87171;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: 0.625rem;
+    cursor: pointer;
+    transition: background 0.15s;
+    text-decoration: none;
+}
+.theme-default .ud-btn-danger:hover { background: rgba(248,113,113,0.18); }
+
+/* ─── Avatar upload ─── */
+.theme-default .ud-avatar-wrap {
+    position: relative;
+    width: 4.5rem;
+    height: 4.5rem;
+    flex-shrink: 0;
+}
+.theme-default .ud-avatar {
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255,255,255,0.12);
+}
+.theme-default .ud-avatar-initials {
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #D4FF3A, #a3cc1e);
+    color: #0B0B0F;
+    font-size: 1.25rem;
+    font-weight: 800;
+    border: 2px solid rgba(212,255,58,0.3);
+}
+.theme-default .ud-avatar-upload-btn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    background: #D4FF3A;
+    color: #0B0B0F;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 2px solid #0B0B0F;
+}
+
+/* ─── Page heading ─── */
+.theme-default .ud-page-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.02em;
+}
+.theme-default .ud-page-sub {
+    font-size: 0.875rem;
+    color: rgba(255,255,255,0.45);
+    margin-top: 0.25rem;
+}
+
+/* ─── Empty state ─── */
+.theme-default .ud-empty {
+    text-align: center;
+    padding: 3rem 1.5rem;
+    color: rgba(255,255,255,0.35);
+}
+.theme-default .ud-empty svg {
+    margin: 0 auto 1rem;
+    opacity: 0.3;
+}
+.theme-default .ud-empty-title {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.5);
+}
+.theme-default .ud-empty-body {
+    font-size: 0.8125rem;
+    margin-top: 0.375rem;
 }
