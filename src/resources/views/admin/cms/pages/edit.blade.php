@@ -14,7 +14,7 @@
             <p class="text-sm text-gray-400 font-mono">/{{ $page->slug }}</p>
         </div>
         <a href="{{ route('admin.cms.pages.preview', $page) }}" target="_blank"
-           class="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">
+           class="btn-secondary">
             <x-heroicon-o-eye class="h-4 w-4" />
             {{ __('Preview') }}
         </a>

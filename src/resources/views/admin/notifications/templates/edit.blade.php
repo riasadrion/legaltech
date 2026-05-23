@@ -93,7 +93,7 @@
                         <x-heroicon-o-check class="h-4 w-4" />
                         {{ __('Save Template') }}
                     </button>
-                    <a href="{{ route('admin.notifications.templates.index') }}" class="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">
+                    <a href="{{ route('admin.notifications.templates.index') }}" class="btn-secondary">
                         <x-heroicon-o-x-mark class="h-4 w-4" />
                         {{ __('Cancel') }}
                     </a>
@@ -108,7 +108,7 @@
                 @csrf
                 <input type="email" name="test_email" placeholder="you@example.com" required
                     class="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-brand-500 focus:border-brand-500">
-                <button type="submit" class="inline-flex items-center gap-1.5 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">{{ __('Send Test') }}</button>
+                <button type="submit" class="btn-secondary">{{ __('Send Test') }}</button>
             </form>
         </div>
     </div>

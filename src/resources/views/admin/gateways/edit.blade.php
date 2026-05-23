@@ -230,7 +230,7 @@
                 {{ __('Save changes') }}
             </button>
             <a href="{{ route('admin.gateways.index') }}"
-               class="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">
+               class="btn-secondary">
                 <x-heroicon-o-x-mark class="h-4 w-4" />
                 {{ __('Cancel') }}
             </a>

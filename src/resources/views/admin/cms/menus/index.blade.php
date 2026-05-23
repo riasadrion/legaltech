@@ -15,7 +15,7 @@
             <p class="text-xs text-gray-400 font-mono mb-3">{{ $menu->handle }}</p>
             <p class="text-sm text-gray-500 mb-4">{{ $menu->allItems()->count() }} {{ __('items') }}</p>
             <a href="{{ route('admin.cms.menus.edit', $menu) }}"
-               class="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">
+               class="btn-secondary">
                 <x-heroicon-o-pencil class="h-4 w-4" />
                 {{ __('Edit menu') }}
             </a>

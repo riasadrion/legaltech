@@ -21,7 +21,7 @@
                     </div>
                     @endforeach
                 </div>
-                <button type="button" id="add-feature" class="mt-3 inline-flex items-center gap-1.5 rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">
+                <button type="button" id="add-feature" class="mt-3 btn-secondary">
                     {{ __('+ Add feature') }}
                 </button>
             </div>
