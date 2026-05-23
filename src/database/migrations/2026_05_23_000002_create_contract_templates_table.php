@@ -12,8 +12,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('category_id')->constrained('contract_template_categories')->cascadeOnDelete();
             $table->string('name');
-            $table->string('description')->nullable();
-            $table->longText('body');
+            $table->text('description')->nullable();
+            $table->longText('body')->nullable();
             $table->text('ai_system_prompt')->nullable();
             $table->unsignedInteger('credits_cost')->default(1);
             $table->boolean('active')->default(true);

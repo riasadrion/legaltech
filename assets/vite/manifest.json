@@ -24,7 +24,7 @@
     "src": "node_modules/remixicon/fonts/remixicon.woff2"
   },
   "resources/css/app.css": {
-    "file": "app-DX7YzQ7X.css",
+    "file": "app-tgVkqnqv.css",
     "name": "app",
     "names": [
       "app.css"
@@ -40,7 +40,7 @@
     ]
   },
   "resources/js/admin.js": {
-    "file": "admin-BgYWHvZN.js",
+    "file": "admin-B8lxGw25.js",
     "name": "admin",
     "src": "resources/js/admin.js",
     "isEntry": true,

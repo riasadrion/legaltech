@@ -233,6 +233,7 @@ Route::prefix('admin')
         Route::put('contracts/templates/{template}', [ContractTemplateController::class, 'update'])->name('contracts.templates.update')->middleware('permission:contracts.manage');
         Route::delete('contracts/templates/{template}', [ContractTemplateController::class, 'destroy'])->name('contracts.templates.destroy')->middleware('permission:contracts.manage');
         Route::post('contracts/templates/{template}/toggle', [ContractTemplateController::class, 'toggle'])->name('contracts.templates.toggle')->middleware('permission:contracts.manage');
+        Route::post('contracts/templates/{template}/regenerate', [ContractTemplateController::class, 'regenerate'])->name('contracts.templates.regenerate')->middleware('permission:contracts.manage');
 
         Route::get('contracts/categories', [ContractCategoryController::class, 'index'])->name('contracts.categories.index')->middleware('permission:contracts.manage');
         Route::get('contracts/categories/create', [ContractCategoryController::class, 'create'])->name('contracts.categories.create')->middleware('permission:contracts.manage');

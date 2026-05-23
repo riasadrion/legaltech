@@ -71,7 +71,8 @@ window.toast = toast;
         show();
     });
 
-    document.addEventListener('submit', function () {
+    document.addEventListener('submit', function (e) {
+        if (e.target && e.target.hasAttribute && e.target.hasAttribute('data-no-page-loader')) return;
         navigating = true;
         show();
     });
