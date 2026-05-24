@@ -40,17 +40,27 @@
                     @endif
                 </p>
 
-                <div class="mt-7 flex items-center gap-3">
-                    <a href="{{ route('user.payment.create') }}" class="btn-lime rounded-xl px-4 py-2.5 text-[13px] flex items-center gap-1.5">
-                        <x-heroicon-o-plus class="h-4 w-4" />
-                        {{ __('Add Funds') }}
-                    </a>
-                    @if(!$isActive)
-                    <a href="{{ route('user.subscription.plans') }}" class="btn-ghost rounded-xl px-4 py-2.5 text-[13px]">
-                        {{ __('View plans') }}
-                    </a>
-                    @endif
-                </div>
+                {{-- AI prompt --}}
+                <form method="GET" action="{{ route('user.contracts.ai.create') }}" class="mt-7 max-w-xl">
+                    <div class="flex items-center gap-2 rounded-2xl bg-ink-900/70 border border-white/10 p-2 pl-4 focus-within:border-lime/40 transition">
+                        <x-heroicon-o-sparkles class="h-4 w-4 text-lime shrink-0" />
+                        <input name="brief" required minlength="20"
+                               placeholder="{{ __('Generate a contract — e.g. \'NDA with Helix/Law, mutual, UK law\'') }}"
+                               class="flex-1 bg-transparent outline-none text-[14px] placeholder:text-white/35 py-2 min-w-0 text-white">
+                        <button type="submit" class="btn-lime rounded-xl px-4 py-2 text-[13px] flex items-center gap-1.5 shrink-0">
+                            {{ __('Continue') }}
+                        </button>
+                    </div>
+                    <p class="text-[11px] text-white/35 mt-2">
+                        @if($user->canGenerateAiContract())
+                            {{ __('Add parties and generate on the next step.') }}
+                        @else
+                            <x-heroicon-o-lock-closed class="inline h-3 w-3 -mt-0.5" />
+                            {{ __('Available on') }} <a href="{{ route('user.subscription.plans') }}" class="text-lime hover:underline">{{ __('Pro plans') }}</a>.
+                        @endif
+                    </p>
+                </form>
+
             </div>
 
             {{-- Right preview card --}}

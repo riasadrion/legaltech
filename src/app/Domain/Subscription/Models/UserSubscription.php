@@ -23,6 +23,7 @@ class UserSubscription extends Model
         'plan_id',
         'status',
         'credits_remaining',
+        'ai_drafts_remaining',
         'trial_ends_at',
         'current_period_start',
         'current_period_end',
@@ -36,6 +37,7 @@ class UserSubscription extends Model
         'current_period_end' => 'datetime',
         'cancelled_at' => 'datetime',
         'credits_remaining' => 'integer',
+        'ai_drafts_remaining' => 'integer',
     ];
 
     public function user()

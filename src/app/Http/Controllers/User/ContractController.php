@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Domain\Contract\Actions\DeductAiGenerationCredits;
 use App\Domain\Contract\Actions\DeductContractCredits;
 use App\Domain\Contract\Models\Contract;
 use App\Domain\Contract\Models\ContractParty;
@@ -12,6 +13,7 @@ use App\Domain\Contract\Services\ContractPdfExporter;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class ContractController extends Controller
@@ -27,17 +29,26 @@ class ContractController extends Controller
         return view('user.contracts.index', compact('contracts'));
     }
 
-    public function create(Request $request)
+    // Step 1: Pick a category
+    public function create()
     {
-        $categories = ContractTemplateCategory::with(['templates' => function ($q) {
-            $q->active()->orderBy('sort');
-        }])->orderBy('sort')->get()->filter(fn($c) => $c->templates->isNotEmpty());
+        $categories = ContractTemplateCategory::withCount(['templates' => fn($q) => $q->active()])
+            ->orderBy('sort')
+            ->get()
+            ->filter(fn($c) => $c->templates_count > 0);
 
-        $selectedCategory = $request->category;
-
-        return view('user.contracts.create', compact('categories', 'selectedCategory'));
+        return view('user.contracts.create', compact('categories'));
     }
 
+    // Step 2: Pick a template within a category
+    public function templates(ContractTemplateCategory $category)
+    {
+        $templates = $category->templates()->active()->orderBy('sort')->get();
+
+        return view('user.contracts.templates', compact('category', 'templates'));
+    }
+
+    // Step 3: Fill wizard fields
     public function wizard(ContractTemplate $template)
     {
         if (!$template->active) {
@@ -50,47 +61,168 @@ class ContractController extends Controller
         return view('user.contracts.wizard', compact('template', 'groups'));
     }
 
-    public function store(Request $request, DeductContractCredits $deductor)
+    // Step 4: Preview filled values before generating
+    public function preview(Request $request)
     {
-        $user     = auth('user')->user();
         $template = ContractTemplate::active()->findOrFail($request->template_id);
         $template->load('fields');
 
-        // Validate dynamic fields
-        $rules = ['template_id' => ['required', 'exists:contract_templates,id']];
-        foreach ($template->fields as $field) {
-            $fieldRules = $field->required ? ['required'] : ['nullable'];
-            $fieldRules[] = match ($field->type) {
-                'email'  => 'email',
-                'number' => 'numeric',
-                'date'   => 'date',
-                default  => 'string|max:1000',
-            };
-            $rules["fields.{$field->key}"] = $fieldRules;
+        $data = $this->validateWizard($request, $template);
+
+        // Stash to session so the user can edit and resubmit
+        session([
+            'contract.wizard' => [
+                'template_id' => $template->id,
+                'fields'      => $data['fields'] ?? [],
+                'parties'     => $data['parties'],
+            ],
+        ]);
+
+        return view('user.contracts.preview', [
+            'template' => $template,
+            'fields'   => $data['fields'] ?? [],
+            'parties'  => $data['parties'],
+        ]);
+    }
+
+    // Step 5: Generate (instant placeholder substitution)
+    public function store(Request $request, DeductContractCredits $deductor, ContractAiService $ai)
+    {
+        $payload = session('contract.wizard');
+
+        if (!$payload || (int) $payload['template_id'] !== (int) $request->template_id) {
+            return redirect()->route('user.contracts.create')
+                ->withErrors(['session' => 'Your wizard session expired. Please start again.']);
         }
 
-        // Party fields
-        $rules['parties']             = ['required', 'array', 'min:1'];
-        $rules['parties.*.name']      = ['required', 'string', 'max:200'];
-        $rules['parties.*.email']     = ['required', 'email'];
-        $rules['parties.*.role']      = ['required', 'in:signer,viewer'];
+        $user     = auth('user')->user();
+        $template = ContractTemplate::active()->findOrFail($payload['template_id']);
 
-        $data = $request->validate($rules);
-
-        // Check credits
         try {
             $creditsUsed = $deductor->run($user, $template);
         } catch (\RuntimeException $e) {
-            return back()->withErrors(['credits' => $e->getMessage()]);
+            return redirect()->route('user.contracts.create')
+                ->withErrors(['credits' => $e->getMessage()]);
         }
 
-        $contract = DB::transaction(function () use ($user, $template, $data, $creditsUsed) {
+        $contract = DB::transaction(function () use ($user, $template, $payload, $creditsUsed) {
             $contract = Contract::create([
                 'user_id'      => $user->id,
                 'template_id'  => $template->id,
                 'title'        => $template->name,
-                'field_data'   => $data['fields'] ?? [],
-                'status'       => Contract::STATUS_GENERATING,
+                'field_data'   => $payload['fields'],
+                'status'       => Contract::STATUS_EDITING,
+                'credits_used' => $creditsUsed,
+            ]);
+
+            foreach ($payload['parties'] as $i => $party) {
+                ContractParty::create([
+                    'contract_id' => $contract->id,
+                    'name'        => $party['name'],
+                    'email'       => $party['email'],
+                    'role'        => $party['role'],
+                    'sort'        => $i,
+                ]);
+            }
+
+            return $contract;
+        });
+
+        // Substitute placeholders → final HTML body
+        $contract->update([
+            'body_html' => $ai->generate($contract),
+        ]);
+
+        session()->forget('contract.wizard');
+
+        return redirect()->route('user.contracts.show', $contract)
+            ->with('success', 'Contract generated. Review, edit, and finalize when ready.');
+    }
+
+    private function validateWizard(Request $request, ContractTemplate $template): array
+    {
+        $rules = ['template_id' => ['required', 'exists:contract_templates,id']];
+
+        foreach ($template->fields as $field) {
+            $fieldRules = $field->required ? ['required'] : ['nullable'];
+
+            switch ($field->type) {
+                case 'email':
+                    $fieldRules[] = 'email';
+                    break;
+                case 'number':
+                    $fieldRules[] = 'numeric';
+                    break;
+                case 'date':
+                    $fieldRules[] = 'date';
+                    break;
+                default:
+                    $fieldRules[] = 'string';
+                    $fieldRules[] = 'max:2000';
+            }
+
+            $rules["fields.{$field->key}"] = $fieldRules;
+        }
+
+        $rules['parties']         = ['required', 'array', 'min:1'];
+        $rules['parties.*.name']  = ['required', 'string', 'max:200'];
+        $rules['parties.*.email'] = ['required', 'email'];
+        $rules['parties.*.role']  = ['required', 'in:signer,viewer'];
+
+        return $request->validate($rules);
+    }
+
+    // AI custom contract — show the brief form
+    public function aiCreate()
+    {
+        $user = auth('user')->user();
+
+        if (!$user->canGenerateAiContract()) {
+            return redirect()->route('user.subscription.plans')
+                ->with('upgrade_ai', 'Unlock AI contract drafting — upgrade to a Pro plan to draft custom agreements in plain English.');
+        }
+
+        return view('user.contracts.ai-create');
+    }
+
+    // AI custom contract — generate from user brief
+    public function aiStore(Request $request, ContractAiService $ai, DeductAiGenerationCredits $deductor)
+    {
+        $user = auth('user')->user();
+
+        if (!$user->canGenerateAiContract()) {
+            return redirect()->route('user.subscription.index')
+                ->withErrors(['ai' => 'Your current plan does not include AI contract generation.']);
+        }
+
+        $data = $request->validate([
+            'brief'           => ['required', 'string', 'min:20', 'max:4000'],
+            'parties'         => ['required', 'array', 'min:1'],
+            'parties.*.name'  => ['required', 'string', 'max:200'],
+            'parties.*.email' => ['required', 'email'],
+            'parties.*.role'  => ['required', 'in:signer,viewer'],
+        ]);
+
+        try {
+            $creditsUsed = $deductor->run($user);
+        } catch (\RuntimeException $e) {
+            return back()->withInput()->withErrors(['credits' => $e->getMessage()]);
+        }
+
+        try {
+            $draft = $ai->draftFromUserBrief($data['brief'], $data['parties']);
+        } catch (\Throwable $e) {
+            return back()->withInput()->withErrors(['ai' => 'AI generation failed: ' . $e->getMessage()]);
+        }
+
+        $contract = DB::transaction(function () use ($user, $data, $draft, $creditsUsed) {
+            $contract = Contract::create([
+                'user_id'      => $user->id,
+                'template_id'  => null,
+                'title'        => $draft['title'],
+                'body_html'    => $draft['body'],
+                'field_data'   => ['brief' => $data['brief']],
+                'status'       => Contract::STATUS_EDITING,
                 'credits_used' => $creditsUsed,
             ]);
 
@@ -107,23 +239,8 @@ class ContractController extends Controller
             return $contract;
         });
 
-        // Generate AI content
-        try {
-            $aiService = app(ContractAiService::class);
-            $bodyHtml  = $aiService->generate($contract);
-
-            $contract->update([
-                'body_html' => $bodyHtml,
-                'status'    => Contract::STATUS_EDITING,
-            ]);
-        } catch (\Throwable $e) {
-            $contract->update(['status' => Contract::STATUS_DRAFT]);
-            return redirect()->route('user.contracts.show', $contract)
-                ->withErrors(['generation' => 'AI generation failed: ' . $e->getMessage()]);
-        }
-
         return redirect()->route('user.contracts.show', $contract)
-            ->with('success', 'Contract generated — review and edit before finalizing.');
+            ->with('success', 'Contract drafted. Review, edit, and finalize when ready.');
     }
 
     public function show(Contract $contract)
@@ -200,8 +317,8 @@ class ContractController extends Controller
     {
         $this->authorizeContract($contract);
 
-        if (!$contract->isReady() && !$contract->isSigned()) {
-            abort(403, 'Contract must be finalized before downloading.');
+        if (!$contract->isReady() && !$contract->isSigned() && $contract->status !== Contract::STATUS_EDITING) {
+            abort(403, 'Contract must be generated before downloading.');
         }
 
         $contract->load('parties');
@@ -233,17 +350,15 @@ class ContractController extends Controller
 
             $signUrl = route('contracts.sign', $party->token);
 
-            // Send email notification
-            \Illuminate\Support\Facades\Mail::raw(
-                "Hello {$party->name},\n\n"
-                . "You have been invited to review and sign the contract \"{$contract->title}\".\n\n"
-                . "Click the link below to sign:\n{$signUrl}\n\n"
-                . "This link is unique to you. Do not share it.",
-                function ($m) use ($party, $contract) {
-                    $m->to($party->email, $party->name)
-                      ->subject("Signature required: {$contract->title}");
-                }
-            );
+            Mail::send([], [], function ($m) use ($party, $contract, $signUrl) {
+                $appName = config('app.name');
+                $appUrl  = config('app.url');
+                $html    = view('emails.contracts.sign-request', compact('party', 'contract', 'signUrl', 'appName', 'appUrl'))->render();
+
+                $m->to($party->email, $party->name)
+                  ->subject("Signature required: {$contract->title}")
+                  ->html($html);
+            });
         }
 
         $contract->update(['status' => Contract::STATUS_SENT]);

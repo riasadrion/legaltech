@@ -14,6 +14,7 @@ return new class extends Migration
             $table->foreignId('plan_id')->nullable()->constrained()->nullOnDelete();
             $table->enum('status', ['trial', 'active', 'past_due', 'cancelled', 'expired']);
             $table->unsignedBigInteger('credits_remaining')->default(0);
+            $table->unsignedInteger('ai_drafts_remaining')->default(0);
             $table->timestamp('trial_ends_at')->nullable();
             $table->timestamp('current_period_start')->nullable();
             $table->timestamp('current_period_end')->nullable();

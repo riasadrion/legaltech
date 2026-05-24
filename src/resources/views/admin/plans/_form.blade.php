@@ -11,7 +11,8 @@
             </div>
 
             <div class="mt-5">
-                <label class="block text-sm font-medium text-gray-700 mb-3">{{ __('Features') }}</label>
+                <label class="block text-sm font-medium text-gray-700 mb-1">{{ __('Extra perks') }}</label>
+                <p class="text-xs text-gray-500 mb-3">{{ __('Qualitative perks only — e.g. "Priority support", "SSO & SAML", "Dedicated account manager". Contract counts and AI drafts auto-display from the fields above; do not list them here.') }}</p>
                 <div id="features-list" class="space-y-2">
                     @foreach(old('features', $plan?->features ?? []) as $feat)
                     <div class="feature-row flex gap-2">
@@ -71,6 +72,15 @@
 
             <x-form.checkbox name="is_active" label="{{ __('Active') }}"
                             :checked="old('is_active', $plan?->is_active ?? true)" />
+
+            <div class="pt-3 mt-3 border-t border-gray-200 space-y-3">
+                <x-form.checkbox name="ai_contract_generation" label="{{ __('Allow free-form AI contract drafting') }}"
+                                :checked="old('ai_contract_generation', $plan?->ai_contract_generation ?? false)" />
+
+                <x-form.input name="ai_drafts" type="number" label="{{ __('AI drafts per period') }}"
+                             value="{{ old('ai_drafts', $plan?->ai_drafts ?? 0) }}"
+                             hint="{{ __('Number of AI contract drafts included in this plan per billing cycle (or one-time for per-contract / lifetime). Set 0 if AI is disabled.') }}" />
+            </div>
         </div>
     </div>
 </div>

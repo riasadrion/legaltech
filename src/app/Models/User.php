@@ -92,6 +92,12 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->subscription?->isActive() ?? false;
     }
 
+    public function canGenerateAiContract(): bool
+    {
+        $sub = $this->subscription;
+        return $sub && $sub->isActive() && (bool) ($sub->plan->ai_contract_generation ?? false);
+    }
+
     public function payments()
     {
         return $this->hasMany(Payment::class);

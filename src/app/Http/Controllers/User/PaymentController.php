@@ -5,6 +5,8 @@ namespace App\Http\Controllers\User;
 use App\Domain\Payment\Models\Payment;
 use App\Domain\Payment\Models\Gateway;
 use App\Domain\Payment\PaymentGatewayManager;
+use App\Domain\Subscription\Models\Plan;
+use App\Domain\Subscription\SubscriptionService;
 use App\Domain\Upload\FileUploader;
 use App\Domain\Wallet\Services\WalletService;
 use App\Domain\Wallet\ValueObjects\Money;
@@ -190,6 +192,15 @@ class PaymentController extends Controller
 
         $payment->transaction_id = $tx->id;
         $payment->save();
+
+        // Activate subscription if this payment was for a plan
+        $planId = $payment->meta['plan_id'] ?? null;
+        if ($planId) {
+            $plan = Plan::find($planId);
+            if ($plan) {
+                app(SubscriptionService::class)->subscribe($payment->user, $plan, $payment);
+            }
+        }
     }
 
     private function authorizePayment(Payment $payment): void

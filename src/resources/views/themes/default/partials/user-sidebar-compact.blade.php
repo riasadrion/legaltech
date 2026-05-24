@@ -38,9 +38,14 @@
     </a>
 
 
-    <a href="{{ route('user.contracts.index') }}" class="nav-item {{ $isActive('user.contracts.*') ? 'active' : '' }}">
+    <a href="{{ route('user.contracts.index') }}" class="nav-item {{ $isActive('user.contracts.*') && !$isActive('user.contracts.ai.*') ? 'active' : '' }}">
         <x-heroicon-o-document-text class="h-[1rem] w-[1rem] shrink-0" />
         {{ __('Contracts') }}
+    </a>
+
+    <a href="{{ route('user.contracts.ai.create') }}" class="nav-item {{ $isActive('user.contracts.ai.*') ? 'active' : '' }}">
+        <x-heroicon-o-sparkles class="h-[1rem] w-[1rem] shrink-0 text-lime" />
+        {{ __('AI Contract') }}
     </a>
 
     <a href="{{ route('user.subscription.index') }}" class="nav-item {{ $isActive('user.subscription.*') ? 'active' : '' }}">

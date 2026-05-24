@@ -41,6 +41,11 @@ final class Money
         return new self($this->amount - $other->amount, $this->currency);
     }
 
+    public function negate(): self
+    {
+        return new self(-$this->amount, $this->currency);
+    }
+
     public function isPositive(): bool
     {
         return $this->amount > 0;

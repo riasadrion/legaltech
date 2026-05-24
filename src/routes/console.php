@@ -10,6 +10,7 @@ Artisan::command('inspire', function () {
 
 Schedule::command('blog:publish-scheduled')->hourly();
 Schedule::command('subscription:expire')->hourly();
+Schedule::command('subscription:renew')->hourly();
 Schedule::command('wallet:reconcile')->daily();
 Schedule::command('queue:prune-failed', ['--hours' => 168])->daily();
 Schedule::command('schedule:prune-batches', ['--hours' => 48])->daily();

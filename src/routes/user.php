@@ -25,10 +25,14 @@ Route::middleware(['auth:user', 'account.active', 'verified.phone'])
         Route::put('profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password');
         Route::delete('profile/avatar', [ProfileController::class, 'deleteAvatar'])->name('profile.avatar.delete');
 
-        // Contracts
+        // Contracts — wizard flow: create → templates → wizard → preview → store
         Route::get('contracts', [ContractController::class, 'index'])->name('contracts.index');
         Route::get('contracts/create', [ContractController::class, 'create'])->name('contracts.create');
-        Route::get('contracts/{template}/wizard', [ContractController::class, 'wizard'])->name('contracts.wizard');
+        Route::get('contracts/ai/new', [ContractController::class, 'aiCreate'])->name('contracts.ai.create');
+        Route::post('contracts/ai', [ContractController::class, 'aiStore'])->name('contracts.ai.store');
+        Route::get('contracts/categories/{category}', [ContractController::class, 'templates'])->name('contracts.templates');
+        Route::get('contracts/templates/{template}/wizard', [ContractController::class, 'wizard'])->name('contracts.wizard');
+        Route::post('contracts/preview', [ContractController::class, 'preview'])->name('contracts.preview');
         Route::post('contracts', [ContractController::class, 'store'])->name('contracts.store');
         Route::get('contracts/{contract}', [ContractController::class, 'show'])->name('contracts.show');
         Route::put('contracts/{contract}', [ContractController::class, 'update'])->name('contracts.update');

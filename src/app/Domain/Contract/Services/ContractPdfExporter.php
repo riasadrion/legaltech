@@ -16,11 +16,25 @@ class ContractPdfExporter
         $options->set('isHtml5ParserEnabled', true);
         $options->set('isPhpEnabled', false);
         $options->set('defaultFont', 'DejaVu Serif');
+        $options->set('isRemoteEnabled', false);
+        $options->set('chroot', storage_path());
 
         $dompdf = new Dompdf($options);
         $dompdf->loadHtml($html, 'UTF-8');
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
+
+        $canvas = $dompdf->getCanvas();
+        $canvas->page_script(function ($pageNumber, $pageCount, $canvas, $fontMetrics) use ($contract) {
+            $font  = $fontMetrics->getFont('DejaVu Serif', 'normal');
+            $size  = 7.5;
+            $color = [0.7, 0.7, 0.7];
+            $w     = $canvas->get_width();
+            $h     = $canvas->get_height();
+            $canvas->line(54, $h - 32, $w - 54, $h - 32, $color, 0.5);
+            $canvas->text(54, $h - 24, config('app.name').' — '.e($contract->title), $font, $size, $color);
+            $canvas->text($w - 90, $h - 24, "Page {$pageNumber} of {$pageCount}", $font, $size, $color);
+        });
 
         return $dompdf->output();
     }
@@ -123,28 +137,10 @@ class ContractPdfExporter
     color: #666;
     border-bottom: 2px solid #ddd;
   }
-  .footer {
-    position: fixed;
-    bottom: 28px;
-    left: 72px;
-    right: 72px;
-    font-size: 8pt;
-    color: #bbb;
-    border-top: 1px solid #e5e5e5;
-    padding-top: 6px;
-    display: flex;
-    justify-content: space-between;
-  }
-  .page-number:after { content: counter(page); }
-  .page-total:after  { content: counter(pages); }
 </style>
 </head>
 <body>
-<div class="footer">
-  <span>{$siteName} — {$contract->title}</span>
-  <span>Page <span class="page-number"></span> of <span class="page-total"></span></span>
-</div>
-<div class="page">
+<div class="page" style="padding-bottom:60px;">
   <div class="header">
     <div class="header-site">{$siteName}</div>
     <div class="header-title">{$contract->title}</div>

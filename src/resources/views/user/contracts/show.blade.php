@@ -5,18 +5,23 @@
 @section('content')
 <div class="space-y-5">
 
+    {{-- Stepper (only for fresh contracts in editing state) --}}
+    @if(in_array($contract->status, ['editing', 'ready']))
+        @include('user.contracts._stepper', ['step' => 5])
+    @endif
+
     {{-- Header --}}
-    <div class="flex items-start justify-between gap-4">
-        <div class="flex items-start gap-3">
+    <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+        <div class="flex items-start gap-3 min-w-0">
             <a href="{{ route('user.contracts.index') }}"
                class="flex items-center justify-center h-8 w-8 rounded-lg glass border border-white/10 text-white/60 hover:text-white transition shrink-0 mt-1">
                 <x-heroicon-o-arrow-left class="h-4 w-4" />
             </a>
-            <div>
-                <h1 class="ud-page-title !mb-0">{{ $contract->title }}</h1>
-                <div class="flex items-center gap-2 mt-1 text-[12px] text-white/45">
+            <div class="min-w-0">
+                <h1 class="ud-page-title !mb-0 break-words">{{ $contract->title }}</h1>
+                <div class="flex flex-wrap items-center gap-x-2 gap-y-1 mt-1 text-[12px] text-white/45">
                     <span>{{ $contract->template->name ?? '—' }}</span>
-                    <span>·</span>
+                    <span class="hidden sm:inline">·</span>
                     <span>{{ $contract->created_at->format('d M Y') }}</span>
                     @php
                         $pillMap = ['draft'=>'pill-draft','generating'=>'pill-review','editing'=>'pill-review','ready'=>'pill-done','sent'=>'pill-review','signed'=>'pill-sign','expired'=>'pill-draft'];
@@ -27,8 +32,13 @@
         </div>
 
         {{-- Actions --}}
-        <div class="flex items-center gap-2 shrink-0">
+        <div class="flex flex-wrap items-center gap-2 lg:shrink-0">
             @if($contract->isEditable())
+                <a href="{{ route('user.contracts.pdf', $contract) }}" target="_blank"
+                   class="btn-ghost rounded-lg px-3 py-2 text-[12px] flex items-center gap-1.5">
+                    <x-heroicon-o-arrow-down-tray class="h-4 w-4" />
+                    {{ __('Download PDF') }}
+                </a>
                 <button type="button" id="save-contract-btn"
                         class="btn-ghost rounded-lg px-3 py-2 text-[12px] flex items-center gap-1.5">
                     <x-heroicon-o-check class="h-4 w-4" />
@@ -121,46 +131,10 @@
                                class="ud-input font-display text-lg" placeholder="{{ __('Contract title…') }}" required />
                     </div>
 
-                    {{-- Rich text body --}}
+                    {{-- Rich text body (ProseEditor) --}}
                     <div class="px-5 py-4">
-                        <div id="editor-toolbar" class="flex flex-wrap gap-1 mb-2 pb-2 border-b border-white/8">
-                            @foreach([
-                                ['bold',        'B',      'font-bold'],
-                                ['italic',      'I',      'italic'],
-                                ['underline',   'U',      'underline'],
-                            ] as [$cmd, $label, $cls])
-                            <button type="button" data-cmd="{{ $cmd }}"
-                                    class="h-7 px-2.5 rounded text-[12px] {{ $cls }} bg-white/5 hover:bg-white/10 text-white/70 hover:text-white transition editor-btn">
-                                {{ $label }}
-                            </button>
-                            @endforeach
-                            @foreach([
-                                ['formatBlock', 'h2',  'H2'],
-                                ['formatBlock', 'h3',  'H3'],
-                                ['formatBlock', 'p',   'P'],
-                            ] as [$cmd, $val, $label])
-                            <button type="button" data-cmd="{{ $cmd }}" data-val="{{ $val }}"
-                                    class="h-7 px-2.5 rounded text-[12px] bg-white/5 hover:bg-white/10 text-white/70 hover:text-white transition editor-btn">
-                                {{ $label }}
-                            </button>
-                            @endforeach
-                            @foreach([
-                                ['insertUnorderedList', null, '• List'],
-                                ['insertOrderedList',   null, '1. List'],
-                            ] as [$cmd, $val, $label])
-                            <button type="button" data-cmd="{{ $cmd }}" data-val="{{ $val }}"
-                                    class="h-7 px-2.5 rounded text-[12px] bg-white/5 hover:bg-white/10 text-white/70 hover:text-white transition editor-btn">
-                                {{ $label }}
-                            </button>
-                            @endforeach
-                        </div>
-
-                        <div id="contract-editor"
-                             contenteditable="true"
-                             class="contract-editor-body min-h-[500px] outline-none text-white/85 text-[14px] leading-relaxed">
-                            {!! $contract->body_html !!}
-                        </div>
-                        <textarea name="body_html" id="body_html_input" class="hidden"></textarea>
+                        <input type="hidden" name="body_html" id="contract_body_input" value="{{ $contract->body_html }}">
+                        <div class="prose-editor-init" data-input="contract_body_input"></div>
                     </div>
                 </div>
             </form>
@@ -232,28 +206,20 @@
 </div>
 @endsection
 
+@push('head')
+<link rel="stylesheet" href="{{ asset('assets/static/css/editor.css') }}">
+<script src="{{ asset('assets/static/js/editor.js') }}"></script>
+@endpush
+
 @push('scripts')
 <script>
 $(function () {
-    // Toolbar buttons
-    $(document).on('click', '.editor-btn', function () {
-        var cmd = $(this).data('cmd');
-        var val = $(this).data('val') || null;
-        document.execCommand(cmd, false, val);
-        $('#contract-editor').focus();
+    document.querySelectorAll('.prose-editor-init').forEach(function (el) {
+        ProseEditor.init(el);
     });
 
-    // Sync contenteditable to hidden textarea on save
     $('#save-contract-btn').on('click', function () {
-        $('#body_html_input').val($('#contract-editor').html());
         $('#contract-save-form').submit();
-    });
-
-    // Also sync on form submit (finalize)
-    $('form').on('submit', function () {
-        if ($('#contract-editor').length) {
-            $('#body_html_input').val($('#contract-editor').html());
-        }
     });
 });
 </script>

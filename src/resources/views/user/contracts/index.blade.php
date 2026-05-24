@@ -30,13 +30,12 @@
         @foreach($contracts as $contract)
         @php
             $pillMap = [
-                'draft'      => 'pill-draft',
-                'generating' => 'pill-review',
-                'editing'    => 'pill-review',
-                'ready'      => 'pill-done',
-                'sent'       => 'pill-review',
-                'signed'     => 'pill-sign',
-                'expired'    => 'pill-draft',
+                'draft'   => 'pill-draft',
+                'editing' => 'pill-review',
+                'ready'   => 'pill-done',
+                'sent'    => 'pill-review',
+                'signed'  => 'pill-sign',
+                'expired' => 'pill-draft',
             ];
             $pill = $pillMap[$contract->status] ?? 'pill-done';
         @endphp

@@ -12,10 +12,20 @@
     ];
     // only show tabs that have plans
     $availableTabs = collect($tabs)->filter(fn($_, $k) => $grouped->has($k));
-    $defaultTab = $availableTabs->keys()->first() ?? 'monthly';
+    $defaultTab = $availableTabs->has('monthly') ? 'monthly' : ($availableTabs->keys()->first() ?? 'monthly');
 @endphp
 
 <div class="space-y-8">
+
+    @if(session('upgrade_ai'))
+        <div class="rounded-2xl glass border border-lime/30 bg-lime/5 px-5 py-4 flex items-start gap-3">
+            <x-heroicon-o-sparkles class="h-5 w-5 text-lime shrink-0 mt-0.5" />
+            <div>
+                <div class="text-white font-medium text-sm">{{ __('AI contract drafting is a Pro feature') }}</div>
+                <div class="text-white/65 text-[13px] mt-0.5">{{ session('upgrade_ai') }}</div>
+            </div>
+        </div>
+    @endif
 
     <div class="text-center max-w-2xl mx-auto">
         <div class="text-[11px] font-mono uppercase tracking-[.25em] text-lime mb-3">— {{ __('Pricing') }}</div>
@@ -43,97 +53,12 @@
     @php $cyclePlans = $grouped->get($cycle, collect()); @endphp
     <div class="plan-tab-panel grid md:grid-cols-3 gap-5 {{ $cycle !== $defaultTab ? 'hidden' : '' }}" data-panel="{{ $cycle }}">
         @foreach($cyclePlans as $plan)
-        @php
-            $isRecommended = $loop->iteration === 2 && count($cyclePlans) >= 2;
-            $isFree = (float) $plan->price === 0.0;
-        @endphp
-
-        @if($isRecommended)
-        <div class="relative rounded-3xl p-[1px] bg-gradient-to-b from-lime via-lime/40 to-transparent">
-            <div class="rounded-[23px] bg-ink-900 p-7 relative overflow-hidden h-full flex flex-col">
-                <div class="absolute -right-10 -top-10 w-56 h-56 glow-lime"></div>
-                <div class="relative flex items-center justify-between">
-                    <h3 class="font-display text-3xl text-white">{{ $plan->name }}</h3>
-                    <span class="text-[10px] font-semibold uppercase tracking-widest bg-lime text-ink-900 px-2.5 py-1 rounded-full">{{ __('Recommended') }}</span>
-                </div>
-                @if($plan->description)
-                <p class="text-white/65 text-sm mt-1 relative">{{ $plan->description }}</p>
-                @endif
-                <div class="mt-6 flex items-baseline gap-1 relative">
-                    <span class="font-display text-6xl text-white">{{ $plan->formattedPrice() }}</span>
-                    @if(!$isFree)
-                    <span class="text-white/45">/ {{ $plan->billing_cycle }}</span>
-                    @endif
-                </div>
-                @if($plan->hasTrialPeriod())
-                <div class="mt-3">
-                    <span class="text-[11px] font-mono text-white/50 border border-white/15 rounded-full px-3 py-1">{{ $plan->trial_days }}-{{ __('day free trial') }}</span>
-                </div>
-                @endif
-                @if($plan->features && count($plan->features) > 0)
-                <ul class="mt-6 space-y-2.5 text-sm text-white/85 relative flex-1">
-                    @foreach($plan->features as $feature)
-                    <li class="flex items-start gap-2">
-                        <x-heroicon-s-check-circle class="h-4 w-4 text-lime mt-0.5 shrink-0" />
-                        {{ $feature }}
-                    </li>
-                    @endforeach
-                </ul>
-                @endif
-                <form method="POST" action="{{ route('user.subscription.subscribe') }}" class="mt-7 relative">
-                    @csrf
-                    <input type="hidden" name="plan_id" value="{{ $plan->id }}">
-                    <button type="submit" class="btn-lime rounded-full px-5 py-3 text-sm w-full inline-flex items-center justify-center gap-2">
-                        {{ $isFree ? __('Start free') : __('Start 14-day trial') }}
-                        <x-heroicon-o-arrow-right class="h-4 w-4" />
-                    </button>
-                </form>
-            </div>
-        </div>
-
-        @else
-        <div class="rounded-3xl glass p-7 flex flex-col">
-            <div class="flex items-center justify-between">
-                <h3 class="font-display text-3xl text-white">{{ $plan->name }}</h3>
-                @if($isFree)
-                <span class="text-[11px] font-mono text-white/45">{{ __('Custom') }}</span>
-                @endif
-            </div>
-            @if($plan->description)
-            <p class="text-white/55 text-sm mt-1">{{ $plan->description }}</p>
-            @endif
-            <div class="mt-6 flex items-baseline gap-1">
-                @if($isFree)
-                <span class="font-display text-6xl text-white">{{ __('Custom') }}</span>
-                @else
-                <span class="font-display text-6xl text-white">{{ $plan->formattedPrice() }}</span>
-                <span class="text-white/45">/ {{ $plan->billing_cycle }}</span>
-                @endif
-            </div>
-            @if($plan->hasTrialPeriod())
-            <div class="mt-3">
-                <span class="text-[11px] font-mono text-white/50 border border-white/15 rounded-full px-3 py-1">{{ $plan->trial_days }}-{{ __('day free trial') }}</span>
-            </div>
-            @endif
-            @if($plan->features && count($plan->features) > 0)
-            <ul class="mt-6 space-y-2.5 text-sm text-white/75 flex-1">
-                @foreach($plan->features as $feature)
-                <li class="flex items-start gap-2">
-                    <x-heroicon-s-check-circle class="h-4 w-4 text-lime mt-0.5 shrink-0" />
-                    {{ $feature }}
-                </li>
-                @endforeach
-            </ul>
-            @endif
-            <form method="POST" action="{{ route('user.subscription.subscribe') }}" class="mt-7">
-                @csrf
-                <input type="hidden" name="plan_id" value="{{ $plan->id }}">
-                <button type="submit" class="btn-ghost rounded-full px-5 py-3 text-sm w-full inline-flex justify-center">
-                    {{ $isFree ? __('Talk to sales') : __('Subscribe now') }}
-                </button>
-            </form>
-        </div>
-        @endif
+        @php $isRecommended = $loop->iteration === 2 && count($cyclePlans) >= 2; @endphp
+        <x-theme::plan-card
+            :plan="$plan"
+            :featured="$isRecommended"
+            :action="['type' => 'form', 'url' => route('user.subscription.subscribe'), 'method' => 'POST']"
+        />
 
         @endforeach
     </div>

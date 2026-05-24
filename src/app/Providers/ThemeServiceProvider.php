@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Domain\Settings\Facades\Settings;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
 class ThemeServiceProvider extends ServiceProvider
@@ -14,6 +15,10 @@ class ThemeServiceProvider extends ServiceProvider
         $theme = $this->activeTheme();
 
         $this->loadViewsFrom(resource_path("views/themes/{$theme}"), 'theme');
+
+        // Register anonymous components from the active theme:
+        //   <x-theme::plan-card />
+        Blade::anonymousComponentNamespace("themes.{$theme}.components", 'theme');
 
         // Expose current theme name to all views
         view()->share('activeTheme', $theme);

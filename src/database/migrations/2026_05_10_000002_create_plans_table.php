@@ -16,6 +16,8 @@ return new class extends Migration
             $table->enum('billing_cycle', ['per_contract', 'monthly', 'yearly', 'lifetime']);
             $table->unsignedInteger('credits')->default(0);
             $table->unsignedInteger('trial_days')->default(0);
+            $table->boolean('ai_contract_generation')->default(false);
+            $table->unsignedInteger('ai_drafts')->default(0);
             $table->json('features')->nullable();
             $table->boolean('is_featured')->default(false);
             $table->string('cta_text')->nullable();

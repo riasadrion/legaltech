@@ -23,9 +23,11 @@ class SubscriptionService
             }
 
             $periodEnd = match ($plan->billing_cycle) {
-                Plan::CYCLE_MONTHLY => now()->addMonth(),
-                Plan::CYCLE_YEARLY => now()->addYear(),
-                Plan::CYCLE_LIFETIME => now()->addYears(100),
+                Plan::CYCLE_PER_CONTRACT => now()->addYears(100),
+                Plan::CYCLE_MONTHLY      => now()->addMonth(),
+                Plan::CYCLE_YEARLY       => now()->addYear(),
+                Plan::CYCLE_LIFETIME     => now()->addYears(100),
+                default                  => now()->addMonth(),
             };
 
             $sub = new UserSubscription;
@@ -33,6 +35,7 @@ class SubscriptionService
             $sub->plan_id = $plan->id;
             $sub->status = UserSubscription::STATUS_ACTIVE;
             $sub->credits_remaining = $plan->credits;
+            $sub->ai_drafts_remaining = $plan->ai_contract_generation ? (int) $plan->ai_drafts : 0;
             $sub->current_period_start = now();
             $sub->current_period_end = $periodEnd;
             $sub->payment_id = $payment?->id;
@@ -70,6 +73,7 @@ class SubscriptionService
         $sub->current_period_start = now();
         $sub->current_period_end = $trialEnd;
         $sub->credits_remaining = $plan->credits;
+        $sub->ai_drafts_remaining = $plan->ai_contract_generation ? (int) $plan->ai_drafts : 0;
         $sub->save();
 
         if ($plan->credits > 0) {

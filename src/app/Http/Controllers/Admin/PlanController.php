@@ -50,6 +50,8 @@ class PlanController extends Controller
             'billing_cycle' => ['required', 'in:per_contract,monthly,yearly,lifetime'],
             'credits'       => ['required', 'integer', 'min:0'],
             'trial_days'    => ['required', 'integer', 'min:0'],
+            'ai_contract_generation' => ['boolean'],
+            'ai_drafts'     => ['nullable', 'integer', 'min:0'],
             'features'      => ['nullable', 'array'],
             'features.*'    => ['string', 'max:200'],
             'is_featured'   => ['boolean'],
@@ -62,6 +64,8 @@ class PlanController extends Controller
         $data['features']    = array_values(array_filter(array_map('trim', $data['features'] ?? []), fn ($f) => $f !== ''));
         $data['is_featured'] = $request->boolean('is_featured');
         $data['is_active']   = $request->boolean('is_active', true);
+        $data['ai_contract_generation'] = $request->boolean('ai_contract_generation');
+        $data['ai_drafts'] = (int) ($data['ai_drafts'] ?? 0);
 
         Plan::create($data);
 
@@ -82,6 +86,8 @@ class PlanController extends Controller
             'billing_cycle' => ['required', 'in:per_contract,monthly,yearly,lifetime'],
             'credits'       => ['required', 'integer', 'min:0'],
             'trial_days'    => ['required', 'integer', 'min:0'],
+            'ai_contract_generation' => ['boolean'],
+            'ai_drafts'     => ['nullable', 'integer', 'min:0'],
             'features'      => ['nullable', 'array'],
             'features.*'    => ['string', 'max:200'],
             'is_featured'   => ['boolean'],
@@ -94,6 +100,8 @@ class PlanController extends Controller
         $data['features']    = array_values(array_filter(array_map('trim', $data['features'] ?? []), fn ($f) => $f !== ''));
         $data['is_featured'] = $request->boolean('is_featured');
         $data['is_active']   = $request->boolean('is_active', true);
+        $data['ai_contract_generation'] = $request->boolean('ai_contract_generation');
+        $data['ai_drafts'] = (int) ($data['ai_drafts'] ?? 0);
 
         $plan->update($data);
 
