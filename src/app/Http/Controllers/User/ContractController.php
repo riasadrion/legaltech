@@ -243,12 +243,57 @@ class ContractController extends Controller
             ->with('success', 'Contract drafted. Review, edit, and finalize when ready.');
     }
 
+    public function aiRegenerate(Contract $contract, ContractAiService $ai, DeductAiGenerationCredits $deductor)
+    {
+        $this->authorizeContract($contract);
+
+        if (!$contract->isEditable()) {
+            return back()->withErrors(['ai' => 'Only contracts in editing state can be regenerated.']);
+        }
+
+        $brief = $contract->field_data['brief'] ?? null;
+
+        if (!$brief) {
+            return back()->withErrors(['ai' => 'No brief found — this contract cannot be regenerated.']);
+        }
+
+        $user = auth('user')->user();
+
+        try {
+            $deductor->run($user);
+        } catch (\RuntimeException $e) {
+            return back()->withErrors(['ai' => $e->getMessage()]);
+        }
+
+        $contract->load('parties');
+        $parties = $contract->parties->map(fn ($p) => [
+            'name'  => $p->name,
+            'email' => $p->email,
+            'role'  => $p->role,
+        ])->toArray();
+
+        try {
+            $draft = $ai->draftFromUserBrief($brief, $parties);
+        } catch (\Throwable $e) {
+            return back()->withErrors(['ai' => 'AI generation failed: ' . $e->getMessage()]);
+        }
+
+        $contract->title    = $draft['title'];
+        $contract->body_html = $draft['body'];
+        $contract->save();
+
+        return redirect()->route('user.contracts.show', $contract)
+            ->with('success', 'Contract regenerated successfully.');
+    }
+
     public function show(Contract $contract)
     {
         $this->authorizeContract($contract);
         $contract->load('template', 'parties');
+        $user = auth('user')->user();
+        $subscription = $user->subscription;
 
-        return view('user.contracts.show', compact('contract'));
+        return view('user.contracts.show', compact('contract', 'subscription'));
     }
 
     public function update(Request $request, Contract $contract)

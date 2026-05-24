@@ -1,6 +1,6 @@
 {
-  "_ui-C9iznqy6.js": {
-    "file": "ui-C9iznqy6.js",
+  "_ui-B7ks_8aj.js": {
+    "file": "ui-B7ks_8aj.js",
     "name": "ui"
   },
   "node_modules/remixicon/fonts/remixicon.eot": {
@@ -24,7 +24,7 @@
     "src": "node_modules/remixicon/fonts/remixicon.woff2"
   },
   "resources/css/app.css": {
-    "file": "app-BBJTyrBn.css",
+    "file": "app-CN3jfS1S.css",
     "name": "app",
     "names": [
       "app.css"
@@ -40,21 +40,21 @@
     ]
   },
   "resources/js/admin.js": {
-    "file": "admin-B8lxGw25.js",
+    "file": "admin-BgIU8Z1W.js",
     "name": "admin",
     "src": "resources/js/admin.js",
     "isEntry": true,
     "imports": [
-      "_ui-C9iznqy6.js"
+      "_ui-B7ks_8aj.js"
     ]
   },
   "resources/js/app.js": {
-    "file": "app-BdhMDVDJ.js",
+    "file": "app-a_wqhDYS.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "imports": [
-      "_ui-C9iznqy6.js"
+      "_ui-B7ks_8aj.js"
     ]
   }
 }

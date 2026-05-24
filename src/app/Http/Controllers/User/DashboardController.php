@@ -13,7 +13,7 @@ class DashboardController extends Controller
 
         $nudges = [];
 
-        if (! $user->hasVerifiedEmail() && setting('controls.email_verification', '1') === '1') {
+        if (! $user->hasVerifiedEmail()) {
             $nudges[] = [
                 'key' => 'verify_email',
                 'title' => 'Verify your email address',

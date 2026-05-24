@@ -38,14 +38,14 @@
     </a>
 
 
-    <a href="{{ route('user.contracts.index') }}" class="nav-item {{ $isActive('user.contracts.*') && !$isActive('user.contracts.ai.*') ? 'active' : '' }}">
-        <x-heroicon-o-document-text class="h-[1rem] w-[1rem] shrink-0" />
-        {{ __('Contracts') }}
-    </a>
-
     <a href="{{ route('user.contracts.ai.create') }}" class="nav-item {{ $isActive('user.contracts.ai.*') ? 'active' : '' }}">
         <x-heroicon-o-sparkles class="h-[1rem] w-[1rem] shrink-0 text-lime" />
         {{ __('AI Contract') }}
+    </a>
+
+    <a href="{{ route('user.contracts.index') }}" class="nav-item {{ $isActive('user.contracts.*') && !$isActive('user.contracts.ai.*') ? 'active' : '' }}">
+        <x-heroicon-o-document-text class="h-[1rem] w-[1rem] shrink-0" />
+        {{ __('Contracts') }}
     </a>
 
     <a href="{{ route('user.subscription.index') }}" class="nav-item {{ $isActive('user.subscription.*') ? 'active' : '' }}">
@@ -104,12 +104,12 @@
             <span class="text-[10px] text-lime">{{ $subActive ? $sub->plan->name : __('Free') }}</span>
         </div>
         <div class="mt-3 text-[13px] text-white">{{ $sidebarBalance->format() }} {{ __('balance') }}</div>
-        @if($subActive && $sub->credits_total > 0)
+        @if($subActive && $sub->plan->credits > 0)
         <div class="mt-2 h-1.5 rounded-full bg-white/8 overflow-hidden">
-            @php $pct = min(100, round(($sub->credits_remaining / $sub->credits_total) * 100)); @endphp
+            @php $pct = min(100, round(($sub->credits_remaining / $sub->plan->credits) * 100)); @endphp
             <div class="h-full bg-lime rounded-full" style="width:{{ $pct }}%"></div>
         </div>
-        <div class="mt-1 text-[11px] text-white/40">{{ number_format($sub->credits_remaining) }} / {{ number_format($sub->credits_total) }} {{ __('credits') }}</div>
+        <div class="mt-1 text-[11px] text-white/40">{{ number_format($sub->credits_remaining) }} / {{ number_format($sub->plan->credits) }} {{ __('credits') }}</div>
         @endif
         <a href="{{ route('user.subscription.plans') }}" class="mt-3 text-[11px] text-lime hover:underline inline-flex items-center gap-1">
             {{ __('Manage plan') }} <x-heroicon-o-arrow-right class="h-3 w-3" />

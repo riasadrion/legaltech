@@ -100,14 +100,48 @@ class ContractAiService
             'max_tokens'      => (int) setting('ai.openai_max_tokens', 4000),
         ]);
 
-        $raw  = $response->choices[0]->message->content ?? '';
+        $raw = $response->choices[0]->message->content ?? '';
+
+        // Strip code fences before attempting JSON decode
+        $raw = preg_replace('/^```(?:json)?\s*|\s*```$/m', '', trim($raw));
+
+        $title = 'Custom Contract';
+        $body  = '';
+
+        // First try: clean JSON decode
         $json = json_decode($raw, true);
+        if (is_array($json)) {
+            if (!empty($json['title'])) {
+                $title = trim($json['title']);
+            }
+            if (!empty($json['body'])) {
+                $body = trim($json['body']);
+            }
+        }
 
-        $title = is_array($json) && !empty($json['title']) ? trim($json['title']) : 'Custom Contract';
-        $body  = is_array($json) && !empty($json['body'])  ? trim($json['body'])  : trim($raw);
+        // Fallback: regex extract if JSON decode failed (e.g. smart quotes inside body)
+        if (empty($body)) {
+            if (preg_match('/"title"\s*:\s*"([^"]+)"/s', $raw, $m)) {
+                $title = trim($m[1]);
+            }
+            // Match body as everything between "body": " and the final closing "}
+            if (preg_match('/"body"\s*:\s*"(.*)"\s*\}\s*$/s', $raw, $m)) {
+                $body = $m[1];
+                // Unescape JSON escapes
+                $body = str_replace(['\\"', '\\n', '\\t', '\\\\'], ['"', "\n", "\t", '\\'], $body);
+            } elseif (preg_match('/<h1.*<\/(?:p|ol|div)>/s', $raw, $m)) {
+                // Last resort: extract any HTML-looking content
+                $body = $m[0];
+            }
+        }
 
-        // Strip stray code fences if any
-        $body = preg_replace('/^```(?:html)?\s*|\s*```$/m', '', $body);
+        if (empty($body)) {
+            throw new \RuntimeException('AI returned an unexpected response. Please try again.');
+        }
+
+        // Convert literal \n sequences to real newlines, collapse blank lines
+        $body = str_replace(['\n', '\r\n'], "\n", $body);
+        $body = preg_replace('/\n{3,}/', "\n\n", $body);
 
         return [
             'title' => $title,

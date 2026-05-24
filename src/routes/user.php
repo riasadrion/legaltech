@@ -13,7 +13,7 @@ use App\Http\Controllers\User\UserNotificationController;
 
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth:user', 'account.active', 'verified.phone'])
+Route::middleware(['auth:user', 'account.active', 'verified.email', 'verified.phone'])
     ->prefix('user')
     ->name('user.')
     ->group(function () {
@@ -30,6 +30,7 @@ Route::middleware(['auth:user', 'account.active', 'verified.phone'])
         Route::get('contracts/create', [ContractController::class, 'create'])->name('contracts.create');
         Route::get('contracts/ai/new', [ContractController::class, 'aiCreate'])->name('contracts.ai.create');
         Route::post('contracts/ai', [ContractController::class, 'aiStore'])->name('contracts.ai.store');
+        Route::post('contracts/{contract}/ai-regenerate', [ContractController::class, 'aiRegenerate'])->name('contracts.ai.regenerate');
         Route::get('contracts/categories/{category}', [ContractController::class, 'templates'])->name('contracts.templates');
         Route::get('contracts/templates/{template}/wizard', [ContractController::class, 'wizard'])->name('contracts.wizard');
         Route::post('contracts/preview', [ContractController::class, 'preview'])->name('contracts.preview');

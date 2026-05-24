@@ -9,12 +9,12 @@
     ];
 @endphp
 <div class="rounded-2xl glass px-4 py-4">
-    <ol class="flex items-center gap-2 sm:gap-3 overflow-x-auto">
+    <ol class="flex items-center w-full overflow-x-auto">
         @foreach($steps as $i => $label)
             @php
                 $state = $i < $step ? 'done' : ($i === $step ? 'active' : 'pending');
             @endphp
-            <li class="flex items-center gap-2 shrink-0">
+            <li class="flex items-center {{ $loop->last ? '' : 'flex-1' }} shrink-0">
                 <div class="flex items-center gap-2">
                     <span class="grid place-items-center h-7 w-7 rounded-full text-[11px] font-semibold border transition
                         @if($state === 'done') bg-lime/15 border-lime/40 text-lime
@@ -26,13 +26,13 @@
                             {{ $i }}
                         @endif
                     </span>
-                    <span class="text-[12px] hidden sm:inline
-                        @if($state === 'active') text-white font-medium
-                        @elseif($state === 'done') text-white/70
-                        @else text-white/35 @endif">{{ $label }}</span>
+                    <span class="text-[12px]
+                        @if($state === 'active') inline text-white font-medium
+                        @elseif($state === 'done') hidden sm:inline text-white/70
+                        @else hidden sm:inline text-white/35 @endif">{{ $label }}</span>
                 </div>
                 @if(!$loop->last)
-                    <span class="h-px w-6 sm:w-10 bg-white/10"></span>
+                    <span class="flex-1 mx-3 h-px bg-white/10"></span>
                 @endif
             </li>
         @endforeach

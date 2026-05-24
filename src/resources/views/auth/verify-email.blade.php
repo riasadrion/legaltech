@@ -22,10 +22,17 @@
     </button>
 </form>
 
-<form method="POST" action="{{ route('logout') }}" class="mt-4">
+@if(setting('controls.email_verification', '1') !== '1')
+<a href="{{ route('user.dashboard') }}"
+   class="mt-4 block w-full text-center text-sm text-gray-500 hover:text-gray-700">
+    {{ __('Skip for now') }}
+</a>
+@endif
+
+<form method="POST" action="{{ route('logout') }}" class="mt-3">
     @csrf
     <button type="submit" class="w-full text-center text-sm text-gray-500 hover:text-gray-700">
-        Sign out
+        {{ __('Sign out') }}
     </button>
 </form>
 @endsection

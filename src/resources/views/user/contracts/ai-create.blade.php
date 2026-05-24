@@ -17,7 +17,7 @@
             </h1>
             <p class="text-[12px] text-white/45 mt-1">
                 {{ __('Describe the contract you need. The AI drafts the full agreement, ready to review, edit, and sign.') }}
-                · <span class="text-lime/80">{{ $creditCost }} {{ __('credit(s)') }}</span>
+                · <span class="text-lime/80">{{ __('1 AI draft') }}</span>
             </p>
         </div>
     </div>

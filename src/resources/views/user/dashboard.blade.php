@@ -112,12 +112,9 @@
     <div class="space-y-2" id="nudge-list">
         @foreach($nudges as $nudge)
         <div class="ud-nudge" data-nudge="{{ $nudge['key'] }}">
-            <x-heroicon-o-information-circle class="ud-nudge-icon h-5 w-5" />
-            <div class="flex-1 min-w-0">
-                <div class="ud-nudge-title">{{ $nudge['title'] }}</div>
-                <div class="ud-nudge-body">{{ $nudge['body'] }}</div>
-            </div>
-            <a href="{{ $nudge['action'] }}" class="ud-nudge-action">{{ $nudge['label'] }} →</a>
+            <x-heroicon-o-information-circle class="ud-nudge-icon h-4 w-4 shrink-0" />
+            <span class="flex-1 min-w-0 truncate ud-nudge-title">{{ $nudge['title'] }}</span>
+            <a href="{{ $nudge['action'] }}" class="ud-nudge-action shrink-0">{{ $nudge['label'] }} →</a>
             <button type="button" class="ud-nudge-dismiss" data-dismiss-nudge="{{ $nudge['key'] }}" aria-label="{{ __('Dismiss') }}">
                 <x-heroicon-o-x-mark class="h-4 w-4" />
             </button>
@@ -174,15 +171,21 @@
                 <span class="text-[11px] font-mono uppercase tracking-widest text-white/45">{{ __('Credits') }}</span>
                 <x-heroicon-o-sparkles class="h-4 w-4 text-white/45" />
             </div>
-            @if($isActive && $subscription->credits_total > 0)
+            @if($isActive && $subscription->plan->credits > 0)
                 <div class="font-display text-3xl md:text-5xl mt-2 text-white">{{ number_format($subscription->credits_remaining) }}</div>
                 <div class="mt-2 flex items-end gap-0.5 h-6">
-                    @php $pct = max(0, min(100, round(($subscription->credits_remaining / $subscription->credits_total) * 100))); @endphp
+                    @php $pct = max(0, min(100, round(($subscription->credits_remaining / $subscription->plan->credits) * 100))); @endphp
                     @for($bi = 1; $bi <= 7; $bi++)
                         @php $opacity = $bi / 7 <= $pct / 100 ? 'bg-lime' : 'bg-white/12'; $h = ['h-2','h-2','h-3','h-4','h-4','h-5','h-6'][$bi-1]; @endphp
                         <div class="w-1.5 {{ $opacity }} {{ $h }} rounded-sm"></div>
                     @endfor
                 </div>
+                @if($subscription->plan->ai_contract_generation)
+                <div class="mt-3 flex items-center gap-1.5 text-[11px] text-white/40">
+                    <x-heroicon-o-sparkles class="h-3.5 w-3.5 text-lime/60" />
+                    <span>{{ $subscription->ai_drafts_remaining }} / {{ $subscription->plan->ai_drafts }} {{ __('AI drafts') }}</span>
+                </div>
+                @endif
             @else
                 <div class="font-display text-3xl md:text-5xl mt-2 text-white/25">—</div>
                 <div class="mt-2 text-[11px] text-white/40">{{ __('No active plan') }}</div>

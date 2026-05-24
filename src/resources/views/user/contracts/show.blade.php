@@ -34,6 +34,17 @@
         {{-- Actions --}}
         <div class="flex flex-wrap items-center gap-2 lg:shrink-0">
             @if($contract->isEditable())
+                @if(is_null($contract->template_id) && !empty($contract->field_data['brief']))
+                <form method="POST" action="{{ route('user.contracts.ai.regenerate', $contract) }}" id="regenerate-form" data-no-page-loader>
+                    @csrf
+                    <button type="button"
+                            onclick="confirmModal.show('{{ __('Regenerate Contract') }}', 'Cost: 1 AI draft\nRemaining: {{ $subscription->ai_drafts_remaining }} of {{ $subscription->plan->ai_drafts }}\n\nThis will overwrite the current content.', function(){ showRegenLoader(); document.getElementById('regenerate-form').submit(); })"
+                            class="btn-ghost rounded-lg px-3 py-2 text-[12px] flex items-center gap-1.5 text-lime/80 hover:text-lime">
+                        <x-heroicon-o-sparkles class="h-4 w-4" />
+                        {{ __('Regenerate') }}
+                    </button>
+                </form>
+                @endif
                 <a href="{{ route('user.contracts.pdf', $contract) }}" target="_blank"
                    class="btn-ghost rounded-lg px-3 py-2 text-[12px] flex items-center gap-1.5">
                     <x-heroicon-o-arrow-down-tray class="h-4 w-4" />
@@ -94,9 +105,6 @@
     </div>
     @endif
 
-    @if(session('success'))
-    <div class="rounded-xl border border-lime/30 bg-lime/10 px-4 py-3 text-[13px] text-lime">{{ session('success') }}</div>
-    @endif
 
     {{-- Generating state --}}
     @if($contract->status === 'generating')
@@ -204,6 +212,27 @@
     @endif
 
 </div>
+
+{{-- AI regeneration loader --}}
+<div id="ai-regen-loader" class="hidden fixed inset-0 z-[100] items-center justify-center bg-black/80 backdrop-blur-sm">
+    <div class="max-w-md w-full mx-4 rounded-2xl glass p-8 text-center">
+        <div class="relative mx-auto mb-6 h-20 w-20">
+            <div class="absolute inset-0 rounded-full border-4 border-white/10"></div>
+            <div class="absolute inset-0 rounded-full border-4 border-lime border-t-transparent animate-spin"></div>
+            <div class="absolute inset-0 flex items-center justify-center">
+                <x-heroicon-o-sparkles class="h-9 w-9 text-lime animate-pulse" />
+            </div>
+        </div>
+        <h2 class="text-lg font-bold text-white">{{ __('Regenerating your contract…') }}</h2>
+        <p id="ai-regen-step" class="mt-2 text-sm text-white/55">{{ __('Reviewing your brief') }}</p>
+        <div class="mt-5 flex items-center justify-center gap-1.5">
+            <span class="h-1.5 w-1.5 rounded-full bg-lime animate-bounce" style="animation-delay:0ms"></span>
+            <span class="h-1.5 w-1.5 rounded-full bg-lime animate-bounce" style="animation-delay:150ms"></span>
+            <span class="h-1.5 w-1.5 rounded-full bg-lime animate-bounce" style="animation-delay:300ms"></span>
+        </div>
+        <p class="mt-5 text-xs text-white/40">{{ __('This may take 15–60 seconds. Please don\'t close this window.') }}</p>
+    </div>
+</div>
 @endsection
 
 @push('head')
@@ -222,5 +251,25 @@ $(function () {
         $('#contract-save-form').submit();
     });
 });
+
+function showRegenLoader() {
+    var loader = document.getElementById('ai-regen-loader');
+    var step   = document.getElementById('ai-regen-step');
+    if (!loader) return;
+    loader.classList.remove('hidden');
+    loader.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+    var steps = [
+        @json(__('Reviewing your brief')),
+        @json(__('Drafting clauses')),
+        @json(__('Adding protective terms')),
+        @json(__('Finalizing the agreement'))
+    ];
+    var i = 0;
+    setInterval(function () {
+        i = (i + 1) % steps.length;
+        if (step) step.textContent = steps[i];
+    }, 3500);
+}
 </script>
 @endpush
