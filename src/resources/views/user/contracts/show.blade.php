@@ -38,7 +38,7 @@
                 <form method="POST" action="{{ route('user.contracts.ai.regenerate', $contract) }}" id="regenerate-form" data-no-page-loader>
                     @csrf
                     <button type="button"
-                            onclick="confirmModal.show('{{ __('Regenerate Contract') }}', 'Cost: 1 AI draft\nRemaining: {{ $subscription->ai_drafts_remaining }} of {{ $subscription->plan->ai_drafts }}\n\nThis will overwrite the current content.', function(){ showRegenLoader(); document.getElementById('regenerate-form').submit(); })"
+                            onclick="confirmModal.show('{{ __('Regenerate Contract') }}', '{{ __('1 AI draft will be deducted. This will overwrite the current content.') }}', function(){ showRegenLoader(); document.getElementById('regenerate-form').submit(); })"
                             class="btn-ghost rounded-lg px-3 py-2 text-[12px] flex items-center gap-1.5 text-lime/80 hover:text-lime">
                         <x-heroicon-o-sparkles class="h-4 w-4" />
                         {{ __('Regenerate') }}

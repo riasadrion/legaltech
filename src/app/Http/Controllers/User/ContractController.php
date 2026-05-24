@@ -290,10 +290,8 @@ class ContractController extends Controller
     {
         $this->authorizeContract($contract);
         $contract->load('template', 'parties');
-        $user = auth('user')->user();
-        $subscription = $user->subscription;
 
-        return view('user.contracts.show', compact('contract', 'subscription'));
+        return view('user.contracts.show', compact('contract'));
     }
 
     public function update(Request $request, Contract $contract)

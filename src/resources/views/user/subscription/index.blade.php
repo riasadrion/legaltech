@@ -42,11 +42,20 @@
                 <div class="border-t border-white/8"></div>
 
                 {{-- Details grid --}}
-                <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
                     @if($subscription->plan->hasCreditLimit())
                     <div>
                         <p class="ud-stat-label">{{ __('Credits remaining') }}</p>
                         <p class="text-xl font-semibold text-white mt-2">{{ number_format($subscription->credits_remaining) }}</p>
+                        <p class="text-xs text-white/30 mt-0.5">{{ __('of') }} {{ number_format($subscription->plan->credits) }}</p>
+                    </div>
+                    @endif
+
+                    @if($subscription->plan->ai_contract_generation)
+                    <div>
+                        <p class="ud-stat-label">{{ __('AI drafts remaining') }}</p>
+                        <p class="text-xl font-semibold text-lime mt-2">{{ number_format($subscription->ai_drafts_remaining) }}</p>
+                        <p class="text-xs text-white/30 mt-0.5">{{ __('of') }} {{ number_format($subscription->plan->ai_drafts) }}</p>
                     </div>
                     @endif
 
