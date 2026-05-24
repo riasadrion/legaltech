@@ -110,9 +110,10 @@ class UserController extends Controller
         ]);
 
         $user->password = Hash::make($data['password']);
+        $user->setRememberToken(\Illuminate\Support\Str::random(60));
         $user->save();
 
-        return back()->with('success', 'Password updated successfully.');
+        return back()->with('success', 'Password updated. User will be required to log in again.');
     }
 
     public function adjustBalance(Request $request, User $user, WalletService $wallet)

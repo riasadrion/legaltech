@@ -66,9 +66,14 @@ class ProfileController extends Controller
             'password' => ['required', 'confirmed', Password::min(8)->mixedCase()->numbers()],
         ]);
 
-        $user->update(['password' => Hash::make($request->password)]);
+        $user->password = Hash::make($request->password);
+        $user->setRememberToken(\Illuminate\Support\Str::random(60));
+        $user->save();
 
-        return back()->with('success', __('Password updated.'));
+        // Re-login current session so this device stays authenticated
+        auth('user')->login($user);
+
+        return back()->with('success', __('Password updated. All other sessions have been signed out.'));
     }
 
     private function countryList(): array

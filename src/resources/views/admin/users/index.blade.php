@@ -171,7 +171,7 @@
 </div>
 
 {{-- Hidden form for impersonation (outside bulk form to avoid nesting) --}}
-<form id="impersonate-form" method="POST" action="" class="hidden">
+<form id="impersonate-form" method="POST" action="" class="hidden" target="_blank">
     @csrf
 </form>
 
