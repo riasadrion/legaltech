@@ -18,57 +18,34 @@ class SubscriptionSeeder extends Seeder
             return;
         }
 
-        $starter      = $plans->get('Starter');
-        $pro          = $plans->get('Professional');
-        $business     = $plans->get('Business');
-        $starterAnnual = $plans->get('Starter Annual');
-        $proAnnual    = $plans->get('Professional Annual');
-        $lifetime     = $plans->get('Lifetime');
+        $starter      = $plans->get('Starter Monthly');
+        $studio       = $plans->get('Studio Monthly');
+        $starterYearly = $plans->get('Starter Yearly');
+        $studioYearly  = $plans->get('Studio Yearly');
 
-        // Map email → subscription definition
         $subscriptions = [
 
-            // Active · Professional monthly
+            // Active · Starter Monthly
             'alice@example.com' => [
-                'plan'                 => $pro,
+                'plan'                 => $starter,
                 'status'               => UserSubscription::STATUS_ACTIVE,
-                'credits_remaining'    => 3200,
+                'credits_remaining'    => 0,
                 'current_period_start' => now()->subDays(12),
                 'current_period_end'   => now()->addDays(18),
             ],
 
-            // Active · Business monthly
+            // Active · Studio Monthly
             'bob@example.com' => [
-                'plan'                 => $business,
+                'plan'                 => $studio,
                 'status'               => UserSubscription::STATUS_ACTIVE,
-                'credits_remaining'    => 41000,
+                'credits_remaining'    => 0,
                 'current_period_start' => now()->subDays(5),
                 'current_period_end'   => now()->addDays(25),
             ],
 
-            // Trial · Starter
-            'carol@example.com' => [
-                'plan'              => $starter,
-                'status'            => UserSubscription::STATUS_TRIAL,
-                'credits_remaining' => 100,
-                'trial_ends_at'     => now()->addDays(8),
-                'current_period_start' => now()->subDays(6),
-                'current_period_end'   => now()->addDays(8),
-            ],
-
-            // Trial · Professional (trial expiring soon — 1 day left)
-            'david@example.com' => [
-                'plan'              => $pro,
-                'status'            => UserSubscription::STATUS_TRIAL,
-                'credits_remaining' => 5000,
-                'trial_ends_at'     => now()->addDay(),
-                'current_period_start' => now()->subDays(6),
-                'current_period_end'   => now()->addDay(),
-            ],
-
-            // Cancelled · Professional
+            // Cancelled · Starter Monthly
             'emma@example.com' => [
-                'plan'                 => $pro,
+                'plan'                 => $starter,
                 'status'               => UserSubscription::STATUS_CANCELLED,
                 'credits_remaining'    => 0,
                 'current_period_start' => now()->subDays(35),
@@ -76,7 +53,7 @@ class SubscriptionSeeder extends Seeder
                 'cancelled_at'         => now()->subDays(10),
             ],
 
-            // Expired · Starter
+            // Expired · Starter Monthly
             'frank@example.com' => [
                 'plan'                 => $starter,
                 'status'               => UserSubscription::STATUS_EXPIRED,
@@ -85,59 +62,40 @@ class SubscriptionSeeder extends Seeder
                 'current_period_end'   => now()->subDays(30),
             ],
 
-            // Past due · Professional
+            // Past due · Studio Monthly
             'grace@example.com' => [
-                'plan'                 => $pro,
+                'plan'                 => $studio,
                 'status'               => UserSubscription::STATUS_PAST_DUE,
-                'credits_remaining'    => 1200,
+                'credits_remaining'    => 0,
                 'current_period_start' => now()->subDays(35),
                 'current_period_end'   => now()->subDays(5),
             ],
 
-            // Active · Professional Annual
+            // Active · Studio Yearly
             'jack@example.com' => [
-                'plan'                 => $proAnnual,
+                'plan'                 => $studioYearly,
                 'status'               => UserSubscription::STATUS_ACTIVE,
-                'credits_remaining'    => 52000,
+                'credits_remaining'    => 0,
                 'current_period_start' => now()->subMonths(3),
                 'current_period_end'   => now()->addMonths(9),
             ],
 
-            // Active · Starter Annual
+            // Active · Starter Yearly
             'kate@example.com' => [
-                'plan'                 => $starterAnnual,
+                'plan'                 => $starterYearly,
                 'status'               => UserSubscription::STATUS_ACTIVE,
-                'credits_remaining'    => 900,
+                'credits_remaining'    => 0,
                 'current_period_start' => now()->subMonths(1),
                 'current_period_end'   => now()->addMonths(11),
             ],
 
-            // Active · Lifetime
-            'leo@example.com' => [
-                'plan'                 => $lifetime,
-                'status'               => UserSubscription::STATUS_ACTIVE,
-                'credits_remaining'    => 999999,
-                'current_period_start' => now()->subYear(),
-                'current_period_end'   => now()->addYears(10),
-            ],
-
-            // Active · Business (renewing soon — 2 days left)
+            // Active · Studio Monthly (renewing soon)
             'nathan@example.com' => [
-                'plan'                 => $business,
+                'plan'                 => $studio,
                 'status'               => UserSubscription::STATUS_ACTIVE,
-                'credits_remaining'    => 800,
+                'credits_remaining'    => 0,
                 'current_period_start' => now()->subDays(28),
                 'current_period_end'   => now()->addDays(2),
-            ],
-
-            // Trial · Professional Annual (just started)
-            'olivia@example.com' => [
-                'plan'              => $proAnnual,
-                'status'            => UserSubscription::STATUS_TRIAL,
-                'credits_remaining' => 60000,
-                'trial_ends_at'     => now()->addDays(7),
-                'current_period_start' => now(),
-                'current_period_end'   => now()->addDays(7),
             ],
         ];
 
@@ -154,7 +112,6 @@ class SubscriptionSeeder extends Seeder
                     'plan_id'              => $def['plan']->id,
                     'status'               => $def['status'],
                     'credits_remaining'    => $def['credits_remaining'],
-                    'trial_ends_at'        => $def['trial_ends_at'] ?? null,
                     'current_period_start' => $def['current_period_start'],
                     'current_period_end'   => $def['current_period_end'],
                     'cancelled_at'         => $def['cancelled_at'] ?? null,

@@ -218,7 +218,7 @@
                         <label class="upload-drop relative flex flex-col w-full h-44 rounded-lg border-2 border-dashed border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-800/50 hover:bg-gray-100 dark:hover:bg-slate-800 transition cursor-pointer overflow-hidden">
                             <div class="upload-preview flex-1 flex items-center justify-center min-h-0 p-3 bg-ink-900 rounded-t-md">
                                 @if($logo)
-                                    <img src="{{ $logo }}" alt="Logo" class="max-h-full max-w-full object-contain">
+                                    <img src="{{ upload_url($logo) }}" alt="Logo" class="max-h-full max-w-full object-contain">
                                 @else
                                     <x-heroicon-o-photo class="h-8 w-8 text-gray-600" />
                                 @endif
@@ -238,7 +238,7 @@
                         <label class="upload-drop relative flex flex-col w-full h-44 rounded-lg border-2 border-dashed border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-800/50 hover:bg-gray-100 dark:hover:bg-slate-800 transition cursor-pointer overflow-hidden">
                             <div class="upload-preview upload-preview-light flex-1 flex items-center justify-center min-h-0 p-3 rounded-t-md">
                                 @if($darkLogo)
-                                    <img src="{{ $darkLogo }}" alt="Logo Light Mode" class="max-h-full max-w-full object-contain">
+                                    <img src="{{ upload_url($darkLogo) }}" alt="Logo Light Mode" class="max-h-full max-w-full object-contain">
                                 @else
                                     <x-heroicon-o-photo class="h-8 w-8 text-gray-300" />
                                 @endif
@@ -258,7 +258,7 @@
                         <label class="upload-drop relative flex flex-col w-full h-44 rounded-lg border-2 border-dashed border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-800/50 hover:bg-gray-100 dark:hover:bg-slate-800 transition cursor-pointer overflow-hidden">
                             <div class="upload-preview flex-1 flex items-center justify-center min-h-0 p-3">
                                 @if($favicon)
-                                    <img src="{{ $favicon }}" alt="Favicon" class="max-h-full max-w-full object-contain">
+                                    <img src="{{ upload_url($favicon) }}" alt="Favicon" class="max-h-full max-w-full object-contain">
                                 @else
                                     <x-heroicon-o-photo class="h-8 w-8 text-gray-300 dark:text-slate-600" />
                                 @endif
@@ -278,7 +278,7 @@
                         <label class="upload-drop relative flex flex-col w-full h-44 rounded-lg border-2 border-dashed border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-800/50 hover:bg-gray-100 dark:hover:bg-slate-800 transition cursor-pointer overflow-hidden">
                             <div class="upload-preview flex-1 flex items-center justify-center min-h-0 p-3">
                                 @if($og)
-                                    <img src="{{ $og }}" alt="OG Image" class="max-h-full max-w-full object-contain rounded">
+                                    <img src="{{ upload_url($og) }}" alt="OG Image" class="max-h-full max-w-full object-contain rounded">
                                 @else
                                     <x-heroicon-o-photo class="h-8 w-8 text-gray-300 dark:text-slate-600" />
                                 @endif

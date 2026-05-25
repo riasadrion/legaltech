@@ -64,7 +64,7 @@
     </div>
     @endforeach
 
-    <p class="text-center text-xs text-white/35">{{ __('All plans include full export of your data. No credit card required to start a trial.') }}</p>
+    <p class="text-center text-xs text-white/35">{{ __('All plans include full export of your data. Cancel anytime.') }}</p>
 
 </div>
 

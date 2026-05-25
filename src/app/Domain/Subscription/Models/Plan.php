@@ -20,7 +20,6 @@ class Plan extends Model
         'price',
         'billing_cycle',
         'credits',
-        'trial_days',
         'ai_contract_generation',
         'ai_drafts',
         'features',
@@ -39,7 +38,6 @@ class Plan extends Model
         'ai_drafts' => 'integer',
         'price' => 'float',
         'credits' => 'integer',
-        'trial_days' => 'integer',
     ];
 
     public function subscriptions()
@@ -56,11 +54,6 @@ class Plan extends Model
     public function scopeActive($query)
     {
         return $query->where('is_active', true);
-    }
-
-    public function hasTrialPeriod(): bool
-    {
-        return $this->trial_days > 0;
     }
 
     public function hasCreditLimit(): bool

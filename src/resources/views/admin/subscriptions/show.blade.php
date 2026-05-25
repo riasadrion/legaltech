@@ -36,7 +36,6 @@
                         @php
                             $sc = match($subscription->status) {
                                 'active'    => 'bg-green-100 text-green-700',
-                                'trial'     => 'bg-blue-100 text-blue-700',
                                 'past_due'  => 'bg-amber-100 text-amber-700',
                                 'cancelled' => 'bg-gray-100 text-gray-500',
                                 'expired'   => 'bg-red-100 text-red-700',
@@ -53,9 +52,6 @@
                 <div class="flex justify-between px-5 py-3"><dt class="text-xs text-gray-500">{{ __('Credits remaining') }}</dt><dd class="font-semibold text-gray-900">{{ number_format($subscription->credits_remaining) }}</dd></div>
                 <div class="flex justify-between px-5 py-3"><dt class="text-xs text-gray-500">{{ __('Period start') }}</dt><dd class="text-gray-700">{{ formatDate($subscription->current_period_start, false) ?? '—' }}</dd></div>
                 <div class="flex justify-between px-5 py-3"><dt class="text-xs text-gray-500">{{ __('Period end') }}</dt><dd class="text-gray-700">{{ formatDate($subscription->current_period_end, false) ?? '—' }}</dd></div>
-                @if($subscription->trial_ends_at)
-                <div class="flex justify-between px-5 py-3"><dt class="text-xs text-gray-500">{{ __('Trial ends') }}</dt><dd class="text-gray-700">{{ formatDate($subscription->trial_ends_at, false) }}</dd></div>
-                @endif
                 @if($subscription->cancelled_at)
                 <div class="flex justify-between px-5 py-3"><dt class="text-xs text-gray-500">{{ __('Cancelled at') }}</dt><dd class="text-gray-700">{{ formatDate($subscription->cancelled_at) }}</dd></div>
                 @endif

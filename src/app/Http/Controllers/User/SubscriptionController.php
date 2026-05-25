@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Domain\Payment\Models\Gateway;
 use App\Domain\Subscription\Models\CreditLog;
 use App\Domain\Subscription\Models\Plan;
 use App\Domain\Subscription\SubscriptionService;
@@ -10,6 +11,13 @@ use Illuminate\Http\Request;
 
 class SubscriptionController extends Controller
 {
+    public function checkout(Plan $plan)
+    {
+        $gateways = Gateway::enabled()->orderBy('sort')->get();
+
+        return view('user.subscription.checkout', compact('plan', 'gateways'));
+    }
+
     public function index()
     {
         $user = auth('user')->user();
@@ -35,12 +43,14 @@ class SubscriptionController extends Controller
         $user = auth('user')->user();
         $plan = Plan::findOrFail($data['plan_id']);
 
-        if ((float) $plan->price === 0.0 && $plan->hasTrialPeriod()) {
-            $subscriptionService->startTrial($user, $plan);
+        // Free plan — subscribe immediately
+        if ((float) $plan->price === 0.0) {
+            $subscriptionService->subscribe($user, $plan);
 
-            return redirect()->route('user.subscription.index')->with('success', 'Trial started successfully!');
+            return redirect()->route('user.subscription.index')->with('success', __('Subscription activated!'));
         }
 
-        return redirect()->route('user.payment.index', ['plan_id' => $plan->id]);
+        // Paid plan — go to gateway selection with plan context
+        return redirect()->route('user.subscription.checkout', $plan);
     }
 }

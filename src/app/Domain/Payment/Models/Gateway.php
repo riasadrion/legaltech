@@ -98,7 +98,7 @@ class Gateway extends Model
     {
         $path = base_path('../assets/uploads/gateways/' . $this->driver . '.svg');
         if (file_exists($path)) {
-            return '/assets/uploads/gateways/' . $this->driver . '.svg';
+            return url('assets/uploads/gateways/' . $this->driver . '.svg');
         }
         return null;
     }

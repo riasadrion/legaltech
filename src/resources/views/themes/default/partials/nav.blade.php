@@ -75,7 +75,7 @@
                     </a>
                     <a href="{{ route('register') }}"
                        class="btn-lime rounded-full px-5 py-2.5 text-sm flex items-center gap-2">
-                        {{ __('Start free trial') }}
+                        {{ __('Get started') }}
                         <x-heroicon-o-arrow-top-right-on-square class="h-4 w-4" />
                     </a>
                 @else
@@ -143,7 +143,7 @@
                         {{ __('Sign in') }}
                     </a>
                     <a href="{{ route('register') }}" class="btn-lime rounded-xl text-center px-4 py-2.5 text-sm">
-                        {{ __('Start free trial') }}
+                        {{ __('Get started') }}
                     </a>
                 @else
                     <a href="{{ route('user.dashboard') }}" class="block text-center text-sm px-4 py-2.5 rounded-xl glass text-white/80 hover:text-white">

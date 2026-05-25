@@ -50,7 +50,6 @@
                     <td class="px-4 py-3 text-gray-600" data-label="{{ __('Price') }}">{{ $plan->formattedPrice() }}</td>
                     <td class="px-4 py-3 text-gray-600" data-label="{{ __('Cycle') }}">{{ ucfirst($plan->billing_cycle) }}</td>
                     <td class="px-4 py-3 text-gray-600" data-label="{{ __('Credits') }}">{{ $plan->credits ?: '—' }}</td>
-                    <td class="px-4 py-3 text-gray-600" data-label="{{ __('Trial') }}">{{ $plan->trial_days ? "{$plan->trial_days}d" : '—' }}</td>
                     <td class="px-4 py-3" data-label="{{ __('Status') }}">
                         @php
                             $sc = $plan->is_active ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500';

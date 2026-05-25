@@ -33,7 +33,7 @@
             <h3 class="text-sm font-semibold text-gray-900">{{ __('Call to action') }}</h3>
             <x-form.input name="cta_text" label="{{ __('Button text') }}"
                           value="{{ old('cta_text', $plan?->cta_text) }}"
-                          hint="{{ __('e.g. Start free trial') }}" />
+                          hint="{{ __('e.g. Subscribe now') }}" />
             <x-form.input name="cta_url" label="{{ __('Button URL') }}"
                           value="{{ old('cta_url', $plan?->cta_url) }}"
                           hint="{{ __('e.g. /register') }}" />
@@ -59,10 +59,6 @@
             <x-form.input name="credits" type="number" label="{{ __('Credits per period') }}"
                          value="{{ old('credits', $plan?->credits ?? 0) }}"
                          hint="{{ __('0 = unlimited') }}" required />
-
-            <x-form.input name="trial_days" type="number" label="{{ __('Trial days') }}"
-                         value="{{ old('trial_days', $plan?->trial_days ?? 0) }}"
-                         hint="{{ __('0 = no trial') }}" required />
 
             <x-form.input name="sort" type="number" label="{{ __('Sort order') }}"
                          value="{{ old('sort', $plan?->sort ?? 0) }}" required />

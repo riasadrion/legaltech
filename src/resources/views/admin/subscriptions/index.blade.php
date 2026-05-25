@@ -59,7 +59,6 @@
                         @php
                             $sc = match($sub->status) {
                                 'active'    => 'bg-green-100 text-green-700',
-                                'trial'     => 'bg-blue-100 text-blue-700',
                                 'past_due'  => 'bg-amber-100 text-amber-700',
                                 'cancelled' => 'bg-gray-100 text-gray-500',
                                 'expired'   => 'bg-red-100 text-red-700',

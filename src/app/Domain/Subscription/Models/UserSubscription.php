@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserSubscription extends Model
 {
-    const STATUS_TRIAL = 'trial';
-
     const STATUS_ACTIVE = 'active';
 
     const STATUS_PAST_DUE = 'past_due';
@@ -24,7 +22,6 @@ class UserSubscription extends Model
         'status',
         'credits_remaining',
         'ai_drafts_remaining',
-        'trial_ends_at',
         'current_period_start',
         'current_period_end',
         'cancelled_at',
@@ -32,7 +29,6 @@ class UserSubscription extends Model
     ];
 
     protected $casts = [
-        'trial_ends_at' => 'datetime',
         'current_period_start' => 'datetime',
         'current_period_end' => 'datetime',
         'cancelled_at' => 'datetime',
@@ -62,12 +58,7 @@ class UserSubscription extends Model
 
     public function isActive(): bool
     {
-        return in_array($this->status, [self::STATUS_ACTIVE, self::STATUS_TRIAL]);
-    }
-
-    public function isTrialing(): bool
-    {
-        return $this->status === self::STATUS_TRIAL && $this->trial_ends_at?->isFuture();
+        return $this->status === self::STATUS_ACTIVE;
     }
 
     public function isExpired(): bool
@@ -82,6 +73,6 @@ class UserSubscription extends Model
 
     public function scopeActive($query)
     {
-        return $query->whereIn('status', [self::STATUS_ACTIVE, self::STATUS_TRIAL]);
+        return $query->where('status', self::STATUS_ACTIVE);
     }
 }

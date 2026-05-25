@@ -36,7 +36,6 @@ class SubscriptionController extends Controller
         $statusPills = [
             ['value' => '', 'label' => __('All'), 'count' => UserSubscription::count()],
             ['value' => UserSubscription::STATUS_ACTIVE, 'label' => __('Active'), 'count' => UserSubscription::where('status', UserSubscription::STATUS_ACTIVE)->count()],
-            ['value' => UserSubscription::STATUS_TRIAL, 'label' => __('Trial'), 'count' => UserSubscription::where('status', UserSubscription::STATUS_TRIAL)->count()],
             ['value' => UserSubscription::STATUS_PAST_DUE, 'label' => __('Past Due'), 'count' => UserSubscription::where('status', UserSubscription::STATUS_PAST_DUE)->count()],
             ['value' => UserSubscription::STATUS_CANCELLED, 'label' => __('Cancelled'), 'count' => UserSubscription::where('status', UserSubscription::STATUS_CANCELLED)->count()],
             ['value' => UserSubscription::STATUS_EXPIRED, 'label' => __('Expired'), 'count' => UserSubscription::where('status', UserSubscription::STATUS_EXPIRED)->count()],

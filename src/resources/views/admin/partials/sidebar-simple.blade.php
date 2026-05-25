@@ -7,7 +7,7 @@
                 $logo = setting('site.logo');
             @endphp
             @if($logo)
-                <img src="{{ $logo }}" alt="{{ config('app.name') }}" class="h-10 object-contain">
+                <img src="{{ upload_url($logo) }}" alt="{{ config('app.name') }}" class="h-10 object-contain">
             @else
                 <span class="text-lg font-bold bg-gradient-to-r from-brand-600 to-brand-700 bg-clip-text text-transparent">
                     {{ config('app.name') }}

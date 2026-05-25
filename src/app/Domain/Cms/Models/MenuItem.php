@@ -47,6 +47,12 @@ class MenuItem extends Model
             return url('/'.$this->page->slug);
         }
 
-        return $this->url ?? '#';
+        $raw = $this->url ?? '#';
+
+        if ($raw === '#' || $raw === '' || str_starts_with($raw, 'http://') || str_starts_with($raw, 'https://') || str_starts_with($raw, 'mailto:') || str_starts_with($raw, 'tel:')) {
+            return $raw;
+        }
+
+        return url($raw);
     }
 }

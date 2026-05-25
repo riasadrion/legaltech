@@ -22,7 +22,6 @@
                         @php
                             $sc = match($subscription->status) {
                                 'active' => 'ud-badge-green',
-                                'trial' => 'ud-badge-violet',
                                 'past_due' => 'ud-badge-amber',
                                 default => 'ud-badge-gray',
                             };
@@ -60,7 +59,7 @@
                     @endif
 
                     <div>
-                        <p class="ud-stat-label">{{ $subscription->isTrialing() ? __('Trial ends') : __('Period ends') }}</p>
+                        <p class="ud-stat-label">{{ __('Period ends') }}</p>
                         <p class="text-xl font-semibold text-white mt-2">{{ $subscription->current_period_end?->format('d M Y') }}</p>
                     </div>
 

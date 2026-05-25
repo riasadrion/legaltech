@@ -49,40 +49,6 @@ class SubscriptionService
         });
     }
 
-    public function startTrial(User $user, Plan $plan): UserSubscription
-    {
-        if (! $plan->hasTrialPeriod()) {
-            throw new \DomainException('Plan does not have a trial period');
-        }
-
-        $existing = UserSubscription::where('user_id', $user->id)
-            ->active()
-            ->first();
-
-        if ($existing) {
-            throw new \DomainException('User already has an active subscription');
-        }
-
-        $trialEnd = now()->addDays($plan->trial_days);
-
-        $sub = new UserSubscription;
-        $sub->user_id = $user->id;
-        $sub->plan_id = $plan->id;
-        $sub->status = UserSubscription::STATUS_TRIAL;
-        $sub->trial_ends_at = $trialEnd;
-        $sub->current_period_start = now();
-        $sub->current_period_end = $trialEnd;
-        $sub->credits_remaining = $plan->credits;
-        $sub->ai_drafts_remaining = $plan->ai_contract_generation ? (int) $plan->ai_drafts : 0;
-        $sub->save();
-
-        if ($plan->credits > 0) {
-            $this->logCredit($user, $sub, $plan->credits, "Trial started: {$plan->name}");
-        }
-
-        return $sub;
-    }
-
     public function cancel(UserSubscription $sub): void
     {
         $sub->status = UserSubscription::STATUS_CANCELLED;
@@ -111,7 +77,7 @@ class SubscriptionService
     public function expireOverdue(): void
     {
         UserSubscription::query()
-            ->whereIn('status', [UserSubscription::STATUS_ACTIVE, UserSubscription::STATUS_TRIAL])
+            ->where('status', UserSubscription::STATUS_ACTIVE)
             ->where('current_period_end', '<', now())
             ->chunk(200, function ($subs) {
                 foreach ($subs as $sub) {

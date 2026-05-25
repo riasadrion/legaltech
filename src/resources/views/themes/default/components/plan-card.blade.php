@@ -85,13 +85,6 @@
                 </span>
             </li>
 
-            @if($plan->trial_days > 0)
-                <li class="flex items-start gap-2">
-                    <x-heroicon-s-clock class="h-4 w-4 text-lime mt-0.5 shrink-0" />
-                    <span class="text-white">{{ $plan->trial_days }}-{{ __('day free trial') }}</span>
-                </li>
-            @endif
-
             @foreach(($plan->features ?? []) as $feature)
                 <li class="flex items-start gap-2">
                     <x-heroicon-s-check-circle class="h-4 w-4 text-lime mt-0.5 shrink-0" />

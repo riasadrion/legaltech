@@ -6,7 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ ($title ?? '') ? $title . ' — ' : '' }}{{ setting('site.name', config('app.name')) }} Admin</title>
     @if($favicon = setting('site.favicon'))
-    <link rel="icon" href="{{ $favicon }}" type="image/png">
+    <link rel="icon" href="{{ upload_url($favicon) }}" type="image/png">
     @endif
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
