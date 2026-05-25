@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\CheckMaintenance;
 use App\Http\Middleware\EnsureAccountIsActive;
+use App\Http\Middleware\ExpireSubscriptions;
 use App\Http\Middleware\ForceHttps;
 use App\Http\Middleware\RequireKyc;
 use App\Http\Middleware\RequirePermission;
@@ -41,6 +42,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'permission' => RequirePermission::class,
             'auth.admin' => Authenticate::class,
             'account.active' => EnsureAccountIsActive::class,
+            'subscription.expire' => ExpireSubscriptions::class,
             'maintenance' => CheckMaintenance::class,
             'verified.email' => RequireVerifiedEmail::class,
             'verified.phone' => RequireVerifiedPhone::class,

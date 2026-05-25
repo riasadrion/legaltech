@@ -13,7 +13,7 @@ use App\Http\Controllers\User\UserNotificationController;
 
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth:user', 'account.active', 'verified.email', 'verified.phone'])
+Route::middleware(['auth:user', 'account.active', 'verified.email', 'verified.phone', 'subscription.expire'])
     ->prefix('user')
     ->name('user.')
     ->group(function () {

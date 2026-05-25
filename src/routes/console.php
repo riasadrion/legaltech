@@ -9,7 +9,6 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 
 Schedule::command('blog:publish-scheduled')->hourly();
-Schedule::command('subscription:expire')->hourly();
 Schedule::command('subscription:renew')->hourly();
 Schedule::command('wallet:reconcile')->daily();
 Schedule::command('queue:prune-failed', ['--hours' => 168])->daily();
