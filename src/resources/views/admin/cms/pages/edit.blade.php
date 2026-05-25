@@ -13,11 +13,6 @@
             <h1 class="text-xl font-bold text-gray-900">{{ $page->getLocalTitle() }}</h1>
             <p class="text-sm text-gray-400 font-mono">/{{ $page->slug }}</p>
         </div>
-        <a href="{{ route('admin.cms.pages.preview', $page) }}" target="_blank"
-           class="btn-secondary">
-            <x-heroicon-o-eye class="h-4 w-4" />
-            {{ __('Preview') }}
-        </a>
     </div>
 
     <div class="grid grid-cols-1 gap-5 lg:grid-cols-3 lg:items-start">

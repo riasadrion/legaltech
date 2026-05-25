@@ -44,10 +44,6 @@
                     <td class="px-4 py-3 text-gray-500" data-label="{{ __('Sections') }}">{{ count($page->section_ids ?? []) }}</td>
                     <td class="px-4 py-3 text-right" data-label="">
                         <div class="flex items-center justify-end gap-2">
-                            <a href="{{ route('admin.cms.pages.preview', $page) }}" target="_blank"
-                               class="text-gray-400 hover:text-gray-600" title="{{ __('Preview') }}">
-                                <x-heroicon-o-eye class="h-4 w-4" />
-                            </a>
                             <a href="{{ route('admin.cms.pages.edit', $page) }}"
                                class="text-gray-400 hover:text-brand-600" title="{{ __('Edit') }}">
                                 <x-heroicon-o-pencil class="h-4 w-4" />
