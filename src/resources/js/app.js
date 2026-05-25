@@ -127,6 +127,22 @@ $(document).ready(function () {
             }
         });
     });
+
+    // -------------------------------------------------------------------------
+    // Notification dropdown
+    // -------------------------------------------------------------------------
+    $(document).on('click', '[data-notification-trigger]', function () {
+        const $dropdown = $(this).closest('[data-notification-dropdown]');
+        const $panel = $dropdown.find('.notification-panel');
+        $panel.toggleClass('hidden');
+    });
+
+    $(document).on('click', function (e) {
+        const $dropdown = $('[data-notification-dropdown]');
+        if (!$dropdown.has(e.target).length && !$(e.target).closest('[data-notification-dropdown]').length) {
+            $dropdown.find('.notification-panel').addClass('hidden');
+        }
+    });
 });
 
 // -------------------------------------------------------------------------

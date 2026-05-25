@@ -100,15 +100,59 @@
                             {{ __('New contract') }}
                         </a>
 
-                        {{-- notification bell --}}
-                        <a href="{{ route('user.notifications.index') }}"
-                           class="w-9 h-9 grid place-items-center rounded-lg bg-white/4 border border-white/10 text-white/70 relative hover:bg-white/8 transition"
-                           aria-label="{{ __('Notifications') }}">
-                            <x-heroicon-o-bell class="h-5 w-5" />
-                            @if($unreadCount > 0)
-                            <span class="absolute -top-1 -right-1 w-4 h-4 grid place-items-center text-[9px] font-bold rounded-full bg-lime text-ink-900">{{ $unreadCount > 9 ? '9+' : $unreadCount }}</span>
-                            @endif
-                        </a>
+                        {{-- notification dropdown --}}
+                        <div class="relative" data-notification-dropdown>
+                            <button type="button"
+                                    class="w-9 h-9 grid place-items-center rounded-lg bg-white/4 border border-white/10 text-white/70 relative hover:bg-white/8 transition"
+                                    data-notification-trigger
+                                    aria-label="{{ __('Notifications') }}">
+                                <x-heroicon-o-bell class="h-5 w-5" />
+                                @if($unreadCount > 0)
+                                <span class="absolute -top-1 -right-1 w-4 h-4 grid place-items-center text-[9px] font-bold rounded-full bg-lime text-ink-900">{{ $unreadCount > 9 ? '9+' : $unreadCount }}</span>
+                                @endif
+                            </button>
+
+                            {{-- notification panel --}}
+                            <div class="notification-panel hidden absolute right-0 top-full mt-2 w-96 max-h-[500px] overflow-y-auto rounded-2xl glass border border-white/10 shadow-lg z-50">
+                                @php
+                                    try {
+                                        $notifications = auth('user')->user()->notifications()->latest()->limit(10)->get();
+                                    } catch(\Throwable) {
+                                        $notifications = collect();
+                                    }
+                                @endphp
+
+                                @if($notifications->isEmpty())
+                                    <div class="p-6 text-center">
+                                        <x-heroicon-o-bell-slash class="h-8 w-8 text-white/30 mx-auto mb-2" />
+                                        <p class="text-[13px] text-white/50">{{ __('No notifications') }}</p>
+                                    </div>
+                                @else
+                                    <div class="divide-y divide-white/8">
+                                        @foreach($notifications as $notification)
+                                        <a href="{{ $notification->action_url ?? '#' }}"
+                                           class="block px-4 py-3 hover:bg-white/4 transition {{ is_null($notification->read_at) ? 'bg-white/5' : '' }}">
+                                            <div class="flex items-start gap-3">
+                                                <div class="mt-0.5 flex-shrink-0">
+                                                    <x-heroicon-o-information-circle class="h-4 w-4 {{ is_null($notification->read_at) ? 'text-lime' : 'text-white/30' }}" />
+                                                </div>
+                                                <div class="flex-1 min-w-0">
+                                                    <p class="text-[13px] font-medium text-white">{{ $notification->title }}</p>
+                                                    <p class="text-[12px] text-white/55 mt-0.5 line-clamp-2">{{ $notification->message }}</p>
+                                                    <p class="text-[11px] text-white/30 mt-1">{{ $notification->created_at->diffForHumans() }}</p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        @endforeach
+                                    </div>
+                                    <div class="border-t border-white/8 p-3">
+                                        <a href="{{ route('user.notifications.index') }}" class="block text-center text-[12px] text-lime hover:text-lime-soft transition">
+                                            {{ __('View all notifications') }}
+                                        </a>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
 
                         {{-- user dropdown --}}
                         <div class="relative" data-ud-dropdown>
