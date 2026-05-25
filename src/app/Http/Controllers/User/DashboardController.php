@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Domain\Contract\Models\Contract;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -46,7 +47,12 @@ class DashboardController extends Controller
         $dismissed = session('dismissed_nudges', []);
         $nudges = array_filter($nudges, fn ($n) => ! in_array($n['key'], $dismissed));
 
-        return view('user.dashboard', compact('nudges'));
+        $recentContract = Contract::where('user_id', $user->id)
+            ->with(['signers'])
+            ->latest()
+            ->first();
+
+        return view('user.dashboard', compact('nudges', 'recentContract'));
     }
 
     public function dismissNudge(Request $request)

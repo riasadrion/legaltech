@@ -30,8 +30,12 @@
                 <p class="text-white/65 mt-3 max-w-md">
                     @if($isActive)
                         {{ __('You\'re on the') }} <span class="text-white">{{ $subscription->plan->name }}</span> {{ __('plan.') }}
-                        @if($subscription->credits_remaining > 0)
-                            {{ number_format($subscription->credits_remaining) }} {{ __('credits remaining.') }}
+                        @if($subscription->plan->ai_contract_generation)
+                            @if($subscription->plan->ai_drafts > 0)
+                                {{ number_format($subscription->ai_drafts_remaining) }} {{ __('AI drafts remaining.') }}
+                            @else
+                                {{ __('Unlimited AI drafts.') }}
+                            @endif
                         @endif
                     @elseif($pendingPayments > 0)
                         {{ __('You\'ve got') }} <span class="text-white">{{ $pendingPayments }} {{ __('payments awaiting approval') }}</span>.
@@ -63,44 +67,67 @@
 
             </div>
 
-            {{-- Right preview card --}}
+            {{-- Right contract card --}}
             <div class="md:col-span-5 mt-2 md:mt-0">
                 <div class="relative rounded-2xl bg-ink-900/70 border border-white/10 p-5">
-                    @if($recentPayment)
-                    <div class="flex items-center justify-between">
-                        <div class="text-[11px] font-mono text-white/45">{{ __('MOST RECENT') }}</div>
+                    @if($recentContract)
                         @php
-                            $rStatusMap = ['completed' => 'pill-sign', 'awaiting_approval' => 'pill-review', 'failed' => 'pill-draft'];
-                            $rPill = $rStatusMap[$recentPayment->status] ?? 'pill-done';
+                            $pillMap = [
+                                'draft'      => 'pill-draft',
+                                'generating' => 'pill-draft',
+                                'editing'    => 'pill-draft',
+                                'ready'      => 'pill-done',
+                                'sent'       => 'pill-review',
+                                'signed'     => 'pill-sign',
+                                'expired'    => 'pill-draft',
+                            ];
+                            $pill = $pillMap[$recentContract->status] ?? 'pill-done';
+                            $signers = $recentContract->signers;
                         @endphp
-                        <span class="pill {{ $rPill }}">{{ __(ucwords(str_replace('_',' ',$recentPayment->status))) }}</span>
-                    </div>
-                    <h3 class="font-display text-xl mt-1 text-white">{{ $recentPayment->gateway->name ?? __('Payment') }}</h3>
-                    <p class="text-[12px] text-white/55 mt-1">{{ $recentPayment->created_at->format('M d, Y') }}</p>
+                        <div class="flex items-center justify-between">
+                            <div class="text-[11px] font-mono text-white/45">{{ __('MOST RECENT') }}</div>
+                            <span class="pill {{ $pill }}">{{ __(ucfirst($recentContract->status)) }}</span>
+                        </div>
+                        <h3 class="font-display text-xl mt-1 text-white truncate">{{ $recentContract->title }}</h3>
+                        <p class="text-[12px] text-white/55 mt-1">{{ $recentContract->created_at->format('M d, Y') }}</p>
 
-                    <div class="mt-4">
-                        <div class="text-[10px] font-mono text-white/40 uppercase tracking-widest">{{ __('Amount') }}</div>
-                        <div class="text-3xl font-display text-white mt-1">{{ $recentPayment->formattedAmount() }}</div>
-                    </div>
+                        @if($signers->count() > 0)
+                        <div class="mt-4 grid grid-cols-2 gap-3">
+                            @foreach($signers->take(2) as $signer)
+                            <div>
+                                <div class="text-[10px] font-mono text-white/40 uppercase tracking-widest">{{ $signer->name }}</div>
+                                @if($signer->signed_at)
+                                    <svg viewBox="0 0 200 50" class="h-9 w-full">
+                                        <path d="M5 35 C 20 5, 35 50, 55 25 S 95 5, 115 30 S 160 50, 195 15"
+                                              fill="none" stroke="#D4FF3A" stroke-width="2" stroke-linecap="round" />
+                                    </svg>
+                                    <div class="text-[10px] text-white/50 mt-1">{{ __('signed') }}</div>
+                                @else
+                                    <div class="h-9 border-b border-dashed border-white/20 flex items-end">
+                                        <span class="text-[10px] font-mono text-white/35 pb-1">{{ __('awaiting…') }}</span>
+                                    </div>
+                                    <div class="text-[10px] text-white/50 mt-1">{{ __('pending') }}</div>
+                                @endif
+                            </div>
+                            @endforeach
+                        </div>
+                        @endif
 
-                    <div class="mt-5 flex items-center gap-2">
-                        <a href="{{ route('user.payment.index') }}" class="btn-lime rounded-lg px-3 py-2 text-[12px] flex items-center gap-1.5">
-                            <x-heroicon-o-queue-list class="h-4 w-4" />
-                            {{ __('View all') }}
-                        </a>
-                        <a href="{{ route('user.payment.create') }}" class="btn-ghost rounded-lg px-3 py-2 text-[12px] flex items-center gap-1.5">
-                            <x-heroicon-o-plus class="h-4 w-4" />
-                            {{ __('Add funds') }}
-                        </a>
-                    </div>
+                        <div class="mt-5 flex items-center gap-2">
+                            <a href="{{ route('user.contracts.show', $recentContract) }}"
+                               class="btn-ghost rounded-lg px-3 py-2 text-[12px] flex items-center gap-1.5">
+                                <x-heroicon-o-arrow-top-right-on-square class="h-4 w-4" />
+                                {{ __('Open') }}
+                            </a>
+                        </div>
                     @else
-                    <div class="text-center py-6">
-                        <div class="text-[11px] font-mono text-white/45 mb-3">{{ __('NO PAYMENTS YET') }}</div>
-                        <a href="{{ route('user.payment.create') }}" class="btn-lime rounded-xl px-4 py-2 text-[13px] inline-flex items-center gap-1.5">
-                            <x-heroicon-o-plus class="h-4 w-4" />
-                            {{ __('Add Funds') }}
-                        </a>
-                    </div>
+                        <div class="text-center py-8">
+                            <div class="text-[11px] font-mono text-white/45 mb-3">{{ __('NO CONTRACTS YET') }}</div>
+                            <a href="{{ route('user.contracts.index') }}"
+                               class="btn-lime rounded-xl px-4 py-2 text-[13px] inline-flex items-center gap-1.5">
+                                {{ __('Create contract') }}
+                            </a>
+                        </div>
                     @endif
                 </div>
             </div>
