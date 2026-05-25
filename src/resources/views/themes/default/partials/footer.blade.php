@@ -26,12 +26,12 @@
                 <a href="{{ route('home') }}" class="flex items-center gap-2">
                     @if($footerLogo || $footerDarkLogo)
                         @if($footerLogo)
-                            <img src="{{ $footerLogo }}" alt="{{ $footerSiteName }}" class="nav-brand-logo nav-brand-logo-light h-9">
+                            <img src="{{ upload_url($footerLogo) }}" alt="{{ $footerSiteName }}" class="nav-brand-logo nav-brand-logo-light h-9">
                         @endif
                         @if($footerDarkLogo)
-                            <img src="{{ $footerDarkLogo }}" alt="{{ $footerSiteName }}" class="nav-brand-logo nav-brand-logo-dark h-9">
+                            <img src="{{ upload_url($footerDarkLogo) }}" alt="{{ $footerSiteName }}" class="nav-brand-logo nav-brand-logo-dark h-9">
                         @elseif($footerLogo)
-                            <img src="{{ $footerLogo }}" alt="{{ $footerSiteName }}" class="nav-brand-logo nav-brand-logo-dark h-9">
+                            <img src="{{ upload_url($footerLogo) }}" alt="{{ $footerSiteName }}" class="nav-brand-logo nav-brand-logo-dark h-9">
                         @endif
                     @else
                         <span class="grid place-items-center w-9 h-9 rounded-full bg-lime text-ink-900">

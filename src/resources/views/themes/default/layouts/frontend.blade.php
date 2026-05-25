@@ -9,7 +9,7 @@
     <meta name="description" content="{{ $metaDescription }}">
     @endif
     @if($favicon = setting('site.favicon'))
-    <link rel="icon" href="{{ $favicon }}" type="image/png">
+    <link rel="icon" href="{{ upload_url($favicon) }}" type="image/png">
     @endif
 
     {{-- external-allowed: google-fonts --}}

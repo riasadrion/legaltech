@@ -10,9 +10,9 @@
         {{ $payment->formattedAmount() }} has been added to your wallet.
     </p>
     <div class="mt-6 flex justify-center gap-3">
-        <a href="{{ route('user.wallet.index') }}"
+        <a href="{{ route('user.dashboard') }}"
            class="rounded-lg bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-brand-700">
-            View wallet
+            Go to Dashboard
         </a>
         <a href="{{ route('user.payment.index') }}"
            class="rounded-lg border border-gray-300 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">

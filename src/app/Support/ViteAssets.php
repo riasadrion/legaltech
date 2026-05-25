@@ -30,8 +30,7 @@ class ViteAssets
         }
 
         $file = $manifest[$entry]['file'];
-        $basePath = parse_url(config('app.url'), PHP_URL_PATH) ?: '';
-        $basePath = $basePath ? rtrim($basePath, '/') . '/' : '/';
+        $basePath = rtrim(request()->getBasePath(), '/') . '/';
 
         return $basePath . 'assets/vite/' . $file;
     }

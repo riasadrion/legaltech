@@ -9,7 +9,7 @@
     <meta name="description" content="{{ $metaDescription }}">
     @endif
     @if($favicon = setting('site.favicon'))
-    <link rel="icon" href="{{ $favicon }}" type="image/png">
+    <link rel="icon" href="{{ upload_url($favicon) }}" type="image/png">
     @endif
 
     {{-- external-allowed: google-fonts --}}
@@ -130,7 +130,7 @@
                                 @else
                                     <div class="divide-y divide-white/8">
                                         @foreach($notifications as $notification)
-                                        <a href="{{ $notification->action_url ?? '#' }}"
+                                        <a href="{{ $notification->url ?? '#' }}"
                                            class="block px-4 py-3 hover:bg-white/4 transition {{ is_null($notification->read_at) ? 'bg-white/5' : '' }}">
                                             <div class="flex items-start gap-3">
                                                 <div class="mt-0.5 flex-shrink-0">
@@ -138,7 +138,7 @@
                                                 </div>
                                                 <div class="flex-1 min-w-0">
                                                     <p class="text-[13px] font-medium text-white">{{ $notification->title }}</p>
-                                                    <p class="text-[12px] text-white/55 mt-0.5 line-clamp-2">{{ $notification->message }}</p>
+                                                    <p class="text-[12px] text-white/55 mt-0.5 line-clamp-2">{{ $notification->body }}</p>
                                                     <p class="text-[11px] text-white/30 mt-1">{{ $notification->created_at->diffForHumans() }}</p>
                                                 </div>
                                             </div>

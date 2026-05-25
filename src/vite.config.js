@@ -10,7 +10,7 @@ export default defineConfig({
         }),
         tailwindcss(),
     ],
-    base: '/assets/vite/',
+    base: './',
     build: {
         outDir: '../assets/vite',
         assetsDir: '',

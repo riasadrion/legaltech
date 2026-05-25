@@ -16,12 +16,12 @@
             <a href="{{ route('home') }}" class="flex items-center gap-2 pl-3">
                 @if($navLogo || $navDarkLogo)
                     @if($navLogo)
-                        <img src="{{ $navLogo }}" alt="{{ $navSiteName }}" class="nav-brand-logo nav-brand-logo-light">
+                        <img src="{{ upload_url($navLogo) }}" alt="{{ $navSiteName }}" class="nav-brand-logo nav-brand-logo-light">
                     @endif
                     @if($navDarkLogo)
-                        <img src="{{ $navDarkLogo }}" alt="{{ $navSiteName }}" class="nav-brand-logo nav-brand-logo-dark">
+                        <img src="{{ upload_url($navDarkLogo) }}" alt="{{ $navSiteName }}" class="nav-brand-logo nav-brand-logo-dark">
                     @elseif($navLogo)
-                        <img src="{{ $navLogo }}" alt="{{ $navSiteName }}" class="nav-brand-logo nav-brand-logo-dark">
+                        <img src="{{ upload_url($navLogo) }}" alt="{{ $navSiteName }}" class="nav-brand-logo nav-brand-logo-dark">
                     @endif
                 @else
                     <span class="relative grid place-items-center w-8 h-8 rounded-full bg-lime text-ink-900">

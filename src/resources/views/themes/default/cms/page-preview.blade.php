@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Preview: {{ $page->getLocalTitle() }}</title>
-    @vite(['resources/css/app.css'])
+    <?php echo \App\Support\ViteAssets::includeAssets(['resources/css/app.css']); ?>
 </head>
 <body class="bg-white">
 @foreach($sections as $section)

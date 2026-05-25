@@ -45,10 +45,16 @@ if (! function_exists('upload_url')) {
         if (! $path) {
             return '';
         }
+        $base = rtrim(request()->getSchemeAndHttpHost(), '') . rtrim(request()->getBasePath(), '/');
         if (str_starts_with($path, 'http://') || str_starts_with($path, 'https://')) {
-            return $path;
+            // Strip stored host and rebuild with current host+basepath
+            $parsed = parse_url($path);
+            $filePath = $parsed['path'] ?? $path;
+            // Remove any known assets/uploads prefix to get the relative path
+            $filePath = preg_replace('#^.*?/assets/uploads/#', '', $filePath);
+            return $base . '/assets/uploads/' . ltrim($filePath, '/');
         }
-        return rtrim(request()->getSchemeAndHttpHost(), '') . '/assets/uploads/' . ltrim($path, '/');
+        return $base . '/assets/uploads/' . ltrim($path, '/');
     }
 }
 

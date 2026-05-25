@@ -6,7 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ $title ?? config('app.name') }}</title>
     @if($favicon = setting('site.favicon'))
-    <link rel="icon" href="{{ $favicon }}" type="image/png">
+    <link rel="icon" href="{{ upload_url($favicon) }}" type="image/png">
     @endif
 
     {{-- external-allowed: google-fonts --}}
@@ -46,12 +46,12 @@
                 <a href="{{ route('home') }}" class="flex items-center gap-2">
                     @if($authLogo || $authDarkLogo)
                         @if($authLogo)
-                            <img src="{{ $authLogo }}" alt="{{ $authSiteName }}" class="nav-brand-logo nav-brand-logo-light h-9">
+                            <img src="{{ upload_url($authLogo) }}" alt="{{ $authSiteName }}" class="nav-brand-logo nav-brand-logo-light h-9">
                         @endif
                         @if($authDarkLogo)
-                            <img src="{{ $authDarkLogo }}" alt="{{ $authSiteName }}" class="nav-brand-logo nav-brand-logo-dark h-9">
+                            <img src="{{ upload_url($authDarkLogo) }}" alt="{{ $authSiteName }}" class="nav-brand-logo nav-brand-logo-dark h-9">
                         @elseif($authLogo)
-                            <img src="{{ $authLogo }}" alt="{{ $authSiteName }}" class="nav-brand-logo nav-brand-logo-dark h-9">
+                            <img src="{{ upload_url($authLogo) }}" alt="{{ $authSiteName }}" class="nav-brand-logo nav-brand-logo-dark h-9">
                         @endif
                     @else
                         <span class="grid place-items-center w-9 h-9 rounded-full bg-lime text-ink-900">

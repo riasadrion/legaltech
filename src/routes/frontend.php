@@ -45,6 +45,9 @@ Route::middleware(['language', 'maintenance'])->group(function () {
     Route::get('/support/verify/{token}', [GuestTicketController::class, 'verify'])->name('support.guest.verify');
     Route::get('/support/ticket/{reference}', [GuestTicketController::class, 'show'])->name('support.guest.show');
     Route::post('/support/ticket/{reference}/reply', [GuestTicketController::class, 'reply'])->name('support.guest.reply');
+
+    // CMS pages — must be last to avoid catching other routes
+    Route::get('/{slug}', [PageController::class, 'show'])->name('page.show');
 });
 
 // Email unsubscribe
