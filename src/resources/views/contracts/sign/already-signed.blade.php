@@ -4,9 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ __('Already Signed') }}</title>
-    <link rel="stylesheet" href="/assets/static/css/themes/default.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <?php echo \App\Support\ViteAssets::includeAssets(['resources/css/app.css']); ?>
+    <link rel="stylesheet" href="{{ asset('assets/static/css/themes/default.css') }}">
 </head>
-<body class="min-h-screen flex flex-col items-center justify-center px-4">
+<body class="min-h-screen flex flex-col items-center justify-center px-4 theme-default">
 
 <div class="mb-8 text-center">
     <a href="{{ url('/') }}" class="font-display text-2xl text-white tracking-tight">{{ config('app.name') }}</a>

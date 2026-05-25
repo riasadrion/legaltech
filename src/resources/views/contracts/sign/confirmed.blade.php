@@ -4,9 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ __('Signed') }} — {{ $contract->title }}</title>
-    <link rel="stylesheet" href="/assets/static/css/themes/default.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <?php echo \App\Support\ViteAssets::includeAssets(['resources/css/app.css']); ?>
+    <link rel="stylesheet" href="{{ asset('assets/static/css/themes/default.css') }}">
 </head>
-<body class="min-h-screen flex flex-col items-center justify-center px-4">
+<body class="min-h-screen flex flex-col items-center justify-center px-4 theme-default">
 
 <div class="pointer-events-none fixed inset-0 overflow-hidden -z-10">
     <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[400px] rounded-full bg-lime/6 blur-[120px]"></div>

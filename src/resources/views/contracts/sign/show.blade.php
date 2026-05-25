@@ -4,9 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ __('Sign Contract') }} — {{ $contract->title }}</title>
-    <link rel="stylesheet" href="/assets/static/css/themes/default.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <?php echo \App\Support\ViteAssets::includeAssets(['resources/css/app.css']); ?>
+    <link rel="stylesheet" href="{{ asset('assets/static/css/themes/default.css') }}">
 </head>
-<body class="min-h-screen flex flex-col items-center justify-center px-4 py-12">
+<body class="min-h-screen flex flex-col items-center justify-center px-4 py-12 theme-default">
 
 {{-- Background decoration --}}
 <div class="pointer-events-none fixed inset-0 overflow-hidden -z-10">
@@ -19,7 +23,7 @@
     <a href="{{ url('/') }}" class="font-display text-2xl text-white tracking-tight">{{ config('app.name') }}</a>
 </div>
 
-<div class="w-full max-w-2xl space-y-5">
+<div class="w-full max-w-4xl space-y-5">
 
     <div class="text-center">
         <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-lime/10 border border-lime/20 mb-4">
@@ -37,7 +41,7 @@
             <x-heroicon-o-document-text class="h-4 w-4 text-white/40 shrink-0" />
             <span class="text-[12px] text-white/40 font-medium uppercase tracking-widest">{{ __('Contract Document') }}</span>
         </div>
-        <div class="px-6 py-6 max-h-[55vh] overflow-y-auto contract-editor-body text-white/80 text-[13px] leading-relaxed">
+        <div class="px-6 py-6 max-h-[50vh] overflow-y-auto contract-editor-body text-white/80 text-[13px] leading-relaxed scrollbar-dark">
             {!! $contract->body_html !!}
         </div>
     </div>

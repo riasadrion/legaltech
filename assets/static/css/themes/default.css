@@ -1895,3 +1895,48 @@ body.theme-default {
     color: #D4FF3A;
     margin-top: 0.75rem;
 }
+
+/* ─── Dark scrollbar ─── */
+.theme-default .scrollbar-dark::-webkit-scrollbar {
+    width: 8px;
+}
+.theme-default .scrollbar-dark::-webkit-scrollbar-track {
+    background: transparent;
+}
+.theme-default .scrollbar-dark::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+.theme-default .scrollbar-dark::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* ─── Contract preview list styles ─── */
+.theme-default .contract-editor-body ul {
+    list-style-type: disc;
+    margin: 1rem 0;
+    padding-left: 2rem;
+}
+.theme-default .contract-editor-body ol {
+    list-style-type: lower-alpha;
+    margin: 1rem 0;
+    padding-left: 2rem;
+}
+.theme-default .contract-editor-body ol ol {
+    list-style-type: lower-roman;
+}
+.theme-default .contract-editor-body ol ol ol {
+    list-style-type: decimal;
+}
+.theme-default .contract-editor-body ol ol ol ol {
+    list-style-type: lower-alpha;
+}
+.theme-default .contract-editor-body li {
+    margin: 0.5rem 0;
+    display: list-item;
+    list-style: inherit;
+    color: rgba(255, 255, 255, 0.8);
+}
+.theme-default .contract-editor-body p {
+    margin: 0.75rem 0;
+}
