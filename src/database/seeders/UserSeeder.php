@@ -218,6 +218,22 @@ class UserSeeder extends Seeder
                 'mobile_verified_at'  => now(),
                 'kyc_status'          => 'pending',
             ],
+
+            // ── Demo test user · Pro plan · Full access ───────────────────────
+            [
+                'username'            => 'testuser',
+                'name'                => 'Test User',
+                'email'               => 'testuser@example.com',
+                'password'            => Hash::make('password'),
+                'balance'             => 480.00,
+                'country_code'        => 'US',
+                'status'              => 'active',
+                'email_verified_at'   => now(),
+                'mobile_country_code' => '+1',
+                'mobile'              => '5559870001',
+                'mobile_verified_at'  => now(),
+                'kyc_status'          => 'approved',
+            ],
         ];
 
         foreach ($users as $data) {

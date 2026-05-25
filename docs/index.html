@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LegalTech — Documentation</title>
+<link rel="icon" type="image/png" href="assets/img/favicon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/css/prism.min.css" />
+<link rel="stylesheet" href="assets/css/docs.css" />
+</head>
+<body>
+
+<!-- ── Topbar ── -->
+<header class="topbar">
+    <button class="mobile-menu-btn" id="menuBtn" aria-label="Open navigation">
+        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+    <img src="assets/img/logo.png" class="topbar-logo" alt="LegalTech" />
+    <span class="topbar-badge">Updated May 26, 2026</span>
+</header>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<!-- ── Layout ── -->
+<div class="layout">
+
+<!-- ── Sidebar ── -->
+<nav class="sidebar">
+    <div class="sidebar-section">
+        <div style="padding: 1rem 0rem; border-bottom: 1px solid var(--border); margin-bottom: 0.5rem;">
+            <div style="font-size:13px;font-weight:700;color:var(--text);">Documentation &nbsp;<span style="font-size:13px;font-weight:400;color:var(--text-faint);">v1.0</span></div>
+        </div>
+        <div class="sidebar-section-label">Getting Started</div>
+        <a href="#intro" class="sidebar-link">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            Introduction
+        </a>
+        <a href="#requirements" class="sidebar-link">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            Server Requirements
+        </a>
+        <a href="#installation" class="sidebar-link">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+            cPanel Installation
+        </a>
+        <a href="#hostinger" class="sidebar-link">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"/></svg>
+            Hostinger Installation
+        </a>
+        <a href="#env" class="sidebar-link">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            Environment (.env)
+        </a>
+    </div>
+
+    <div class="sidebar-section">
+        <div class="sidebar-section-label">Admin Setup</div>
+        <a href="#first-login" class="sidebar-link">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+            First Login
+        </a>
+        <a href="#general-settings" class="sidebar-link">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            General
+        </a>
+        <a href="#controls" class="sidebar-link">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            Global Controls
+        </a>
+        <a href="#brand" class="sidebar-link">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
+            Brand &amp; Appearance
+        </a>
+        <a href="#seo" class="sidebar-link">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            SEO &amp; Footer
+        </a>
+        <a href="#email" class="sidebar-link">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            Email
+        </a>
+        <a href="#sms" class="sidebar-link">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+            SMS
+        </a>
+        <a href="#openai" class="sidebar-link">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+            AI Setup
+        </a>
+        <a href="#integrations" class="sidebar-link">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"/></svg>
+            Integrations
+        </a>
+        <a href="#social-login" class="sidebar-link">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            Social Login
+        </a>
+    </div>
+
+    <div class="sidebar-section">
+        <div class="sidebar-section-label">Payments</div>
+        <a href="#gateways" class="sidebar-link">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+            Payment Gateways
+        </a>
+        <a href="#plans" class="sidebar-link">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+            Plans
+        </a>
+    </div>
+
+    <div class="sidebar-section">
+        <div class="sidebar-section-label">Operations</div>
+        <a href="#storage" class="sidebar-link">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"/></svg>
+            Storage
+        </a>
+        <a href="#queue" class="sidebar-link">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
+            Queue
+        </a>
+        <a href="#cron" class="sidebar-link">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            Cron Job
+        </a>
+    </div>
+
+    <div class="sidebar-section">
+        <div class="sidebar-section-label">Reference</div>
+        <a href="#folder-structure" class="sidebar-link">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg>
+            Folder Structure
+        </a>
+        <a href="#subdirectory" class="sidebar-link">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+            Subdirectory Deploy
+        </a>
+    </div>
+    <div class="sidebar-section">
+        <div class="sidebar-section-label">Support</div>
+        <a href="#support" class="sidebar-link">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+            Support
+        </a>
+    </div>
+</nav>
+
+<!-- ── Main ── -->
+<main class="main">
+
+<!-- ════════════════════════════════════════
+     SECTION: Introduction
+════════════════════════════════════════ -->
+<section id="intro">
+<div class="page-header">
+    <div class="page-eyebrow">Getting Started</div>
+    <h1 class="page-title">Introduction</h1>
+    <p class="page-desc">Welcome to the LegalTech documentation. This guide covers everything you need to deploy and configure your installation.</p>
+</div>
+
+<p>LegalTech is a self-hosted SaaS platform that lets users create, sign, and manage legal contracts — powered by AI. It is built on <strong>Laravel 13</strong> with a domain-driven architecture and ships as a pre-built, deployment-ready package.</p>
+
+<h3 class="sub-heading">What's included</h3>
+<div class="card-grid">
+    <div class="card-sm">
+        <div class="label">Contract Builder</div>
+        <div class="value">Template-based editor with rich text editing and PDF export</div>
+    </div>
+    <div class="card-sm">
+        <div class="label">AI Drafting</div>
+        <div class="value">OpenAI-powered contract generation from prompts</div>
+    </div>
+    <div class="card-sm">
+        <div class="label">E-Signatures</div>
+        <div class="value">Multi-party signing flow with signed-at timestamps</div>
+    </div>
+    <div class="card-sm">
+        <div class="label">Subscriptions</div>
+        <div class="value">Flexible plan billing — monthly, yearly, or pay-as-you-go</div>
+    </div>
+    <div class="card-sm">
+        <div class="label">12 Payment Gateways</div>
+        <div class="value">Stripe, PayPal, Razorpay, Flutterwave, and more</div>
+    </div>
+    <div class="card-sm">
+        <div class="label">Admin Panel</div>
+        <div class="value">Full control over users, contracts, CMS, settings, and analytics</div>
+    </div>
+</div>
+
+<h3 class="sub-heading">What this guide covers</h3>
+<ul style="line-height:2;color:var(--text-muted);padding-left:1.25rem;">
+    <li>Server requirements and PHP extensions</li>
+    <li>Installation on cPanel and Hostinger shared hosting</li>
+    <li>Environment file configuration (<code>.env</code>)</li>
+    <li>Admin setup — first login, general settings, email, OpenAI</li>
+    <li>Payment gateway configuration for all 12 supported gateways</li>
+    <li>Subscription plan management</li>
+    <li>File storage, queue workers, and cron jobs</li>
+    <li>Subdirectory deployment</li>
+</ul>
+
+<div class="callout callout-info">
+    <span class="callout-icon">ℹ</span>
+    <div>No Composer or npm is required on the server. LegalTech ships as a fully compiled package — just upload, configure <code>.env</code>, and run migrations.</div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════
+     SECTION: Requirements
+════════════════════════════════════════ -->
+<section id="requirements">
+<div class="page-header">
+    <div class="page-eyebrow">Getting Started</div>
+    <h1 class="page-title">Server Requirements</h1>
+    <p class="page-desc">Everything your server needs before deploying LegalTech.</p>
+</div>
+
+<div class="card-grid">
+    <div class="card-sm">
+        <div class="label">PHP</div>
+        <div class="value">8.3 or higher</div>
+    </div>
+    <div class="card-sm">
+        <div class="label">Web server</div>
+        <div class="value">Apache / Nginx</div>
+    </div>
+    <div class="card-sm">
+        <div class="label">Database</div>
+        <div class="value">MySQL 8.0+</div>
+    </div>
+    <div class="card-sm">
+        <div class="label">Storage</div>
+        <div class="value">500 MB min</div>
+    </div>
+</div>
+
+<h3 class="sub-heading">Required PHP extensions</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Extension</th><th>Purpose</th></tr></thead>
+<tbody>
+<tr><td><code>BCMath</code></td><td>Precision arithmetic for payments &amp; exchange rates</td></tr>
+<tr><td><code>Ctype</code></td><td>Character type validation</td></tr>
+<tr><td><code>cURL</code></td><td>External HTTP requests (gateways, OpenAI)</td></tr>
+<tr><td><code>DOM</code></td><td>PDF generation (DomPDF)</td></tr>
+<tr><td><code>Fileinfo</code></td><td>File MIME type detection</td></tr>
+<tr><td><code>GD</code> or <code>Imagick</code></td><td>Image resizing for uploads</td></tr>
+<tr><td><code>JSON</code></td><td>JSON encoding / decoding</td></tr>
+<tr><td><code>Mbstring</code></td><td>Multi-byte string handling</td></tr>
+<tr><td><code>OpenSSL</code></td><td>Encryption, HTTPS, credential storage</td></tr>
+<tr><td><code>PDO</code> + <code>PDO_MySQL</code></td><td>MySQL database access</td></tr>
+<tr><td><code>Tokenizer</code></td><td>Required by Laravel</td></tr>
+<tr><td><code>XML</code></td><td>Required by DomPDF, Sitemap</td></tr>
+<tr><td><code>ZIP</code></td><td>Backups, archive exports</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout callout-info">
+    <span class="callout-icon">ℹ</span>
+    <div>On cPanel you can enable PHP extensions under <strong>MultiPHP Manager → PHP Extensions</strong> for your domain.</div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════
+     SECTION: Installation
+════════════════════════════════════════ -->
+<section id="installation">
+<h2 class="section-heading">cPanel Installation</h2>
+<p>LegalTech ships as a pre-built package. No Composer or npm needed on the server.</p>
+
+<h3 class="sub-heading">1 — Extract files</h3>
+<ol class="steps">
+    <li>
+        <div class="step-body">
+            <div class="step-title">Upload the archive</div>
+            <div class="step-desc">Upload <code>legaltech.zip</code> to your hosting via cPanel File Manager or FTP. Place it in the root of your domain (e.g. <code>public_html/</code>) or a subfolder (e.g. <code>public_html/legaltech/</code>).</div>
+        </div>
+    </li>
+    <li>
+        <div class="step-body">
+            <div class="step-title">Extract</div>
+            <div class="step-desc">Right-click → Extract in File Manager. You will see two top-level items: a <strong><code>Files/</code></strong> folder and a <code>README</code>.</div>
+        </div>
+    </li>
+    <li>
+        <div class="step-body">
+            <div class="step-title">Move contents of <code>Files/</code> up</div>
+            <div class="step-desc">Move everything <em>inside</em> <code>Files/</code> to your deployment root. The result should be: <code>public_html/assets/</code>, <code>public_html/index.php</code>, <code>public_html/src/</code>.</div>
+        </div>
+    </li>
+</ol>
+
+<h3 class="sub-heading" id="folder-structure">Root folder brief</h3>
+<div class="card">
+<pre class="code-block language-bash">public_html/          ← (or subfolder like public_html/legaltech/)
+├── .htaccess         ← URL rewriting, security headers, blocks .env/.log access
+├── index.php         ← Entry point — routes all requests into src/
+├── assets/           ← Public assets served directly by the web server
+│   ├── vite/         ← Compiled JS + CSS bundles
+│   ├── static/       ← Theme CSS, images, icons
+│   └── uploads/      ← User-uploaded files (logos, KYC docs, etc.)
+└── src/              ← Laravel application (NOT publicly accessible)
+    ├── app/          ← Domain logic, controllers, models
+    ├── config/       ← Laravel config files
+    ├── database/     ← Migrations and seeders
+    ├── resources/    ← Blade views, language files
+    ├── routes/       ← Web and API routes
+    ├── storage/      ← Logs, cache, queued jobs
+    └── .env          ← ⬅ Your environment file goes here</pre>
+</div>
+
+<div class="callout callout-warn">
+    <span class="callout-icon">⚠</span>
+    <div>The <code>src/</code> directory must <strong>not</strong> be publicly accessible. Only <code>index.php</code> and the <code>assets/</code> folder should be web-accessible. cPanel's <code>public_html</code> layout already satisfies this when you deploy to the domain root. For subdirectory deploys, see the <a href="#subdirectory">Subdirectory Deploy</a> section.</div>
+</div>
+
+<h3 class="sub-heading">2 — Create a MySQL database</h3>
+<ol class="steps">
+    <li>
+        <div class="step-body">
+            <div class="step-title">Open MySQL Databases in cPanel</div>
+            <div class="step-desc">Create a new database, create a new user, and assign the user to the database with <strong>All Privileges</strong>.</div>
+        </div>
+    </li>
+    <li>
+        <div class="step-body">
+            <div class="step-title">Note credentials</div>
+            <div class="step-desc">Save the database name, username, password, and host (usually <code>localhost</code>). You will need them for <code>.env</code>.</div>
+        </div>
+    </li>
+</ol>
+
+<h3 class="sub-heading">3 — Connect and migrate</h3>
+<ol class="steps">
+    <li>
+        <div class="step-body">
+            <div class="step-title">Edit <code>src/.env</code></div>
+            <div class="step-desc">Fill in your database credentials. See the <a href="#env">Environment</a> section below.</div>
+        </div>
+    </li>
+    <li>
+        <div class="step-body">
+            <div class="step-title">Run migrations via SSH (recommended)</div>
+            <div class="step-desc">SSH into your server, navigate to <code>src/</code>, then run:</div>
+        </div>
+    </li>
+</ol>
+
+<pre class="code-block language-bash">cd public_html/src          # or your deployment path
+php artisan migrate --seed  # creates all tables and seeds default data</pre>
+
+<div class="callout callout-tip">
+    <span class="callout-icon">💡</span>
+    <div>If SSH is unavailable, use cPanel's <strong>Terminal</strong> (Hosting &gt; Terminal) or ask your host to run the command. Most shared hosts include Terminal in cPanel.</div>
+</div>
+
+<h3 class="sub-heading">4 — Storage &amp; permissions</h3>
+<pre class="code-block language-bash">cd src
+php artisan storage:link     # not needed — uploads go to assets/uploads/ directly
+chmod -R 775 storage bootstrap/cache</pre>
+
+<p>Ensure the web server user (usually <code>www-data</code> or the cPanel user) can write to <code>src/storage/</code> and <code>assets/uploads/</code>.</p>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════
+     SECTION: Hostinger Installation
+════════════════════════════════════════ -->
+<section id="hostinger">
+<h2 class="section-heading">Hostinger Installation</h2>
+<p>Hostinger uses <strong>hPanel</strong> instead of cPanel. The steps below map to hPanel's interface. The file structure and <code>.env</code> setup are identical to cPanel.</p>
+
+<h3 class="sub-heading">1 — Upload and extract files</h3>
+<ol class="steps">
+    <li>
+        <div class="step-body">
+            <div class="step-title">Open hPanel → File Manager</div>
+            <div class="step-desc">Log in to <strong>hPanel</strong>, go to <strong>Hosting → Manage → File Manager</strong>, and navigate to <code>public_html/</code> (or a subfolder if deploying to a subdirectory).</div>
+        </div>
+    </li>
+    <li>
+        <div class="step-body">
+            <div class="step-title">Upload the archive</div>
+            <div class="step-desc">Click <strong>Upload Files</strong> and select <code>legaltech.zip</code>. Wait for the upload to finish.</div>
+        </div>
+    </li>
+    <li>
+        <div class="step-body">
+            <div class="step-title">Extract</div>
+            <div class="step-desc">Right-click <code>legaltech.zip</code> → <strong>Extract</strong>. You will see a <code>Files/</code> folder appear.</div>
+        </div>
+    </li>
+    <li>
+        <div class="step-body">
+            <div class="step-title">Move contents up</div>
+            <div class="step-desc">Select all items inside <code>Files/</code>, then move them to your deployment root (<code>public_html/</code>). The result should be: <code>public_html/.htaccess</code>, <code>public_html/index.php</code>, <code>public_html/assets/</code>, <code>public_html/src/</code>.</div>
+        </div>
+    </li>
+</ol>
+
+<h3 class="sub-heading">2 — Create a MySQL database</h3>
+<ol class="steps">
+    <li>
+        <div class="step-body">
+            <div class="step-title">Go to hPanel → Databases → MySQL Databases</div>
+            <div class="step-desc">Create a new database and a new user. Assign the user to the database with <strong>All Privileges</strong>.</div>
+        </div>
+    </li>
+    <li>
+        <div class="step-body">
+            <div class="step-title">Note credentials</div>
+            <div class="step-desc">Save the database name, username, password, and host (usually <code>127.0.0.1</code> on Hostinger). You will need these for <code>src/.env</code>.</div>
+        </div>
+    </li>
+</ol>
+
+<h3 class="sub-heading">3 — Configure <code>.env</code> and migrate</h3>
+<ol class="steps">
+    <li>
+        <div class="step-body">
+            <div class="step-title">Edit <code>src/.env</code> via File Manager</div>
+            <div class="step-desc">In hPanel File Manager navigate to <code>public_html/src/</code>, right-click <code>.env.example</code> → <strong>Copy</strong>, rename the copy to <code>.env</code>, then right-click → <strong>Edit</strong> to fill in your database credentials. See the <a href="#env">Environment</a> section for the full list.</div>
+        </div>
+    </li>
+    <li>
+        <div class="step-body">
+            <div class="step-title">Open hPanel Terminal</div>
+            <div class="step-desc">Go to <strong>hPanel → Advanced → SSH Access</strong> (or <strong>Terminal</strong> if shown). Enable SSH if not already on, then connect.</div>
+        </div>
+    </li>
+    <li>
+        <div class="step-body">
+            <div class="step-title">Run migrations</div>
+        </div>
+    </li>
+</ol>
+
+<pre class="code-block language-bash">cd ~/domains/yourdomain.com/public_html/src   # adjust path to match your domain
+php artisan key:generate
+php artisan migrate --seed</pre>
+
+<div class="callout callout-info">
+    <span class="callout-icon">ℹ</span>
+    <div>On Hostinger Business / Cloud plans, SSH is included. On Starter shared plans, use the built-in <strong>Terminal</strong> in hPanel (Advanced → Terminal) — it works the same way.</div>
+</div>
+
+<h3 class="sub-heading">4 — Storage &amp; permissions</h3>
+<pre class="code-block language-bash">chmod -R 775 storage bootstrap/cache</pre>
+<p>Run this inside the <code>src/</code> directory. Hostinger's web server user typically already has write access, but running this command ensures it regardless.</p>
+
+<div class="callout callout-warn">
+    <span class="callout-icon">⚠</span>
+    <div>If your domain uses <strong>Hostinger's PHP version selector</strong>, make sure the selected PHP version is <strong>8.3 or higher</strong> under <strong>hPanel → Advanced → PHP Configuration</strong>.</div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════
+     SECTION: Environment
+════════════════════════════════════════ -->
+<section id="env">
+<h2 class="section-heading">Environment File (<code>.env</code>)</h2>
+<p>The <code>.env</code> file lives at <code>src/.env</code>. Copy <code>src/.env.example</code> to <code>src/.env</code> and fill in the values below. Only infrastructure-level values go here — all service keys (OpenAI, mail, payment gateways, social login) are configured through <strong>Admin → Settings</strong> after installation.</p>
+
+<h3 class="sub-heading">Core application</h3>
+<pre class="code-block language-bash">APP_NAME="LegalTech"
+APP_ENV=production
+APP_KEY=                    # run: php artisan key:generate
+APP_DEBUG=false</pre>
+
+<div class="callout callout-warn">
+    <span class="callout-icon">⚠</span>
+    <div>Always run <code>php artisan key:generate</code> after copying the example. Without an <code>APP_KEY</code> the app will not boot.</div>
+</div>
+
+<h3 class="sub-heading">Database</h3>
+<pre class="code-block language-bash">DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=your_database
+DB_USERNAME=your_user
+DB_PASSWORD=your_password</pre>
+
+<div class="callout callout-info">
+    <span class="callout-icon">ℹ</span>
+    <div>That's all that goes in <code>.env</code>. OpenAI API keys, mail credentials, payment gateway keys, and social login secrets are all configured through <strong>Admin → Settings</strong> after installation — not in the environment file.</div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════
+     SECTION: First Login
+════════════════════════════════════════ -->
+<section id="first-login">
+<h2 class="section-heading">First Login</h2>
+<p>After migration, the seeder creates a default admin account:</p>
+
+<div class="card-grid">
+    <div class="card-sm">
+        <div class="label">URL</div>
+        <div class="value">/admin/login</div>
+    </div>
+    <div class="card-sm">
+        <div class="label">Email</div>
+        <div class="value">admin@example.com</div>
+    </div>
+    <div class="card-sm">
+        <div class="label">Password</div>
+        <div class="value">password</div>
+    </div>
+</div>
+
+<div class="callout callout-danger">
+    <span class="callout-icon">🔒</span>
+    <div><strong>Change the admin password immediately</strong> after first login via <em>Admin → Profile → Change Password</em>.</div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════
+     SECTION: General Settings
+════════════════════════════════════════ -->
+<section id="general-settings">
+<h2 class="section-heading">General <span style="color:var(--text-faint);font-size:.75em;font-weight:400;">Settings → General</span></h2>
+<p>Go to <strong>Admin → Settings → General</strong> to configure your site identity.</p>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Field</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td>Site Name</td><td>Appears in browser titles, emails, and the footer.</td></tr>
+<tr><td>Tagline</td><td>Short slogan shown in meta and hero areas.</td></tr>
+<tr><td>Contact Email</td><td>Public-facing contact address shown to users.</td></tr>
+<tr><td>Contact Phone</td><td>Optional phone number displayed on public pages.</td></tr>
+<tr><td>Timezone</td><td>Affects all date/time displays and scheduled tasks. Choose from the full timezone list.</td></tr>
+<tr><td>Default Currency (ISO 4217)</td><td>3-letter code, e.g. <code>USD</code>. Used for plan pricing and payment display.</td></tr>
+<tr><td>Currency Symbol</td><td>Symbol displayed alongside amounts, e.g. <code>$</code>.</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════
+     SECTION: Global Controls
+════════════════════════════════════════ -->
+<section id="controls">
+<h2 class="section-heading">Global Controls <span style="color:var(--text-faint);font-size:.75em;font-weight:400;">Settings → Global Controls</span></h2>
+<p>Go to <strong>Admin → Settings → Global Controls</strong> to toggle platform-wide behaviours. Each control is a simple on/off switch.</p>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Control</th><th>Default</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td>User Registration</td><td>On</td><td>Allow new users to sign up. Disable to make the platform invite-only — the register page is blocked.</td></tr>
+<tr><td>Email Verification</td><td>Off</td><td>Require new users to verify their email before accessing the dashboard.</td></tr>
+<tr><td>SMS Verification</td><td>Off</td><td>Require phone verification via SMS code. Configure the SMS driver under the SMS tab first.</td></tr>
+<tr><td>KYC Verification</td><td>Off</td><td>Require identity document upload before users can access platform features.</td></tr>
+<tr><td>Policy Agreement</td><td>Off</td><td>Show a Terms &amp; Privacy checkbox on the registration form. Pages live at <code>/terms</code> and <code>/privacy</code> (CMS → Pages).</td></tr>
+<tr><td>Maintenance Mode</td><td>Off</td><td>Show a 503 maintenance page to all public visitors. The admin panel stays accessible.</td></tr>
+<tr><td>Force HTTPS</td><td>Off</td><td>Redirect all HTTP requests to HTTPS and force generated URLs to use the secure scheme.</td></tr>
+<tr><td>Cookie Consent Banner</td><td>On</td><td>Show a GDPR cookie consent floater to visitors. Links to your <code>/privacy</code> page. Dismissed state is saved per browser.</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════
+     SECTION: Brand & Appearance
+════════════════════════════════════════ -->
+<section id="brand">
+<h2 class="section-heading">Brand &amp; Appearance <span style="color:var(--text-faint);font-size:.75em;font-weight:400;">Settings → Brand &amp; Appearance</span></h2>
+<p>Go to <strong>Admin → Settings → Brand &amp; Appearance</strong> to upload logos, set the favicon, choose a font, and inject custom CSS.</p>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Field</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td>Site Font</td><td>Choose from System font (no Google Fonts load) or 12 Google Fonts: Inter, Roboto, Lato, Open Sans, Poppins, Nunito, Source Sans 3, Work Sans, DM Sans, Manrope, Montserrat, Plus Jakarta Sans. A live preview shows the selected font before saving.</td></tr>
+<tr><td>Logo</td><td>Used on dark backgrounds (e.g. admin sidebar, dark nav). PNG with transparent background recommended — max 500 px wide, 2 MB.</td></tr>
+<tr><td>Logo (Light Mode)</td><td>Used on light backgrounds. Same format and size as Logo.</td></tr>
+<tr><td>Favicon</td><td>Browser tab icon. Square PNG or ICO — max 512 KB.</td></tr>
+<tr><td>Default OG / Social Share Image</td><td>Fallback image for social sharing previews. Recommended 1200 × 630 px — max 2 MB.</td></tr>
+<tr><td>Custom CSS</td><td>Raw CSS injected into every frontend page. Changes take effect immediately on save — no build step needed.</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════
+     SECTION: SEO & Footer
+════════════════════════════════════════ -->
+<section id="seo">
+<h2 class="section-heading">SEO &amp; Footer <span style="color:var(--text-faint);font-size:.75em;font-weight:400;">Settings → SEO &amp; Footer</span></h2>
+<p>Go to <strong>Admin → Settings → SEO &amp; Footer</strong>.</p>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Field</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td>Default Meta Description</td><td>Fallback <code>&lt;meta name="description"&gt;</code> used on pages that don't have their own. Max 300 characters.</td></tr>
+<tr><td>Footer Text</td><td>Plain text shown in the site footer — typically a copyright line. Max 500 characters.</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════
+     SECTION: Email
+════════════════════════════════════════ -->
+<section id="email">
+<h2 class="section-heading">Email <span style="color:var(--text-faint);font-size:.75em;font-weight:400;">Settings → Email</span></h2>
+<p>Go to <strong>Admin → Settings → Email</strong>. Set the From Address and From Name first, then choose a driver. Use the built-in <strong>Send Test Email</strong> panel to verify delivery before going live.</p>
+
+<h3 class="sub-heading">Common fields</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Field</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td>From Address</td><td>The <code>From:</code> email address on all outgoing mail.</td></tr>
+<tr><td>From Name</td><td>The display name shown in the recipient's inbox.</td></tr>
+<tr><td>Driver</td><td>Select from the options below.</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3 class="sub-heading">Available drivers</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Driver</th><th>Fields required</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td><span class="badge badge-gray">Log</span></td><td>None</td><td>Dev only — emails go to <code>src/storage/logs/laravel.log</code>, not sent.</td></tr>
+<tr><td><span class="badge badge-blue">SMTP</span></td><td>Host, Port, Username, Password, Encryption (TLS / SSL / None)</td><td>Works with Gmail, Zoho, cPanel Mail, any SMTP provider.</td></tr>
+<tr><td><span class="badge badge-blue">Sendmail</span></td><td>None</td><td>Uses server <code>mail()</code>. Poor deliverability — avoid in production.</td></tr>
+<tr><td><span class="badge badge-blue">Mailgun</span></td><td>Domain, API Key, Endpoint (US or EU)</td><td>Get keys from mailgun.com → Sending → Domains.</td></tr>
+<tr><td><span class="badge badge-blue">Amazon SES</span></td><td>Access Key, Secret Key, Region</td><td>Create an IAM user with SES send permissions.</td></tr>
+<tr><td><span class="badge badge-blue">Postmark</span></td><td>Server Token</td><td>Find in Postmark → Servers → your server → API Tokens.</td></tr>
+<tr><td><span class="badge badge-blue">Resend</span></td><td>API Key</td><td>Get from resend.com → API Keys.</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3 class="sub-heading">SMTP example — Gmail / Google Workspace</h3>
+<pre class="code-block language-bash">Host:       smtp.gmail.com
+Port:       587
+Username:   your@gmail.com
+Password:   your-app-password   ← use a Google App Password, not your account password
+Encryption: TLS</pre>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════
+     SECTION: SMS
+════════════════════════════════════════ -->
+<section id="sms">
+<h2 class="section-heading">SMS <span style="color:var(--text-faint);font-size:.75em;font-weight:400;">Settings → SMS</span></h2>
+<p>Go to <strong>Admin → Settings → SMS</strong>. SMS is used for phone verification when <strong>SMS Verification</strong> is enabled under Global Controls.</p>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Driver</th><th>Fields required</th></tr></thead>
+<tbody>
+<tr><td><span class="badge badge-gray">Log</span></td><td>None — SMS messages are logged, not sent. Use for development.</td></tr>
+<tr><td><span class="badge badge-blue">Twilio</span></td><td>Account SID, Auth Token, From Number</td></tr>
+<tr><td><span class="badge badge-blue">Vonage</span></td><td>API Key, API Secret, From Name</td></tr>
+<tr><td><span class="badge badge-blue">MessageBird</span></td><td>API Key, From</td></tr>
+<tr><td><span class="badge badge-blue">Textmagic</span></td><td>Username, API Key</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════
+     SECTION: AI Setup
+════════════════════════════════════════ -->
+<section id="openai">
+<h2 class="section-heading">AI Setup <span style="color:var(--text-faint);font-size:.75em;font-weight:400;">Settings → AI Setup</span></h2>
+<p>Go to <strong>Admin → Settings → AI Setup</strong>. LegalTech uses the OpenAI API for AI-powered contract drafting and generation. No <code>.env</code> changes needed.</p>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Field</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td>API Key</td><td>Your OpenAI secret key (<code>sk-…</code>). Get one at <strong>platform.openai.com → API keys</strong>. Leave blank to keep an existing saved key.</td></tr>
+<tr><td>Model</td><td>OpenAI model used for generation. Options include <code>gpt-4o</code>, <code>gpt-4o-mini</code>, <code>gpt-4-turbo</code>, <code>gpt-3.5-turbo</code>, and newer GPT-5 series models as they become available.</td></tr>
+<tr><td>Max Tokens per Section</td><td>Token limit per AI request. Range: 100 – 4000. Lower values are faster and cheaper; higher values produce more detailed output.</td></tr>
+<tr><td>Temperature</td><td>Controls creativity. <code>0</code> = precise and deterministic, <code>1</code> = creative, <code>2</code> = unpredictable. Default <code>0.3</code> works well for legal contracts.</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout callout-tip">
+    <span class="callout-icon">💡</span>
+    <div>Control which plans can use AI under <strong>Admin → Plans</strong>. Each plan has an <em>AI Contract Generation</em> toggle and an <em>AI Drafts</em> field — set to <code>0</code> for unlimited drafts, or a positive integer for a monthly cap.</div>
+</div>
+
+<div class="callout callout-info">
+    <span class="callout-icon">ℹ</span>
+    <div>OpenAI charges per token. Set a <strong>usage limit</strong> in your OpenAI account settings to avoid unexpected bills.</div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════
+     SECTION: Integrations
+════════════════════════════════════════ -->
+<section id="integrations">
+<h2 class="section-heading">Integrations <span style="color:var(--text-faint);font-size:.75em;font-weight:400;">Settings → Integrations</span></h2>
+<p>Go to <strong>Admin → Settings → Integrations</strong>. Each integration has an on/off toggle and its own credential fields.</p>
+
+<h3 class="sub-heading">Cloudflare Turnstile (Captcha)</h3>
+<p>Protects login, registration, and contact forms from bots. Get keys at <strong>dash.cloudflare.com → Turnstile</strong>.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Field</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td>Enabled</td><td>Toggle to activate the Turnstile widget on protected forms.</td></tr>
+<tr><td>Site Key</td><td>Public key embedded in the page (starts with <code>0x4A…</code>).</td></tr>
+<tr><td>Secret Key</td><td>Server-side key used to verify the challenge response.</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3 class="sub-heading">Google Analytics 4</h3>
+<p>Adds the GA4 tracking snippet to all public pages. Get your Measurement ID at <strong>analytics.google.com → Admin → Data Streams</strong>.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Field</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td>Enabled</td><td>Toggle to inject the GA4 script.</td></tr>
+<tr><td>Measurement ID</td><td>Format: <code>G-XXXXXXXXXX</code>.</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3 class="sub-heading">Tawk.to Live Chat</h3>
+<p>Embeds the Tawk.to chat widget on all public pages. Find your IDs under <strong>Tawk.to → Administration → Chat Widget</strong>.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Field</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td>Enabled</td><td>Toggle to inject the chat widget.</td></tr>
+<tr><td>Property ID</td><td>The long hex ID from your Tawk.to embed URL.</td></tr>
+<tr><td>Widget ID</td><td>Usually <code>default</code> unless you have multiple widgets. Found in the embed URL: <code>embed.tawk.to/PROPERTY_ID/WIDGET_ID</code>.</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════
+     SECTION: Social Login
+════════════════════════════════════════ -->
+<section id="social-login">
+<h2 class="section-heading">Social Login <span style="color:var(--text-faint);font-size:.75em;font-weight:400;">Settings → Social Login</span></h2>
+<p>Go to <strong>Admin → Settings → Social Login</strong>. Enable OAuth login via Google, Facebook, X, or LinkedIn. Each provider has its own toggle and credential fields.</p>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Provider</th><th>Fields required</th><th>Where to get credentials</th></tr></thead>
+<tbody>
+<tr><td>Google</td><td>Client ID, Client Secret</td><td>console.cloud.google.com → APIs &amp; Services → Credentials</td></tr>
+<tr><td>Facebook</td><td>Client ID, Client Secret</td><td>developers.facebook.com → My Apps → your app → Settings → Basic</td></tr>
+<tr><td>X</td><td>Client ID, Client Secret</td><td>developer.twitter.com → Projects &amp; Apps → your app → Keys and tokens</td></tr>
+<tr><td>LinkedIn</td><td>Client ID, Client Secret</td><td>developer.linkedin.com → My Apps → your app → Auth</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout callout-info">
+    <span class="callout-icon">ℹ</span>
+    <div>Each provider requires a <strong>callback URL</strong> to be registered in its developer console. The callback URL for each provider is:<br><code>https://yourdomain.com/auth/{provider}/callback</code><br>Replace <code>{provider}</code> with <code>google</code>, <code>facebook</code>, <code>twitter</code>, or <code>linkedin</code>.</div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════
+     SECTION: Gateways
+════════════════════════════════════════ -->
+<section id="gateways">
+<h2 class="section-heading">Payment Gateways</h2>
+<p>Go to <strong>Admin → Gateways</strong>. Each gateway can be enabled/disabled independently. Configure credentials, currency, and display name per gateway.</p>
+
+<h3 class="sub-heading">Gateway credentials reference</h3>
+<div class="gateway-grid">
+    <div class="gateway-card">
+        <div class="gw-name">Stripe</div>
+        <div class="gw-fields">
+            public_key<br>secret_key<br>webhook_secret
+        </div>
+    </div>
+    <div class="gateway-card">
+        <div class="gw-name">PayPal</div>
+        <div class="gw-fields">
+            business_email
+        </div>
+    </div>
+    <div class="gateway-card">
+        <div class="gw-name">Razorpay</div>
+        <div class="gw-fields">
+            key_id<br>key_secret<br>webhook_secret
+        </div>
+    </div>
+    <div class="gateway-card">
+        <div class="gw-name">Paystack</div>
+        <div class="gw-fields">
+            secret_key<br>webhook_secret
+        </div>
+    </div>
+    <div class="gateway-card">
+        <div class="gw-name">Flutterwave</div>
+        <div class="gw-fields">
+            secret_key<br>webhook_secret
+        </div>
+    </div>
+    <div class="gateway-card">
+        <div class="gw-name">Mollie</div>
+        <div class="gw-fields">
+            api_key
+        </div>
+    </div>
+    <div class="gateway-card">
+        <div class="gw-name">MercadoPago</div>
+        <div class="gw-fields">
+            access_token<br>webhook_secret<br>sandbox
+        </div>
+    </div>
+    <div class="gateway-card">
+        <div class="gw-name">Coinbase Commerce</div>
+        <div class="gw-fields">
+            api_key<br>webhook_secret
+        </div>
+    </div>
+    <div class="gateway-card">
+        <div class="gw-name">CoinGate</div>
+        <div class="gw-fields">
+            api_token<br>receive_currency<br>sandbox
+        </div>
+    </div>
+    <div class="gateway-card">
+        <div class="gw-name">NowPayments</div>
+        <div class="gw-fields">
+            api_key<br>ipn_secret<br>pay_currency<br>sandbox
+        </div>
+    </div>
+    <div class="gateway-card">
+        <div class="gw-name">Izipay</div>
+        <div class="gw-fields">
+            shop_id<br>api_key<br>public_key<br>sandbox
+        </div>
+    </div>
+    <div class="gateway-card">
+        <div class="gw-name">Manual</div>
+        <div class="gw-fields">
+            No credentials — admin approves payments manually.
+        </div>
+    </div>
+</div>
+
+<h3 class="sub-heading">Stripe webhook</h3>
+<p>In your Stripe dashboard, create a webhook pointing to:</p>
+<pre class="code-block language-bash">https://yourdomain.com/payment/webhook/stripe
+# or for subfolder installs:
+https://yourdomain.com/legaltech/payment/webhook/stripe</pre>
+<p>Listen for these events: <code>checkout.session.completed</code>, <code>payment_intent.payment_failed</code>. Copy the webhook signing secret (<code>whsec_…</code>) into the <em>webhook_secret</em> field in the gateway settings.</p>
+
+<h3 class="sub-heading">Currency settings</h3>
+<p>Each gateway has its own currency code, symbol, exchange rate, and decimal places. This lets you accept, for example, USD on Stripe and NGN on Paystack simultaneously. The exchange rate is relative to your base currency (1.0 = base).</p>
+
+<div class="callout callout-info">
+    <span class="callout-icon">ℹ</span>
+    <div>Credentials are stored <strong>encrypted</strong> in the database using Laravel's <code>Crypt</code> facade. They are never exposed in plain text via the UI.</div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════
+     SECTION: Plans
+════════════════════════════════════════ -->
+<section id="plans">
+<h2 class="section-heading">Plans</h2>
+<p>Go to <strong>Admin → Plans</strong> to create and manage subscription plans.</p>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Field</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td>Name</td><td>Plan display name shown to users.</td></tr>
+<tr><td>Price</td><td>Monthly price in your base currency.</td></tr>
+<tr><td>Billing Period</td><td><code>monthly</code> or <code>yearly</code>.</td></tr>
+<tr><td>Contract Credits</td><td>How many contracts the user can generate per period. <code>0</code> = unlimited.</td></tr>
+<tr><td>AI Drafts</td><td>AI-assisted drafts allowed per period. <code>0</code> = unlimited. Requires <em>AI Contract Generation</em> toggle to be on.</td></tr>
+<tr><td>AI Contract Generation</td><td>Toggle — enables/disables the AI drafting feature for subscribers on this plan.</td></tr>
+<tr><td>E-Signature</td><td>Toggle — enables digital signature collection for contracts.</td></tr>
+<tr><td>Custom Templates</td><td>Toggle — allows users to upload and use their own contract templates.</td></tr>
+<tr><td>CTA Text</td><td>Button label on the public plans page, e.g. "Subscribe now".</td></tr>
+<tr><td>Is Featured</td><td>Highlights this plan with a visual badge on the pricing page.</td></tr>
+<tr><td>Is Active</td><td>Inactive plans are hidden from the public plans page but existing subscriptions continue.</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3 class="sub-heading">Subscription statuses</h3>
+<div class="card-grid">
+    <div class="card-sm"><div class="label">active</div><div class="value"><span class="badge badge-green">Active</span></div></div>
+    <div class="card-sm"><div class="label">past_due</div><div class="value"><span class="badge badge-yellow">Past Due</span></div></div>
+    <div class="card-sm"><div class="label">cancelled</div><div class="value"><span class="badge badge-gray">Cancelled</span></div></div>
+    <div class="card-sm"><div class="label">expired</div><div class="value"><span class="badge badge-red">Expired</span></div></div>
+</div>
+<p>Subscriptions expire automatically when <code>current_period_end</code> passes — no cron required.</p>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════
+     SECTION: Storage
+════════════════════════════════════════ -->
+<section id="storage">
+<h2 class="section-heading">Storage <span style="color:var(--text-faint);font-size:.75em;font-weight:400;">Settings → Storage</span></h2>
+<p>Go to <strong>Admin → Settings → Storage</strong>. Choose a driver by clicking its tile — the credential fields for that driver appear below. All user uploads (logos, KYC docs, contract attachments) go through the selected driver.</p>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Driver</th><th>Fields required</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td><span class="badge badge-gray">Local Disk</span></td><td>None</td><td>Files stored at <code>assets/uploads/</code> in the project root, served directly by the web server. Default for shared hosting.</td></tr>
+<tr><td><span class="badge badge-blue">Amazon S3</span></td><td>Access Key, Secret Key, Region, Bucket, Endpoint (optional)</td><td>Use for scalable cloud storage. Endpoint field is optional — leave blank for standard S3.</td></tr>
+<tr><td><span class="badge badge-blue">Cloudflare R2</span></td><td>Access Key ID, Secret Access Key, Bucket Name, R2 Endpoint URL</td><td>S3-compatible with zero egress fees. Endpoint URL format: <code>https://&lt;account-id&gt;.r2.cloudflarestorage.com</code></td></tr>
+<tr><td><span class="badge badge-blue">Wasabi</span></td><td>Access Key, Secret Key, Region, Bucket</td><td>Hot cloud storage — S3-compatible, no egress fees.</td></tr>
+<tr><td><span class="badge badge-blue">DO Spaces</span></td><td>Spaces Key, Spaces Secret, Region, Space Name, Endpoint URL</td><td>Endpoint format: <code>https://&lt;region&gt;.digitaloceanspaces.com</code></td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout callout-tip">
+    <span class="callout-icon">💡</span>
+    <div>For shared hosting, <strong>Local Disk</strong> is the simplest and most reliable option. Switch to a cloud driver only if you need to serve files from a CDN or share storage across multiple servers.</div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════
+     SECTION: Queue
+════════════════════════════════════════ -->
+<section id="queue">
+<h2 class="section-heading">Queue <span style="color:var(--text-faint);font-size:.75em;font-weight:400;">Settings → Queue</span></h2>
+<p>Go to <strong>Admin → Settings → Queue</strong>. When the <strong>Queue Heavy Operations</strong> toggle is enabled, bulk actions like newsletter broadcasts and mass notifications are dispatched to the database queue instead of running synchronously — keeping the admin panel responsive.</p>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>State</th><th>Behaviour</th></tr></thead>
+<tbody>
+<tr><td>Off (default)</td><td>Operations run synchronously in the same request. Fine for small volumes.</td></tr>
+<tr><td>On</td><td>Jobs are queued in the <code>jobs</code> database table. Requires the Laravel scheduler to process them — set up the <a href="#cron">cron job</a>.</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout callout-info">
+    <span class="callout-icon">ℹ</span>
+    <div>When Queue is enabled, the settings panel shows the required cron command for your server. Copy it directly into cPanel or hPanel → Cron Jobs.</div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════
+     SECTION: Cron
+════════════════════════════════════════ -->
+<section id="cron">
+<h2 class="section-heading">Cron Job</h2>
+<p>Add a single cron entry in cPanel under <strong>Cron Jobs</strong>. Set it to run every minute:</p>
+
+<pre class="code-block language-bash">* * * * * cd /home/youraccount/public_html/src && php artisan schedule:run >> /dev/null 2>&1</pre>
+
+<p>This runs the Laravel scheduler which handles:</p>
+<ul>
+    <li>Hourly blog post publishing</li>
+    <li>Daily wallet reconciliation</li>
+    <li>Failed job pruning (7-day retention)</li>
+    <li>Job batch pruning (48-hour retention)</li>
+</ul>
+
+<div class="callout callout-info">
+    <span class="callout-icon">ℹ</span>
+    <div>Replace <code>/home/youraccount/public_html/src</code> with the actual absolute path to your <code>src/</code> directory. In cPanel you can find this in <em>File Manager → <code>src/</code> → right-click → Properties</em>.</div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════
+     SECTION: Subdirectory
+════════════════════════════════════════ -->
+<section id="subdirectory">
+<h2 class="section-heading">Subdirectory Deploy</h2>
+<p>If the app is installed in a subfolder (e.g. <code>https://yourdomain.com/legaltech/</code>), set <code>APP_URL</code> to the full subfolder URL:</p>
+
+<pre class="code-block language-bash">APP_URL=https://yourdomain.com/legaltech</pre>
+
+<p>The root <code>index.php</code> auto-detects the subfolder and adjusts all asset paths accordingly via the <code>upload_url()</code> helper. No extra <code>.htaccess</code> changes are needed beyond what ships with the package.</p>
+
+<div class="callout callout-warn">
+    <span class="callout-icon">⚠</span>
+    <div>Do not add a trailing slash to <code>APP_URL</code>. Run <code>php artisan config:clear</code> after updating <code>.env</code>.</div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════
+     SECTION: Support
+════════════════════════════════════════ -->
+<section id="support">
+<h2 class="section-heading">Support</h2>
+<p>If you need help with your installation or have questions about configuration, reach out and we'll get back to you as soon as possible.</p>
+
+<div class="card" style="display:flex;align-items:center;gap:1rem;padding:1.25rem 1.5rem;">
+    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" style="width:28px;height:28px;color:var(--brand);flex-shrink:0;"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+    <div>
+        <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px;">Email Support</div>
+        <a href="mailto:cystall.connect@gmail.com" style="font-size:14px;color:var(--brand);">cystall.connect@gmail.com</a>
+    </div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- Footer -->
+<footer style="text-align:center; padding-top: 2rem; font-size: 12px; color: var(--text-faint);">
+    <img src="assets/img/logo.png" style="height: 22px; opacity: 0.4; margin-bottom: 0.5rem; display: block; margin-inline: auto;" />
+    LegalTech Documentation — for support contact your developer.
+</footer>
+
+</main>
+</div>
+
+<script src="assets/js/prism.min.js"></script>
+<script>
+// Highlight active sidebar link on scroll
+(function () {
+    const links = document.querySelectorAll('.sidebar-link');
+    const sections = document.querySelectorAll('section[id]');
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                links.forEach(l => l.classList.remove('active'));
+                const a = document.querySelector(`.sidebar-link[href="#${entry.target.id}"]`);
+                if (a) a.classList.add('active');
+            }
+        });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+
+    sections.forEach(s => observer.observe(s));
+})();
+</script>
+<script>
+(function () {
+    var btn = document.getElementById('menuBtn');
+    var sidebar = document.querySelector('.sidebar');
+    var overlay = document.getElementById('sidebarOverlay');
+    function openSidebar()  { sidebar.classList.add('open');    overlay.classList.add('open'); }
+    function closeSidebar() { sidebar.classList.remove('open'); overlay.classList.remove('open'); }
+    function toggle() { sidebar.classList.contains('open') ? closeSidebar() : openSidebar(); }
+    if (btn) btn.addEventListener('click', toggle);
+    if (overlay) overlay.addEventListener('click', closeSidebar);
+    document.querySelectorAll('.sidebar-link').forEach(function(a) {
+        a.addEventListener('click', closeSidebar);
+    });
+})();
+</script>
+</body>
+</html>
