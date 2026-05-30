@@ -15,7 +15,7 @@
 
     <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
 
-        {{-- Details --}}
+
         <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
             <div class="border-b border-gray-100 px-5 py-3.5">
                 <h3 class="text-sm font-semibold text-gray-900">Payment details</h3>
@@ -55,7 +55,7 @@
             </dl>
         </div>
 
-        {{-- Review / receipt --}}
+
         <div class="space-y-5">
             @if($payment->receipt_path)
             <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">

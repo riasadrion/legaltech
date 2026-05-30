@@ -6,7 +6,7 @@
 @php($hasPhone = ! empty($user->mobile))
 
 @if($hasPhone)
-    {{-- Enter code step --}}
+
     <p class="mb-5 text-sm text-gray-500 text-center">
         {{ __('We sent a 6-digit code to') }} <strong>{{ $user->mobile_country_code }}{{ $user->mobile }}</strong>.
     </p>
@@ -40,7 +40,7 @@
         </button>
     </form>
 @else
-    {{-- Enter phone step --}}
+
     <p class="mb-5 text-sm text-gray-500 text-center">
         {{ __('Enter your phone number to receive a verification code.') }}
     </p>

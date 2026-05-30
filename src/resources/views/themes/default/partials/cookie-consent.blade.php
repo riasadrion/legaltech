@@ -6,7 +6,7 @@
      - All styles in default.css (no inline styles)
 ─────────────────────────────────────────────────────── --}}
 
-{{-- Initial banner --}}
+
 <div id="cookie-banner" class="cc-banner" role="dialog" aria-live="polite" aria-label="{{ __('Cookie consent') }}">
     <div class="cc-card">
         <button type="button" id="cookie-reject" class="cc-banner-close" aria-label="{{ __('Reject non-essential cookies') }}">
@@ -44,7 +44,7 @@
     </div>
 </div>
 
-{{-- Preferences modal --}}
+
 <div id="cookie-prefs-modal" class="cc-modal" role="dialog" aria-modal="true" aria-labelledby="cc-prefs-title">
     <div class="cc-modal-backdrop" data-cc-close></div>
     <div class="cc-modal-panel">
@@ -80,7 +80,7 @@
     </div>
 </div>
 
-{{-- Re-open settings pill (only shown after consent given) --}}
+
 <button type="button" id="cookie-reopen" class="cc-reopen" aria-label="{{ __('Cookie settings') }}">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M21.598 11.064a1.006 1.006 0 0 0-.854-.172A2.938 2.938 0 0 1 20 11a3 3 0 0 1-3-3 1 1 0 0 0-1-1 3 3 0 0 1-2.84-3.94 1 1 0 0 0-.21-1A10 10 0 1 0 22 12a1.06 1.06 0 0 0-.402-.936z"/>

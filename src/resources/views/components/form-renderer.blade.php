@@ -1,6 +1,6 @@
 @props(['form', 'old' => [], 'errors' => null])
 
-{{-- User-facing component: renders a form's fields for data entry --}}
+
 @foreach($form->fields as $field)
 @php
     $label       = $field->getLocaleLabel();

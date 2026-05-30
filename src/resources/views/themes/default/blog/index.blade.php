@@ -4,7 +4,7 @@
 
 @section('content')
 
-{{-- Hero --}}
+
 <div class="relative bg-ink-950 pt-36 pb-20 overflow-hidden">
     <div class="absolute inset-0 bg-grid opacity-[0.03] pointer-events-none"></div>
     <div class="radial-fade pointer-events-none"></div>
@@ -22,7 +22,7 @@
 <div class="bg-ink-950 pb-4">
     <div class="mx-auto max-w-6xl px-6">
 
-        {{-- Category / tag filter bar --}}
+
         @if($categories->isNotEmpty())
         <div class="flex flex-wrap items-center gap-2 py-6 border-b border-white/8">
             <a href="{{ route('blog.index') }}"
@@ -48,7 +48,7 @@
     </div>
 </div>
 
-{{-- Posts grid --}}
+
 <div class="bg-ink-950 py-16">
     <div class="mx-auto max-w-6xl px-6">
 
@@ -61,7 +61,7 @@
 
         @foreach($posts as $post)
         @if($loop->first)
-        {{-- Featured first post --}}
+
         <article class="group relative glass rounded-3xl overflow-hidden mb-8 lift">
             <a href="{{ route('blog.show', $post->slug) }}" class="flex flex-col md:flex-row">
                 @if($post->cover_image)
@@ -95,7 +95,7 @@
         <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         @endif
         @else
-        {{-- Rest of posts --}}
+
             <article class="group glass rounded-2xl overflow-hidden lift flex flex-col">
                 @if($post->cover_image)
                 <div class="aspect-video overflow-hidden">
@@ -127,7 +127,7 @@
         </div>
         @endif
 
-        {{-- Pagination --}}
+
         @if($posts->hasPages())
         <div class="mt-12 flex justify-center">
             {{ $posts->links() }}

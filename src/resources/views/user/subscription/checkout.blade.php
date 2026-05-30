@@ -10,7 +10,7 @@
         <p class="ud-page-sub">{{ __('Select a payment method to complete your subscription.') }}</p>
     </div>
 
-    {{-- Plan summary --}}
+
     <div class="rounded-2xl glass px-5 py-4 flex items-center justify-between">
         <div>
             <div class="text-[13px] font-medium text-white">{{ $plan->name }}</div>
@@ -27,14 +27,14 @@
         </div>
     </div>
 
-    {{-- Errors --}}
+
     @if($errors->any())
         <div class="rounded-xl bg-red-500/10 border border-red-500/20 px-4 py-3 text-sm text-red-400">
             {{ $errors->first() }}
         </div>
     @endif
 
-    {{-- Gateway selection --}}
+
     @if($gateways->isEmpty())
         <div class="rounded-2xl glass p-12 text-center text-white/40">
             <x-heroicon-o-credit-card class="h-10 w-10 mx-auto mb-3 opacity-30" />

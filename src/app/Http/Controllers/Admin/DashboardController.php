@@ -102,7 +102,6 @@ class DashboardController extends Controller
             }
         }
 
-        // If no real data, don't show chart
         return $total > 0 ? $data : [];
     }
 

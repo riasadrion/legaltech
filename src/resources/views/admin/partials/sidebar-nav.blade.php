@@ -4,7 +4,7 @@
 
 @foreach ($navItems as $item)
     @if (empty($item['children']))
-        {{-- Leaf item --}}
+
         @php
             $routePrefix = isset($item['route']) ? \Illuminate\Support\Str::beforeLast($item['route'], '.') . '.*' : '';
             $isActive = $routePrefix && request()->routeIs($routePrefix);
@@ -18,7 +18,7 @@
             <span>{{ $item['label'] }}</span>
         </a>
     @else
-        {{-- Parent with children --}}
+
         @php
             $submenuId = 'submenu-' . $item['key'];
             $isParentActive = false;

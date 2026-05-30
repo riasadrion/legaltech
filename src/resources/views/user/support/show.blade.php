@@ -20,7 +20,7 @@ function udShowFiles(input, listId) {
 @section('content')
 <div class="space-y-6">
 
-    {{-- Header --}}
+
     <div class="flex items-start justify-between gap-4">
         <div>
             <h1 class="ud-page-title">{{ $ticket->subject }}</h1>
@@ -42,7 +42,7 @@ function udShowFiles(input, listId) {
         <span class="ud-badge {{ $sc }} shrink-0">{{ __(ucfirst(str_replace('_', ' ', $ticket->status))) }}</span>
     </div>
 
-    {{-- Messages thread --}}
+
     <div class="ud-card divide-y divide-white/6">
         @foreach($ticket->messages as $msg)
         @php $isUser = $msg->author_type === \App\Models\User::class; @endphp
@@ -77,7 +77,7 @@ function udShowFiles(input, listId) {
         @endforeach
     </div>
 
-    {{-- Reply / close --}}
+
     @if($ticket->isOpen())
     <div class="ud-card">
         <form method="POST" action="{{ route('user.support.reply', $ticket->reference) }}"

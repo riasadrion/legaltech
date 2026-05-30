@@ -8,7 +8,7 @@
 
 
 <div class="space-y-5">
-    {{-- Submit form --}}
+
     <div class="bg-white rounded-xl border border-gray-200 p-6">
         <h2 class="text-base font-semibold text-gray-800 mb-4">Report an Issue</h2>
         <form method="POST" action="{{ route('admin.ops.bug-reports.store') }}" class="space-y-4">
@@ -48,7 +48,7 @@
         </form>
     </div>
 
-    {{-- Reports list --}}
+
     <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
         @if($reports->isEmpty())
             <x-empty-state title="No bug reports" description="No issues have been flagged yet." />
@@ -96,7 +96,7 @@
                     </td>
                 </tr>
 
-                {{-- Inline update modal --}}
+
                 <x-modal id="edit-report-{{ $report->id }}" title="Update Report">
                     <form method="POST" action="{{ route('admin.ops.bug-reports.update', $report) }}">
                         @csrf @method('PATCH')

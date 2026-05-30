@@ -109,7 +109,6 @@ class PostController extends Controller
 
     private function fill(BlogPost $post, array $data, Request $request): void
     {
-        // Slug: auto-generate from EN title if blank
         $post->slug = $data['slug'] ?: BlogPost::generateSlug($data['title']['en']);
 
         $post->blog_category_id = $data['blog_category_id'] ?? null;
@@ -120,7 +119,6 @@ class PostController extends Controller
         $post->status = $data['status'];
         $post->published_at = $data['published_at'] ?? ($data['status'] === BlogPost::STATUS_PUBLISHED ? now() : null);
 
-        // Sanitize body HTML per locale
         $body = $data['body'] ?? [];
         foreach ($body as $locale => $html) {
             $body[$locale] = HtmlPurifier::purify((string) $html);

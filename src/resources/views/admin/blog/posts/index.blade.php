@@ -15,7 +15,7 @@
         </a>
     </div>
 
-    {{-- Status pills --}}
+
     <x-status-pills :items="$statusPills" :current="request('status', '')" />
 
     <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">

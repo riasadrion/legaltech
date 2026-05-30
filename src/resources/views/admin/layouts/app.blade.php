@@ -17,7 +17,7 @@
 </head>
 <body class="antialiased text-gray-900">
 
-{{-- Global page loader --}}
+
 <div id="page-loader">
     <div class="page-loader-inner">
         <svg width="90" height="90" class="page-loader-svg">
@@ -35,7 +35,7 @@
 
 <div class="admin-shell">
 
-    {{-- Sidebar --}}
+
     <aside class="admin-sidebar" id="adminSidebar">
         <a href="{{ route('admin.dashboard') }}" class="sidebar-brand hover:opacity-75 transition-opacity">
             @php
@@ -44,7 +44,7 @@
                 $siteDarkLogo = setting('site.dark_logo');
             @endphp
             @if($siteLogo || $siteDarkLogo)
-                {{-- Dark theme shows light logo; light theme shows dark logo (falls back to light logo) --}}
+
                 @if($siteLogo)
                     <img src="{{ upload_url($siteLogo) }}" alt="{{ $siteName }}" class="sidebar-brand-logo sidebar-brand-logo-dark">
                 @endif
@@ -133,16 +133,16 @@
         </div>
     </aside>
 
-    {{-- Main Content --}}
+
     <div class="admin-main" id="adminMainContent">
 
-        {{-- Header --}}
+
         <header class="admin-header">
             <button class="header-btn sidebar-toggle" id="sidebar-toggle" title="Toggle sidebar">
                 <x-heroicon-o-bars-3 class="h-5 w-5" />
             </button>
 
-            {{-- Search --}}
+
             <div class="relative flex-1 max-w-md" id="search-container">
                 <div class="header-search">
                     <x-heroicon-o-magnifying-glass class="h-4 w-4 text-gray-400 flex-shrink-0" />
@@ -151,7 +151,7 @@
                 <div id="search-results" class="hidden absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-64 overflow-y-auto"></div>
             </div>
 
-            {{-- Settings tabs for search --}}
+
             <div id="settings-tabs-data" data-tabs="{{ json_encode([
                 ['name' => 'General Settings', 'link' => route('admin.settings.index').'#general'],
                 ['name' => 'Global Controls', 'link' => route('admin.settings.index').'#controls'],
@@ -179,7 +179,7 @@
             ]) }}"></div>
 
             <div class="header-actions">
-                {{-- Notifications --}}
+
                 <div class="relative" id="notifications-menu">
                     <button type="button" id="notifications-btn" class="header-btn" title="Notifications">
                         <x-heroicon-o-bell class="h-5 w-5" />
@@ -205,25 +205,25 @@
                     </div>
                 </div>
 
-                {{-- Theme toggle --}}
+
                 <button type="button" id="theme-toggle" class="header-btn" title="Toggle theme">
                     <x-heroicon-o-sun class="h-5 w-5" id="theme-icon-sun" />
                     <x-heroicon-o-moon class="h-5 w-5 hidden" id="theme-icon-moon" />
                 </button>
 
-                {{-- Clear Cache --}}
+
                 <button type="button" id="clear-cache-btn" class="header-btn" title="Clear cache">
                     <x-heroicon-o-arrow-path class="h-5 w-5" />
                 </button>
 
-                {{-- Visit Site --}}
+
                 <a href="{{ url('/') }}" target="_blank" class="header-btn" title="Visit site">
                     <x-heroicon-o-arrow-top-right-on-square class="h-5 w-5" />
                 </a>
 
                 <div class="header-sep"></div>
 
-                {{-- Profile --}}
+
                 <div class="relative" id="admin-user-menu">
                     <div class="header-profile" id="admin-user-btn">
                         <div class="header-profile-avatar">{{ strtoupper(substr(auth('admin')->user()->name ?? 'A', 0, 1)) }}</div>
@@ -256,10 +256,10 @@
             </div>
         </header>
 
-        {{-- Flash --}}
+
         <x-flash />
 
-        {{-- Content --}}
+
         <main class="admin-content">
             {{ $slot ?? '' }}
             @yield('content')
@@ -270,6 +270,7 @@
 <script>
 // Theme — default dark
 (function () {
+    'use strict';
     var saved = localStorage.getItem('admin-theme') || 'dark';
     document.documentElement.setAttribute('data-theme', saved);
     document.getElementById('theme-icon-sun').classList.toggle('hidden', saved !== 'dark');
@@ -277,6 +278,7 @@
 })();
 
 document.addEventListener('DOMContentLoaded', function () {
+    'use strict';
     const searchInput = document.getElementById('menu-search');
     const searchResults = document.getElementById('search-results');
     const searchContainer = document.getElementById('search-container');
@@ -459,6 +461,7 @@ document.addEventListener('DOMContentLoaded', function () {
 // onAdminReady pattern for jQuery-backed page scripts
 window._adminReady = window._adminReady || [];
 (function () {
+    'use strict';
     var fired = false;
     document.addEventListener('admin:ready', function () {
         fired = true;
@@ -470,6 +473,7 @@ window._adminReady = window._adminReady || [];
 
 // Auto-set data-labels on responsive tables from headers
 document.addEventListener('DOMContentLoaded', function () {
+    'use strict';
     document.querySelectorAll('table.responsive-table').forEach(function (table) {
         var headers = [];
         table.querySelectorAll('thead th').forEach(function (th) {
@@ -486,7 +490,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 </script>
-{{-- Global Confirm Modal --}}
+
 <x-confirm-modal />
 
 @stack('scripts')

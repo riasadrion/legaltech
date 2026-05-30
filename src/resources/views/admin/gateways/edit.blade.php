@@ -16,10 +16,10 @@
         </div>
     </div>
 
-        {{-- Cards: side by side on lg+, stacked on mobile --}}
+
         <div class="grid grid-cols-1 gap-5 lg:grid-cols-2 lg:items-start">
 
-        {{-- General settings --}}
+
         <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
             <div class="border-b border-gray-100 px-5 py-3.5">
                 <h3 class="text-sm font-semibold text-gray-900">{{ __('General') }}</h3>
@@ -45,7 +45,7 @@
                     @error('name')<p class="mt-1 text-xs text-red-600">{{ $message }}</p>@enderror
                 </div>
 
-                {{-- Currency Settings --}}
+
                 <div class="border-t border-gray-100 pt-4">
                     <h4 class="text-sm font-medium text-gray-900 mb-3">{{ __('Currency Settings') }}</h4>
                     
@@ -149,7 +149,7 @@
             </div>
         </div>
 
-        {{-- Credentials --}}
+
         @if($gatewayDriver->driver() !== 'manual')
         <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
             <div class="border-b border-gray-100 px-5 py-3.5">
@@ -221,7 +221,7 @@
         </div>
         @endif
 
-        </div>{{-- end grid --}}
+        </div>
 
         <div class="flex items-center gap-3 mt-4">
             <button type="submit"

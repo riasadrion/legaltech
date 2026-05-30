@@ -35,37 +35,37 @@
 
     <x-preloader />
 
-    {{-- Flash messages --}}
+
     <x-flash />
 
     <div class="min-h-screen flex overflow-x-hidden" data-user-shell>
 
-        {{-- SIDEBAR --}}
+
         <aside class="hidden md:flex md:flex-col w-64 shrink-0 border-r border-white/8 bg-ink-900 fixed inset-y-0 left-0 z-20" id="user-sidebar">
             @include('theme::partials.user-sidebar-compact')
         </aside>
-        {{-- sidebar spacer so main content doesn't go under the fixed sidebar --}}
+
         <div class="hidden md:block w-64 shrink-0"></div>
 
-        {{-- Mobile sidebar overlay --}}
+
         <div class="md:hidden fixed inset-0 bg-black/60 z-40 hidden" id="user-sidebar-overlay"></div>
         <aside class="md:hidden fixed inset-y-0 left-0 w-72 z-50 border-r border-white/8 bg-ink-900 -translate-x-full transition-transform flex flex-col" id="user-sidebar-mobile">
             @include('theme::partials.user-sidebar-compact')
         </aside>
 
-        {{-- MAIN --}}
+
         <div class="flex-1 min-w-0 flex flex-col overflow-x-hidden">
 
-            {{-- topbar --}}
+
             <header class="sticky top-0 z-30 bg-ink-900/80 backdrop-blur border-b border-white/8">
                 <div class="relative flex items-center gap-3 px-6 h-[64px]">
-                    {{-- mobile burger --}}
+
                     <button type="button" id="user-sidebar-toggle"
                             class="md:hidden w-9 h-9 grid place-items-center rounded-lg border border-white/10 text-white/70">
                         <x-heroicon-o-bars-3 class="h-5 w-5" />
                     </button>
 
-                    {{-- breadcrumb --}}
+
                     <div class="hidden md:flex items-center gap-2 text-[13px] text-white/55 shrink-0">
                         <x-heroicon-o-home class="h-4 w-4" />
                         <span class="text-white/55">{{ setting('site.name', config('app.name')) }}</span>
@@ -77,7 +77,7 @@
 
                     <div class="flex-1"></div>
 
-                    {{-- search --}}
+
                     <div class="w-full max-w-xs md:max-w-sm hidden sm:block shrink-0">
                         <div class="flex items-center gap-2 rounded-xl bg-white/4 border border-white/10 px-3 py-2">
                             <x-heroicon-o-magnifying-glass class="h-4 w-4 text-white/40 shrink-0" />
@@ -88,20 +88,20 @@
 
                     <div class="flex-1"></div>
 
-                    {{-- right cluster --}}
+
                     @auth('user')
                     @php
                         $unreadCount = 0;
                         try { $unreadCount = auth('user')->user()->notifications()->whereNull('read_at')->count(); } catch(\Throwable) {}
                     @endphp
                     <div class="flex items-center gap-2 shrink-0">
-                        {{-- new contract button --}}
+
                         <a href="{{ route('user.contracts.create') }}" class="hidden sm:flex btn-lime rounded-lg px-3 py-2 text-sm items-center gap-1.5">
                             <x-heroicon-o-sparkles class="h-4 w-4" />
                             {{ __('New contract') }}
                         </a>
 
-                        {{-- notification dropdown --}}
+
                         <div class="relative" data-notification-dropdown>
                             <button type="button"
                                     class="w-9 h-9 grid place-items-center rounded-lg bg-white/4 border border-white/10 text-white/70 relative hover:bg-white/8 transition"
@@ -113,7 +113,7 @@
                                 @endif
                             </button>
 
-                            {{-- notification panel --}}
+
                             <div class="notification-panel hidden absolute right-0 top-full mt-2 w-96 max-h-[500px] overflow-y-auto rounded-2xl glass border border-white/10 shadow-lg z-50">
                                 @php
                                     try {
@@ -155,7 +155,7 @@
                             </div>
                         </div>
 
-                        {{-- user dropdown --}}
+
                         <div class="relative" data-ud-dropdown>
                             <button type="button"
                                     class="flex items-center gap-2 rounded-lg pl-1 pr-2 py-1 bg-white/4 border border-white/10 hover:bg-white/8 transition"
@@ -173,7 +173,7 @@
                                 <x-heroicon-o-chevron-down class="h-3.5 w-3.5 text-white/45" />
                             </button>
 
-                            {{-- dropdown panel --}}
+
                             <div class="ud-user-dropdown hidden" data-ud-dropdown-panel>
                                 <div class="ud-user-dropdown-header">
                                     <div class="text-[13px] font-medium text-white truncate">{{ auth('user')->user()->name ?? __('Member') }}</div>
@@ -208,7 +208,7 @@
                 </div>
             </header>
 
-            {{-- scroll area --}}
+
             <main class="flex-1 overflow-y-auto">
                 <div class="px-6 py-7 w-full">
                     {{ $slot ?? '' }}
@@ -218,7 +218,7 @@
         </div>
     </div>
 
-    {{-- Global Confirm Modal --}}
+
     <x-confirm-modal />
 
     <script src="{{ asset('assets/static/js/phone-input.js') }}"></script>

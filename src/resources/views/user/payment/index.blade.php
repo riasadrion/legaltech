@@ -6,16 +6,16 @@
 @php $currency = setting('site.currency_symbol', '$'); @endphp
 <div class="space-y-6">
 
-    {{-- Page heading --}}
+
     <div>
         <h1 class="ud-page-title">{{ __('Payments') }}</h1>
         <p class="ud-page-sub">{{ __('Your wallet balance and payment history.') }}</p>
     </div>
 
-    {{-- Cards row: wallet + gateways --}}
+
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
 
-        {{-- Wallet balance card --}}
+
         <div class="rounded-2xl glass p-5 relative overflow-hidden">
             <div class="flex items-center justify-between">
                 <span class="text-[11px] font-mono uppercase tracking-widest text-white/45">{{ __('Wallet') }}</span>
@@ -30,7 +30,7 @@
             </svg>
         </div>
 
-        {{-- Gateway cards --}}
+
         @foreach($gateways as $gateway)
         @php $totalSpent = $gatewayTotals[$gateway->id] ?? 0; $logo = $gateway->logoUrl(); @endphp
         <div class="rounded-2xl glass p-5 relative overflow-hidden">
@@ -54,7 +54,7 @@
 
     </div>
 
-    {{-- Recent payments table --}}
+
     @if($payments->isNotEmpty())
     <section class="rounded-2xl glass overflow-hidden">
         <div class="px-5 pt-5 flex flex-wrap items-end justify-between gap-3 border-b border-white/8 pb-3">

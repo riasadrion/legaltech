@@ -7,7 +7,7 @@
     <div class="mx-auto max-w-7xl px-6 pt-5">
         <nav class="glass-nav rounded-full px-3 py-2.5 flex items-center justify-between">
 
-            {{-- Logo / Brand --}}
+
             @php
                 $navSiteName = setting('site.name', config('app.name'));
                 $navLogo     = setting('site.logo');
@@ -31,7 +31,7 @@
                 @endif
             </a>
 
-            {{-- Center nav links --}}
+
             @if($navItems->isNotEmpty())
             <ul class="hidden lg:flex items-center gap-7 text-sm text-white/70">
                 @foreach($navItems as $item)
@@ -66,7 +66,7 @@
             </ul>
             @endif
 
-            {{-- Right side: auth state --}}
+
             <div class="flex items-center gap-2">
                 @guest('user')
                     <a href="{{ route('login') }}"
@@ -92,7 +92,7 @@
                     </form>
                 @endguest
 
-                {{-- Mobile hamburger --}}
+
                 <button type="button" id="nav-mobile-btn"
                         class="lg:hidden ml-2 w-9 h-9 grid place-items-center rounded-full glass text-white/70 hover:text-white">
                     <x-heroicon-o-bars-3 class="h-5 w-5" />
@@ -101,7 +101,7 @@
 
         </nav>
 
-        {{-- Mobile drawer --}}
+
         <div id="nav-mobile-drawer"
              class="lg:hidden hidden mt-2 glass-nav rounded-2xl p-4">
             @if($navItems->isNotEmpty())

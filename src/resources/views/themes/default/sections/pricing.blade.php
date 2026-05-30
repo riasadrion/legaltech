@@ -29,7 +29,7 @@
             @endif
         </div>
 
-        {{-- Tab toggle --}}
+
         <div class="flex justify-center mt-10">
             <div class="glass rounded-full p-1 flex items-center text-sm" id="pricing-tabs">
                 <button data-cycle="per_contract"
@@ -47,7 +47,7 @@
             </div>
         </div>
 
-        {{-- Plan cards --}}
+
         <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mt-10">
             @foreach($allPlans as $plan)
                 <div class="pricing-card-wrap" data-tier-cycles="{{ $plan->billing_cycle }}">

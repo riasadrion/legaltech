@@ -4,7 +4,7 @@
 <x-page-header title="{{ __('Settings') }}" subtitle="{{ __('General site configuration.') }}" />
 
 <div class="rounded-xl border border-gray-200 bg-white overflow-hidden">
-    {{-- Tab Navigation --}}
+
     <div class="flex border-b border-gray-200 bg-gray-50 px-6 overflow-x-auto">
         <button type="button" class="tab-button active flex items-center gap-2 px-4 py-3 text-sm font-semibold text-gray-900 border-b-2 border-brand-600 whitespace-nowrap" data-tab="general">
             <x-heroicon-o-cog-6-tooth class="h-4 w-4" />
@@ -52,9 +52,9 @@
         </button>
     </div>
 
-    {{-- Tab Content --}}
+
     <div class="p-6">
-        {{-- General Tab --}}
+
         <div id="general" class="tab-content block">
             <form method="POST" action="{{ route('admin.settings.update', 'general') }}" class="space-y-5">
                 @csrf @method('PUT')
@@ -84,7 +84,7 @@
             </form>
         </div>
 
-        {{-- Global Controls Tab --}}
+
         <div id="controls" class="tab-content hidden">
             <form method="POST" action="{{ route('admin.settings.update', 'controls') }}" class="space-y-5">
                 @csrf @method('PUT')
@@ -190,14 +190,14 @@
             </form>
         </div>
 
-        {{-- Brand & Appearance Tab --}}
+
         <div id="brand" class="tab-content hidden">
             <form method="POST" action="{{ route('admin.settings.update', 'brand') }}" enctype="multipart/form-data" class="space-y-5">
                 @csrf @method('PUT')
 
-                {{-- Color + Font top row --}}
+
                 <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                    {{-- Primary color picker --}}
+
                     <div>
                         <label class="mb-1.5 block text-sm font-medium text-gray-700">{{ __('Primary / Accent Color') }}</label>
                         <div class="flex items-center gap-3">
@@ -214,7 +214,7 @@
                         document.querySelector('[name=primary_color]').addEventListener('input', function() { document.getElementById('primary_color_hex').value = this.value; });
                     </script>
 
-                    {{-- Font picker --}}
+
                     <div class="flex flex-col">
                         <label class="mb-1.5 block text-sm font-medium text-gray-700">{{ __('Site Font') }}</label>
                         @php $currentFont = old('site_font', setting('site.font', 'system')); @endphp
@@ -230,7 +230,7 @@
                         </div>
                     </div>
 
-                    {{-- Logo (light bg / default) --}}
+
                     <div>
                         <label class="mb-1.5 block text-sm font-medium text-gray-700">{{ __('Logo') }} <span class="text-xs text-gray-400 font-normal">{{ __('(for dark backgrounds)') }}</span></label>
                         @php $logo = setting('site.logo'); @endphp
@@ -250,7 +250,7 @@
                         </label>
                     </div>
 
-                    {{-- Logo dark (for light backgrounds) --}}
+
                     <div>
                         <label class="mb-1.5 block text-sm font-medium text-gray-700">{{ __('Logo (Light Mode)') }} <span class="text-xs text-gray-400 font-normal">{{ __('(for light backgrounds)') }}</span></label>
                         @php $darkLogo = setting('site.dark_logo'); @endphp
@@ -270,7 +270,7 @@
                         </label>
                     </div>
 
-                    {{-- Favicon --}}
+
                     <div>
                         <label class="mb-1.5 block text-sm font-medium text-gray-700">{{ __('Favicon') }}</label>
                         @php $favicon = setting('site.favicon'); @endphp
@@ -290,7 +290,7 @@
                         </label>
                     </div>
 
-                    {{-- OG Image --}}
+
                     <div>
                         <label class="mb-1.5 block text-sm font-medium text-gray-700">{{ __('Default OG / Social Share Image') }}</label>
                         @php $og = setting('site.og_image'); @endphp
@@ -311,7 +311,7 @@
                     </div>
                 </div>
 
-                {{-- Custom CSS --}}
+
                 <div>
                     <label class="mb-1.5 block text-sm font-medium text-gray-700">{{ __('Custom CSS') }}</label>
                     <textarea name="custom_css" rows="8" placeholder="/* Your custom CSS here */" class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm font-mono focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500">{{ old('custom_css', setting('site.custom_css')) }}</textarea>
@@ -327,7 +327,7 @@
             </form>
         </div>
 
-        {{-- SEO & Footer Tab --}}
+
         <div id="seo" class="tab-content hidden">
             <form method="POST" action="{{ route('admin.settings.update', 'seo') }}" class="space-y-5">
                 @csrf @method('PUT')
@@ -353,12 +353,12 @@
             </form>
         </div>
 
-        {{-- Email Tab --}}
+
         <div id="email" class="tab-content hidden">
             @php $mailDriver = setting('mail.driver', 'log'); @endphp
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
-                {{-- Left: Config --}}
+
                 <form method="POST" action="{{ route('admin.settings.update', 'email') }}" class="space-y-5">
                     @csrf @method('PUT')
 
@@ -428,7 +428,7 @@
                     </div>
                 </form>
 
-                {{-- Right: Test --}}
+
                 <div>
                     <div class="rounded-xl border border-gray-200 bg-gray-50/50 p-5">
                         <div class="flex items-center gap-3 mb-2">
@@ -470,7 +470,7 @@
             </div>
         </div>
 
-        {{-- SMS Tab --}}
+
         <div id="sms" class="tab-content hidden">
             @php
             $smsDriver = setting('sms.driver', 'log');
@@ -518,7 +518,7 @@
             </form>
         </div>
 
-        {{-- Storage Tab --}}
+
         <div id="storage" class="tab-content hidden">
             @php
             $storageDriver = setting('storage.driver', 'local');
@@ -534,7 +534,7 @@
                 @csrf @method('PUT')
                 <input type="hidden" name="storage_driver" id="storage_driver_input" value="{{ $storageDriver }}">
 
-                {{-- Driver tiles --}}
+
                 <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
                     @foreach($storageTiles as $key => $tile)
                     @php $isActive = $storageDriver === $key; @endphp
@@ -549,7 +549,7 @@
                     @endforeach
                 </div>
 
-                {{-- Driver fields --}}
+
                 <div class="storage-fields-local {{ $storageDriver !== 'local' ? 'hidden' : '' }}">
                     <p class="text-sm text-gray-500">{{ __('Files are stored at') }} <code class="rounded bg-gray-100 dark:bg-slate-700 px-1">/assets/uploads/</code> {{ __('in the project root, served directly by the web server.') }}</p>
                 </div>
@@ -595,7 +595,7 @@
             </form>
         </div>
 
-        {{-- Social Login Tab --}}
+
         <div id="social" class="tab-content hidden">
             <form method="POST" action="{{ route('admin.settings.update', 'social') }}" class="space-y-4">
                 @csrf @method('PUT')
@@ -628,7 +628,7 @@
                 <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
                     @foreach($socialProviders as $key => $provider)
                     <div class="rounded-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800/50 overflow-hidden">
-                        {{-- Card header --}}
+
                         <div class="flex items-center justify-between gap-4 px-5 py-4 border-b border-gray-100 dark:border-slate-700 bg-gray-50/50 dark:bg-slate-800">
                             <div class="flex items-center gap-3">
                                 <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl {{ $provider['icon_bg'] }}">
@@ -638,7 +638,7 @@
                             </div>
                             <x-form.toggle name="social_{{ $key }}_enabled" :checked="setting('social.'.$key.'.enabled') === '1'" />
                         </div>
-                        {{-- Credentials --}}
+
                         <div class="px-5 py-4 space-y-4">
                             <div>
                                 <label class="mb-1.5 block text-xs font-medium text-gray-600 dark:text-slate-400">{{ __('Client ID') }}</label>
@@ -670,7 +670,7 @@
             </form>
         </div>
 
-        {{-- Queue Tab --}}
+
         <div id="queue" class="tab-content hidden">
             @php
             $queueEnabled = setting('queue.enabled') === '1';
@@ -710,12 +710,12 @@
             </div>
         </div>
 
-        {{-- Integrations Tab --}}
+
         <div id="integrations" class="tab-content hidden">
             <form method="POST" action="{{ route('admin.settings.update', 'integrations') }}" class="space-y-5">
                 @csrf @method('PUT')
 
-                {{-- Cloudflare Turnstile --}}
+
                 <section class="rounded-xl border border-gray-200 bg-white overflow-hidden">
                     <div class="flex items-start justify-between gap-4 border-b border-gray-100 bg-gray-50/50 px-5 py-4">
                         <div class="flex items-start gap-3">
@@ -740,7 +740,7 @@
                     </div>
                 </section>
 
-                {{-- Google Analytics 4 --}}
+
                 <section class="rounded-xl border border-gray-200 bg-white overflow-hidden">
                     <div class="flex items-start justify-between gap-4 border-b border-gray-100 bg-gray-50/50 px-5 py-4">
                         <div class="flex items-start gap-3">
@@ -763,7 +763,7 @@
                     </div>
                 </section>
 
-                {{-- Tawk.to Live Chat --}}
+
                 <section class="rounded-xl border border-gray-200 bg-white overflow-hidden">
                     <div class="flex items-start justify-between gap-4 border-b border-gray-100 bg-gray-50/50 px-5 py-4">
                         <div class="flex items-start gap-3">
@@ -798,7 +798,7 @@
             </form>
         </div>
 
-        {{-- AI Setup Tab --}}
+
         <div id="ai" class="tab-content hidden">
             <form method="POST" action="{{ route('admin.settings.update', 'ai') }}" class="space-y-5 max-w-xl">
                 @csrf @method('PUT')
@@ -891,7 +891,8 @@
 
 @push('scripts')
 <script>
-onAdminReady(function () {
+
+    'use strict';
     function activateTab(tabName) {
         if (!tabName || !$('#' + tabName).length) return;
         $('.tab-content').addClass('hidden').removeClass('tab-fade');
@@ -1034,6 +1035,7 @@ onAdminReady(function () {
 <script>
 // AI Setup tab — show/hide key field
 $(function () {
+    'use strict';
     $('#ai_show_key_btn').on('click', function () {
         var inp = $('#ai_openai_key_input');
         inp.attr('type', inp.attr('type') === 'password' ? 'text' : 'password');

@@ -13,14 +13,14 @@
 
 @section('content')
 
-{{-- Hero / Title area --}}
+
 <div class="relative bg-ink-950 pt-36 pb-16 overflow-hidden">
     <div class="absolute inset-0 bg-grid opacity-[0.03] pointer-events-none"></div>
     <div class="radial-fade pointer-events-none"></div>
 
     <div class="relative mx-auto max-w-3xl px-6">
 
-        {{-- Breadcrumb / Category --}}
+
         <div class="flex flex-wrap items-center gap-2 text-sm text-white/40 mb-6">
             <a href="{{ route('blog.index') }}" class="hover:text-white/70 transition">{{ __('Blog') }}</a>
             @if($post->category)
@@ -40,7 +40,7 @@
         <p class="text-lg text-white/50 leading-relaxed mb-8">{{ $post->getLocalExcerpt() }}</p>
         @endif
 
-        {{-- Meta row --}}
+
         <div class="flex flex-wrap items-center gap-4 text-sm text-white/40">
             <time datetime="{{ $post->published_at->toIso8601String() }}">
                 {{ $post->published_at->format('M j, Y') }}
@@ -49,7 +49,7 @@
     </div>
 </div>
 
-{{-- Cover image --}}
+
 @if($post->cover_image)
 <div class="mx-auto max-w-4xl px-6 -mt-8 mb-0 relative z-10">
     <div class="aspect-video rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/10">
@@ -59,13 +59,13 @@
 </div>
 @endif
 
-{{-- Article body --}}
+
 <div class="mx-auto max-w-3xl px-6 py-16">
     <div class="blog-body">
         <x-safe-html :content="$post->getLocalBody()" />
     </div>
 
-    {{-- Tags --}}
+
     @if($post->tags->isNotEmpty())
     <div class="mt-10 pt-8 border-t border-white/8 flex flex-wrap gap-2">
         @foreach($post->tags as $tag)
@@ -77,7 +77,7 @@
     </div>
     @endif
 
-    {{-- Back --}}
+
     <div class="mt-10 flex items-center justify-between">
         <a href="{{ route('blog.index') }}"
            class="inline-flex items-center gap-2 text-sm text-white/40 hover:text-white transition">
@@ -86,7 +86,7 @@
     </div>
 </div>
 
-{{-- Other posts --}}
+
 @if($related->isNotEmpty())
 <section class="relative border-t border-white/8 bg-ink-900 py-20">
     <div class="mx-auto max-w-6xl px-6">

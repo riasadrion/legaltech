@@ -14,12 +14,12 @@
     $gid        = 'ct-' . $section->id;
 @endphp
 
-{{-- Form + Info --}}
+
 <section class="relative py-20">
     <div class="mx-auto max-w-7xl px-6">
         <div class="ct-grid">
 
-            {{-- Form card --}}
+
             <div class="glass rounded-3xl p-8 md:p-10">
 
                 @if(session('contact_success'))
@@ -51,7 +51,7 @@
                     @csrf
                     <input type="text" name="website" class="hidden" tabindex="-1" autocomplete="off">
 
-                    {{-- Topic chips --}}
+
                     @if(!empty($topics))
                     <div class="ct-topic">
                         <div class="text-[11px] font-mono uppercase tracking-widest text-white/40 mb-3">{{ __('Topic') }}</div>
@@ -67,7 +67,7 @@
                     </div>
                     @endif
 
-                    {{-- Name + Email --}}
+
                     <div class="grid sm:grid-cols-2 gap-4 mb-4">
                         <div>
                             <label class="block text-[11px] font-mono uppercase tracking-widest text-white/40 mb-2">{{ __('Full name') }}</label>
@@ -81,7 +81,7 @@
                         </div>
                     </div>
 
-                    {{-- Message --}}
+
                     <div class="mb-6">
                         <label class="block text-[11px] font-mono uppercase tracking-widest text-white/40 mb-2">{{ __('Message') }}</label>
                         <textarea name="message" rows="5" required placeholder="{{ __('Tell us what you\'re working on…') }}" class="ct-field">{{ old('message') }}</textarea>
@@ -107,10 +107,10 @@
                 @endif
             </div>
 
-            {{-- Sidebar --}}
+
             <div class="ct-sidebar gap-4">
 
-                {{-- Response time --}}
+
                 <div class="glass rounded-3xl p-7 relative overflow-hidden lift">
                     <div class="absolute -right-10 -bottom-10 w-52 h-52 glow-lime opacity-50 pointer-events-none"></div>
                     <div class="relative">
@@ -127,7 +127,7 @@
                     </div>
                 </div>
 
-                {{-- Reach us directly --}}
+
                 <div class="glass rounded-3xl p-7 lift">
                     <div class="text-[11px] font-mono uppercase tracking-widest text-white/40 mb-5">{{ __('Reach us directly') }}</div>
                     <ul class="flex flex-col gap-4">
@@ -145,7 +145,7 @@
                     </ul>
                 </div>
 
-                {{-- Enterprise --}}
+
                 <div class="glass-cream rounded-3xl p-7 lift">
                     <div class="text-[11px] font-mono uppercase tracking-widest text-ink-400 mb-3">{{ __('Enterprise') }}</div>
                     <h3 class="font-display text-2xl leading-snug text-ink-900">{{ __($entHeading) }}</h3>
@@ -166,6 +166,7 @@
 @push('scripts')
 <script>
 (function () {
+    'use strict';
     var chips = document.querySelectorAll('#{{ $gid }}-chips .ct-chip');
     var input = document.getElementById('{{ $gid }}-topic');
     if (!chips.length) return;

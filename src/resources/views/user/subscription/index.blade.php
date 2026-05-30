@@ -5,17 +5,17 @@
 @section('content')
 <div class="space-y-6">
 
-    {{-- Page heading --}}
+
     <div>
         <h1 class="ud-page-title">{{ __('My Subscription') }}</h1>
         <p class="ud-page-sub">{{ __('Manage your subscription and view your plan details.') }}</p>
     </div>
 
-    {{-- Current subscription card --}}
+
     <div class="ud-card">
         @if($subscription && $subscription->isActive())
             <div class="space-y-6">
-                {{-- Plan header --}}
+
                 <div class="flex items-start justify-between">
                     <div>
                         <h2 class="ud-card-title text-xl">{{ $subscription->plan->name }}</h2>
@@ -40,7 +40,7 @@
 
                 <div class="border-t border-white/8"></div>
 
-                {{-- Details grid --}}
+
                 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
                     @if($subscription->plan->hasCreditLimit())
                     <div>
@@ -71,7 +71,7 @@
                     </div>
                 </div>
 
-                {{-- Actions --}}
+
                 <div class="border-t border-white/8 pt-4">
                     <a href="{{ route('user.subscription.plans') }}" class="ud-btn-ghost">
                         {{ __('View Plans') }}
@@ -90,7 +90,7 @@
         @endif
     </div>
 
-    {{-- Credit history (only if plan has credits) --}}
+
     @if($subscription && $subscription->plan->hasCreditLimit())
     <div class="ud-card">
         <div class="ud-card-header">

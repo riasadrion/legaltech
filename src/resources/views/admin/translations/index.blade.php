@@ -16,7 +16,7 @@
         </div>
     </div>
 
-    {{-- Action buttons --}}
+
     <div class="flex items-center justify-between gap-3">
         <div class="flex items-center gap-2">
             <button type="button" data-modal-open="add-translation-modal"
@@ -55,7 +55,7 @@
             @endif
         </div>
 
-        {{-- Filters --}}
+
         <form method="GET" class="flex items-center gap-2">
             <input type="hidden" name="locale" value="{{ $locale }}">
             <input type="text" name="q" value="{{ request('q') }}" placeholder="{{ __('Search English key or value...') }}"
@@ -67,7 +67,7 @@
         </form>
     </div>
 
-    {{-- Add Translation Modal --}}
+
     <x-modal id="add-translation-modal" title="{{ __('Add Translation Key') }}">
         <form method="POST" action="{{ route('admin.translations.store') }}">
             @csrf
@@ -99,7 +99,7 @@
         </form>
     </x-modal>
 
-    {{-- Translations list --}}
+
     <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
         <table class="min-w-full divide-y divide-gray-200 text-sm responsive-table">
             <thead class="bg-gray-50">

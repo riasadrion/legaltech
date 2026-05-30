@@ -15,7 +15,7 @@
         </a>
     </div>
 
-    {{-- Status filter --}}
+
     @php
         $statusPills = [
             ['value' => '', 'label' => __('All'), 'count' => $subscribers->total()],

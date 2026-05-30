@@ -1,21 +1,4 @@
-/* ═══════════════════════════════════════════════════════════════
-   Default Theme — Tailwind Tokens
-   Only the @theme block lives here so Tailwind generates utilities
-   like bg-ink-900, text-lime, font-display. All visual styles
-   (animations, .btn-lime, .glass, etc.) live in
-   /assets/static/css/themes/default.css and are loaded by the
-   frontend layout.
-
-   To add a new theme (e.g. "aurora"):
-     1. Copy this file to ./themes/aurora.css and edit token values
-     2. Copy /assets/static/css/themes/default.css to themes/aurora.css
-        and change the .theme-default scope to .theme-aurora
-     3. Switch which one app.css imports OR import both behind a build
-        flag and let the active-theme setting decide which body class
-        to render
-   ═══════════════════════════════════════════════════════════════ */
-
-/* Runtime-overridable brand color — set by frontend layouts from DB */
+/* Runtime brand color — overridden at runtime via inline <style> injected by frontend layouts */
 :root {
     --brand-color: #D4FF3A;
     --brand-color-soft: color-mix(in srgb, var(--brand-color) 70%, white);
@@ -24,7 +7,6 @@
 }
 
 @theme inline {
-    /* Frontend palette — ink (dark base), cream (light sections), lime (accent) */
     --color-ink-950: #08090C;
     --color-ink-900: #0B0B0F;
     --color-ink-800: #13141A;
@@ -44,12 +26,10 @@
 
     --color-violet-glow: #7C5CFF;
 
-    /* Display / mono fonts (frontend) — sans (--font-sans) is set by app.css for admin */
     --font-display: 'Instrument Serif', ui-serif, serif;
     --font-frontend: 'Manrope', ui-sans-serif, system-ui, sans-serif;
     --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 
-    /* Shadows */
     --shadow-glow: var(--shadow-glow-val);
     --shadow-card: 0 30px 60px -20px rgba(0, 0, 0, 0.35), 0 8px 20px -8px rgba(0, 0, 0, 0.25);
 }

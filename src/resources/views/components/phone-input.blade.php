@@ -78,13 +78,13 @@ $match = collect($dialCodes)->firstWhere('dial', $currentDial);
 @endphp
 
 <div class="phone-input-wrap" data-phone-wrap>
-    {{-- Hidden real inputs --}}
+
     <input type="hidden" name="{{ $codeName }}" id="{{ $inputId }}_code" value="{{ $currentDial }}">
 
-    {{-- Visible combined field --}}
+
     <div class="phone-input-group" data-phone-group>
 
-        {{-- Country code trigger --}}
+
         <button type="button" class="phone-code-btn" data-phone-trigger
                 aria-haspopup="listbox" aria-expanded="false">
             <span class="phone-flag">{{ $match ? $match['code'] : '🌐' }}</span>
@@ -94,7 +94,7 @@ $match = collect($dialCodes)->firstWhere('dial', $currentDial);
             </svg>
         </button>
 
-        {{-- Phone number input --}}
+
         <input type="tel" id="{{ $inputId }}" name="{{ $name }}"
                value="{{ old($name, $mobileValue) }}"
                placeholder="{{ __('555 000 0000') }}"
@@ -102,7 +102,7 @@ $match = collect($dialCodes)->firstWhere('dial', $currentDial);
                class="phone-number-input {{ $inputClass }}">
     </div>
 
-    {{-- Dropdown --}}
+
     <div class="phone-dropdown hidden" data-phone-dropdown role="listbox">
         <div class="phone-search-wrap">
             <input type="text" placeholder="{{ __('Search country…') }}" class="phone-search" data-phone-search autocomplete="off">

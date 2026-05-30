@@ -20,7 +20,7 @@
 <section id="blog" class="relative py-28">
     <div class="mx-auto max-w-7xl px-6">
 
-        {{-- Header --}}
+
         <div class="flex flex-wrap items-end justify-between gap-6 mb-14">
             <div>
                 @if($eyebrow)
@@ -38,7 +38,7 @@
         @if($posts->isNotEmpty())
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 
-            {{-- Featured post --}}
+
             @if($featured)
             <a href="{{ route('blog.show', ['slug' => $featured->slug]) }}"
                class="md:col-span-2 rounded-3xl glass lift relative overflow-hidden flex">
@@ -63,7 +63,7 @@
             </a>
             @endif
 
-            {{-- Side posts --}}
+
             <div class="flex flex-col gap-4">
                 @foreach($side as $post)
                 <a href="{{ route('blog.show', ['slug' => $post->slug]) }}"
@@ -90,7 +90,7 @@
             </div>
         </div>
 
-        {{-- Mobile view all --}}
+
         <div class="mt-8 flex justify-center md:hidden">
             <a href="{{ $linkUrl }}" class="inline-flex items-center gap-2 rounded-full border border-white/15 px-5 py-3 text-sm text-white/70">
                 {{ __($linkText) }} <i class="ri-arrow-right-line"></i>

@@ -15,7 +15,7 @@
 <section class="relative py-28">
     <div class="mx-auto max-w-7xl px-6">
 
-        {{-- Header --}}
+
         <div class="flex flex-wrap items-end justify-between gap-6 mb-14">
             <div>
                 @if($eyebrow)
@@ -35,10 +35,10 @@
 
         @if(!empty($items))
 
-        {{-- Top: featured (2/3) + side stack (1/3) --}}
+
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-stretch">
 
-            {{-- Featured — no quote icon, large display text --}}
+
             @if($featured)
             <div class="md:col-span-2 rounded-3xl glass p-9 lift relative overflow-hidden flex flex-col">
                 <div class="absolute -right-10 -top-10 w-60 h-60 glow-lime opacity-50"></div>
@@ -58,7 +58,7 @@
             </div>
             @endif
 
-            {{-- Side stack — with quote icon --}}
+
             <div class="flex flex-col gap-4">
                 @foreach($side as $i => $t)
                 <div class="flex-1 rounded-3xl glass p-6 lift flex flex-col">
@@ -78,7 +78,7 @@
             </div>
         </div>
 
-        {{-- Bottom row — no quote icon --}}
+
         @if(!empty($bottom))
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
             @foreach($bottom as $i => $t)

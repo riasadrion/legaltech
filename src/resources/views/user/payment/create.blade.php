@@ -5,7 +5,7 @@
 @section('content')
 <div class="max-w-lg space-y-5">
 
-    {{-- Header --}}
+
     <div class="flex items-start gap-3">
         <a href="{{ route('user.payment.create', array_filter(['plan_id' => request('plan_id')])) }}"
            class="flex items-center justify-center h-8 w-8 rounded-lg glass border border-white/10 text-white/60 hover:text-white transition">
@@ -17,14 +17,14 @@
         </div>
     </div>
 
-    {{-- Instructions --}}
+
     @if($gateway->instructions)
     <div class="rounded-xl border border-white/10 bg-white/4 px-5 py-4 text-[13px] text-white/70">
-        {!! nl2br(e($gateway->instructions)) !!}
+        <?php echo nl2br(e($gateway->instructions)) ?>
     </div>
     @endif
 
-    {{-- Form card --}}
+
     <div class="rounded-2xl glass overflow-hidden">
         <div class="flex items-center gap-3 px-5 py-4 border-b border-white/8">
             @php $logo = $gateway->logoUrl(); @endphp

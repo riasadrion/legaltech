@@ -9,7 +9,7 @@
 
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-    {{-- Main editor --}}
+
     <div class="lg:col-span-2 space-y-6">
         <div class="bg-white rounded-xl border border-gray-200 p-6">
             <form method="POST" action="{{ route('admin.notifications.templates.update', $template) }}">
@@ -38,13 +38,13 @@
                     </label>
                 </div>
 
-                {{-- Subject --}}
+
                 <div class="mb-5">
                     <label class="block text-sm font-medium text-gray-700 mb-1">{{ __('Subject') }}</label>
                     <x-translatable-input name="subject" :value="$template->subject ?? []" />
                 </div>
 
-                {{-- Email body --}}
+
                 <div class="mb-5 translatable-input space-y-2">
                     <label class="block text-sm font-medium text-gray-700">{{ __('Email Body') }}</label>
                     <div class="flex gap-1.5">
@@ -66,7 +66,7 @@
                     @endforeach
                 </div>
 
-                {{-- SMS body --}}
+
                 <div class="mb-5 translatable-input space-y-2">
                     <label class="block text-sm font-medium text-gray-700">{{ __('SMS Body') }}</label>
                     <div class="flex gap-1.5">
@@ -101,7 +101,7 @@
             </form>
         </div>
 
-        {{-- Test send --}}
+
         <div class="bg-white rounded-xl border border-gray-200 p-6">
             <h3 class="text-sm font-semibold text-gray-900 mb-3">{{ __('Send Test Email') }}</h3>
             <form method="POST" action="{{ route('admin.notifications.templates.test', $template) }}" class="flex gap-3">
@@ -113,7 +113,7 @@
         </div>
     </div>
 
-    {{-- Sidebar: variables + versions --}}
+
     <div class="space-y-6">
         <div class="bg-white rounded-xl border border-gray-200 p-6">
             <h3 class="text-sm font-semibold text-gray-900 mb-3">{{ __('Available Variables') }}</h3>
@@ -163,7 +163,8 @@
 
 @push('scripts')
 <script>
-onAdminReady(function () {
+
+    'use strict';
     document.querySelectorAll('.prose-editor-init').forEach(function (el) {
         ProseEditor.init(el)
     })

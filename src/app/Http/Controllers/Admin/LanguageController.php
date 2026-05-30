@@ -49,15 +49,12 @@ class LanguageController extends Controller
 
         $defaultLocale = Language::default()?->code ?? 'en';
 
-        // Scan Blade/PHP files for translation keys
         $scanned = $this->scanTranslationKeys();
 
         $t2 = microtime(true);
 
-        // Read existing default locale translations
         $defaultTranslations = $this->readJsonTranslations($defaultLocale);
 
-        // Add scanned keys to default locale
         foreach ($scanned as $key) {
             if (! array_key_exists($key, $defaultTranslations)) {
                 $defaultTranslations[$key] = $key;
@@ -67,11 +64,9 @@ class LanguageController extends Controller
 
         $t3 = microtime(true);
 
-        // Create new language file with keys only (empty values = needs translation)
-        // User can use the auto-translate feature to fill in translations
         $newTranslations = [];
         foreach ($defaultTranslations as $key => $value) {
-            $newTranslations[$key] = ''; // Empty value — needs translation
+            $newTranslations[$key] = '';
         }
         $this->writeJsonTranslations($language->code, $newTranslations);
 
@@ -144,7 +139,6 @@ class LanguageController extends Controller
             return back()->withErrors(['error' => 'Cannot delete the default language.']);
         }
 
-        // Delete the JSON translation file
         $path = lang_path("{$language->code}.json");
         if (File::exists($path)) {
             File::delete($path);
@@ -201,7 +195,6 @@ class LanguageController extends Controller
 
                 $content = file_get_contents($file->getPathname());
 
-                // Match translation functions with ONLY static string keys
                 preg_match_all(
                     '/(?:__|trans|trans_choice|@lang)\s*\(\s*[\'"]([a-zA-Z][a-zA-Z0-9\s\:\-\_\.\,\!\?\/\—\'\"]{1,199})[\'"]\s*\)/',
                     $content,

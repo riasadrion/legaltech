@@ -21,10 +21,8 @@ class PaymentWebhookController extends Controller
 
         $rawPayload = $request->getContent();
         $headers = array_change_key_case($request->headers->all(), CASE_LOWER);
-        // Flatten single-value header arrays
         $headers = array_map(fn ($v) => is_array($v) ? ($v[0] ?? '') : $v, $headers);
 
-        // Step 1 — Verify signature
         try {
             $paymentDriver->verifyWebhookSignature($gateway, $rawPayload, $headers);
         } catch (WebhookSignatureException $e) {
@@ -35,7 +33,6 @@ class PaymentWebhookController extends Controller
         $eventType = $payload['type'] ?? $payload['event_type'] ?? 'unknown';
         $eventId = $this->extractEventId($driver, $payload, $headers);
 
-        // Step 2 — Idempotency check
         $existing = DB::table('webhook_events')
             ->where('gateway', $driver)
             ->where('event_id', $eventId)
@@ -45,7 +42,6 @@ class PaymentWebhookController extends Controller
             return response()->json(['status' => 'already_processed']);
         }
 
-        // Step 3 — Record and process
         $webhookEventId = DB::table('webhook_events')->insertGetId([
             'gateway' => $driver,
             'event_type' => $eventType,
@@ -59,7 +55,6 @@ class PaymentWebhookController extends Controller
         try {
             $payment = $paymentDriver->handleWebhook($gateway, $rawPayload, $headers);
 
-            // Credit wallet if payment just completed via webhook
             if ($payment && $payment->isCompleted() && ! $payment->transaction_id) {
                 $paymentController = app(PaymentController::class);
                 $walletService = app(WalletService::class);

@@ -5,7 +5,7 @@
 
 <div class="grid grid-cols-1 gap-5 lg:grid-cols-3 lg:items-start">
 
-    {{-- Main content --}}
+
     <div class="lg:col-span-2 space-y-5">
         <div class="rounded-xl border border-gray-200 bg-white p-6 space-y-5">
             <x-translatable-input name="title" label="Title" :values="old('title', $p?->title ?? [])" required />
@@ -55,7 +55,7 @@
             </div>
         </div>
 
-        {{-- SEO --}}
+
         <div class="rounded-xl border border-gray-200 bg-white p-6 space-y-4">
             <h3 class="text-sm font-semibold text-gray-900">SEO</h3>
             <x-translatable-input name="meta_title" label="Meta title" :values="old('meta_title', $p?->meta_title ?? [])" />
@@ -63,7 +63,7 @@
         </div>
     </div>
 
-    {{-- Sidebar settings --}}
+
     <div class="space-y-5">
         <div class="rounded-xl border border-gray-200 bg-white p-5 space-y-4">
             <h3 class="text-sm font-semibold text-gray-900">Settings</h3>
@@ -90,7 +90,7 @@
                 hint="Auto-generated from title if left blank." />
         </div>
 
-        {{-- Tags --}}
+
         <div class="rounded-xl border border-gray-200 bg-white p-5 space-y-3">
             <h3 class="text-sm font-semibold text-gray-900">Tags</h3>
             <div class="flex flex-wrap gap-2">
@@ -117,7 +117,8 @@
 
 @push('scripts')
 <script>
-onAdminReady(function () {
+
+    'use strict';
     document.querySelectorAll('.prose-editor-init').forEach(function (el) {
         ProseEditor.init(el)
     })

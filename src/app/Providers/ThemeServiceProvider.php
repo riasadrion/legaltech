@@ -16,11 +16,8 @@ class ThemeServiceProvider extends ServiceProvider
 
         $this->loadViewsFrom(resource_path("views/themes/{$theme}"), 'theme');
 
-        // Register anonymous components from the active theme:
-        //   <x-theme::plan-card />
         Blade::anonymousComponentNamespace("themes.{$theme}.components", 'theme');
 
-        // Expose current theme name to all views
         view()->share('activeTheme', $theme);
     }
 

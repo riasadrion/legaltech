@@ -1,32 +1,17 @@
-/* ═══════════════════════════════════════════════════════════════
-   Default Theme — Visual Styles
-   Loaded by themes/default/layouts/frontend.blade.php (and auth/user).
-   All rules scoped under body.theme-default so the admin panel and
-   any other themes are untouched.
-
-   Tailwind tokens (colors, fonts, shadows) are declared in
-   src/resources/css/themes/default.css and processed by Vite.
-   ═══════════════════════════════════════════════════════════════ */
-
-/* ─── Dual-logo system (frontend nav, footer, auth) ─── */
-/* The frontend theme is always dark-background — show "light" logo, hide "dark" logo */
 .theme-default .nav-brand-logo {
     width: auto;
-    max-width: 9rem;    /* prevents wide wordmark logos from overflowing the nav */
+    max-width: 9rem;
     object-fit: contain;
     flex-shrink: 0;
 }
-/* Per-location heights — applied directly in markup via Tailwind h-* classes.
-   Fallback for nav partial which has no explicit h-* class: */
 .theme-default nav .nav-brand-logo { height: 2rem; }
 
 .theme-default .nav-brand-logo-light { display: block; }
 .theme-default .nav-brand-logo-dark  { display: none; }
 
-/* ─── Brand color default (overridden at runtime via inline <style> in layout) ─── */
 :root { --brand-color: #D4FF3A; }
 
-/* ─── Scoped frontend reset ─── */
+
 body.theme-default {
     background: #0B0B0F;
     color: #fff;
@@ -43,7 +28,6 @@ body.theme-default {
     font-style: italic;
 }
 
-/* ─── Grid backgrounds ─── */
 .theme-default .bg-grid {
     background-image:
         linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
@@ -62,14 +46,11 @@ body.theme-default {
     mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
 }
 
-/* ─── Table row hover ─── */
 .theme-default tbody tr { transition: background 0.15s; }
 .theme-default tbody tr:hover { background: rgba(255,255,255,0.03); }
 
-/* ─── Sparkline (from template) ─── */
 .theme-default .spark { stroke: var(--brand-color); fill: none; stroke-width: 2; stroke-linecap: round; }
 
-/* ─── Sidebar nav items (from template) ─── */
 .theme-default .nav-item {
     display: flex;
     align-items: center;
@@ -93,7 +74,6 @@ body.theme-default {
     border-color: rgba(255,255,255,0.10);
 }
 
-/* ─── Status pills (from template) ─── */
 .theme-default .pill {
     font-size: 10px;
     font-weight: 600;
@@ -107,7 +87,6 @@ body.theme-default {
 .theme-default .pill-review { background: rgba(124,92,255,0.18); color: #A899FF; border: 1px solid rgba(124,92,255,0.25); }
 .theme-default .pill-done   { background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.45); border: 1px solid rgba(255,255,255,0.08); }
 
-/* ─── Glows ─── */
 .theme-default .glow-lime {
     background: radial-gradient(45% 60% at 50% 50%, color-mix(in srgb, var(--brand-color) 35%, transparent), color-mix(in srgb, var(--brand-color) 0%, transparent) 70%);
     filter: blur(10px);
@@ -117,7 +96,6 @@ body.theme-default {
     filter: blur(20px);
 }
 
-/* ─── Animations ─── */
 @keyframes lt-marquee {
     from { transform: translateX(0); }
     to   { transform: translateX(-50%); }
@@ -179,7 +157,6 @@ body.theme-default {
 .theme-default .trail span:nth-child(3) { animation-delay: 0.8s; }
 .theme-default .trail span:nth-child(4) { animation-delay: 1.2s; }
 
-/* ─── Gradient text ─── */
 .theme-default .grad-text {
     background: linear-gradient(180deg, #fff 0%, #fff 55%, rgba(255, 255, 255, 0.55) 100%);
     -webkit-background-clip: text;
@@ -193,7 +170,6 @@ body.theme-default {
     color: transparent;
 }
 
-/* ─── Buttons ─── */
 .theme-default .btn-lime {
     background: var(--brand-color);
     color: #0B0B0F;
@@ -223,7 +199,6 @@ body.theme-default {
     border-color: rgba(255, 255, 255, 0.18);
 }
 
-/* ─── Glass cards ─── */
 .theme-default .glass {
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.015));
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -240,7 +215,6 @@ body.theme-default {
     backdrop-filter: blur(10px);
 }
 
-/* ─── Misc utilities ─── */
 .theme-default .no-sb::-webkit-scrollbar { display: none; }
 .theme-default .no-sb { scrollbar-width: none; }
 
@@ -273,7 +247,6 @@ body.theme-default {
     background-image: repeating-linear-gradient(135deg, rgba(11, 11, 15, 0.05) 0 8px, transparent 8px 16px);
 }
 
-/* ─── Blog body typography ─── */
 .theme-default .blog-body { color: rgba(255,255,255,0.78); font-size: 1.0625rem; line-height: 1.85; }
 .theme-default .blog-body p  { margin-bottom: 1.5rem; }
 .theme-default .blog-body h1,
@@ -303,7 +276,6 @@ body.theme-default {
 .theme-default .blog-body th { color: rgba(255,255,255,0.5); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; padding: 0.625rem 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.1); text-align: left; }
 .theme-default .blog-body td { padding: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.06); vertical-align: top; }
 
-/* ─── Hero section UI ─── */
 .theme-default .hero-typer-wrap { height: 90px; overflow: hidden; }
 .theme-default .hero-typer-text { height: 36px; overflow: hidden; display: block; }
 .theme-default .hero-float-card {
@@ -313,7 +285,6 @@ body.theme-default {
 }
 .theme-default .hero-float-card-ai { min-width: 148px; }
 
-/* ─── Page hero (CMS content pages) ─── */
 .theme-default .page-hero-wrap { background: #08090C; position: relative; }
 .theme-default .page-hero-glow-bl {
     position: absolute; bottom: 0; left: 0;
@@ -354,7 +325,6 @@ body.theme-default {
     background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--brand-color) 20%, transparent) 40%, color-mix(in srgb, var(--brand-color) 20%, transparent) 60%, transparent);
 }
 
-/* ─── Contact section ─── */
 .theme-default .ct-hero { padding-top: calc(72px + 40px); padding-bottom: 3rem; overflow: hidden; }
 @media (min-width: 768px) { .theme-default .ct-hero { padding-top: calc(72px + 80px); padding-bottom: 5rem; } }
 .theme-default .ct-field {
@@ -374,7 +344,6 @@ body.theme-default {
 .theme-default textarea.ct-field { min-height: 220px; }
 .theme-default .ct-topic { margin-bottom: 2rem; }
 
-/* ─── Custom HTML section body card ─── */
 .theme-default .html-body-card {
     border: 1px solid rgba(255,255,255,0.06);
     border-radius: 16px;
@@ -384,10 +353,7 @@ body.theme-default {
     .theme-default .html-body-card { padding: 48px 64px; }
 }
 
-/* ─── Cookie consent banner ─── */
-/* (cookie banner styles live in the GDPR Cookie Consent section below) */
 
-/* ─── Footer layout ─── */
 .theme-default .footer-main-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -448,7 +414,6 @@ body.theme-default {
     margin-bottom: 1.5rem;
 }
 
-/* ─── Frontend preloader ─── */
 #fe-preloader {
     position: fixed;
     inset: 0;
@@ -465,36 +430,29 @@ body.theme-default {
     opacity: 0;
     visibility: hidden;
 }
-/* pen + line writing animation */
 #fe-preloader-writer {
     position: relative;
     width: 240px;
     height: 56px;
 }
-/* horizontal writing line — centered vertically in the writer, this is where the pen tip sits */
 #fe-preloader-line {
     position: absolute;
     top: 50%;
     left: 0;
-    margin-top: 8px; /* push line slightly below center so pen body sits above it */
+    margin-top: 8px;
     height: 1.5px;
     width: 0;
     background: linear-gradient(90deg, color-mix(in srgb, var(--brand-color) 12%, transparent), color-mix(in srgb, var(--brand-color) 55%, transparent));
     border-radius: 2px;
     animation: fe-draw-line 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
-/*
-   Pen SVG: 40×40, tip at viewBox (1, 39) → essentially bottom-left corner.
-   The wrapper positions the pen so its tip lands at the line's growing edge.
-   left = tip x-position. We offset the SVG by -1px left so tip aligns with `left`.
-*/
 #fe-preloader-pen-wrap {
     position: absolute;
     top: 50%;
     left: 0;
     width: 0;
     height: 0;
-    margin-top: 8px; /* same as line — tip sits on line */
+    margin-top: 8px;
     animation: fe-move-pen 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 #fe-preloader-pen {
@@ -513,7 +471,6 @@ body.theme-default {
     color: rgba(255,255,255,0.5);
     font-weight: 500;
 }
-/* line and pen tip travel from 0 → 240px in perfect sync */
 @keyframes fe-draw-line {
     0%   { width: 0;    opacity: 0; }
     8%   { opacity: 1; }
@@ -529,8 +486,6 @@ body.theme-default {
     100% { left: 240px; opacity: 0; }
 }
 
-/* ─── GDPR Cookie Consent ─── */
-/* Banner — bottom-right dark glass card, hidden by default */
 .theme-default .cc-banner {
     position: fixed;
     bottom: 1.25rem;
@@ -649,7 +604,6 @@ body.theme-default {
     border-color: rgba(255,255,255,0.2);
 }
 
-/* Modal */
 .theme-default .cc-modal {
     position: fixed;
     inset: 0;
@@ -774,7 +728,6 @@ body.theme-default {
 }
 .theme-default .cc-modal-actions .cc-btn { flex: 0 0 auto; min-width: 8rem; }
 
-/* Re-open pill — hidden by default, shown after consent saved */
 .theme-default .cc-reopen {
     position: fixed;
     bottom: 1rem;
@@ -802,7 +755,6 @@ body.theme-default {
     background: rgba(15, 16, 22, 0.95);
 }
 
-/* Mobile tweaks */
 @media (max-width: 480px) {
     .theme-default .cc-banner {
         bottom: 0.75rem;
@@ -814,7 +766,6 @@ body.theme-default {
     .theme-default .cc-modal-actions .cc-btn { width: 100%; }
 }
 
-/* ─── Auth forms ─── */
 .theme-default .auth-field-wrap { display: flex; flex-direction: column; gap: 0.375rem; }
 .theme-default .auth-label {
     font-size: 0.8125rem;
@@ -841,7 +792,6 @@ body.theme-default {
 }
 .theme-default .auth-input-err { border-color: rgba(239,68,68,0.5) !important; }
 
-/* Phone component inside auth forms — match auth-input sizing */
 .theme-default .auth-field-wrap .phone-input-group {
     border-radius: 0.75rem;
 }
@@ -945,11 +895,6 @@ body.theme-default {
     color: #fff;
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   User Dashboard Shell & Page Components
-   ═══════════════════════════════════════════════════════════════ */
-
-/* ─── Cards ─── */
 .theme-default .ud-card {
     background: rgba(255,255,255,0.03);
     border: 1px solid rgba(255,255,255,0.08);
@@ -975,7 +920,6 @@ body.theme-default {
 }
 .theme-default .ud-card-link:hover { opacity: 0.75; }
 
-/* ─── Stat tiles ─── */
 .theme-default .ud-stat-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -1020,7 +964,6 @@ body.theme-default {
     flex-shrink: 0;
 }
 
-/* ─── Badges ─── */
 .theme-default .ud-badge {
     display: inline-flex;
     align-items: center;
@@ -1038,7 +981,6 @@ body.theme-default {
 .theme-default .ud-badge-lime   { background: color-mix(in srgb, var(--brand-color) 12%, transparent);  color: var(--brand-color); }
 .theme-default .ud-badge-violet { background: rgba(124,92,255,0.12);  color: #a78bfa; }
 
-/* ─── Activity / transaction rows ─── */
 .theme-default .ud-row {
     display: flex;
     align-items: center;
@@ -1077,7 +1019,6 @@ body.theme-default {
     margin-left: auto;
 }
 
-/* ─── Nudge / alert strip ─── */
 .theme-default .ud-nudge {
     display: flex;
     align-items: flex-start;
@@ -1128,7 +1069,6 @@ body.theme-default {
 }
 .theme-default .ud-nudge-dismiss:hover { color: rgba(255,255,255,0.7); }
 
-/* ─── Quick action cards ─── */
 .theme-default .ud-action-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -1172,7 +1112,6 @@ body.theme-default {
     color: rgba(255,255,255,0.4);
 }
 
-/* ─── Profile form ─── */
 .theme-default .ud-section-title {
     font-size: 1rem;
     font-weight: 600;
@@ -1245,8 +1184,6 @@ body.theme-default {
 .theme-default select.ud-select option,
 .theme-default .ud-select option { background: #1a1a24; color: #fff; }
 
-/* Phone group — joined country code + number */
-/* Phone input component */
 .theme-default .phone-input-wrap {
     position: relative;
 }
@@ -1295,7 +1232,6 @@ body.theme-default {
     font-family: inherit;
 }
 .theme-default .phone-number-input::placeholder { color: rgba(255,255,255,0.25); }
-/* Dropdown */
 .theme-default .phone-dropdown {
     position: absolute;
     top: calc(100% + 4px);
@@ -1348,7 +1284,6 @@ body.theme-default {
 .theme-default .phone-opt-name { flex: 1; }
 .theme-default .phone-opt-dial { color: rgba(255,255,255,0.35); font-size: 0.75rem; }
 
-/* Dropzone */
 .theme-default .ud-dropzone {
     display: flex;
     flex-direction: column;
@@ -1458,7 +1393,6 @@ body.theme-default {
 }
 .theme-default .ud-btn-danger:hover { background: rgba(248,113,113,0.18); }
 
-/* ─── Avatar upload ─── */
 .theme-default .ud-avatar-wrap {
     position: relative;
     width: 4.5rem;
@@ -1501,7 +1435,6 @@ body.theme-default {
     border: 2px solid #0B0B0F;
 }
 
-/* ─── Page heading ─── */
 .theme-default .ud-page-title {
     font-size: 1.5rem;
     font-weight: 700;
@@ -1514,7 +1447,6 @@ body.theme-default {
     margin-top: 0.25rem;
 }
 
-/* Contract editor */
 .theme-default .contract-editor-body h1,
 .theme-default .contract-editor-body h2,
 .theme-default .contract-editor-body h3 {
@@ -1564,7 +1496,6 @@ body.theme-default {
     font-weight: 600;
 }
 
-/* ProseEditor — dark theme override for user pages */
 .theme-default .prose-editor {
     border: 1px solid rgba(255,255,255,0.10);
     background: rgba(255,255,255,0.02);
@@ -1620,7 +1551,6 @@ body.theme-default {
 }
 .theme-default .prose-content a { color: #c4f160; }
 
-/* ─── Empty state ─── */
 .theme-default .ud-empty {
     text-align: center;
     padding: 3rem 1.5rem;
@@ -1640,7 +1570,6 @@ body.theme-default {
     margin-top: 0.375rem;
 }
 
-/* ─── Topbar search ─── */
 .theme-default .ud-topbar-search {
     display: flex;
     align-items: center;
@@ -1666,7 +1595,6 @@ body.theme-default {
     padding: 0.1rem 0.35rem;
 }
 
-/* ─── Notification badge ─── */
 .theme-default .ud-notif-badge {
     position: absolute;
     top: 4px;
@@ -1687,7 +1615,6 @@ body.theme-default {
     border: 2px solid #0B0B0F;
 }
 
-/* ─── User dropdown ─── */
 .theme-default .ud-user-dropdown {
     position: absolute;
     right: 0;
@@ -1732,7 +1659,6 @@ body.theme-default {
     color: #fff;
 }
 
-/* ─── Sidebar version badge ─── */
 .theme-default .ud-version-badge {
     font-size: 0.625rem;
     font-family: 'JetBrains Mono', monospace;
@@ -1745,7 +1671,6 @@ body.theme-default {
     padding: 0.15rem 0.4rem;
 }
 
-/* ─── Sidebar workspace button ─── */
 .theme-default .ud-workspace-btn {
     display: flex;
     align-items: center;
@@ -1776,7 +1701,6 @@ body.theme-default {
     flex-shrink: 0;
 }
 
-/* ─── Sidebar wallet card ─── */
 .theme-default .ud-sidebar-wallet {
     background: rgba(255,255,255,0.03);
     border: 1px solid rgba(255,255,255,0.08);
@@ -1795,7 +1719,6 @@ body.theme-default {
 }
 .theme-default .ud-sidebar-wallet-topup:hover { opacity: 0.75; }
 
-/* ─── Dashboard hero card ─── */
 .theme-default .ud-hero-card {
     display: flex;
     gap: 1.5rem;
@@ -1887,7 +1810,6 @@ body.theme-default {
     margin-top: 0.75rem;
 }
 
-/* ─── Dark scrollbar ─── */
 .theme-default .scrollbar-dark::-webkit-scrollbar {
     width: 8px;
 }
@@ -1902,7 +1824,6 @@ body.theme-default {
     background: rgba(255, 255, 255, 0.3);
 }
 
-/* ─── Notification dropdown ─── */
 .theme-default .notification-panel {
     animation: slideDown 0.2s ease-out;
     scrollbar-width: thin;
@@ -1933,7 +1854,6 @@ body.theme-default {
     }
 }
 
-/* ─── Contract preview list styles ─── */
 .theme-default .contract-editor-body ul {
     list-style-type: disc;
     margin: 1rem 0;

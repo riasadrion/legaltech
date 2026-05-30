@@ -123,7 +123,7 @@
 </head>
 <body>
 
-{{-- Left panel --}}
+
 <div class="al-left">
     <div class="al-left-noise"></div>
 
@@ -147,7 +147,7 @@
     </div>
 </div>
 
-{{-- Right panel --}}
+
 <div class="al-right">
     <div class="al-form-wrap">
 

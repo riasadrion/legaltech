@@ -329,23 +329,12 @@ class SettingsController extends Controller
 
     private function sanitizeCss(string $css): string
     {
-        // Strip HTML tags and PHP open tags
         $css = strip_tags($css);
         $css = preg_replace('/<\?.*?\?>/s', '', $css);
-
-        // Remove javascript: and data: URIs (XSS via url())
         $css = preg_replace('/url\s*\(\s*["\']?\s*(?:javascript|data|vbscript):/i', 'url(#', $css);
-
-        // Remove expression() — IE CSS injection
         $css = preg_replace('/expression\s*\(/i', '', $css);
-
-        // Remove @import to prevent loading external hostile sheets
         $css = preg_replace('/@import\b/i', '', $css);
-
-        // Remove -moz-binding (Firefox XSS vector)
         $css = preg_replace('/-moz-binding\s*:/i', '', $css);
-
-        // Remove behavior: (IE XSS vector)
         $css = preg_replace('/\bbehavior\s*:/i', '', $css);
 
         return trim($css);
@@ -374,7 +363,6 @@ class SettingsController extends Controller
             return;
         }
 
-        // Extract path relative to /assets/uploads/ so we can delete from the uploads disk
         $needle = '/assets/uploads/';
         $pos = strpos($url, $needle);
         if ($pos === false) {

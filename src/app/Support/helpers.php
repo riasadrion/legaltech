@@ -36,10 +36,6 @@ if (! function_exists('safe_json')) {
 }
 
 if (! function_exists('upload_url')) {
-    /**
-     * Build a public URL from a relative upload path (e.g. "sections/file.png").
-     * Returns the value unchanged if it is already an absolute URL.
-     */
     function upload_url(?string $path): string
     {
         if (! $path) {
@@ -47,10 +43,8 @@ if (! function_exists('upload_url')) {
         }
         $base = rtrim(request()->getSchemeAndHttpHost(), '') . rtrim(request()->getBasePath(), '/');
         if (str_starts_with($path, 'http://') || str_starts_with($path, 'https://')) {
-            // Strip stored host and rebuild with current host+basepath
             $parsed = parse_url($path);
             $filePath = $parsed['path'] ?? $path;
-            // Remove any known assets/uploads prefix to get the relative path
             $filePath = preg_replace('#^.*?/assets/uploads/#', '', $filePath);
             return $base . '/assets/uploads/' . ltrim($filePath, '/');
         }
@@ -59,9 +53,6 @@ if (! function_exists('upload_url')) {
 }
 
 if (! function_exists('isCryptoCurrency')) {
-    /**
-     * Check if a currency code is a cryptocurrency.
-     */
     function isCryptoCurrency(string $currency): bool
     {
         $cryptoCurrencies = ['BTC', 'ETH', 'USDT', 'USDC', 'BNB', 'XRP', 'ADA', 'SOL', 'DOT', 'DOGE'];

@@ -1,6 +1,6 @@
 @props(['form' => null, 'locales' => ['en']])
 
-{{-- Admin component: renders an editable list of form fields with add/remove/reorder --}}
+
 <div id="form-builder" class="space-y-4" data-existing-fields='{{ $form ? $form->fields->toJson() : '[]' }}'>
 
     <div id="form-builder-empty" class="rounded-lg border border-dashed border-gray-300 bg-gray-50 p-6 text-center text-sm text-gray-400 {{ $form && $form->fields->count() > 0 ? 'hidden' : '' }}">
@@ -8,7 +8,7 @@
     </div>
 
     <div id="form-builder-fields" class="space-y-3">
-        {{-- Fields will be rendered here by JavaScript --}}
+
     </div>
 
     <button type="button" id="form-builder-add-btn"
@@ -21,7 +21,8 @@
 @push('scripts')
 <script>
 'use strict';
-window.onAdminReady(function () {
+
+    'use strict';
     var $container = $('#form-builder');
     var $fieldsContainer = $('#form-builder-fields');
     var $emptyMessage = $('#form-builder-empty');

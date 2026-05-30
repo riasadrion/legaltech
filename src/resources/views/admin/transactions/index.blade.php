@@ -7,13 +7,13 @@
 @section('content')
 <div class="space-y-5">
 
-    {{-- Page header --}}
+
     <div>
         <h1 class="text-xl font-bold text-gray-900">{{ __('Transaction Logs') }}</h1>
         <p class="mt-0.5 text-sm text-gray-500">{{ __('Full ledger of all wallet credits, debits and adjustments.') }}</p>
     </div>
 
-    {{-- Summary cards --}}
+
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div class="rounded-xl border border-gray-200 bg-white shadow-sm px-5 py-4 flex items-center gap-4">
             <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
@@ -44,7 +44,7 @@
         </div>
     </div>
 
-    {{-- Filters --}}
+
     <form method="GET" class="flex flex-wrap items-center gap-2">
         <input type="text" name="q" value="{{ request('q') }}" placeholder="{{ __('User name or email…') }}"
                class="h-9 w-56 rounded-lg border border-gray-300 px-3 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"/>
@@ -90,7 +90,7 @@
         @endif
     </form>
 
-    {{-- Table --}}
+
     <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
         <table class="min-w-full divide-y divide-gray-200 text-sm responsive-table">
             <thead class="bg-gray-50">

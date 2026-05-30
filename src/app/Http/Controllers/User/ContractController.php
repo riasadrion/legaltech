@@ -29,7 +29,6 @@ class ContractController extends Controller
         return view('user.contracts.index', compact('contracts'));
     }
 
-    // Step 1: Pick a category
     public function create()
     {
         $categories = ContractTemplateCategory::withCount(['templates' => fn($q) => $q->active()])
@@ -40,7 +39,6 @@ class ContractController extends Controller
         return view('user.contracts.create', compact('categories'));
     }
 
-    // Step 2: Pick a template within a category
     public function templates(ContractTemplateCategory $category)
     {
         $templates = $category->templates()->active()->orderBy('sort')->get();
@@ -48,7 +46,6 @@ class ContractController extends Controller
         return view('user.contracts.templates', compact('category', 'templates'));
     }
 
-    // Step 3: Fill wizard fields
     public function wizard(ContractTemplate $template)
     {
         if (!$template->active) {
@@ -61,7 +58,6 @@ class ContractController extends Controller
         return view('user.contracts.wizard', compact('template', 'groups'));
     }
 
-    // Step 4: Preview filled values before generating
     public function preview(Request $request)
     {
         $template = ContractTemplate::active()->findOrFail($request->template_id);
@@ -69,7 +65,6 @@ class ContractController extends Controller
 
         $data = $this->validateWizard($request, $template);
 
-        // Stash to session so the user can edit and resubmit
         session([
             'contract.wizard' => [
                 'template_id' => $template->id,
@@ -85,7 +80,6 @@ class ContractController extends Controller
         ]);
     }
 
-    // Step 5: Generate (instant placeholder substitution)
     public function store(Request $request, DeductContractCredits $deductor, ContractAiService $ai)
     {
         $payload = session('contract.wizard');

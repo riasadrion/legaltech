@@ -1,5 +1,5 @@
 <div class="grid grid-cols-3 gap-6">
-    {{-- Left panel --}}
+
     <div class="col-span-2 space-y-5">
         <div class="rounded-xl border border-gray-200 bg-white p-6">
             <x-form.input name="name" label="{{ __('Plan name') }}" value="{{ old('name', $plan?->name) }}" required />
@@ -28,7 +28,7 @@
             </div>
         </div>
 
-        {{-- CTA --}}
+
         <div class="rounded-xl border border-gray-200 bg-white p-6 space-y-5">
             <h3 class="text-sm font-semibold text-gray-900">{{ __('Call to action') }}</h3>
             <x-form.input name="cta_text" label="{{ __('Button text') }}"
@@ -40,7 +40,7 @@
         </div>
     </div>
 
-    {{-- Right sidebar --}}
+
     <div class="col-span-1 space-y-5">
         <div class="rounded-xl border border-gray-200 bg-white p-6 space-y-5">
             <x-form.select name="billing_cycle" label="{{ __('Billing cycle') }}"

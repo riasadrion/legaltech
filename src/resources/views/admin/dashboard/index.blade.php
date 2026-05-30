@@ -14,7 +14,7 @@
         </div>
     </div>
 
-    {{-- Stats Grid --}}
+
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div class="stat-card stat-purple p-5 relative overflow-hidden">
             <div class="stat-accent"></div>
@@ -89,7 +89,7 @@
         </div>
     </div>
 
-    {{-- Revenue Chart + Donut --}}
+
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
         <div class="lg:col-span-2 card-table">
             <div class="chart-card-header">
@@ -126,9 +126,9 @@
     </div>
 
 
-    {{-- Activity Feed + Recent Transactions --}}
+
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        {{-- Recent Transactions --}}
+
         <div class="lg:col-span-2 card-table">
             <div class="chart-card-header flex items-center justify-between">
                 <div>
@@ -178,7 +178,7 @@
             </div>
         </div>
 
-        {{-- Recent Users --}}
+
         <div class="card-table">
             <div class="chart-card-header flex items-center justify-between">
                 <div>
@@ -216,6 +216,7 @@
 <script src="{{ asset('assets/static/js/apexcharts.min.js') }}"></script>
 <script>
 (function () {
+    'use strict';
     var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
     var tc = isDark ? '#8b8ea8' : '#6b7280';
     var gc = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)';

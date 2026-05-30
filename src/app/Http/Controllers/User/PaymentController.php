@@ -23,7 +23,6 @@ class PaymentController extends Controller
         $payments = Payment::where('user_id', $user->id)->with('gateway')->latest()->paginate(10);
         $balance  = $wallet->getBalance($user);
 
-        // Total spent per gateway (completed only, all pages)
         $gatewayTotals = Payment::where('user_id', $user->id)
             ->where('status', Payment::STATUS_COMPLETED)
             ->selectRaw('gateway_id, SUM(amount) as total')
@@ -61,7 +60,6 @@ class PaymentController extends Controller
         $fee = $gateway->calculateFee($amount);
         $user = auth('user')->user();
 
-        // Validate amount bounds
         if ($amount < $gateway->min_amount) {
             return back()->withErrors(['amount' => 'Amount is below the minimum for this gateway.']);
         }
@@ -78,13 +76,11 @@ class PaymentController extends Controller
         $payment->status = Payment::STATUS_PENDING;
         $payment->save();
 
-        // Attach plan if provided
         if ($data['plan_id'] ?? null) {
             $payment->meta = ['plan_id' => (int) $data['plan_id']];
             $payment->save();
         }
 
-        // Handle manual receipt upload
         if ($gateway->driver === 'manual' && $request->hasFile('receipt')) {
             try {
                 $meta = $uploader->store(
@@ -101,7 +97,6 @@ class PaymentController extends Controller
             }
         }
 
-        // Initiate with driver — returns redirect URL or null
         try {
             $redirectUrl = $driver->initiate($payment);
         } catch (\Throwable $e) {
@@ -123,7 +118,6 @@ class PaymentController extends Controller
             route('admin.payments.index')
         );
 
-        // No redirect (manual) — go to pending page
         return redirect()->route('user.payment.pending', $payment)
             ->with('success', 'Payment submitted. Admin will review your receipt shortly.');
     }
@@ -193,7 +187,6 @@ class PaymentController extends Controller
         $payment->transaction_id = $tx->id;
         $payment->save();
 
-        // Activate subscription if this payment was for a plan
         $planId = $payment->meta['plan_id'] ?? null;
         if ($planId) {
             $plan = Plan::find($planId);

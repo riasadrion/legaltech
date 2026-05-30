@@ -10,7 +10,7 @@
         <span class="block text-sm font-medium text-gray-700">{{ $label }}</span>
     @endif
 
-    {{-- Locale pills --}}
+
     <div class="flex gap-1.5">
         @foreach ($languages as $lang)
             <button type="button"
@@ -23,7 +23,7 @@
         @endforeach
     </div>
 
-    {{-- Inputs per locale --}}
+
     @foreach ($languages as $lang)
         <div class="locale-panel {{ $loop->first ? '' : 'hidden' }}" data-locale="{{ $lang->code }}" data-field="{{ $name }}">
             @if ($type === 'textarea')

@@ -3,13 +3,13 @@
 @section('content')
 <div class="space-y-5">
 
-    {{-- Page header --}}
+
     <div>
         <h1 class="text-xl font-bold text-gray-900">{{ __('Plans') }}</h1>
         <p class="mt-0.5 text-sm text-gray-500">{{ __('Manage subscription plans and pricing.') }}</p>
     </div>
 
-    {{-- Filters --}}
+
     <div class="flex flex-wrap items-center justify-between gap-3">
         <div class="flex items-center gap-3">
             <x-status-pills :items="$statusPills" :current="request('status', '')" />
@@ -29,7 +29,7 @@
         </form>
     </div>
 
-    {{-- Table --}}
+
     <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
         <table class="min-w-full divide-y divide-gray-200 text-sm responsive-table">
             <thead class="bg-gray-50">

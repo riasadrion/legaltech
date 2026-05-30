@@ -98,7 +98,7 @@
             </div>
         @endforeach
 
-        {{-- Parties --}}
+
         <div class="rounded-2xl glass overflow-hidden">
             <div class="px-5 py-3 border-b border-white/8 flex items-center justify-between">
                 <h2 class="text-[12px] font-mono uppercase tracking-widest text-white/50">{{ __('Parties') }}</h2>
@@ -155,6 +155,7 @@
 <script src="{{ asset('assets/static/js/flatpickr.min.js') }}"></script>
 <script>
 (function () {
+    'use strict';
     if (window.flatpickr) {
         flatpickr('.flatpickr-date', {
             dateFormat: 'Y-m-d',

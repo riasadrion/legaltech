@@ -35,7 +35,7 @@
             <div class="absolute -right-10 -top-10 w-56 h-56 glow-lime pointer-events-none"></div>
         @endif
 
-        {{-- Header --}}
+
         <div class="relative flex items-center justify-between">
             <h3 class="font-display text-3xl text-white">{{ $plan->name }}</h3>
             @if($featured)
@@ -51,7 +51,7 @@
             <p class="text-sm mt-1 relative {{ $featured ? 'text-white/65' : 'text-white/55' }}">{{ __($plan->description) }}</p>
         @endif
 
-        {{-- Price --}}
+
         <div class="mt-6 flex items-baseline gap-1 relative">
             <span class="font-display text-5xl md:text-6xl text-white">{{ $priceText }}</span>
             @if(!$isFree && !$isEnterprise && $cycleSuffix)
@@ -59,7 +59,7 @@
             @endif
         </div>
 
-        {{-- Features --}}
+
         <ul class="mt-6 space-y-2.5 text-sm relative flex-1 {{ $featured ? 'text-white/85' : 'text-white/75' }}">
             @if($plan->ai_contract_generation)
                 <li class="flex items-start gap-2">
@@ -93,7 +93,7 @@
             @endforeach
         </ul>
 
-        {{-- CTA --}}
+
         @if($action && ($action['type'] ?? 'link') === 'form')
             <form method="{{ $action['method'] ?? 'POST' }}" action="{{ $action['url'] }}" class="mt-7 relative">
                 @csrf

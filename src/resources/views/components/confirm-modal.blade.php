@@ -1,10 +1,10 @@
 <div id="confirm-modal"
      class="modal hidden fixed inset-0 z-50 flex items-center justify-center p-4"
      role="dialog" aria-modal="true">
-    {{-- Backdrop --}}
+
     <div class="modal-backdrop absolute inset-0 bg-black/50 transition-opacity duration-200" data-modal-close="confirm-modal"></div>
 
-    {{-- Panel --}}
+
     @php $isDarkTheme = str_contains(request()->getRequestUri(), '') && isset($activeTheme); @endphp
     <div id="confirm-panel"
          class="relative w-full max-w-sm rounded-2xl shadow-xl scale-95 transition-transform duration-200

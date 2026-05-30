@@ -26,7 +26,7 @@
 
 <div class="space-y-5 pb-8">
 
-    {{-- Header --}}
+
     <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div class="flex items-start gap-3">
             <a href="{{ route('admin.users.index') }}"
@@ -61,7 +61,7 @@
         @endif
     </div>
 
-    {{-- Overview --}}
+
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-12">
         <div class="flex items-center gap-4 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4 shadow-sm lg:col-span-4">
             <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-slate-900 dark:bg-slate-700 text-xl font-semibold text-white">
@@ -119,7 +119,7 @@
     </div>
 
     <div class="grid grid-cols-1 gap-5 lg:grid-cols-12">
-        {{-- Profile column --}}
+
         <div class="space-y-5 lg:col-span-4">
             <div class="overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-sm">
                 <div class="border-b border-slate-100 dark:border-slate-800 px-4 py-3">
@@ -251,7 +251,7 @@
             </div>
         </div>
 
-        {{-- Operations column --}}
+
         <div class="space-y-5 lg:col-span-8">
             @if(auth('admin')->user()->can('users.manage'))
             <div class="overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-sm">

@@ -5,7 +5,7 @@
 @section('content')
 <div class="space-y-5">
 
-    {{-- Page header --}}
+
     <div class="flex items-center justify-between">
         <div>
             <h1 class="text-xl font-bold text-gray-900">{{ __('Staff') }}</h1>

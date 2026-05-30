@@ -15,7 +15,7 @@
 
     <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
 
-        {{-- Event details --}}
+
         <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
             <div class="border-b border-gray-100 px-5 py-3.5">
                 <h3 class="text-sm font-semibold text-gray-900">{{ __('Event') }}</h3>
@@ -48,7 +48,7 @@
             </dl>
         </div>
 
-        {{-- Causer + Subject --}}
+
         <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
             <div class="border-b border-gray-100 px-5 py-3.5">
                 <h3 class="text-sm font-semibold text-gray-900">{{ __('Performed by') }}</h3>
@@ -84,7 +84,7 @@
         </div>
     </div>
 
-    {{-- Properties / Changes --}}
+
     @if(!empty($log->properties))
     <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
         <div class="border-b border-gray-100 px-5 py-3.5">

@@ -4,54 +4,40 @@ namespace App\Constants;
 
 enum Permissions: string
 {
-    // Dashboard
     case DASHBOARD_VIEW = 'dashboard.view';
 
-    // Users
     case USERS_VIEW = 'users.view';
     case USERS_MANAGE = 'users.manage';
     case USERS_DELETE = 'users.delete';
 
-    // Roles & Staff
     case ROLES_MANAGE = 'roles.manage';
     case STAFF_MANAGE = 'staff.manage';
 
-    // Payments
     case PAYMENTS_VIEW = 'payments.view';
     case PAYMENTS_MANAGE = 'payments.manage';
 
-    // KYC
     case KYC_REVIEW = 'kyc.review';
 
-    // Plans
     case PLANS_MANAGE = 'plans.manage';
 
-    // CMS
     case CMS_VIEW = 'cms.view';
     case CMS_MANAGE = 'cms.manage';
     case CMS_CUSTOM_HTML_RAW = 'cms.custom_html.raw';
 
-    // Blog
     case BLOG_VIEW = 'blog.view';
     case BLOG_MANAGE = 'blog.manage';
 
-    // Notifications
     case NOTIFICATIONS_MANAGE = 'notifications.manage';
 
-    // Support
     case SUPPORT_VIEW = 'support.view';
     case SUPPORT_MANAGE = 'support.manage';
 
-    // Reports
     case REPORTS_VIEW = 'reports.view';
 
-    // Settings
     case SETTINGS_MANAGE = 'settings.manage';
 
-    // Languages
     case LANGUAGES_MANAGE = 'languages.manage';
 
-    // System
     case SYSTEM_VIEW = 'system.view';
 
     public function group(): string

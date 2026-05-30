@@ -35,7 +35,7 @@
     <form id="ai-contract-form" method="POST" action="{{ route('user.contracts.ai.store') }}" class="space-y-5" data-no-page-loader>
         @csrf
 
-        {{-- Brief --}}
+
         <div class="rounded-2xl glass overflow-hidden">
             <div class="px-5 py-3 border-b border-white/8 flex items-center gap-2">
                 <x-heroicon-o-sparkles class="h-4 w-4 text-lime" />
@@ -64,7 +64,7 @@
             </div>
         </div>
 
-        {{-- Parties --}}
+
         <div class="rounded-2xl glass overflow-hidden">
             <div class="px-5 py-3 border-b border-white/8 flex items-center justify-between">
                 <h2 class="text-[12px] font-mono uppercase tracking-widest text-white/50">{{ __('Parties') }}</h2>
@@ -108,7 +108,7 @@
 
 </div>
 
-{{-- AI generation loader --}}
+
 <div id="ai-loader" class="hidden fixed inset-0 z-[100] items-center justify-center bg-black/80 backdrop-blur-sm">
     <div class="max-w-md w-full mx-4 rounded-2xl glass p-8 text-center">
         <div class="relative mx-auto mb-6 h-20 w-20">
@@ -133,6 +133,7 @@
 @push('scripts')
 <script>
 (function () {
+    'use strict';
     var idx = {{ count($existingParties) }};
     var briefInput = document.querySelector('textarea[name="brief"]');
 

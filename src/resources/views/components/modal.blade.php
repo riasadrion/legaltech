@@ -8,10 +8,10 @@ $maxW  = $sizes[$size] ?? $sizes['md'];
 <div id="{{ $id }}"
      class="modal hidden fixed inset-0 z-50 flex items-center justify-center p-4"
      role="dialog" aria-modal="true">
-    {{-- Backdrop --}}
+
     <div class="modal-backdrop absolute inset-0 bg-black/50" data-modal-close="{{ $id }}"></div>
 
-    {{-- Panel --}}
+
     <div class="relative w-full {{ $maxW }} bg-white dark:bg-slate-800 rounded-2xl shadow-xl">
         @if ($title)
         <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-slate-700">

@@ -5,12 +5,12 @@
 @section('content')
 <div class="space-y-5">
 
-    {{-- Stepper (only for fresh contracts in editing state) --}}
+
     @if(in_array($contract->status, ['editing', 'ready']))
         @include('user.contracts._stepper', ['step' => 5])
     @endif
 
-    {{-- Header --}}
+
     <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
         <div class="flex items-start gap-3 min-w-0">
             <a href="{{ route('user.contracts.index') }}"
@@ -31,7 +31,7 @@
             </div>
         </div>
 
-        {{-- Actions --}}
+
         <div class="flex flex-wrap items-center gap-2 lg:shrink-0">
             @if($contract->isEditable())
                 @if(is_null($contract->template_id) && !empty($contract->field_data['brief']))
@@ -106,7 +106,7 @@
     @endif
 
 
-    {{-- Generating state --}}
+
     @if($contract->status === 'generating')
     <div class="rounded-2xl glass p-12 text-center">
         <div class="inline-flex items-center gap-3 text-white/60">
@@ -119,10 +119,10 @@
     </div>
     @else
 
-    {{-- Two-column layout: editor + sidebar --}}
+
     <div class="grid lg:grid-cols-12 gap-5">
 
-        {{-- Editor / Preview --}}
+
         <div class="lg:col-span-8 space-y-4">
             @if($contract->isEditable())
             <form id="contract-save-form" method="POST" action="{{ route('user.contracts.update', $contract) }}">
@@ -133,13 +133,13 @@
                         <span class="text-[11px] font-mono uppercase tracking-widest text-white/40">{{ __('Editor') }}</span>
                     </div>
 
-                    {{-- Title --}}
+
                     <div class="px-5 pt-4">
                         <input type="text" name="title" value="{{ $contract->title }}"
                                class="ud-input font-display text-lg" placeholder="{{ __('Contract title…') }}" required />
                     </div>
 
-                    {{-- Rich text body (ProseEditor) --}}
+
                     <div class="px-5 py-4">
                         <input type="hidden" name="body_html" id="contract_body_input" value="{{ $contract->body_html }}">
                         <div class="prose-editor-init" data-input="contract_body_input"></div>
@@ -147,23 +147,23 @@
                 </div>
             </form>
             @else
-            {{-- Read-only view --}}
+
             <div class="rounded-2xl glass overflow-hidden">
                 <div class="px-5 py-3 border-b border-white/8 flex items-center gap-2">
                     <x-heroicon-o-document-text class="h-4 w-4 text-white/40" />
                     <span class="text-[11px] font-mono uppercase tracking-widest text-white/40">{{ __('Contract') }}</span>
                 </div>
                 <div class="px-6 py-6 contract-editor-body text-white/85 text-[14px] leading-relaxed">
-                    {!! $contract->body_html !!}
+                    <?php echo $contract->body_html ?>
                 </div>
             </div>
             @endif
         </div>
 
-        {{-- Sidebar --}}
+
         <div class="lg:col-span-4 space-y-4">
 
-            {{-- Parties --}}
+
             <div class="rounded-2xl glass overflow-hidden">
                 <div class="px-5 py-3 border-b border-white/8">
                     <h3 class="text-[11px] font-mono uppercase tracking-widest text-white/40">{{ __('Parties') }}</h3>
@@ -188,7 +188,7 @@
                 </div>
             </div>
 
-            {{-- Details --}}
+
             <div class="rounded-2xl glass p-5 space-y-3">
                 <h3 class="text-[11px] font-mono uppercase tracking-widest text-white/40">{{ __('Details') }}</h3>
                 <div class="space-y-2 text-[12px]">
@@ -213,7 +213,7 @@
 
 </div>
 
-{{-- AI regeneration loader --}}
+
 <div id="ai-regen-loader" class="hidden fixed inset-0 z-[100] items-center justify-center bg-black/80 backdrop-blur-sm">
     <div class="max-w-md w-full mx-4 rounded-2xl glass p-8 text-center">
         <div class="relative mx-auto mb-6 h-20 w-20">
@@ -243,6 +243,7 @@
 @push('scripts')
 <script>
 $(function () {
+    'use strict';
     document.querySelectorAll('.prose-editor-init').forEach(function (el) {
         ProseEditor.init(el);
     });

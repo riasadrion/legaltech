@@ -3,14 +3,14 @@
     $heroTyperId = 'hero-typer-' . $section->id;
 @endphp
 <section class="relative pt-36 pb-28 overflow-hidden">
-    {{-- background layers --}}
+
     <div class="absolute inset-0 bg-grid radial-fade pointer-events-none"></div>
     <div class="absolute -top-32 left-1/2 -translate-x-1/2 w-[900px] h-[420px] glow-violet"></div>
     <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[700px] h-[260px] glow-lime"></div>
 
     <div class="relative mx-auto max-w-7xl px-6">
 
-        {{-- announcement pill --}}
+
         @if(!empty($d['pill_text']))
             <div class="flex justify-center">
                 <a href="{{ $d['pill_url'] ?? '#' }}"
@@ -26,7 +26,7 @@
             </div>
         @endif
 
-        {{-- headline --}}
+
         <h1 class="mt-8 text-center font-display text-[60px] leading-[0.93] sm:text-[80px] md:text-[104px] tracking-tight">
             @if(!empty($d['heading_line_1']))
                 <span class="grad-text">{{ __($d['heading_line_1']) }} </span>
@@ -43,7 +43,7 @@
             @endif
         </h1>
 
-        {{-- subheading --}}
+
         @if(!empty($d['subheading']))
             <p class="mx-auto mt-6 max-w-xl text-center text-lg text-white/60">
                 {{ __($d['subheading']) }}
@@ -53,7 +53,7 @@
             </p>
         @endif
 
-        {{-- CTAs --}}
+
         @if(!empty($d['primary_text']) || !empty($d['secondary_text']))
             <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
                 @if(!empty($d['primary_text']))
@@ -73,12 +73,12 @@
             </div>
         @endif
 
-        {{-- HERO MOCKUP (presentational; not admin-editable) --}}
+
         <div class="relative mt-14 floaty">
             <div class="relative mx-auto max-w-5xl rounded-[28px] glass shadow-card p-2.5">
                 <div class="rounded-[22px] bg-ink-900/80 border border-white/8 overflow-hidden">
 
-                    {{-- chrome --}}
+
                     <div class="flex items-center gap-4 px-4 py-3 border-b border-white/8 bg-ink-800/70">
                         <div class="flex gap-1.5">
                             <span class="w-2.5 h-2.5 rounded-full bg-white/15"></span>
@@ -93,10 +93,10 @@
                         </div>
                     </div>
 
-                    {{-- body grid --}}
+
                     <div class="grid grid-cols-12 min-h-[420px]">
 
-                        {{-- sidebar --}}
+
                         <aside class="col-span-3 hidden md:flex flex-col border-r border-white/8 p-4 gap-0.5">
                             <div class="flex items-center gap-2 px-2 py-1.5 mb-3">
                                 <span class="w-7 h-7 rounded-full bg-lime grid place-items-center">
@@ -131,7 +131,7 @@
                             </div>
                         </aside>
 
-                        {{-- editor --}}
+
                         <main class="col-span-12 md:col-span-9 p-5 md:p-6">
 
                             <div class="flex items-start justify-between mb-4">
@@ -145,7 +145,7 @@
                                 </div>
                             </div>
 
-                            {{-- typer banner --}}
+
                             <div class="rounded-xl bg-ink-800/60 border border-white/8 p-4 hero-typer-wrap">
                                 <div class="flex items-center gap-2 text-[10px] font-mono text-white/40 mb-2">
                                     <span class="w-1.5 h-1.5 rounded-full bg-lime"></span>
@@ -235,7 +235,7 @@
                 </div>
             </div>
 
-            {{-- floating glass cards --}}
+
             <div class="absolute bottom-6 left-6 z-10 rounded-2xl px-4 py-3 flex items-center gap-3 shadow-card hero-float-card hidden md:flex">
                 <span class="relative flex h-2.5 w-2.5 shrink-0">
                     <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-lime opacity-60"></span>

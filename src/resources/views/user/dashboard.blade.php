@@ -11,7 +11,7 @@
 
 <div class="space-y-6">
 
-    {{-- Welcome + hero --}}
+
     @php
         try { $recentPayment = $user->payments()->latest()->first(); } catch(\Throwable) { $recentPayment = null; }
         $pendingPayments = 0;
@@ -44,7 +44,7 @@
                     @endif
                 </p>
 
-                {{-- AI prompt --}}
+
                 <form method="GET" action="{{ route('user.contracts.ai.create') }}" class="mt-7 max-w-xl">
                     <div class="flex items-center gap-2 rounded-2xl bg-ink-900/70 border border-white/10 p-2 pl-4 focus-within:border-lime/40 transition">
                         <x-heroicon-o-sparkles class="h-4 w-4 text-lime shrink-0" />
@@ -67,7 +67,7 @@
 
             </div>
 
-            {{-- Right contract card --}}
+
             <div class="md:col-span-5 mt-2 md:mt-0">
                 <div class="relative rounded-2xl bg-ink-900/70 border border-white/10 p-5">
                     @if($recentContract)
@@ -134,7 +134,7 @@
         </div>
     </section>
 
-    {{-- Nudges --}}
+
     @if(count($nudges))
     <div class="space-y-2" id="nudge-list">
         @foreach($nudges as $nudge)
@@ -150,14 +150,14 @@
     </div>
     @endif
 
-    {{-- Stats — match template card style --}}
+
     @php
         try { $totalPayments = $user->payments()->count(); } catch(\Throwable) { $totalPayments = 0; }
         try { $completedPayments = $user->payments()->where('status','completed')->count(); } catch(\Throwable) { $completedPayments = 0; }
     @endphp
     <section class="grid grid-cols-2 md:grid-cols-4 gap-3">
 
-        {{-- Wallet --}}
+
         <div class="rounded-2xl glass p-5 relative overflow-hidden">
             <div class="flex items-center justify-between">
                 <span class="text-[11px] font-mono uppercase tracking-widest text-white/45">{{ __('Wallet') }}</span>
@@ -172,7 +172,7 @@
             </svg>
         </div>
 
-        {{-- Subscription --}}
+
         <div class="rounded-2xl glass p-5 relative overflow-hidden">
             <div class="flex items-center justify-between">
                 <span class="text-[11px] font-mono uppercase tracking-widest text-white/45">{{ __('Plan') }}</span>
@@ -192,7 +192,7 @@
             @endif
         </div>
 
-        {{-- Credits --}}
+
         <div class="rounded-2xl glass p-5 relative overflow-hidden">
             <div class="flex items-center justify-between">
                 <span class="text-[11px] font-mono uppercase tracking-widest text-white/45">{{ __('Credits') }}</span>
@@ -219,7 +219,7 @@
             @endif
         </div>
 
-        {{-- Renews / Payments --}}
+
         <div class="rounded-2xl glass p-5 relative overflow-hidden">
             <div class="flex items-center justify-between">
                 <span class="text-[11px] font-mono uppercase tracking-widest text-white/45">{{ __('Renews') }}</span>
@@ -238,7 +238,7 @@
 
     </section>
 
-    {{-- Recent payments table --}}
+
     @php
         try { $payments = $user->payments()->latest()->limit(6)->get(); } catch (\Exception $e) { $payments = collect([]); }
     @endphp

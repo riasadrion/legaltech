@@ -4,17 +4,17 @@
 
 @section('content')
 <div class="max-w-6xl mx-auto py-12 px-4 space-y-8">
-    {{-- Header --}}
+
     <div class="text-center space-y-3 mb-12">
         <h1 class="text-3xl font-bold text-gray-900">Plans & Pricing</h1>
         <p class="text-lg text-gray-600">Choose the plan that works best for you</p>
     </div>
 
-    {{-- Plans grid --}}
+
     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         @forelse($plans as $plan)
         <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden flex flex-col">
-            {{-- Plan header --}}
+
             <div class="px-6 py-6 border-b border-gray-100">
                 <h2 class="text-xl font-bold text-gray-900">{{ $plan->name }}</h2>
                 @if($plan->description)
@@ -27,7 +27,7 @@
 
             </div>
 
-            {{-- Features --}}
+
             <div class="px-6 py-6 flex-1">
                 @if($plan->features && count($plan->features) > 0)
                     <ul class="space-y-3">
@@ -45,7 +45,7 @@
                 @endif
             </div>
 
-            {{-- CTA Button --}}
+
             <div class="px-6 py-6 border-t border-gray-100">
                 @auth('user')
                     <form method="POST" action="{{ route('user.subscription.subscribe') }}">
@@ -56,7 +56,7 @@
                         </button>
                     </form>
                 @else
-                    {{-- Guest user --}}
+
                     <a href="{{ route('register') }}" class="w-full block text-center rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700">
                         Get started
                     </a>

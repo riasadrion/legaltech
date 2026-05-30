@@ -16,7 +16,7 @@
 
         <div class="footer-main-grid">
 
-            {{-- Brand + newsletter --}}
+
             @php
                 $footerSiteName = setting('site.name', config('app.name'));
                 $footerLogo     = setting('site.logo');
@@ -44,7 +44,7 @@
                     {{ setting('site.tagline', __('Built for modern teams. Fast, secure, and ready out of the box.')) }}
                 </p>
 
-                {{-- Newsletter --}}
+
                 <form id="newsletter-form" method="POST" action="{{ route('newsletter.subscribe') }}"
                       class="relative mt-8 flex items-center gap-2 glass rounded-full p-1.5 pl-4 max-w-sm">
                     @csrf
@@ -52,7 +52,7 @@
                     <input type="email" name="email" required
                            placeholder="{{ __('you@company.com') }}"
                            class="flex-1 min-w-0 bg-transparent outline-none text-sm placeholder:text-white/35 text-white py-2">
-                    {{-- honeypot --}}
+
                     <input type="text" name="website" tabindex="-1" autocomplete="off"
                            class="absolute opacity-0 pointer-events-none -z-10" aria-hidden="true">
                     <button type="submit" class="btn-lime rounded-full text-sm px-4 py-2 shrink-0">
@@ -64,7 +64,7 @@
                 </p>
             </div>
 
-            {{-- Dynamic footer columns from menu --}}
+
             <div class="footer-nav-grid">
             @foreach($footerColumns as $column)
                 @if($column->children->isNotEmpty())

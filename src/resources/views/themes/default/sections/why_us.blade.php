@@ -11,7 +11,7 @@
     <div class="absolute inset-0 bg-grid-cream radial-fade pointer-events-none"></div>
     <div class="relative mx-auto max-w-7xl px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
 
-        {{-- Left --}}
+
         <div>
             @if($eyebrow)
                 <div class="text-[11px] font-mono uppercase tracking-[.25em] text-ink-500 mb-3">— {{ __($eyebrow) }}</div>
@@ -35,7 +35,7 @@
             @endif
         </div>
 
-        {{-- Right: feature cards --}}
+
         @if(!empty($cards))
             <div class="grid grid-cols-2 gap-3">
                 @foreach($cards as $card)

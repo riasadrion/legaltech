@@ -48,7 +48,8 @@
 
 @push('scripts')
 <script>
-document.querySelector('form').addEventListener('submit', function () {
+
+    'use strict';
     const btn = document.getElementById('add-lang-btn');
     const spinner = document.getElementById('add-lang-spinner');
     const icon = document.getElementById('add-lang-icon');

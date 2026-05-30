@@ -9,7 +9,7 @@
 
 <div class="space-y-6">
 
-    {{-- Page heading --}}
+
     <div>
         <h1 class="ud-page-title">{{ __('Profile Settings') }}</h1>
         <p class="ud-page-sub">{{ __('Manage your personal information and account security.') }}</p>
@@ -17,7 +17,7 @@
 
     <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
 
-    {{-- ── Avatar & basic info — spans 2 cols ── --}}
+
     <div class="ud-card lg:col-span-2">
         <div class="ud-card-header">
             <div>
@@ -30,7 +30,7 @@
             @csrf
             @method('PUT')
 
-            {{-- Avatar --}}
+
             <div class="flex items-center gap-5 mb-6">
                 <div class="ud-avatar-wrap">
                     @if($user->avatar_path)
@@ -59,7 +59,7 @@
                 </div>
             </div>
 
-            {{-- Name + username --}}
+
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
                     <label class="ud-label" for="name">{{ __('Full name') }} <span class="text-red-400">*</span></label>
@@ -75,7 +75,7 @@
                 </div>
             </div>
 
-            {{-- Contact --}}
+
             <div class="mt-4">
                 <label class="ud-label">{{ __('Phone number') }}</label>
                 <x-phone-input
@@ -87,7 +87,7 @@
                 @error('mobile') <div class="ud-field-err">{{ $message }}</div> @enderror
             </div>
 
-            {{-- Address --}}
+
             <div class="mt-4">
                 <label class="ud-label" for="address">{{ __('Address') }}</label>
                 <input type="text" id="address" name="address" value="{{ old('address', $user->address) }}"
@@ -127,10 +127,10 @@
         </form>
     </div>
 
-    {{-- ── Right column: Email + Password ── --}}
+
     <div class="space-y-6">
 
-        {{-- Email --}}
+
         <div class="ud-card">
             <div class="ud-card-header">
                 <div>
@@ -152,7 +152,7 @@
             @endif
         </div>
 
-        {{-- Password --}}
+
         <div class="ud-card">
             <div class="ud-card-header">
                 <div>
@@ -191,9 +191,9 @@
             </form>
         </div>
 
-    </div>{{-- end right column --}}
+    </div>
 
-    </div>{{-- end grid --}}
+    </div>
 
 </div>
 

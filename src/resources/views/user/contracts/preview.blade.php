@@ -18,7 +18,7 @@
 
     @include('user.contracts._stepper', ['step' => 4])
 
-    {{-- Filled fields --}}
+
     <div class="rounded-2xl glass overflow-hidden">
         <div class="px-5 py-3 border-b border-white/8 flex items-center justify-between">
             <h2 class="text-[12px] font-mono uppercase tracking-widest text-white/50">{{ __('Contract Details') }}</h2>
@@ -47,7 +47,7 @@
         </div>
     </div>
 
-    {{-- Parties --}}
+
     <div class="rounded-2xl glass overflow-hidden">
         <div class="px-5 py-3 border-b border-white/8 flex items-center justify-between">
             <h2 class="text-[12px] font-mono uppercase tracking-widest text-white/50">{{ __('Parties') }}</h2>
@@ -66,7 +66,7 @@
         </div>
     </div>
 
-    {{-- Generate button --}}
+
     <form method="POST" action="{{ route('user.contracts.store') }}" class="flex items-center justify-between gap-3">
         @csrf
         <input type="hidden" name="template_id" value="{{ $template->id }}">

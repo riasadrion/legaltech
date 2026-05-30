@@ -9,13 +9,13 @@
 @section('content')
 <div class="space-y-5">
 
-    {{-- Page header --}}
+
     <div>
         <h1 class="text-xl font-bold text-gray-900">{{ __('Reports') }}</h1>
         <p class="mt-0.5 text-sm text-gray-500">{{ __('Filter and export platform data.') }}</p>
     </div>
 
-    {{-- Filter bar --}}
+
     <form method="GET" action="{{ route('admin.reports.index') }}" class="flex flex-wrap items-center gap-2">
 
         <select name="type" data-auto-submit
@@ -60,7 +60,7 @@
         @endif
     </form>
 
-    {{-- Table --}}
+
     <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
         @if($data->isEmpty())
         <div class="px-4 py-14 text-center text-sm text-gray-400">{{ __('No records found. Try adjusting the filters.') }}</div>

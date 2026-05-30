@@ -1,4 +1,4 @@
-{{-- Wired once per page; supports any number of repeater containers. --}}
+
 <script>
 $(function () {
     'use strict';

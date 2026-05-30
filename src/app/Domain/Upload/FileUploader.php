@@ -18,15 +18,12 @@ class FileUploader
     ): UploadedFileMeta {
         $config = $this->moduleConfig($module);
 
-        // Step 1 — Validate
         $this->validateExtension($file, $config);
         $this->validateSize($file, $config);
 
-        // Step 2 — Sniff real MIME from bytes
         $realMime = $this->sniffMime($file);
         $this->assertMimeAllowed($realMime, $config, $module);
 
-        // Step 3 — Re-encode images to strip payloads/EXIF
         $filename = $this->buildFilename($file, $realMime);
         $directory = $this->resolveDirectory($config, $module, $ownerId, $subResourceId);
         $path = rtrim($directory, '/').'/'.$filename;
@@ -34,8 +31,6 @@ class FileUploader
         $disk = $this->resolveDisk($config);
         $this->writeFile($file, $realMime, $path, $disk, $maxWidth ?? $config['max_width'] ?? null);
 
-        // Step 4 — Return meta
-        // Store the relative path only; use upload_url() helper to build display URLs.
         $publicUrl = $config['public'] ? $path : null;
 
         return new UploadedFileMeta(
@@ -48,8 +43,6 @@ class FileUploader
         );
     }
 
-    // --- Config ---
-
     private function moduleConfig(string $module): array
     {
         $modules = config('uploads.modules', []);
@@ -60,17 +53,13 @@ class FileUploader
         return $modules[$module];
     }
 
-    // --- Validation ---
-
     private function validateExtension(UploadedFile $file, array $config): void
     {
         $ext = strtolower($file->getClientOriginalExtension());
 
-        // Reject double extensions — only last extension counts
         $originalName = $file->getClientOriginalName();
         $parts = explode('.', $originalName);
         if (count($parts) > 2) {
-            // More than one dot — treat last segment as extension, but warn on penultimate
             $penultimate = strtolower($parts[count($parts) - 2]);
             $phpExts = ['php', 'phtml', 'phar', 'html', 'htm', 'js', 'sh', 'py', 'rb', 'pl'];
             if (in_array($penultimate, $phpExts, true)) {
@@ -114,8 +103,6 @@ class FileUploader
         }
     }
 
-    // --- Path resolution ---
-
     private function resolveDirectory(array $config, string $module, ?int $ownerId, ?int $subResourceId): string
     {
         return match ($config['pattern']) {
@@ -133,8 +120,6 @@ class FileUploader
             return 'private';
         }
 
-        // Public uploads always go to public/assets/uploads/
-        // When buyer switches to S3/R2/etc, we use that driver for public uploads too
         try {
             $driver = Settings::string('storage.driver', 'local');
 
@@ -143,8 +128,6 @@ class FileUploader
            return 'uploads';
         }
     }
-
-    // --- File writing ---
 
     private function buildFilename(UploadedFile $file, string $mime): string
     {

@@ -10,6 +10,7 @@
 @if (!empty($messages))
 <script>
 (function () {
+    'use strict';
     var queue = @json($messages);
     function flush() {
         if (!window.toast) {

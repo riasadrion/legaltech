@@ -3,13 +3,13 @@
 @section('content')
 <div class="space-y-5">
 
-    {{-- Page header --}}
+
     <div>
         <h1 class="text-xl font-bold text-gray-900">{{ __('Users') }}</h1>
         <p class="mt-0.5 text-sm text-gray-500">{{ __(':count registered users', ['count' => number_format($users->total())]) }}</p>
     </div>
 
-    {{-- Filters --}}
+
     <div class="flex flex-wrap items-center justify-between gap-3">
         <x-status-pills :items="$statusPills" :current="request('status', '')" />
         <form method="GET" class="flex items-center gap-2">
@@ -30,11 +30,11 @@
         </form>
     </div>
 
-    {{-- Bulk + table --}}
+
     <form method="POST" action="{{ route('admin.users.bulk') }}" id="bulk-form">
         @csrf
 
-        {{-- Bulk action bar --}}
+
         <div id="bulk-bar" class="hidden mb-3 flex items-center gap-3 rounded-xl border border-amber-200 bg-amber-50 px-4 py-2.5 shadow-sm">
             <span class="text-sm font-semibold text-amber-700" id="bulk-count">{{ __('0 selected') }}</span>
             <span class="h-4 w-px bg-amber-200"></span>
@@ -54,7 +54,7 @@
             </button>
         </div>
 
-        {{-- Table --}}
+
         <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
             <table class="min-w-full divide-y divide-gray-200 text-sm responsive-table">
                 <thead class="bg-gray-50">
@@ -170,7 +170,7 @@
 
 </div>
 
-{{-- Hidden form for impersonation (outside bulk form to avoid nesting) --}}
+
 <form id="impersonate-form" method="POST" action="" class="hidden" target="_blank">
     @csrf
 </form>

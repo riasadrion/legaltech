@@ -3,13 +3,13 @@
 @section('content')
 <div class="space-y-5">
 
-    {{-- Page header --}}
+
     <div>
         <h1 class="text-xl font-bold text-gray-900">{{ __('Payments') }}</h1>
         <p class="mt-0.5 text-sm text-gray-500">{{ __('All user payment requests.') }}</p>
     </div>
 
-    {{-- Filters --}}
+
     <div class="flex flex-wrap items-center justify-between gap-3">
         <x-status-pills :items="$statusPills" :current="request('status', '')" />
         <form method="GET" class="flex items-center gap-2">

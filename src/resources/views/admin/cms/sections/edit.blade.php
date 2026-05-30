@@ -20,7 +20,7 @@
 
         <div class="rounded-xl border border-gray-200 bg-white p-6 space-y-5 mt-5">
 
-            {{-- Enabled toggle --}}
+
             <div class="flex items-center justify-between pb-4 border-b border-gray-100">
                 <label class="text-sm font-medium text-gray-700">Enabled</label>
                 <label class="relative inline-flex cursor-pointer items-center">
@@ -76,7 +76,8 @@
 
 @push('scripts')
 <script>
-onAdminReady(function () {
+
+    'use strict';
     document.querySelectorAll('.prose-editor-init').forEach(function (el) {
         ProseEditor.init(el)
     })

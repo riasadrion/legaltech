@@ -115,7 +115,7 @@
                 @endforeach
             </div>
 
-            {{-- Hidden template row: rendered with placeholder __INDEX__ that JS substitutes --}}
+
             <template id="{{ $repeaterId }}-template">
                 <div class="repeater-row rounded-lg border border-gray-200 bg-white p-4">
                     <div class="flex items-start justify-between gap-3">

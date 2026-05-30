@@ -67,7 +67,7 @@
                     <span class="ml-auto ud-badge ud-badge-gray">{{ __('Unverified') }}</span>
                 </div>
 
-                {{-- Steps --}}
+
                 <div class="grid grid-cols-1 gap-3 sm:grid-cols-3">
                     @foreach([
                         ['icon' => 'heroicon-o-document-text', 'step' => '1', 'title' => __('Submit Documents'), 'desc' => __('Upload your ID or passport')],

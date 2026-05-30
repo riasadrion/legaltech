@@ -21,7 +21,7 @@
         </div>
     </div>
 
-    {{-- Filters --}}
+
     <form method="GET" class="flex flex-wrap items-center gap-2">
         <select name="category" onchange="this.form.submit()"
                 class="h-9 rounded-lg border border-gray-300 px-3 text-sm shadow-sm focus:border-brand-500 focus:outline-none">

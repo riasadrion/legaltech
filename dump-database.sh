@@ -1,18 +1,12 @@
 #!/usr/bin/env bash
-# dump-database.sh
-# Exports a clean, buyer-ready SQL file to Database/database.sql
-# Works by dumping the full database then stripping user-generated rows from the SQL file.
-# Your live database is NEVER modified.
-# Usage: bash dump-database.sh
-
+# Exports a clean, buyer-ready SQL to Database/database.sql
+# Dumps full DB then strips user-generated rows — live database is never modified.
 set -euo pipefail
 
-# ── Config ────────────────────────────────────────────────────────────────────
 ENV_FILE="src/.env"
 OUT_DIR="Database"
 OUT_FILE="$OUT_DIR/database.sql"
 
-# ── Read .env ─────────────────────────────────────────────────────────────────
 if [[ ! -f "$ENV_FILE" ]]; then
     echo "❌  $ENV_FILE not found. Run this script from the project root."
     exit 1
@@ -43,7 +37,6 @@ fi
 
 echo "📦  Database: $DB_DATABASE @ $DB_HOST:$DB_PORT"
 
-# ── Tables to dump as empty (structure only, no rows) ─────────────────────────
 EMPTY_TABLES=(
     users
     social_accounts
@@ -81,7 +74,6 @@ EMPTY_TABLES=(
 
 mkdir -p "$OUT_DIR"
 
-# ── Step 1: Dump all tables with data ─────────────────────────────────────────
 echo "💾  Dumping full database..."
 
 mysqldump "${MYSQL_ARGS[@]}" \
@@ -94,11 +86,9 @@ mysqldump "${MYSQL_ARGS[@]}" \
     --set-gtid-purged=OFF \
     "$DB_DATABASE" > "$OUT_FILE"
 
-# ── Step 2: Strip INSERT rows for user-generated tables (post-process the SQL) ─
 echo "🧹  Removing user-generated rows from SQL file..."
 
 for tbl in "${EMPTY_TABLES[@]}"; do
-    # Remove all INSERT INTO `table` ... lines for this table
     perl -i -0pe "s/INSERT INTO \`${tbl}\`[^\n]*\n//g" "$OUT_FILE"
 done
 

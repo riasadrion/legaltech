@@ -4,7 +4,7 @@
 
 @section('content')
 
-{{-- Hero --}}
+
 <div class="relative bg-ink-950 pt-36 pb-20 overflow-hidden">
     <div class="absolute inset-0 bg-grid opacity-[0.03] pointer-events-none"></div>
     <div class="radial-fade pointer-events-none"></div>

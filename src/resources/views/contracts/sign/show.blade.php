@@ -12,13 +12,13 @@
 </head>
 <body class="min-h-screen flex flex-col items-center justify-center px-4 py-12 theme-default">
 
-{{-- Background decoration --}}
+
 <div class="pointer-events-none fixed inset-0 overflow-hidden -z-10">
     <div class="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full bg-lime/5 blur-[120px]"></div>
     <div class="absolute -bottom-40 -right-40 w-[500px] h-[500px] rounded-full bg-lime/3 blur-[100px]"></div>
 </div>
 
-{{-- Brand --}}
+
 <div class="mb-8 text-center">
     <a href="{{ url('/') }}" class="font-display text-2xl text-white tracking-tight">{{ config('app.name') }}</a>
 </div>
@@ -35,18 +35,18 @@
         </p>
     </div>
 
-    {{-- Contract preview --}}
+
     <div class="rounded-2xl glass border border-white/10 overflow-hidden">
         <div class="flex items-center gap-2 px-5 py-3 border-b border-white/8 bg-white/3">
             <x-heroicon-o-document-text class="h-4 w-4 text-white/40 shrink-0" />
             <span class="text-[12px] text-white/40 font-medium uppercase tracking-widest">{{ __('Contract Document') }}</span>
         </div>
         <div class="px-6 py-6 max-h-[50vh] overflow-y-auto contract-editor-body text-white/80 text-[13px] leading-relaxed scrollbar-dark">
-            {!! $contract->body_html !!}
+            <?php echo $contract->body_html ?>
         </div>
     </div>
 
-    {{-- Agreement & sign --}}
+
     <div class="rounded-2xl glass border border-white/10 p-6 space-y-4">
         <p class="text-[13px] text-white/55 leading-relaxed">
             {{ __('By clicking "I Agree and Sign", you confirm that you have read the contract above and agree to be legally bound by its terms. Your IP address and timestamp will be recorded as proof of your signature.') }}

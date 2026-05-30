@@ -11,7 +11,7 @@
     <form id="template-form" method="POST" action="{{ route('admin.contracts.templates.store') }}" class="space-y-5" data-no-page-loader>
         @csrf
 
-        {{-- Basic details --}}
+
         <div class="rounded-xl border border-gray-200 bg-white shadow-sm p-5 space-y-4">
             <h2 class="font-semibold text-gray-800">{{ __('Template Details') }}</h2>
 
@@ -57,7 +57,7 @@
             </div>
         </div>
 
-        {{-- Description / brief --}}
+
         <div class="rounded-xl border border-gray-200 bg-white shadow-sm p-5 space-y-3">
             <div>
                 <h2 class="font-semibold text-gray-800">{{ __('Contract Description') }} <span class="text-red-500">*</span></h2>
@@ -87,7 +87,7 @@
 
 </div>
 
-{{-- AI generation loader overlay --}}
+
 <div id="ai-loader" class="hidden fixed inset-0 z-[100] items-center justify-center bg-gray-900/80 backdrop-blur-sm">
     <div class="max-w-md w-full mx-4 rounded-2xl bg-white shadow-2xl p-8 text-center">
         <div class="relative mx-auto mb-6 h-20 w-20">
@@ -111,6 +111,7 @@
 @push('scripts')
 <script>
 (function () {
+    'use strict';
     var form   = document.getElementById('template-form');
     var loader = document.getElementById('ai-loader');
     var step   = document.getElementById('ai-loader-step');

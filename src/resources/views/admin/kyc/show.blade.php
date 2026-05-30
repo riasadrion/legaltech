@@ -14,7 +14,7 @@
         <span class="inline-flex rounded-full px-2.5 py-0.5 text-xs font-semibold {{ $sc }}">{{ ucfirst($submission->status) }}</span>
     </div>
 
-    {{-- User info --}}
+
     <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
         <div class="border-b border-gray-100 px-5 py-3.5">
             <h2 class="text-sm font-semibold text-gray-900">User</h2>
@@ -26,7 +26,7 @@
         </div>
     </div>
 
-    {{-- Submitted data --}}
+
     <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
         <div class="border-b border-gray-100 px-5 py-3.5">
             <h2 class="text-sm font-semibold text-gray-900">Submitted details</h2>
@@ -41,7 +41,7 @@
         </dl>
     </div>
 
-    {{-- Documents --}}
+
     @if(!empty($submission->documents))
     <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
         <div class="border-b border-gray-100 px-5 py-3.5">
@@ -62,7 +62,7 @@
     </div>
     @endif
 
-    {{-- Actions --}}
+
     @if($submission->isPending())
     <div class="flex gap-3">
         <form method="POST" action="{{ route('admin.kyc.approve', $submission) }}" class="flex-1">

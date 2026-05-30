@@ -7,7 +7,7 @@
 
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-    {{-- Thread --}}
+
     <div class="lg:col-span-2 space-y-4">
         @foreach($ticket->messages as $msg)
         @php
@@ -55,7 +55,7 @@
         </div>
         @endforeach
 
-        {{-- Reply form --}}
+
         @if($ticket->isOpen())
         <div class="bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 p-5">
             <h3 class="text-sm font-semibold text-gray-900 dark:text-slate-100 mb-3">Reply</h3>
@@ -83,9 +83,9 @@
         @endif
     </div>
 
-    {{-- Sidebar --}}
+
     <div class="space-y-4">
-        {{-- Details --}}
+
         <div class="bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 p-5 space-y-3 text-sm">
             <h3 class="font-semibold text-gray-900 dark:text-slate-100">Details</h3>
             <div><span class="text-gray-500 dark:text-slate-400">From</span><div class="font-medium dark:text-slate-200">{{ $ticket->getAuthorName() }}</div><div class="text-gray-400 dark:text-slate-500 text-xs">{{ $ticket->getAuthorEmail() }}</div></div>
@@ -97,7 +97,7 @@
             @endif
         </div>
 
-        {{-- Status --}}
+
         <div class="bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 p-5">
             <h3 class="font-semibold text-gray-900 dark:text-slate-100 mb-3 text-sm">Change Status</h3>
             <form method="POST" action="{{ route('admin.support.tickets.status', $ticket) }}">
@@ -111,7 +111,7 @@
             </form>
         </div>
 
-        {{-- Assign --}}
+
         <div class="bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 p-5">
             <h3 class="font-semibold text-gray-900 dark:text-slate-100 mb-3 text-sm">Assign To</h3>
             <form method="POST" action="{{ route('admin.support.tickets.assign', $ticket) }}">
@@ -126,7 +126,7 @@
             </form>
         </div>
 
-        {{-- Actions --}}
+
         <div class="bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 p-5 space-y-2">
             @if($ticket->isOpen())
             <form method="POST" action="{{ route('admin.support.tickets.close', $ticket) }}">

@@ -3,7 +3,7 @@
 @section('content')
 <div class="space-y-5">
 
-    {{-- Header --}}
+
     <div class="flex items-center gap-3">
         <a href="{{ route('admin.cms.pages.index') }}"
            class="flex h-8 w-8 items-center justify-center rounded-lg border border-gray-200 bg-white text-gray-500 shadow-sm hover:bg-gray-50">
@@ -17,10 +17,10 @@
 
     <div class="grid grid-cols-1 gap-5 lg:grid-cols-3 lg:items-start">
 
-        {{-- Left: Section manager --}}
+
         <div class="lg:col-span-2 space-y-4">
 
-            {{-- Sections list --}}
+
             <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
                 <div class="border-b border-gray-100 px-5 py-3.5 flex items-center justify-between">
                     <h3 class="text-sm font-semibold text-gray-900">{{ __('Sections') }}</h3>
@@ -79,7 +79,7 @@
                 @endif
             </div>
 
-            {{-- Add section --}}
+
             @if($availableTypes->isNotEmpty() || $reusableSections->isNotEmpty())
             <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
                 <div class="border-b border-gray-100 px-5 py-3.5">
@@ -123,7 +123,7 @@
             @endif
         </div>
 
-        {{-- Right: Page settings --}}
+
         <div>
             <form method="POST" action="{{ route('admin.cms.pages.update', $page) }}" class="space-y-4">
                 @csrf @method('PUT')
@@ -169,7 +169,8 @@
 
 @push('scripts')
 <script>
-onAdminReady(function () {
+
+    'use strict';
     var el = document.getElementById('sections-sortable');
     if (!el || typeof Sortable === 'undefined') return;
 

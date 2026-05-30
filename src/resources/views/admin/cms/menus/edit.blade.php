@@ -11,7 +11,7 @@
         <h1 class="text-xl font-bold text-gray-900">{{ $menu->getLocalName() }}</h1>
     </div>
 
-    {{-- Current items --}}
+
     <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
         <div class="border-b border-gray-100 px-5 py-3.5 flex items-center justify-between">
             <h3 class="text-sm font-semibold text-gray-900">Items</h3>
@@ -42,7 +42,7 @@
         @endif
     </div>
 
-    {{-- Add item --}}
+
     <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
         <div class="border-b border-gray-100 px-5 py-3.5">
             <h3 class="text-sm font-semibold text-gray-900">Add item</h3>
@@ -86,7 +86,8 @@
 
 @push('scripts')
 <script>
-onAdminReady(function () {
+
+    'use strict';
     var el = document.getElementById('menu-items-sortable');
     if (el && typeof Sortable !== 'undefined') {
         Sortable.create(el, {

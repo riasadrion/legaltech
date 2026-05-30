@@ -32,7 +32,7 @@
             <div class="divide-y divide-white/6">
                 @foreach($notifications as $n)
                 <div class="flex items-start gap-4 px-5 py-4 {{ $n->read_at ? 'opacity-60' : '' }} hover:bg-white/3 transition-colors">
-                    {{-- unread dot --}}
+
                     <div class="mt-1.5 shrink-0">
                         @if(!$n->read_at)
                             <span class="block h-2 w-2 rounded-full bg-lime"></span>

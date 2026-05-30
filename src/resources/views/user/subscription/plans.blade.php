@@ -35,7 +35,7 @@
         <p class="text-white/65 mt-4">{{ __('Switch anytime — your history follows you.') }}</p>
     </div>
 
-    {{-- Tab toggle --}}
+
     <div class="flex justify-center" id="plan-tabs">
         <div class="glass rounded-full p-1 flex items-center text-sm gap-0.5">
             @foreach($availableTabs as $cycle => $label)
@@ -48,7 +48,7 @@
         </div>
     </div>
 
-    {{-- Plan grids per tab --}}
+
     @foreach($availableTabs as $cycle => $_)
     @php $cyclePlans = $grouped->get($cycle, collect()); @endphp
     <div class="plan-tab-panel grid md:grid-cols-3 gap-5 {{ $cycle !== $defaultTab ? 'hidden' : '' }}" data-panel="{{ $cycle }}">
@@ -71,6 +71,7 @@
 @push('scripts')
 <script>
 $(function () {
+    'use strict';
     $(document).on('click', '.plan-tab-btn', function () {
         var tab = $(this).data('tab');
         $('.plan-tab-btn').removeClass('bg-lime text-ink-900').addClass('text-white/65');

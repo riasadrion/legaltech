@@ -37,26 +37,26 @@
 
     <x-preloader />
 
-    {{-- Flash messages --}}
+
     <x-flash />
 
-    {{-- Navigation --}}
+
     @hasSection('nav')
         @yield('nav')
     @else
         @include('theme::partials.nav')
     @endif
 
-    {{-- Main content --}}
+
     <main>
         {{ $slot ?? '' }}
         @yield('content')
     </main>
 
-    {{-- Footer --}}
+
     @include('theme::partials.footer')
 
-    {{-- Global Confirm Modal --}}
+
     <x-confirm-modal />
 
     <x-integrations.tawk />

@@ -6,7 +6,7 @@
 <x-page-header title="System Health" subtitle="Monitor system status and manage application caches." />
 
 <div class="space-y-6">
-    {{-- Health indicators --}}
+
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         @foreach([
             ['key' => 'db',      'label' => 'Database'],
@@ -31,7 +31,7 @@
         @endforeach
     </div>
 
-    {{-- Cache flush --}}
+
     <div class="bg-white rounded-xl border border-gray-200 p-6">
         <h2 class="text-base font-semibold text-gray-800 mb-4">Cache Management</h2>
         <div class="flex flex-wrap gap-3">

@@ -7,7 +7,7 @@
 
     <div class="grid grid-cols-1 gap-5 lg:grid-cols-2 lg:items-start">
 
-        {{-- Existing tags --}}
+
         <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
             <div class="border-b border-gray-100 px-5 py-3.5">
                 <h3 class="text-sm font-semibold text-gray-900">{{ __('All tags') }}</h3>
@@ -34,7 +34,7 @@
             @endif
         </div>
 
-        {{-- Add tag --}}
+
         <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
             <div class="border-b border-gray-100 px-5 py-3.5">
                 <h3 class="text-sm font-semibold text-gray-900">{{ __('New tag') }}</h3>

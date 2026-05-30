@@ -19,10 +19,8 @@ class TranslationController extends Controller
         $selectedLang = Language::findByCode($locale);
         $langDirection = $selectedLang?->direction ?? 'ltr';
 
-        // Read default locale translations
         $allTranslations = $this->readJsonTranslations($defaultLocale);
 
-        // Filter by search query
         if ($request->filled('q')) {
             $q = strtolower($request->q);
             $allTranslations = array_filter($allTranslations, function ($key, $value) use ($q) {
@@ -32,11 +30,9 @@ class TranslationController extends Controller
 
         ksort($allTranslations);
 
-        // Convert to objects with ->key property for the view
         $allObjects = collect(array_keys($allTranslations))
             ->map(fn ($key) => (object) ['key' => $key]);
 
-        // Paginate
         $perPage = 50;
         $currentPage = LengthAwarePaginator::resolveCurrentPage();
         $currentPageItems = $allObjects->slice(($currentPage - 1) * $perPage, $perPage)->values();
@@ -49,7 +45,6 @@ class TranslationController extends Controller
             ['path' => $request->url(), 'query' => $request->query()]
         );
 
-        // Read existing translations for selected locale
         $localeTranslations = $this->readJsonTranslations($locale);
         $existingTranslations = [];
         foreach ($currentPageItems as $obj) {
@@ -74,12 +69,10 @@ class TranslationController extends Controller
 
         $defaultLocale = Language::default()?->code ?? 'en';
 
-        // Add to default locale
         $defaultTranslations = $this->readJsonTranslations($defaultLocale);
         $defaultTranslations[$data['key']] = $data['key'];
         $this->writeJsonTranslations($defaultLocale, $defaultTranslations);
 
-        // Add translation for selected locale (can be empty to mark untranslated)
         if ($data['locale'] !== $defaultLocale) {
             $localeTranslations = $this->readJsonTranslations($data['locale']);
             $localeTranslations[$data['key']] = $data['value'] ?? '';
@@ -98,13 +91,11 @@ class TranslationController extends Controller
             'translations.*.value' => ['nullable', 'string'],
         ]);
 
-        // Group by locale to minimize file writes
         $grouped = collect($request->translations)->groupBy('locale');
 
         foreach ($grouped as $locale => $items) {
             $translations = $this->readJsonTranslations($locale);
             foreach ($items as $item) {
-                // Always save the value (can be empty string to mark as untranslated)
                 $translations[$item['key']] = $item['value'] ?? '';
             }
             $this->writeJsonTranslations($locale, $translations);
@@ -129,12 +120,9 @@ class TranslationController extends Controller
         $sourceTranslations = $this->readJsonTranslations($defaultLocale);
         $targetTranslations = $this->readJsonTranslations($locale);
 
-        // Get keys that still need translation
-        // A key is pending if: missing from target OR has empty/blank value
         $pendingKeys = [];
         foreach ($sourceTranslations as $key => $value) {
             $targetValue = $targetTranslations[$key] ?? '';
-            // Missing OR empty/whitespace (untranslated)
             if (trim($targetValue) === '') {
                 $pendingKeys[] = ['key' => $key, 'value' => $value];
             }
@@ -160,10 +148,8 @@ class TranslationController extends Controller
             $defaultLocale = Language::default()?->code ?? 'en';
             $languages = Language::pluck('code')->toArray();
 
-            // Scan blade/php files for translation keys
             $scanned = $this->scanTranslationKeys();
 
-            // Add new keys to default locale
             $defaultTranslations = $this->readJsonTranslations($defaultLocale);
             $newKeys = [];
             foreach ($scanned as $key) {
@@ -174,14 +160,13 @@ class TranslationController extends Controller
             }
             $this->writeJsonTranslations($defaultLocale, $defaultTranslations);
 
-            // Add new keys to all other language files (empty value = needs translation)
             foreach ($languages as $locale) {
                 if ($locale === $defaultLocale) continue;
 
                 $localeTranslations = $this->readJsonTranslations($locale);
                 foreach ($newKeys as $key) {
                     if (! array_key_exists($key, $localeTranslations)) {
-                        $localeTranslations[$key] = '';  // Empty value — needs translation
+                        $localeTranslations[$key] = '';
                     }
                 }
                 $this->writeJsonTranslations($locale, $localeTranslations);
@@ -225,7 +210,6 @@ class TranslationController extends Controller
 
                 $content = file_get_contents($file->getPathname());
 
-                // Match translation functions with ONLY static string keys
                 preg_match_all(
                     '/(?:__|trans|trans_choice|@lang)\s*\(\s*[\'"]([a-zA-Z][a-zA-Z0-9\s\:\-\_\.\,\!\?\/\—\'\"]{1,199})[\'"]\s*\)/',
                     $content,
@@ -252,7 +236,6 @@ class TranslationController extends Controller
 
     public function autoTranslateBatch(Request $request)
     {
-        // Increase execution time for batch translations
         set_time_limit(120);
 
         $data = $request->validate([
@@ -266,10 +249,8 @@ class TranslationController extends Controller
         $locale = $data['locale'];
         $lockFile = storage_path("locks/translations-{$locale}.lock");
 
-        // Ensure lock directory exists
         File::ensureDirectoryExists(dirname($lockFile));
 
-        // Use file locking to prevent race conditions
         $lockHandle = fopen($lockFile, 'c');
         if (!flock($lockHandle, LOCK_EX)) {
             fclose($lockHandle);
@@ -277,18 +258,15 @@ class TranslationController extends Controller
         }
 
         try {
-            // Read fresh data after acquiring lock
             $translations = $this->readJsonTranslations($locale);
             $translated = 0;
             $batchKeys = [];
 
-            // Add delay between each translation to avoid rate limiting
             foreach ($data['batch'] as $item) {
                 $result = GoogleTranslate::translate($item['value'], $defaultLocale, $locale);
                 $translations[$item['key']] = $result;
                 $batchKeys[] = $item['key'];
                 $translated++;
-                // 300ms delay between translations
                 usleep(300000);
             }
 
@@ -310,7 +288,6 @@ class TranslationController extends Controller
 
     public function destroy(string $key)
     {
-        // Remove key from all language files
         $languages = Language::pluck('code');
         foreach ($languages as $locale) {
             $translations = $this->readJsonTranslations($locale);

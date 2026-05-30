@@ -30,15 +30,15 @@
 
     <div class="min-h-screen flex">
 
-        {{-- LEFT VISUAL --}}
+
         <aside class="hidden lg:flex relative w-1/2 bg-ink-950 overflow-hidden">
-            {{-- bg layers --}}
+
             <div class="absolute inset-0 bg-grid radial-fade pointer-events-none"></div>
             <div class="absolute -top-32 left-1/2 -translate-x-1/2 w-[700px] h-[400px] glow-violet"></div>
             <div class="absolute bottom-0 right-0 w-[500px] h-[300px] glow-lime opacity-50"></div>
 
             <div class="relative w-full p-12 flex flex-col">
-                {{-- brand --}}
+
                 @php
                     $authSiteName = setting('site.name', config('app.name'));
                     $authLogo     = setting('site.logo');
@@ -62,7 +62,7 @@
                     @endif
                 </a>
 
-                {{-- Page-specific aside content (slot) --}}
+
                 @hasSection('aside')
                     <div class="flex-1 mt-12 flex flex-col justify-center">
                         @yield('aside')
@@ -76,16 +76,16 @@
                     </div>
                 @endif
 
-                {{-- trust strip --}}
+
                 <div class="text-[11px] font-mono uppercase tracking-widest text-white/35">
                     {{ __('Secured by') }} <span class="text-lime">●</span> {{ now()->format('Y') }} · {{ setting('site.name', config('app.name')) }}
                 </div>
             </div>
         </aside>
 
-        {{-- RIGHT FORM --}}
+
         <div class="flex-1 flex flex-col">
-            {{-- top bar (mobile brand + back to home) --}}
+
             <div class="flex items-center justify-between px-6 py-5 lg:px-10">
                 <a href="{{ route('home') }}" class="flex items-center gap-2 lg:hidden">
                     @if($authLogo || $authDarkLogo)
@@ -128,7 +128,7 @@
         </div>
     </div>
 
-    {{-- Global Confirm Modal --}}
+
     <x-confirm-modal />
 
     <script src="{{ asset('assets/static/js/phone-input.js') }}"></script>

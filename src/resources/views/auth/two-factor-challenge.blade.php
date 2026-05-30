@@ -4,7 +4,7 @@
 
 @section('content')
 <div x-data="{ mode: 'code' }">
-    {{-- Code mode --}}
+
     <div id="mode-code">
         <p class="mb-5 text-sm text-gray-500 text-center">
             Open your authenticator app and enter the 6-digit code.
@@ -37,7 +37,7 @@
         </p>
     </div>
 
-    {{-- Recovery mode --}}
+
     <div id="mode-recovery" class="hidden">
         <p class="mb-5 text-sm text-gray-500 text-center">
             Enter one of your saved recovery codes.
