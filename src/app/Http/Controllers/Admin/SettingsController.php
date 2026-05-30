@@ -69,9 +69,11 @@ class SettingsController extends Controller
             'site_favicon'   => ['nullable', 'file', 'image', 'max:512'],
             'site_og_image'  => ['nullable', 'file', 'image', 'max:2048'],
             'custom_css'     => ['nullable', 'string', 'max:65535'],
+            'primary_color'  => ['nullable', 'string', 'regex:/^#[0-9A-Fa-f]{6}$/'],
         ]);
 
         Settings::set('site.font', $data['site_font'] ?? 'system', 'string', 'general');
+        Settings::set('site.primary_color', $data['primary_color'] ?? '#D4FF3A', 'string', 'general');
 
         $css = $this->sanitizeCss($data['custom_css'] ?? '');
         Settings::set('site.custom_css', $css, 'string', 'general');

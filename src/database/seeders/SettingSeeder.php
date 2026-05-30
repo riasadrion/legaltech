@@ -14,8 +14,9 @@ class SettingSeeder extends Seeder
             ['key' => 'site.logo',         'value' => 'brand/group-1000003780-EULsmmk0.png',    'type' => 'string', 'group' => 'general'],
             ['key' => 'site.dark_logo',    'value' => 'brand/group-1000003780-1-P0dJof2i.png', 'type' => 'string', 'group' => 'general'],
             ['key' => 'site.favicon',      'value' => 'brand/frame-1000003740-9rBLtRLP.png',   'type' => 'string', 'group' => 'general'],
-            ['key' => 'site.font',         'value' => 'system', 'type' => 'string',  'group' => 'general'],
-            ['key' => 'site.custom_css',   'value' => '',       'type' => 'string',  'group' => 'general'],
+            ['key' => 'site.font',          'value' => 'system',  'type' => 'string', 'group' => 'general'],
+            ['key' => 'site.primary_color', 'value' => '#D4FF3A', 'type' => 'string', 'group' => 'general'],
+            ['key' => 'site.custom_css',    'value' => '',        'type' => 'string', 'group' => 'general'],
             ['key' => 'site.maintenance_mode', 'value' => '0',  'type' => 'string',  'group' => 'controls'],
 
             // ── Controls ──────────────────────────────────────────────────

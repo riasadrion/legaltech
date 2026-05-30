@@ -25,7 +25,7 @@
                 @if(session('contact_success'))
                 <div class="flex flex-col items-center justify-center py-16 text-center gap-5">
                     <div class="w-16 h-16 rounded-full bg-lime/15 border border-lime/30 grid place-items-center mx-auto">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#D4FF3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--brand-color)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="20 6 9 17 4 12"/>
                         </svg>
                     </div>

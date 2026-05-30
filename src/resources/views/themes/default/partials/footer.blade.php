@@ -99,11 +99,6 @@
         </div>
 
         <div class="mt-14 pt-8 border-t border-white/8 flex flex-wrap items-center justify-between gap-4">
-            <div class="text-xs text-white/45">
-                &copy; {{ now()->year }} {{ setting('site.name', config('app.name')) }}.
-                {{ __('All rights reserved.') }}
-            </div>
-
             @if($hasSocials)
             <div class="flex items-center gap-3 text-white/55">
                 @foreach($socials as $s)
@@ -139,9 +134,12 @@
             </div>
             @endif
 
-            <div class="text-[11px] font-mono text-white/35">
-                {{ __('All systems normal') }} <span class="text-lime">●</span>
+            <div class="text-xs text-white/45 {{ $hasSocials ? '' : 'w-full text-center' }}">
+                &copy; {{ now()->year }} {{ setting('site.name', config('app.name')) }}.
+                {{ __('All rights reserved.') }}
             </div>
+
+            @if($hasSocials)<div></div>@endif
         </div>
     </div>
 </footer>

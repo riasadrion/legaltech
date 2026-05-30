@@ -15,7 +15,15 @@
         to render
    ═══════════════════════════════════════════════════════════════ */
 
-@theme {
+/* Runtime-overridable brand color — set by frontend layouts from DB */
+:root {
+    --brand-color: #D4FF3A;
+    --brand-color-soft: color-mix(in srgb, var(--brand-color) 70%, white);
+    --brand-color-deep: color-mix(in srgb, var(--brand-color) 80%, black);
+    --shadow-glow-val: 0 0 80px -10px color-mix(in srgb, var(--brand-color) 45%, transparent);
+}
+
+@theme inline {
     /* Frontend palette — ink (dark base), cream (light sections), lime (accent) */
     --color-ink-950: #08090C;
     --color-ink-900: #0B0B0F;
@@ -30,9 +38,9 @@
     --color-cream-200: #EDE8DC;
     --color-cream-300: #D9D2BF;
 
-    --color-lime: #D4FF3A;
-    --color-lime-soft: #E6FF6B;
-    --color-lime-deep: #A8D420;
+    --color-lime: var(--brand-color);
+    --color-lime-soft: var(--brand-color-soft);
+    --color-lime-deep: var(--brand-color-deep);
 
     --color-violet-glow: #7C5CFF;
 
@@ -42,6 +50,6 @@
     --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 
     /* Shadows */
-    --shadow-glow: 0 0 80px -10px rgba(212, 255, 58, 0.45);
+    --shadow-glow: var(--shadow-glow-val);
     --shadow-card: 0 30px 60px -20px rgba(0, 0, 0, 0.35), 0 8px 20px -8px rgba(0, 0, 0, 0.25);
 }

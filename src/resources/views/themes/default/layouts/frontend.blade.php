@@ -22,6 +22,7 @@
     @if($siteFont !== 'system')
     <style>.theme-default { --font-frontend: '{{ $siteFont }}', ui-sans-serif, system-ui, sans-serif; }</style>
     @endif
+    <style>body.theme-default { --brand-color: {{ setting('site.primary_color', '#D4FF3A') }}; }</style>
 
     <script src="{{ asset('assets/static/js/jquery.min.js') }}"></script>
     <?php echo \App\Support\ViteAssets::includeAssets(['resources/css/app.css', 'resources/js/app.js']); ?>

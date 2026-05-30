@@ -194,20 +194,39 @@
         <div id="brand" class="tab-content hidden">
             <form method="POST" action="{{ route('admin.settings.update', 'brand') }}" enctype="multipart/form-data" class="space-y-5">
                 @csrf @method('PUT')
+
+                {{-- Color + Font top row --}}
                 <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                    {{-- Primary color picker --}}
+                    <div>
+                        <label class="mb-1.5 block text-sm font-medium text-gray-700">{{ __('Primary / Accent Color') }}</label>
+                        <div class="flex items-center gap-3">
+                            <input type="color" name="primary_color" value="{{ old('primary_color', setting('site.primary_color', '#D4FF3A')) }}"
+                                class="h-9 w-14 cursor-pointer rounded-lg border border-gray-300 bg-white p-1">
+                            <input type="text" id="primary_color_hex" value="{{ old('primary_color', setting('site.primary_color', '#D4FF3A')) }}"
+                                class="h-9 w-32 rounded-lg border border-gray-300 px-3 text-sm font-mono focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"
+                                placeholder="#D4FF3A" maxlength="7"
+                                oninput="document.querySelector('[name=primary_color]').value=this.value">
+                        </div>
+                        <p class="mt-1 text-xs text-gray-400">{{ __('Buttons, links, highlights across the frontend.') }}</p>
+                    </div>
+                    <script>
+                        document.querySelector('[name=primary_color]').addEventListener('input', function() { document.getElementById('primary_color_hex').value = this.value; });
+                    </script>
+
                     {{-- Font picker --}}
                     <div class="flex flex-col">
                         <label class="mb-1.5 block text-sm font-medium text-gray-700">{{ __('Site Font') }}</label>
+                        @php $currentFont = old('site_font', setting('site.font', 'system')); @endphp
                         <select id="site_font_select" name="site_font" class="w-full h-9 rounded-lg border border-gray-300 px-3 text-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500">
-                            @php $currentFont = old('site_font', setting('site.font', 'system')); @endphp
-                            <option value="system" @selected($currentFont === 'system')>{{ __('System font (no Google Fonts)') }}</option>
+                            <option value="system" @selected($currentFont === 'system')>{{ __('Default (Manrope)') }}</option>
                             @foreach(['Inter','Roboto','Lato','Open Sans','Poppins','Nunito','Source Sans 3','Work Sans','DM Sans','Manrope','Montserrat','Plus Jakarta Sans'] as $font)
                                 <option value="{{ $font }}" @selected($currentFont === $font)>{{ $font }}</option>
                             @endforeach
                         </select>
                         <div id="font_preview" class="mt-2 flex-1 rounded-lg border border-gray-200 dark:border-slate-600 bg-gray-50 dark:bg-slate-800/50 px-4 py-3 flex flex-col justify-center">
                             <p id="font_preview_text" class="text-2xl text-gray-800 dark:text-slate-100 leading-snug">The quick brown fox jumps over the lazy dog</p>
-                            <p class="mt-1 text-xs text-gray-400 dark:text-slate-500" id="font_preview_label">System font</p>
+                            <p class="mt-1 text-xs text-gray-400 dark:text-slate-500" id="font_preview_label">Manrope</p>
                         </div>
                     </div>
 
@@ -956,8 +975,8 @@ onAdminReady(function () {
         var $text = $('#font_preview_text');
         var $label = $('#font_preview_label');
         if (!font || font === 'system') {
-            $text.css('font-family', '');
-            $label.text('System font');
+            $text.css('font-family', "'Manrope', sans-serif");
+            $label.text('Default (Manrope)');
             return;
         }
         var id = 'gfont-' + font.replace(/\s+/g, '-');

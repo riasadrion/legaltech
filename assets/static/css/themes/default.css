@@ -23,6 +23,9 @@
 .theme-default .nav-brand-logo-light { display: block; }
 .theme-default .nav-brand-logo-dark  { display: none; }
 
+/* ─── Brand color default (overridden at runtime via inline <style> in layout) ─── */
+:root { --brand-color: #D4FF3A; }
+
 /* ─── Scoped frontend reset ─── */
 body.theme-default {
     background: #0B0B0F;
@@ -64,7 +67,7 @@ body.theme-default {
 .theme-default tbody tr:hover { background: rgba(255,255,255,0.03); }
 
 /* ─── Sparkline (from template) ─── */
-.theme-default .spark { stroke: #D4FF3A; fill: none; stroke-width: 2; stroke-linecap: round; }
+.theme-default .spark { stroke: var(--brand-color); fill: none; stroke-width: 2; stroke-linecap: round; }
 
 /* ─── Sidebar nav items (from template) ─── */
 .theme-default .nav-item {
@@ -99,14 +102,14 @@ body.theme-default {
     padding: 3px 8px;
     border-radius: 9999px;
 }
-.theme-default .pill-sign   { background: #D4FF3A; color: #0B0B0F; }
+.theme-default .pill-sign   { background: var(--brand-color); color: #0B0B0F; }
 .theme-default .pill-draft  { background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.10); }
 .theme-default .pill-review { background: rgba(124,92,255,0.18); color: #A899FF; border: 1px solid rgba(124,92,255,0.25); }
 .theme-default .pill-done   { background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.45); border: 1px solid rgba(255,255,255,0.08); }
 
 /* ─── Glows ─── */
 .theme-default .glow-lime {
-    background: radial-gradient(45% 60% at 50% 50%, rgba(212, 255, 58, 0.35), rgba(212, 255, 58, 0) 70%);
+    background: radial-gradient(45% 60% at 50% 50%, color-mix(in srgb, var(--brand-color) 35%, transparent), color-mix(in srgb, var(--brand-color) 0%, transparent) 70%);
     filter: blur(10px);
 }
 .theme-default .glow-violet {
@@ -125,7 +128,7 @@ body.theme-default {
 .theme-default .caret::after {
     content: "▌";
     margin-left: 2px;
-    color: #D4FF3A;
+    color: var(--brand-color);
     animation: lt-blink 1s steps(1) infinite;
 }
 
@@ -162,7 +165,7 @@ body.theme-default {
     position: absolute;
     inset: -6px;
     border-radius: 9999px;
-    background: rgba(212, 255, 58, 0.35);
+    background: color-mix(in srgb, var(--brand-color) 35%, transparent);
     animation: lt-pulseDot 1.6s ease-out infinite;
 }
 
@@ -184,7 +187,7 @@ body.theme-default {
     color: transparent;
 }
 .theme-default .lime-grad {
-    background: linear-gradient(180deg, #E9FF7A 0%, #D4FF3A 60%, #A8D420 100%);
+    background: linear-gradient(180deg, color-mix(in srgb, var(--brand-color) 80%, white) 0%, var(--brand-color) 60%, color-mix(in srgb, var(--brand-color) 80%, black) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -192,13 +195,13 @@ body.theme-default {
 
 /* ─── Buttons ─── */
 .theme-default .btn-lime {
-    background: #D4FF3A;
+    background: var(--brand-color);
     color: #0B0B0F;
     font-weight: 600;
     box-shadow:
         0 1px 0 rgba(255, 255, 255, 0.6) inset,
         0 -1px 0 rgba(0, 0, 0, 0.15) inset,
-        0 12px 30px -10px rgba(212, 255, 58, 0.55);
+        0 12px 30px -10px color-mix(in srgb, var(--brand-color) 55%, transparent);
     transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
 }
 .theme-default .btn-lime:hover {
@@ -207,7 +210,7 @@ body.theme-default {
     box-shadow:
         0 1px 0 rgba(255, 255, 255, 0.7) inset,
         0 -1px 0 rgba(0, 0, 0, 0.2) inset,
-        0 18px 40px -10px rgba(212, 255, 58, 0.7);
+        0 18px 40px -10px color-mix(in srgb, var(--brand-color) 70%, transparent);
 }
 .theme-default .btn-ghost {
     background: rgba(255, 255, 255, 0.04);
@@ -258,7 +261,7 @@ body.theme-default {
     content: "";
     display: block;
     height: 2px;
-    background: #D4FF3A;
+    background: var(--brand-color);
     margin-top: 6px;
     border-radius: 2px;
 }
@@ -281,7 +284,7 @@ body.theme-default {
 .theme-default .blog-body h2 { font-size: 1.75rem; }
 .theme-default .blog-body h3 { font-size: 1.375rem; }
 .theme-default .blog-body h4 { font-size: 1.125rem; }
-.theme-default .blog-body a  { color: #D4FF3A; text-decoration: none; }
+.theme-default .blog-body a  { color: var(--brand-color); text-decoration: none; }
 .theme-default .blog-body a:hover { text-decoration: underline; }
 .theme-default .blog-body strong { color: #fff; font-weight: 600; }
 .theme-default .blog-body em { font-style: italic; }
@@ -290,9 +293,9 @@ body.theme-default {
 .theme-default .blog-body ul { list-style: disc; }
 .theme-default .blog-body ol { list-style: decimal; }
 .theme-default .blog-body li { margin-bottom: 0.5rem; }
-.theme-default .blog-body blockquote { border-left: 3px solid rgba(212,255,58,0.4); padding-left: 1.25rem; color: rgba(255,255,255,0.45); font-style: italic; margin: 2rem 0; }
+.theme-default .blog-body blockquote { border-left: 3px solid color-mix(in srgb, var(--brand-color) 40%, transparent); padding-left: 1.25rem; color: rgba(255,255,255,0.45); font-style: italic; margin: 2rem 0; }
 .theme-default .blog-body hr { border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 2.5rem 0; }
-.theme-default .blog-body code { background: rgba(255,255,255,0.06); color: #D4FF3A; border-radius: 4px; padding: 0.15em 0.4em; font-size: 0.875em; font-family: 'JetBrains Mono', monospace; }
+.theme-default .blog-body code { background: rgba(255,255,255,0.06); color: var(--brand-color); border-radius: 4px; padding: 0.15em 0.4em; font-size: 0.875em; font-family: 'JetBrains Mono', monospace; }
 .theme-default .blog-body pre { background: #13141A; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 1.25rem 1.5rem; overflow-x: auto; margin-bottom: 1.5rem; }
 .theme-default .blog-body pre code { background: none; padding: 0; color: rgba(255,255,255,0.75); }
 .theme-default .blog-body img { border-radius: 12px; max-width: 100%; height: auto; margin: 2rem 0; }
@@ -315,7 +318,7 @@ body.theme-default {
 .theme-default .page-hero-glow-bl {
     position: absolute; bottom: 0; left: 0;
     width: 700px; height: 700px; pointer-events: none;
-    background: radial-gradient(circle at 0% 100%, rgba(212,255,58,0.10) 0%, transparent 55%);
+    background: radial-gradient(circle at 0% 100%, color-mix(in srgb, var(--brand-color) 10%, transparent) 0%, transparent 55%);
 }
 .theme-default .page-hero-glow-tr {
     position: absolute; top: 33%; right: 0;
@@ -334,7 +337,7 @@ body.theme-default {
 .theme-default .page-hero-orb-top {
     position: absolute; top: 0; left: 50%; transform: translateX(-50%);
     width: 800px; height: 400px; pointer-events: none;
-    background: radial-gradient(ellipse at 50% 0%, rgba(212,255,58,0.13) 0%, transparent 70%);
+    background: radial-gradient(ellipse at 50% 0%, color-mix(in srgb, var(--brand-color) 13%, transparent) 0%, transparent 70%);
 }
 .theme-default .page-hero-orb-bl {
     position: absolute; bottom: 0; left: 0;
@@ -348,7 +351,7 @@ body.theme-default {
 }
 .theme-default .page-hero-shimmer {
     position: absolute; bottom: 0; left: 0; right: 0; height: 1px; pointer-events: none;
-    background: linear-gradient(90deg, transparent, rgba(212,255,58,0.2) 40%, rgba(212,255,58,0.2) 60%, transparent);
+    background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--brand-color) 20%, transparent) 40%, color-mix(in srgb, var(--brand-color) 20%, transparent) 60%, transparent);
 }
 
 /* ─── Contact section ─── */
@@ -407,8 +410,8 @@ body.theme-default {
     }
 }
 .theme-default .ct-field:focus {
-    border-color: rgba(212,255,58,0.5);
-    background: rgba(212,255,58,0.04);
+    border-color: color-mix(in srgb, var(--brand-color) 50%, transparent);
+    background: color-mix(in srgb, var(--brand-color) 4%, transparent);
 }
 .theme-default .ct-chip {
     border-radius: 9999px;
@@ -422,9 +425,9 @@ body.theme-default {
 }
 .theme-default .ct-chip:hover { border-color: rgba(255,255,255,0.25); }
 .theme-default .ct-chip.ct-active {
-    border-color: rgba(212,255,58,0.4);
-    background: rgba(212,255,58,0.10);
-    color: #D4FF3A;
+    border-color: color-mix(in srgb, var(--brand-color) 40%, transparent);
+    background: color-mix(in srgb, var(--brand-color) 10%, transparent);
+    color: var(--brand-color);
 }
 .theme-default .ct-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; align-items: stretch; }
 @media (min-width: 1024px) { .theme-default .ct-grid { grid-template-columns: 7fr 5fr; } }
@@ -434,7 +437,7 @@ body.theme-default {
     width: 2.5rem; height: 2.5rem; border-radius: 0.75rem; flex-shrink: 0;
     background: rgba(255,255,255,0.05);
     border: 1px solid rgba(255,255,255,0.08);
-    color: #D4FF3A;
+    color: var(--brand-color);
     display: grid; place-items: center;
 }
 .theme-default .ct-error-box {
@@ -462,18 +465,6 @@ body.theme-default {
     opacity: 0;
     visibility: hidden;
 }
-#fe-preloader-bar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 2px;
-    width: 0%;
-    background: linear-gradient(90deg, #D4FF3A, #A8D420);
-    box-shadow: 0 0 12px rgba(212,255,58,0.6);
-    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    border-radius: 0 2px 2px 0;
-}
-
 /* pen + line writing animation */
 #fe-preloader-writer {
     position: relative;
@@ -488,7 +479,7 @@ body.theme-default {
     margin-top: 8px; /* push line slightly below center so pen body sits above it */
     height: 1.5px;
     width: 0;
-    background: linear-gradient(90deg, rgba(212,255,58,0.12), rgba(212,255,58,0.55));
+    background: linear-gradient(90deg, color-mix(in srgb, var(--brand-color) 12%, transparent), color-mix(in srgb, var(--brand-color) 55%, transparent));
     border-radius: 2px;
     animation: fe-draw-line 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
@@ -512,7 +503,7 @@ body.theme-default {
     left: -1px;
     width: 50px;
     height: 50px;
-    filter: drop-shadow(0 0 8px rgba(212,255,58,0.55));
+    filter: drop-shadow(0 0 8px color-mix(in srgb, var(--brand-color) 55%, transparent));
 }
 #fe-preloader-label {
     font-family: 'JetBrains Mono', monospace;
@@ -566,7 +557,7 @@ body.theme-default {
     border: 1px solid rgba(255,255,255,0.08);
     border-radius: 1.25rem;
     padding: 1.25rem;
-    box-shadow: 0 20px 60px -10px rgba(0,0,0,0.6), 0 0 40px -10px rgba(212,255,58,0.12);
+    box-shadow: 0 20px 60px -10px rgba(0,0,0,0.6), 0 0 40px -10px color-mix(in srgb, var(--brand-color) 12%, transparent);
 }
 .theme-default .cc-banner-close {
     position: absolute;
@@ -597,9 +588,9 @@ body.theme-default {
     width: 2.25rem;
     height: 2.25rem;
     border-radius: 0.75rem;
-    background: rgba(212,255,58,0.12);
-    border: 1px solid rgba(212,255,58,0.25);
-    color: #D4FF3A;
+    background: color-mix(in srgb, var(--brand-color) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--brand-color) 25%, transparent);
+    color: var(--brand-color);
     display: grid;
     place-items: center;
     flex-shrink: 0;
@@ -618,7 +609,7 @@ body.theme-default {
     margin: 0;
 }
 .theme-default .cc-link {
-    color: #D4FF3A;
+    color: var(--brand-color);
     text-decoration: underline;
     text-underline-offset: 2px;
     transition: opacity 0.2s ease;
@@ -639,9 +630,9 @@ body.theme-default {
     border: 1px solid transparent;
 }
 .theme-default .cc-btn-primary {
-    background: #D4FF3A;
+    background: var(--brand-color);
     color: #0B0B0F;
-    border-color: #D4FF3A;
+    border-color: var(--brand-color);
 }
 .theme-default .cc-btn-primary:hover {
     background: #E6FF6B;
@@ -772,9 +763,9 @@ body.theme-default {
     white-space: nowrap;
 }
 .theme-default .cc-pill-locked {
-    background: rgba(212,255,58,0.12);
-    color: #D4FF3A;
-    border: 1px solid rgba(212,255,58,0.25);
+    background: color-mix(in srgb, var(--brand-color) 12%, transparent);
+    color: var(--brand-color);
+    border: 1px solid color-mix(in srgb, var(--brand-color) 25%, transparent);
 }
 .theme-default .cc-modal-actions {
     display: flex;
@@ -807,7 +798,7 @@ body.theme-default {
 .theme-default .cc-reopen.cc-open { display: inline-flex; }
 .theme-default .cc-reopen:hover {
     color: #fff;
-    border-color: rgba(212,255,58,0.4);
+    border-color: color-mix(in srgb, var(--brand-color) 40%, transparent);
     background: rgba(15, 16, 22, 0.95);
 }
 
@@ -845,8 +836,8 @@ body.theme-default {
 }
 .theme-default .auth-input::placeholder { color: rgba(255,255,255,0.28); }
 .theme-default .auth-input:focus {
-    border-color: rgba(212,255,58,0.5);
-    background: rgba(212,255,58,0.03);
+    border-color: color-mix(in srgb, var(--brand-color) 50%, transparent);
+    background: color-mix(in srgb, var(--brand-color) 3%, transparent);
 }
 .theme-default .auth-input-err { border-color: rgba(239,68,68,0.5) !important; }
 
@@ -868,7 +859,7 @@ body.theme-default {
     border-radius: 0.25rem;
     border: 1px solid rgba(255,255,255,0.2);
     background: rgba(255,255,255,0.04);
-    accent-color: #D4FF3A;
+    accent-color: var(--brand-color);
     cursor: pointer;
     flex-shrink: 0;
 }
@@ -877,7 +868,7 @@ body.theme-default {
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    background: #D4FF3A;
+    background: var(--brand-color);
     color: #0B0B0F;
     font-weight: 700;
     font-size: 0.9375rem;
@@ -885,16 +876,16 @@ body.theme-default {
     border-radius: 0.875rem;
     padding: 0.875rem 1.5rem;
     cursor: pointer;
-    box-shadow: 0 8px 24px -8px rgba(212,255,58,0.5);
+    box-shadow: 0 8px 24px -8px color-mix(in srgb, var(--brand-color) 50%, transparent);
     transition: filter 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 .theme-default .auth-btn-primary:hover {
     filter: brightness(1.06);
     transform: translateY(-1px);
-    box-shadow: 0 14px 30px -8px rgba(212,255,58,0.65);
+    box-shadow: 0 14px 30px -8px color-mix(in srgb, var(--brand-color) 65%, transparent);
 }
 .theme-default .auth-link {
-    color: #D4FF3A;
+    color: var(--brand-color);
     text-decoration: none;
     transition: opacity 0.2s ease;
 }
@@ -908,9 +899,9 @@ body.theme-default {
 }
 .theme-default .auth-alert p + p { margin-top: 0.25rem; }
 .theme-default .auth-alert-ok {
-    background: rgba(212,255,58,0.08);
-    border: 1px solid rgba(212,255,58,0.2);
-    color: #D4FF3A;
+    background: color-mix(in srgb, var(--brand-color) 8%, transparent);
+    border: 1px solid color-mix(in srgb, var(--brand-color) 20%, transparent);
+    color: var(--brand-color);
 }
 .theme-default .auth-alert-err {
     background: rgba(239,68,68,0.08);
@@ -978,7 +969,7 @@ body.theme-default {
 }
 .theme-default .ud-card-link {
     font-size: 0.75rem;
-    color: #D4FF3A;
+    color: var(--brand-color);
     text-decoration: none;
     transition: opacity 0.15s;
 }
@@ -1044,7 +1035,7 @@ body.theme-default {
 .theme-default .ud-badge-amber  { background: rgba(251,191,36,0.12);  color: #fbbf24; }
 .theme-default .ud-badge-red    { background: rgba(248,113,113,0.12); color: #f87171; }
 .theme-default .ud-badge-gray   { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.45); }
-.theme-default .ud-badge-lime   { background: rgba(212,255,58,0.12);  color: #D4FF3A; }
+.theme-default .ud-badge-lime   { background: color-mix(in srgb, var(--brand-color) 12%, transparent);  color: var(--brand-color); }
 .theme-default .ud-badge-violet { background: rgba(124,92,255,0.12);  color: #a78bfa; }
 
 /* ─── Activity / transaction rows ─── */
@@ -1092,13 +1083,13 @@ body.theme-default {
     align-items: flex-start;
     gap: 0.875rem;
     padding: 0.875rem 1rem;
-    background: rgba(212,255,58,0.05);
-    border: 1px solid rgba(212,255,58,0.15);
+    background: color-mix(in srgb, var(--brand-color) 5%, transparent);
+    border: 1px solid color-mix(in srgb, var(--brand-color) 15%, transparent);
     border-radius: 0.875rem;
 }
 .theme-default .ud-nudge-icon {
     flex-shrink: 0;
-    color: #D4FF3A;
+    color: var(--brand-color);
     margin-top: 0.1rem;
 }
 .theme-default .ud-nudge-title {
@@ -1114,7 +1105,7 @@ body.theme-default {
 .theme-default .ud-nudge-action {
     font-size: 0.75rem;
     font-weight: 600;
-    color: #D4FF3A;
+    color: var(--brand-color);
     text-decoration: none;
     white-space: nowrap;
     margin-left: auto;
@@ -1206,7 +1197,7 @@ body.theme-default {
 }
 .theme-default .ud-input::placeholder { color: rgba(255,255,255,0.25); }
 .theme-default .ud-input:focus {
-    border-color: rgba(212,255,58,0.5);
+    border-color: color-mix(in srgb, var(--brand-color) 50%, transparent);
     background: rgba(255,255,255,0.06);
 }
 .theme-default .ud-input:disabled {
@@ -1248,7 +1239,7 @@ body.theme-default {
 }
 .theme-default select.ud-select:focus,
 .theme-default .ud-select:focus {
-    border-color: rgba(212,255,58,0.5) !important;
+    border-color: color-mix(in srgb, var(--brand-color) 50%, transparent) !important;
     background-color: rgba(255,255,255,0.06) !important;
 }
 .theme-default select.ud-select option,
@@ -1269,7 +1260,7 @@ body.theme-default {
     transition: border-color 0.2s ease, background 0.2s ease;
 }
 .theme-default .phone-input-group:focus-within {
-    border-color: rgba(212,255,58,0.5);
+    border-color: color-mix(in srgb, var(--brand-color) 50%, transparent);
     background: rgba(255,255,255,0.06);
 }
 .theme-default .phone-code-btn {
@@ -1351,8 +1342,8 @@ body.theme-default {
     transition: background 0.1s;
 }
 .theme-default .phone-option:hover,
-.theme-default .phone-option.is-selected { background: rgba(212,255,58,0.08); color: #fff; }
-.theme-default .phone-option.is-selected .phone-opt-dial { color: #D4FF3A; }
+.theme-default .phone-option.is-selected { background: color-mix(in srgb, var(--brand-color) 8%, transparent); color: #fff; }
+.theme-default .phone-option.is-selected .phone-opt-dial { color: var(--brand-color); }
 .theme-default .phone-opt-flag { font-size: 0.7rem; letter-spacing: 0.02em; color: rgba(255,255,255,0.4); min-width: 1.5rem; }
 .theme-default .phone-opt-name { flex: 1; }
 .theme-default .phone-opt-dial { color: rgba(255,255,255,0.35); font-size: 0.75rem; }
@@ -1376,8 +1367,8 @@ body.theme-default {
 }
 .theme-default .ud-dropzone:hover,
 .theme-default .ud-dropzone:focus-within {
-    border-color: rgba(212,255,58,0.45);
-    background: rgba(212,255,58,0.03);
+    border-color: color-mix(in srgb, var(--brand-color) 45%, transparent);
+    background: color-mix(in srgb, var(--brand-color) 3%, transparent);
 }
 .theme-default .ud-dropzone-text {
     font-size: 0.8125rem;
@@ -1411,7 +1402,7 @@ body.theme-default {
     width: 0.875rem;
     height: 0.875rem;
     flex-shrink: 0;
-    color: rgba(212,255,58,0.7);
+    color: color-mix(in srgb, var(--brand-color) 70%, transparent);
 }
 
 .theme-default .ud-btn-primary {
@@ -1419,7 +1410,7 @@ body.theme-default {
     align-items: center;
     gap: 0.5rem;
     padding: 0.625rem 1.25rem;
-    background: #D4FF3A;
+    background: var(--brand-color);
     color: #0B0B0F;
     font-size: 0.875rem;
     font-weight: 700;
@@ -1488,11 +1479,11 @@ body.theme-default {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #D4FF3A, #a3cc1e);
+    background: linear-gradient(135deg, var(--brand-color), #a3cc1e);
     color: #0B0B0F;
     font-size: 1.25rem;
     font-weight: 800;
-    border: 2px solid rgba(212,255,58,0.3);
+    border: 2px solid color-mix(in srgb, var(--brand-color) 30%, transparent);
 }
 .theme-default .ud-avatar-upload-btn {
     position: absolute;
@@ -1501,7 +1492,7 @@ body.theme-default {
     width: 1.5rem;
     height: 1.5rem;
     border-radius: 50%;
-    background: #D4FF3A;
+    background: var(--brand-color);
     color: #0B0B0F;
     display: flex;
     align-items: center;
@@ -1682,7 +1673,7 @@ body.theme-default {
     right: 4px;
     min-width: 16px;
     height: 16px;
-    background: #D4FF3A;
+    background: var(--brand-color);
     color: #0B0B0F;
     font-size: 9px;
     font-weight: 700;
@@ -1776,7 +1767,7 @@ body.theme-default {
     width: 28px;
     height: 28px;
     border-radius: 0.4rem;
-    background: linear-gradient(135deg, #D4FF3A 0%, #a8cc00 100%);
+    background: linear-gradient(135deg, var(--brand-color) 0%, #a8cc00 100%);
     color: #0B0B0F;
     font-size: 0.75rem;
     font-weight: 700;
@@ -1798,7 +1789,7 @@ body.theme-default {
     gap: 0.25rem;
     font-size: 0.6875rem;
     font-weight: 600;
-    color: #D4FF3A;
+    color: var(--brand-color);
     text-decoration: none;
     transition: opacity 0.15s;
 }
@@ -1820,7 +1811,7 @@ body.theme-default {
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse at 80% -20%, rgba(212,255,58,0.07) 0%, transparent 55%);
+    background: radial-gradient(ellipse at 80% -20%, color-mix(in srgb, var(--brand-color) 7%, transparent) 0%, transparent 55%);
     pointer-events: none;
 }
 .theme-default .ud-hero-left {
@@ -1834,7 +1825,7 @@ body.theme-default {
     font-family: 'JetBrains Mono', monospace;
     font-weight: 600;
     letter-spacing: 0.08em;
-    color: #D4FF3A;
+    color: var(--brand-color);
     margin-bottom: 0.875rem;
 }
 .theme-default .ud-hero-title {
@@ -1892,7 +1883,7 @@ body.theme-default {
 .theme-default .ud-hero-recent-amount {
     font-size: 1.25rem;
     font-weight: 700;
-    color: #D4FF3A;
+    color: var(--brand-color);
     margin-top: 0.75rem;
 }
 
