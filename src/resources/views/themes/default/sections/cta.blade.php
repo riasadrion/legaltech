@@ -6,10 +6,8 @@
     $subhead  = $d['subheading']     ?? '';
     $pText    = $d['primary_text']   ?? '';
     $pUrl     = $d['primary_url']    ?? '#';
-    $pIcon    = $d['primary_icon']   ?? 'ri-arrow-right-up-line';
     $sText    = $d['secondary_text'] ?? '';
     $sUrl     = $d['secondary_url']  ?? '#';
-    $sIcon    = $d['secondary_icon'] ?? 'ri-calendar-line';
 @endphp
 
 <section class="relative py-28 overflow-hidden">
@@ -45,12 +43,12 @@
             @if($pText)
                 <a href="{{ $pUrl }}" class="btn-lime rounded-full px-7 py-4 text-[15px] flex items-center gap-2">
                     {{ __($pText) }}
-                    @if($pIcon)<i class="{{ $pIcon }}"></i>@endif
+                    <x-heroicon-o-arrow-up-right class="h-4 w-4" />
                 </a>
             @endif
             @if($sText)
                 <a href="{{ $sUrl }}" class="btn-ghost rounded-full px-7 py-4 text-[15px] flex items-center gap-2">
-                    @if($sIcon)<i class="{{ $sIcon }}"></i>@endif
+                    <x-heroicon-o-calendar class="h-4 w-4" />
                     {{ __($sText) }}
                 </a>
             @endif

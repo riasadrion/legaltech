@@ -112,22 +112,21 @@
                                 </div>
                             </div>
                             <div class="text-[9px] font-mono uppercase tracking-[.15em] text-white/30 px-2 mb-1">Workspace</div>
+                            <div class="flex items-center gap-2 px-2.5 py-1.5 text-[12px] text-white/50">
+                                <x-heroicon-o-home class="h-3.5 w-3.5" /> Dashboard
+                            </div>
+                            <div class="flex items-center gap-2 px-2.5 py-1.5 text-[12px] text-white/50">
+                                <x-heroicon-o-sparkles class="h-3.5 w-3.5 text-lime" /> AI Contract
+                            </div>
                             <div class="flex items-center gap-2 rounded-lg bg-white/6 border border-white/10 px-2.5 py-1.5 text-[12px] text-white">
                                 <x-heroicon-o-document-text class="h-3.5 w-3.5 text-lime" /> Contracts
                                 <span class="ml-auto text-[10px] font-mono text-white/40">42</span>
                             </div>
                             <div class="flex items-center gap-2 px-2.5 py-1.5 text-[12px] text-white/50">
-                                <x-heroicon-o-square-3-stack-3d class="h-3.5 w-3.5" /> Templates
+                                <x-heroicon-o-square-3-stack-3d class="h-3.5 w-3.5" /> Subscription
                             </div>
                             <div class="flex items-center gap-2 px-2.5 py-1.5 text-[12px] text-white/50">
-                                <x-heroicon-o-pencil-square class="h-3.5 w-3.5" /> Signatures
-                                <span class="ml-auto text-[9px] rounded-full bg-lime text-ink-900 font-bold px-1.5 py-0.5">3</span>
-                            </div>
-                            <div class="flex items-center gap-2 px-2.5 py-1.5 text-[12px] text-white/50">
-                                <x-heroicon-o-users class="h-3.5 w-3.5" /> Counterparties
-                            </div>
-                            <div class="flex items-center gap-2 px-2.5 py-1.5 text-[12px] text-white/50">
-                                <x-heroicon-o-archive-box class="h-3.5 w-3.5" /> Archive
+                                <x-heroicon-o-credit-card class="h-3.5 w-3.5" /> Payments
                             </div>
                         </aside>
 

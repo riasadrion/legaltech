@@ -11,10 +11,10 @@
     <div class="relative mx-auto max-w-4xl px-6">
         <a href="{{ route('blog.index') }}"
            class="inline-flex items-center gap-2 text-sm text-white/40 hover:text-white transition mb-6">
-            <i class="ri-arrow-left-line"></i>{{ __('All articles') }}
+            <x-heroicon-o-arrow-left class="h-4 w-4" />{{ __('All articles') }}
         </a>
         <div class="inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-xs font-medium text-lime mb-4">
-            <i class="ri-hashtag"></i>{{ __('Tag') }}
+            <x-heroicon-o-hashtag class="h-4 w-4" />{{ __('Tag') }}
         </div>
         <h1 class="font-display text-5xl text-white mb-4">#{{ $tag->getLocalName() }}</h1>
     </div>
@@ -24,7 +24,7 @@
     <div class="mx-auto max-w-6xl px-6">
         @if($posts->isEmpty())
         <div class="py-24 text-center text-white/30">
-            <i class="ri-price-tag-3-line text-5xl mb-4 block text-white/10"></i>
+            <x-heroicon-o-tag class="h-12 w-12 mb-4 mx-auto block text-white/10" />
             {{ __('No posts with this tag yet.') }}
         </div>
         @else

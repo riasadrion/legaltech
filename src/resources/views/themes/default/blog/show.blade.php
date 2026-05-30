@@ -71,7 +71,7 @@
         @foreach($post->tags as $tag)
         <a href="{{ route('blog.tag', $tag->slug) }}"
            class="inline-flex items-center gap-1 rounded-full glass px-4 py-1.5 text-xs font-medium text-white/60 hover:text-white hover:bg-white/10 transition">
-            <i class="ri-hashtag text-lime/60"></i>{{ $tag->getLocalName() }}
+            <x-heroicon-o-hashtag class="h-3.5 w-3.5 text-lime/60" />{{ $tag->getLocalName() }}
         </a>
         @endforeach
     </div>
@@ -81,7 +81,7 @@
     <div class="mt-10 flex items-center justify-between">
         <a href="{{ route('blog.index') }}"
            class="inline-flex items-center gap-2 text-sm text-white/40 hover:text-white transition">
-            <i class="ri-arrow-left-line"></i>{{ __('All articles') }}
+            <x-heroicon-o-arrow-left class="h-4 w-4" />{{ __('All articles') }}
         </a>
     </div>
 </div>

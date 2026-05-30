@@ -31,7 +31,7 @@
                 @endif
             </div>
             <a href="{{ $linkUrl }}" class="hidden md:inline-flex items-center gap-2 rounded-full border border-white/15 px-5 py-3 text-sm text-white/70 hover:text-white hover:border-white/30 transition">
-                {{ __($linkText) }} <i class="ri-arrow-right-line"></i>
+                {{ __($linkText) }} <x-heroicon-o-arrow-right class="h-4 w-4 inline" />
             </a>
         </div>
 
@@ -57,7 +57,7 @@
                         {{ \Illuminate\Support\Str::limit(strip_tags($featured->getLocalExcerpt()), 200) }}
                     </p>
                     <span class="mt-8 inline-flex items-center gap-2 text-sm text-lime font-medium relative z-10">
-                        {{ __('Read article') }} <i class="ri-arrow-right-line"></i>
+                        {{ __('Read article') }} <x-heroicon-o-arrow-right class="h-4 w-4 inline" />
                     </span>
                 </div>
             </a>
@@ -82,7 +82,7 @@
                             {{ \Illuminate\Support\Str::limit(strip_tags($post->getLocalExcerpt()), 130) }}
                         </p>
                         <span class="mt-5 inline-flex items-center gap-2 text-sm text-lime font-medium">
-                            {{ __('Read') }} <i class="ri-arrow-right-line"></i>
+                            {{ __('Read') }} <x-heroicon-o-arrow-right class="h-4 w-4 inline" />
                         </span>
                     </div>
                 </a>
@@ -93,7 +93,7 @@
 
         <div class="mt-8 flex justify-center md:hidden">
             <a href="{{ $linkUrl }}" class="inline-flex items-center gap-2 rounded-full border border-white/15 px-5 py-3 text-sm text-white/70">
-                {{ __($linkText) }} <i class="ri-arrow-right-line"></i>
+                {{ __($linkText) }} <x-heroicon-o-arrow-right class="h-4 w-4 inline" />
             </a>
         </div>
         @endif

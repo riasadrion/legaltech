@@ -10,7 +10,7 @@
     <div class="radial-fade pointer-events-none"></div>
     <div class="relative mx-auto max-w-4xl px-6 text-center">
         <div class="inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-xs font-medium text-white/50 mb-6">
-            <i class="ri-article-line text-lime"></i>{{ __('Articles & insights') }}
+            <x-heroicon-o-document-text class="h-4 w-4 text-lime" />{{ __('Articles & insights') }}
         </div>
         <h1 class="font-display text-4xl sm:text-5xl md:text-6xl text-white mb-4">{{ __('The LegalTech Blog') }}</h1>
         <p class="text-lg text-white/40 max-w-xl mx-auto">
@@ -40,7 +40,7 @@
 
             <a href="{{ route('blog.rss') }}"
                class="ml-auto flex items-center gap-1.5 text-sm text-white/30 hover:text-white/60 transition">
-                <i class="ri-rss-line"></i>RSS
+                <x-heroicon-o-rss class="h-4 w-4" />RSS
             </a>
         </div>
         @endif
@@ -54,7 +54,7 @@
 
         @if($posts->isEmpty())
         <div class="py-24 text-center text-white/30">
-            <i class="ri-article-line text-5xl mb-4 block text-white/10"></i>
+            <x-heroicon-o-document-text class="h-12 w-12 mb-4 mx-auto block text-white/10" />
             {{ __('No posts yet.') }}
         </div>
         @else
@@ -86,7 +86,7 @@
                         <time>{{ $post->published_at->format('M j, Y') }}</time>
                     </div>
                     <div class="mt-6 inline-flex items-center gap-2 text-sm font-medium text-lime">
-                        {{ __('Read article') }} <i class="ri-arrow-right-line"></i>
+                        {{ __('Read article') }} <x-heroicon-o-arrow-right class="h-4 w-4 inline" />
                     </div>
                 </div>
             </a>

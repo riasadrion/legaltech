@@ -27,7 +27,7 @@
             </div>
             @if($rating)
                 <div class="flex items-center gap-2 text-sm text-white/60">
-                    <i class="ri-star-fill text-lime"></i>
+                    <x-heroicon-s-star class="h-4 w-4 text-lime" />
                     <span>{{ __($rating) }}</span>
                 </div>
             @endif
@@ -42,7 +42,7 @@
             @if($featured)
             <div class="md:col-span-2 rounded-3xl glass p-9 lift relative overflow-hidden flex flex-col">
                 <div class="absolute -right-10 -top-10 w-60 h-60 glow-lime opacity-50"></div>
-                <i class="ri-double-quotes-l text-5xl text-lime relative"></i>
+                <x-icon-quote class="h-12 w-12 text-lime relative" />
                 <p class="font-display text-3xl md:text-4xl leading-tight mt-4 relative flex-1">
                     {{ __($featured['quote']) }}
                 </p>
@@ -62,7 +62,7 @@
             <div class="flex flex-col gap-4">
                 @foreach($side as $i => $t)
                 <div class="flex-1 rounded-3xl glass p-6 lift flex flex-col">
-                    <i class="ri-double-quotes-l text-3xl text-lime"></i>
+                    <x-icon-quote class="h-7 w-7 text-lime" />
                     <p class="mt-2 text-[15px] leading-snug flex-1">"{{ __($t['quote']) }}"</p>
                     <div class="mt-5 flex items-center gap-3">
                         <div class="w-10 h-10 rounded-full {{ $avatarColors[$i + 1] ?? 'bg-cream-100 text-ink-900' }} grid place-items-center font-display shrink-0">

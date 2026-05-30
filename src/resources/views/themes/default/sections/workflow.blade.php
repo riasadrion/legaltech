@@ -23,7 +23,7 @@
             @if($cta_text && $cta_url)
                 <a href="{{ $cta_url }}"
                    class="hidden md:inline-flex items-center gap-2 rounded-full bg-ink-900 text-white px-5 py-3 text-sm font-medium">
-                    {{ __($cta_text) }} <i class="ri-arrow-right-line"></i>
+                    {{ __($cta_text) }} <x-heroicon-o-arrow-right class="h-4 w-4 inline" />
                 </a>
             @endif
         </div>

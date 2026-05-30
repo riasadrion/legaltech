@@ -24,7 +24,7 @@
                     <summary class="flex items-center justify-between gap-6 cursor-pointer list-none">
                         <span class="font-display text-xl md:text-2xl">{{ __($item['question']) }}</span>
                         <span class="acc-icon w-9 h-9 rounded-full glass grid place-items-center shrink-0 transition-transform group-open:rotate-45">
-                            <i class="ri-add-line"></i>
+                            <x-heroicon-o-plus class="h-4 w-4" />
                         </span>
                     </summary>
                     <p class="mt-4 text-white/65 max-w-3xl">
