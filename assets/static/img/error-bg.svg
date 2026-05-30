@@ -1,12 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" fill="none">
-  <!-- Lime glow orb top-right -->
-  <ellipse cx="950" cy="120" rx="380" ry="280" fill="url(#lime-orb)" opacity="0.55"/>
-  <!-- Violet glow orb bottom-left -->
-  <ellipse cx="200" cy="680" rx="320" ry="240" fill="url(#violet-orb)" opacity="0.45"/>
-  <!-- Subtle center glow -->
-  <ellipse cx="600" cy="400" rx="500" ry="320" fill="url(#center-orb)" opacity="0.18"/>
+  <ellipse cx="1154" cy="36" rx="420" ry="320" fill="url(#lime-orb)" opacity="0.35"/>
+  <ellipse cx="34" cy="764" rx="380" ry="300" fill="url(#violet-orb)" opacity="0.30"/>
 
-  <!-- Grid lines horizontal -->
   <g stroke="rgba(255,255,255,0.04)" stroke-width="1">
     <line x1="0" y1="100" x2="1200" y2="100"/>
     <line x1="0" y1="200" x2="1200" y2="200"/>
@@ -16,7 +11,6 @@
     <line x1="0" y1="600" x2="1200" y2="600"/>
     <line x1="0" y1="700" x2="1200" y2="700"/>
   </g>
-  <!-- Grid lines vertical -->
   <g stroke="rgba(255,255,255,0.04)" stroke-width="1">
     <line x1="150" y1="0" x2="150" y2="800"/>
     <line x1="300" y1="0" x2="300" y2="800"/>
@@ -27,7 +21,6 @@
     <line x1="1050" y1="0" x2="1050" y2="800"/>
   </g>
 
-  <!-- Floating dots -->
   <circle cx="140" cy="160" r="3" fill="#D4FF3A" opacity="0.5"/>
   <circle cx="1060" cy="640" r="2.5" fill="#D4FF3A" opacity="0.4"/>
   <circle cx="320" cy="580" r="2" fill="#D4FF3A" opacity="0.3"/>
@@ -35,7 +28,6 @@
   <circle cx="560" cy="700" r="2" fill="#a78bfa" opacity="0.4"/>
   <circle cx="1100" cy="350" r="2.5" fill="#a78bfa" opacity="0.3"/>
 
-  <!-- Corner accent lines -->
   <line x1="0" y1="0" x2="80" y2="0" stroke="#D4FF3A" stroke-width="1.5" opacity="0.4"/>
   <line x1="0" y1="0" x2="0" y2="80" stroke="#D4FF3A" stroke-width="1.5" opacity="0.4"/>
   <line x1="1200" y1="800" x2="1120" y2="800" stroke="#D4FF3A" stroke-width="1.5" opacity="0.4"/>
@@ -49,10 +41,6 @@
     <radialGradient id="violet-orb" cx="50%" cy="50%" r="50%">
       <stop offset="0%" stop-color="#7c3aed"/>
       <stop offset="100%" stop-color="#7c3aed" stop-opacity="0"/>
-    </radialGradient>
-    <radialGradient id="center-orb" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#D4FF3A"/>
-      <stop offset="100%" stop-color="#D4FF3A" stop-opacity="0"/>
     </radialGradient>
   </defs>
 </svg>

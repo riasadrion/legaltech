@@ -27,6 +27,7 @@ Route::middleware(['language', 'maintenance'])->group(function () {
 
     // Blog
     Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+    Route::get('/blog/feed.rss', [BlogController::class, 'rss'])->name('blog.rss');
     Route::get('/blog/category/{slug}', [BlogController::class, 'category'])->name('blog.category');
     Route::get('/blog/tag/{slug}', [BlogController::class, 'tag'])->name('blog.tag');
     Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
@@ -60,8 +61,6 @@ Route::get('/sitemap.xml', function () {
     return response()->view('theme::sitemap', compact('pages', 'posts'))
         ->header('Content-Type', 'application/xml');
 })->name('sitemap');
-
-Route::get('/blog/feed.rss', [BlogController::class, 'rss'])->name('blog.rss');
 
 Route::get('/robots.txt', function () {
     return response()->view('theme::robots')

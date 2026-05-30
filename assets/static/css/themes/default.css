@@ -88,12 +88,12 @@ body.theme-default {
 .theme-default .pill-done   { background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.45); border: 1px solid rgba(255,255,255,0.08); }
 
 .theme-default .glow-lime {
-    background: radial-gradient(45% 60% at 50% 50%, color-mix(in srgb, var(--brand-color) 35%, transparent), color-mix(in srgb, var(--brand-color) 0%, transparent) 70%);
-    filter: blur(10px);
+    background: radial-gradient(ellipse 50% 50% at 50% 50%, color-mix(in srgb, var(--brand-color) 35%, transparent), color-mix(in srgb, var(--brand-color) 0%, transparent) 70%);
+    filter: blur(60px);
 }
 .theme-default .glow-violet {
-    background: radial-gradient(50% 60% at 50% 50%, rgba(124, 92, 255, 0.45), rgba(124, 92, 255, 0) 70%);
-    filter: blur(20px);
+    background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(124, 92, 255, 0.45), rgba(124, 92, 255, 0) 70%);
+    filter: blur(60px);
 }
 
 @keyframes lt-marquee {
