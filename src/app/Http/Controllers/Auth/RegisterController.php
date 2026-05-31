@@ -53,11 +53,7 @@ class RegisterController extends Controller
 
         $request->session()->regenerate();
 
-        if (Settings::string('controls.email_verification', '1') === '1') {
-            $user->notify(new VerifyEmail);
-        } else {
-            $user->forceFill(['email_verified_at' => now()])->save();
-        }
+        $user->notify(new VerifyEmail);
 
         return redirect()->route('user.dashboard');
     }

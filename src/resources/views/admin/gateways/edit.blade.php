@@ -154,65 +154,65 @@
         <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
             <div class="border-b border-gray-100 px-5 py-3.5">
                 <h3 class="text-sm font-semibold text-gray-900">{{ __('API Credentials') }}</h3>
-                <p class="text-xs text-gray-400 mt-0.5">{{ __('Stored encrypted. Leave blank to keep existing value.') }}</p>
+                <p class="text-xs text-gray-400 mt-0.5">{{ __('Leave blank to keep existing value.') }}</p>
             </div>
             <div class="px-5 py-5 space-y-4">
 
                 @php $d = $gatewayDriver->driver(); @endphp
 
                 @if($d === 'stripe')
-                    <x-gateway-credential label="{{ __('Secret key') }}"        name="secret_key"      type="password" placeholder="sk_live_… or sk_test_…" />
-                    <x-gateway-credential label="{{ __('Publishable key') }}"   name="publishable_key" type="text"     placeholder="pk_live_… or pk_test_…" />
-                    <x-gateway-credential label="{{ __('Webhook secret') }}"    name="webhook_secret"  type="password" placeholder="whsec_…" />
+                    <x-gateway-credential label="{{ __('Secret key') }}"        name="secret_key"      type="password" placeholder="sk_live_… or sk_test_…" :value="$gateway->credential('secret_key')" />
+                    <x-gateway-credential label="{{ __('Publishable key') }}"   name="publishable_key" type="text"     placeholder="pk_live_… or pk_test_…" :value="$gateway->credential('publishable_key')" />
+                    <x-gateway-credential label="{{ __('Webhook secret') }}"    name="webhook_secret"  type="password" placeholder="whsec_…" :value="$gateway->credential('webhook_secret')" />
 
                 @elseif($d === 'paypal')
-                    <x-gateway-credential label="{{ __('Business Email') }}"    name="business_email"  type="email"    placeholder="your@business.com" />
+                    <x-gateway-credential label="{{ __('Business Email') }}"    name="business_email"  type="email"    placeholder="your@business.com" :value="$gateway->credential('business_email')" />
                     <x-gateway-sandbox-toggle :gateway="$gateway" />
 
                 @elseif($d === 'razorpay')
-                    <x-gateway-credential label="{{ __('Key ID') }}"            name="key_id"          type="text"     placeholder="rzp_live_… or rzp_test_…" />
-                    <x-gateway-credential label="{{ __('Key Secret') }}"        name="key_secret"      type="password" placeholder="{{ __('Razorpay Key Secret') }}" />
-                    <x-gateway-credential label="{{ __('Webhook Secret') }}"    name="webhook_secret"  type="password" placeholder="{{ __('Set in Razorpay dashboard') }}" />
+                    <x-gateway-credential label="{{ __('Key ID') }}"            name="key_id"          type="text"     placeholder="rzp_live_… or rzp_test_…" :value="$gateway->credential('key_id')" />
+                    <x-gateway-credential label="{{ __('Key Secret') }}"        name="key_secret"      type="password" placeholder="{{ __('Razorpay Key Secret') }}" :value="$gateway->credential('key_secret')" />
+                    <x-gateway-credential label="{{ __('Webhook Secret') }}"    name="webhook_secret"  type="password" placeholder="{{ __('Set in Razorpay dashboard') }}" :value="$gateway->credential('webhook_secret')" />
 
                 @elseif($d === 'paystack')
-                    <x-gateway-credential label="{{ __('Secret Key') }}"        name="secret_key"      type="password" placeholder="sk_live_… or sk_test_…" />
-                    <x-gateway-credential label="{{ __('Public Key') }}"        name="public_key"      type="text"     placeholder="pk_live_… or pk_test_…" />
-                    <x-gateway-credential label="{{ __('Webhook Secret') }}"    name="webhook_secret"  type="password" placeholder="{{ __('Set in Paystack dashboard') }}" />
+                    <x-gateway-credential label="{{ __('Secret Key') }}"        name="secret_key"      type="password" placeholder="sk_live_… or sk_test_…" :value="$gateway->credential('secret_key')" />
+                    <x-gateway-credential label="{{ __('Public Key') }}"        name="public_key"      type="text"     placeholder="pk_live_… or pk_test_…" :value="$gateway->credential('public_key')" />
+                    <x-gateway-credential label="{{ __('Webhook Secret') }}"    name="webhook_secret"  type="password" placeholder="{{ __('Set in Paystack dashboard') }}" :value="$gateway->credential('webhook_secret')" />
 
                 @elseif($d === 'flutterwave')
-                    <x-gateway-credential label="{{ __('Secret Key') }}"        name="secret_key"      type="password" placeholder="FLWSECK_TEST-… or FLWSECK-…" />
-                    <x-gateway-credential label="{{ __('Public Key') }}"        name="public_key"      type="text"     placeholder="FLWPUBK_TEST-… or FLWPUBK-…" />
-                    <x-gateway-credential label="{{ __('Webhook Hash (verif-hash)') }}" name="webhook_secret" type="password" placeholder="{{ __('Custom hash set in Flutterwave dashboard') }}" />
+                    <x-gateway-credential label="{{ __('Secret Key') }}"        name="secret_key"      type="password" placeholder="FLWSECK_TEST-… or FLWSECK-…" :value="$gateway->credential('secret_key')" />
+                    <x-gateway-credential label="{{ __('Public Key') }}"        name="public_key"      type="text"     placeholder="FLWPUBK_TEST-… or FLWPUBK-…" :value="$gateway->credential('public_key')" />
+                    <x-gateway-credential label="{{ __('Webhook Hash (verif-hash)') }}" name="webhook_secret" type="password" placeholder="{{ __('Custom hash set in Flutterwave dashboard') }}" :value="$gateway->credential('webhook_secret')" />
 
                 @elseif($d === 'mollie')
-                    <x-gateway-credential label="{{ __('API Key') }}"           name="api_key"         type="password" placeholder="live_… or test_…" />
+                    <x-gateway-credential label="{{ __('API Key') }}"           name="api_key"         type="password" placeholder="live_… or test_…" :value="$gateway->credential('api_key')" />
                     <p class="text-xs text-gray-400">{{ __('Mollie does not sign webhook bodies — verification is done by fetching payment status from the API on each call.') }}</p>
 
                 @elseif($d === 'mercadopago')
-                    <x-gateway-credential label="{{ __('Access Token') }}"      name="access_token"    type="password" placeholder="APP_USR-… or TEST-…" />
-                    <x-gateway-credential label="{{ __('Webhook Secret (x-signature)') }}" name="webhook_secret" type="password" placeholder="{{ __('Set in Mercado Pago developer panel') }}" />
+                    <x-gateway-credential label="{{ __('Access Token') }}"      name="access_token"    type="password" placeholder="APP_USR-… or TEST-…" :value="$gateway->credential('access_token')" />
+                    <x-gateway-credential label="{{ __('Webhook Secret (x-signature)') }}" name="webhook_secret" type="password" placeholder="{{ __('Set in Mercado Pago developer panel') }}" :value="$gateway->credential('webhook_secret')" />
                     <x-gateway-sandbox-toggle :gateway="$gateway" />
 
                 @elseif($d === 'coinbase_commerce')
-                    <x-gateway-credential label="{{ __('API Key') }}"           name="api_key"         type="password" placeholder="{{ __('Coinbase Commerce API key') }}" />
-                    <x-gateway-credential label="{{ __('Webhook Secret') }}"    name="webhook_secret"  type="password" placeholder="{{ __('Shared secret from Coinbase Commerce') }}" />
+                    <x-gateway-credential label="{{ __('API Key') }}"           name="api_key"         type="password" placeholder="{{ __('Coinbase Commerce API key') }}" :value="$gateway->credential('api_key')" />
+                    <x-gateway-credential label="{{ __('Webhook Secret') }}"    name="webhook_secret"  type="password" placeholder="{{ __('Shared secret from Coinbase Commerce') }}" :value="$gateway->credential('webhook_secret')" />
 
                 @elseif($d === 'coingate')
-                    <x-gateway-credential label="{{ __('API Token') }}"         name="api_token"       type="password" placeholder="{{ __('CoinGate API token') }}" />
-                    <x-gateway-credential label="{{ __('Receive Currency') }}"  name="receive_currency" type="text"    placeholder="e.g. USD, EUR, BTC" />
+                    <x-gateway-credential label="{{ __('API Token') }}"         name="api_token"       type="password" placeholder="{{ __('CoinGate API token') }}" :value="$gateway->credential('api_token')" />
+                    <x-gateway-credential label="{{ __('Receive Currency') }}"  name="receive_currency" type="text"    placeholder="e.g. USD, EUR, BTC" :value="$gateway->credential('receive_currency')" />
                     <x-gateway-sandbox-toggle :gateway="$gateway" />
                     <p class="text-xs text-gray-400">{{ __('CoinGate does not sign IPN bodies. Verification relies on HTTPS-only delivery.') }}</p>
 
                 @elseif($d === 'nowpayments')
-                    <x-gateway-credential label="{{ __('API Key') }}"           name="api_key"         type="password" placeholder="{{ __('NOWPayments API key') }}" />
-                    <x-gateway-credential label="{{ __('IPN Secret') }}"        name="ipn_secret"      type="password" placeholder="{{ __('IPN secret from NOWPayments dashboard') }}" />
-                    <x-gateway-credential label="{{ __('Pay Currency') }}"      name="pay_currency"    type="text"     placeholder="e.g. btc, eth, usdt" />
+                    <x-gateway-credential label="{{ __('API Key') }}"           name="api_key"         type="password" placeholder="{{ __('NOWPayments API key') }}" :value="$gateway->credential('api_key')" />
+                    <x-gateway-credential label="{{ __('IPN Secret') }}"        name="ipn_secret"      type="password" placeholder="{{ __('IPN secret from NOWPayments dashboard') }}" :value="$gateway->credential('ipn_secret')" />
+                    <x-gateway-credential label="{{ __('Pay Currency') }}"      name="pay_currency"    type="text"     placeholder="e.g. btc, eth, usdt" :value="$gateway->credential('pay_currency')" />
                     <x-gateway-sandbox-toggle :gateway="$gateway" />
 
                 @elseif($d === 'izipay')
-                    <x-gateway-credential label="{{ __('Shop ID') }}"           name="shop_id"         type="text"     placeholder="{{ __('Izipay Shop ID') }}" />
-                    <x-gateway-credential label="{{ __('API Key (password)') }}" name="api_key"        type="password" placeholder="{{ __('Izipay API key / password') }}" />
-                    <x-gateway-credential label="{{ __('Public Key') }}"        name="public_key"      type="text"     placeholder="{{ __('Izipay public key (for JS form)') }}" />
+                    <x-gateway-credential label="{{ __('Shop ID') }}"           name="shop_id"         type="text"     placeholder="{{ __('Izipay Shop ID') }}" :value="$gateway->credential('shop_id')" />
+                    <x-gateway-credential label="{{ __('API Key (password)') }}" name="api_key"        type="password" placeholder="{{ __('Izipay API key / password') }}" :value="$gateway->credential('api_key')" />
+                    <x-gateway-credential label="{{ __('Public Key') }}"        name="public_key"      type="text"     placeholder="{{ __('Izipay public key (for JS form)') }}" :value="$gateway->credential('public_key')" />
                     <x-gateway-sandbox-toggle :gateway="$gateway" />
 
                 @endif

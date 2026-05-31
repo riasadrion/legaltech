@@ -1,9 +1,10 @@
-@props(['label', 'name', 'type' => 'text', 'placeholder' => ''])
+@props(['label', 'name', 'type' => 'text', 'placeholder' => '', 'value' => ''])
 
 <div>
     <label class="mb-1.5 block text-xs font-medium text-gray-600">{{ $label }}</label>
     <input type="{{ $type }}"
            name="credentials[{{ $name }}]"
+           value="{{ old('credentials.' . $name, $value) }}"
            placeholder="{{ $placeholder }}"
            autocomplete="off"
            class="h-9 w-full rounded-lg border px-3 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-brand-500 {{ $errors->has('credentials.' . $name) ? 'border-red-400 focus:border-red-400' : 'border-gray-300 focus:border-brand-500' }}" />

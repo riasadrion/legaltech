@@ -38,7 +38,7 @@ class PaymentGatewaySeeder extends Seeder
                 'fee_flat' => 0.49,
                 'fee_percent' => 3.49,
                 'enabled' => true,
-                'config' => [],
+                'config' => ['sandbox' => true],
             ],
             [
                 'driver' => 'razorpay',
@@ -199,7 +199,16 @@ class PaymentGatewaySeeder extends Seeder
             );
         }
 
-        // Set Stripe credentials (encrypted)
+        // Set PayPal credentials
+        $paypal = Gateway::where('driver', 'paypal')->first();
+        if ($paypal) {
+            $paypal->setCredentials([
+                'business_email' => 'sb-ocy7v2748231@business.example.com',
+            ]);
+            $paypal->save();
+        }
+
+        // Set Stripe credentials
         $stripe = Gateway::where('driver', 'stripe')->first();
         if ($stripe) {
             $stripe->setCredentials([

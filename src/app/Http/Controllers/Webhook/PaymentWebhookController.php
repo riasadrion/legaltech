@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\User\PaymentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class PaymentWebhookController extends Controller
@@ -23,9 +24,15 @@ class PaymentWebhookController extends Controller
         $headers = array_change_key_case($request->headers->all(), CASE_LOWER);
         $headers = array_map(fn ($v) => is_array($v) ? ($v[0] ?? '') : $v, $headers);
 
+        Log::channel('single')->info("Webhook received: {$driver}", [
+            'ip'      => $request->ip(),
+            'payload' => substr($rawPayload, 0, 500),
+        ]);
+
         try {
             $paymentDriver->verifyWebhookSignature($gateway, $rawPayload, $headers);
         } catch (WebhookSignatureException $e) {
+            Log::channel('single')->warning("Webhook signature failed: {$driver}", ['error' => $e->getMessage()]);
             return response()->json(['error' => 'Invalid signature'], 401);
         }
 
@@ -33,12 +40,15 @@ class PaymentWebhookController extends Controller
         $eventType = $payload['type'] ?? $payload['event_type'] ?? 'unknown';
         $eventId = $this->extractEventId($driver, $payload, $headers);
 
+        Log::channel('single')->info("Webhook verified: {$driver}", ['event' => $eventType, 'id' => $eventId]);
+
         $existing = DB::table('webhook_events')
             ->where('gateway', $driver)
             ->where('event_id', $eventId)
             ->first();
 
         if ($existing) {
+            Log::channel('single')->info("Webhook already processed: {$eventId}");
             return response()->json(['status' => 'already_processed']);
         }
 
@@ -59,8 +69,10 @@ class PaymentWebhookController extends Controller
                 $paymentController = app(PaymentController::class);
                 $walletService = app(WalletService::class);
                 $paymentController->creditWallet($payment, $walletService);
+                Log::channel('single')->info("Webhook: wallet credited for payment #{$payment->id}");
             }
         } catch (\Throwable $e) {
+            Log::channel('single')->error("Webhook processing failed: {$driver}", ['error' => $e->getMessage()]);
             DB::table('webhook_events')
                 ->where('id', $webhookEventId)
                 ->update(['status' => 'failed', 'error' => $e->getMessage()]);

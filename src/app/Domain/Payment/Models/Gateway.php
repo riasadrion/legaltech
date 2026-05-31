@@ -4,7 +4,6 @@ namespace App\Domain\Payment\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Facades\Crypt;
 
 class Gateway extends Model
 {
@@ -34,16 +33,12 @@ class Gateway extends Model
         if (! $this->credentials) {
             return [];
         }
-        try {
-            return json_decode(Crypt::decryptString($this->credentials), true) ?? [];
-        } catch (\Throwable) {
-            return [];
-        }
+        return json_decode($this->credentials, true) ?? [];
     }
 
     public function setCredentials(array $credentials): void
     {
-        $this->credentials = Crypt::encryptString(json_encode($credentials));
+        $this->credentials = json_encode($credentials);
     }
 
     public function credential(string $key, mixed $default = null): mixed

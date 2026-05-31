@@ -50,7 +50,7 @@ Route::middleware(['auth:user', 'account.active', 'verified.email', 'verified.ph
         Route::get('payment/{payment}/pending', [PaymentController::class, 'pending'])->name('payment.pending');
         Route::get('payment/{payment}/success', [PaymentController::class, 'success'])->name('payment.success');
         Route::get('payment/{payment}/cancel', [PaymentController::class, 'cancel'])->name('payment.cancel');
-        Route::get('payment/{payment}/return/{gateway}', [PaymentController::class, 'handleReturn'])->name('payment.return');
+        Route::get('payment/{payment}/return/{gateway}', [PaymentController::class, 'handleReturn'])->name('payment.return')->withoutMiddleware(['verified.email', 'verified.phone']);
 
         // KYC
         Route::get('kyc', [KycController::class, 'index'])->name('kyc.index');
