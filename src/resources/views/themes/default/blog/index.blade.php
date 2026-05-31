@@ -70,7 +70,7 @@
                          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                 </div>
                 @endif
-                <div class="p-8 md:p-10 md:w-1/2 flex flex-col justify-center">
+                <div class="p-8 md:p-10 {{ $post->cover_image ? 'md:w-1/2' : 'w-full' }} flex flex-col justify-center">
                     @if($post->category)
                     <span class="text-[11px] font-semibold text-lime uppercase tracking-widest mb-3">
                         {{ $post->category->getLocalName() }}

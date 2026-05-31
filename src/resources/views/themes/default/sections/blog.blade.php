@@ -41,21 +41,23 @@
 
             @if($featured)
             <a href="{{ route('blog.show', ['slug' => $featured->slug]) }}"
-               class="md:col-span-2 rounded-3xl glass lift relative overflow-hidden flex" data-reveal="right">
+               class="md:col-span-2 rounded-3xl glass lift relative overflow-hidden block" data-reveal="right">
                 <div class="absolute -left-20 -bottom-20 w-80 h-80 glow-lime opacity-40 pointer-events-none"></div>
-                <div class="p-8 relative flex flex-col w-full">
-                    <div class="flex items-center justify-between mb-6">
-                        <span class="text-[10px] font-mono uppercase tracking-widest rounded-full bg-lime text-ink-900 font-semibold px-3 py-1">
-                            {{ $featured->category?->getLocalName() ?? __('Article') }}
-                        </span>
-                        <span class="text-[11px] font-mono text-white/35">
-                            {{ $featured->published_at?->format('M j, Y') }}
-                        </span>
+                <div class="p-10 relative flex flex-col justify-between min-h-[320px] w-full">
+                    <div class="w-full">
+                        <div class="flex items-center justify-between mb-6 w-full">
+                            <span class="text-[10px] font-mono uppercase tracking-widest rounded-full bg-lime text-ink-900 font-semibold px-3 py-1">
+                                {{ $featured->category?->getLocalName() ?? __('Article') }}
+                            </span>
+                            <span class="text-[11px] font-mono text-white/35">
+                                {{ $featured->published_at?->format('M j, Y') }}
+                            </span>
+                        </div>
+                        <h3 class="font-display text-5xl md:text-6xl leading-[0.93] w-full">{{ $featured->getLocalTitle() }}</h3>
+                        <p class="text-white/55 text-[16px] mt-6 leading-relaxed line-clamp-4 w-full">
+                            {{ \Illuminate\Support\Str::limit(strip_tags($featured->getLocalExcerpt()), 400) }}
+                        </p>
                     </div>
-                    <h3 class="font-display text-4xl md:text-5xl leading-[0.95] line-clamp-2">{{ $featured->getLocalTitle() }}</h3>
-                    <p class="text-white/55 text-[15px] mt-5 leading-relaxed flex-1 line-clamp-4">
-                        {{ \Illuminate\Support\Str::limit(strip_tags($featured->getLocalExcerpt()), 320) }}
-                    </p>
                     <span class="mt-8 inline-flex items-center gap-2 text-sm text-lime font-medium relative z-10">
                         {{ __('Read article') }} <x-heroicon-o-arrow-right class="h-4 w-4 inline" />
                     </span>
