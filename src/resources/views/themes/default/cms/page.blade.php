@@ -8,11 +8,11 @@
 @php $sections = $page->enabledSections(); @endphp
 
 @php
-    $isContentPage = $sections->count() === 1 && in_array($sections->first()->type, ['custom_html', 'contact']);
-    $isSectionPage = !$isContentPage && $sections->isNotEmpty();
+    $firstType = $sections->first()?->type;
+    $needsHero = $firstType !== 'hero';
 @endphp
 
-@if($isContentPage || $sections->isEmpty())
+@if($needsHero)
 <div class="page-hero-wrap">
 
     <div class="page-hero-glow-bl"></div>
@@ -37,16 +37,11 @@
         </div>
     </div>
 
-    @foreach($sections as $section)
-        <?php echo $section->renderFrontend(); ?>
-    @endforeach
-
 </div>
+@endif
 
-@else
 @foreach($sections as $section)
     <?php echo $section->renderFrontend(); ?>
 @endforeach
-@endif
 
 @endsection

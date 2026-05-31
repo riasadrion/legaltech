@@ -24,10 +24,9 @@ class Page extends Model
 
         $sections = PageSection::whereIn('id', $ids)->get()->keyBy('id');
 
-        return (new Collection($ids))
-            ->map(fn ($id) => $sections->get($id))
-            ->filter()
-            ->values();
+        $ordered = collect($ids)->map(fn ($id) => $sections->get($id))->filter()->values();
+
+        return new Collection($ordered);
     }
 
     public function enabledSections(): Collection

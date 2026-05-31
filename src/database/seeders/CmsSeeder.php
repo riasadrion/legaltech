@@ -7,7 +7,6 @@ use App\Domain\Cms\Models\MenuItem;
 use App\Domain\Cms\Models\Page;
 use App\Domain\Cms\Models\PageSection;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class CmsSeeder extends Seeder
 {
@@ -75,7 +74,7 @@ class CmsSeeder extends Seeder
                 'type'    => 'cta',
                 'enabled' => true,
                 'sort'    => 7,
-                'data'    => '{"pill_text":"4,200+ teams already shipping faster with LegalTech","subheading":"Start your 14-day free trial. No credit card. Generate, sign, and send your first contract before lunch.","primary_url":"\/register","primary_icon":"ri-arrow-right-up-line","primary_text":"Start free trial","secondary_url":"\/contact","heading_line_1":"Your next contract","heading_line_2":"is one sentence away.","secondary_icon":"ri-calendar-line","secondary_text":"Book a 20-min demo"}',
+                'data'    => '{"pill_text":"4,200+ teams already shipping faster with LegalTech","subheading":"Start your 14-day free trial. No credit card. Generate, sign, and send your first contract before lunch.","primary_url":"\/register","primary_text":"Start free trial","secondary_url":"\/contact","heading_line_1":"Your next contract","heading_line_2":"is one sentence away.","secondary_text":"Book a 20-min demo"}',
             ],
             [
                 'id'      => 10,
@@ -84,7 +83,7 @@ class CmsSeeder extends Seeder
                 'sort'    => 99,
                 'data'    => '{"eyebrow":"From the desk","heading":"Thinking on <span class=\"italic-display\">contracts,<\/span><br>law & <span class=\"italic-display\">AI.<\/span>","link_url":"\/blog","link_text":"All articles"}',
             ],
-            // Policy pages — custom_html sections
+            // Policy / static pages
             [
                 'id'      => 11,
                 'type'    => 'custom_html',
@@ -120,6 +119,57 @@ class CmsSeeder extends Seeder
                 'sort'    => 0,
                 'data'    => '[]',
             ],
+            // About page sections
+            [
+                'id'      => 20,
+                'type'    => 'why_us',
+                'enabled' => true,
+                'sort'    => 1,
+                'data'    => '{"body":"We started LegalTech because we watched brilliant people lose weeks of their lives to contract bureaucracy. Founders waiting on NDAs. Freelancers chasing signature. In-house counsel buried in redlines that should have taken an hour. We thought the law deserved better tooling.","cards":[{"body":"Built by a team of lawyers, engineers, and product designers who have lived both sides of the contract table.","dark":"no","icon":"ri-team-line","title":"Practitioners first"},{"body":"Every feature ships with a legal opinion. We never build something we wouldn\'t sign ourselves.","dark":"yes","icon":"ri-shield-keyhole-fill","title":"Legally sound"},{"body":"Used in 38+ jurisdictions, with local counsel reviewing templates for each market we enter.","dark":"yes","icon":"ri-global-line","title":"Global reach"},{"body":"We publish our uptime, our security posture, and our AI model card. No black boxes.","dark":"no","icon":"ri-eye-line","title":"Radically transparent"}],"stats":[{"label":"countries with active users","value":"38"},{"label":"contracts executed on the platform","value":"1.2M"},{"label":"average NPS from legal teams","value":"71"},{"label":"founded","value":"2022"}],"eyebrow":"Our story","heading":"Built by lawyers,<br><span class=\"italic-display\">for everyone who isn\'t.<\/span>"}',
+            ],
+            [
+                'id'      => 21,
+                'type'    => 'testimonials',
+                'enabled' => true,
+                'sort'    => 2,
+                'data'    => '{"eyebrow":"What teams say","heading":"Trusted by counsel<br><span class=\"italic-display\">on six continents.<\/span>","rating_text":"4.9 · 1,247 reviews on G2","testimonials":[{"name":"Mara Vukov","role":"General Counsel · Northbeam","quote":"We replaced a four-person redlining bottleneck with a single LegalTech workspace. Our reseller deals close in days instead of months — and the lawyers finally sleep."},{"name":"Adrien Chen","role":"Head of Ops · Helix\/Law","quote":"The clause library alone paid for itself in three weeks. Our NDAs are out the door in 90 seconds flat."},{"name":"Sara Aoun","role":"Solo Practitioner · Beirut","quote":"I run a one-woman practice. LegalTech is the only reason I have a weekend."},{"name":"Priya Raman","role":"VP Legal · Kairos AI","quote":"The audit trail saved us in two due-diligence calls. That alone is worth the seat."},{"name":"Tomás Iglesias","role":"COO · Sablecourt","quote":"Counsel signs once, the AI handles the next 80%. Our cycle time dropped 71% in a quarter."},{"name":"Florent Ndiaye","role":"Partner · Atelier 14","quote":"I expected another e-sign tool. What I got was a junior associate that never sleeps."}]}',
+            ],
+            [
+                'id'      => 22,
+                'type'    => 'cta',
+                'enabled' => true,
+                'sort'    => 3,
+                'data'    => '{"pill_text":"Join 4,200+ teams shipping faster","subheading":"Start your 14-day free trial. No credit card required. Your first contract in minutes.","primary_url":"\/register","primary_text":"Start free trial","secondary_url":"\/contact","heading_line_1":"Ready to close","heading_line_2":"faster?","secondary_text":"Talk to us"}',
+            ],
+            // Pricing page sections
+            [
+                'id'      => 23,
+                'type'    => 'pricing',
+                'enabled' => true,
+                'sort'    => 0,
+                'data'    => '{"eyebrow":"Pricing","heading":"Simple, <span class=\"italic-display\">honest<\/span> pricing.","subheading":"Pay per contract when you\'re starting out. Switch to a monthly plan when it makes sense. No lock-in, no surprises.","tab_yearly":"Yearly · save 30%","tab_monthly":"Monthly · save 20%","tab_per_contract":"Pay per contract"}',
+            ],
+            [
+                'id'      => 24,
+                'type'    => 'faq',
+                'enabled' => true,
+                'sort'    => 1,
+                'data'    => '{"items":[{"answer":"Pay-per-contract is ideal if you ship fewer than ~6 contracts per month. Monthly plans are better if you draft frequently — unlimited drafts, redlines, and templates at a flat rate.","question":"Which plan is right for me?"},{"answer":"All new paid subscriptions are eligible for a full refund within 14 days of the initial payment. Annual plans cancelled after that window receive a pro-rated refund for unused months.","question":"What is your refund policy?"},{"answer":"Yes. You can upgrade or downgrade at any time. When you upgrade, you\'re billed the prorated difference. When you downgrade, the change takes effect at the next billing cycle.","question":"Can I change my plan later?"},{"answer":"Never. Customer data is logically isolated, encrypted with per-tenant keys, and excluded from any AI training corpus by default.","question":"Do you train your AI on my contracts?"},{"answer":"You can export every contract, audit certificate, and template as PDF + .docx at any time — including for 90 days after cancellation.","question":"What happens to my data if I cancel?"},{"answer":"We accept all major credit and debit cards, bank transfers, and select cryptocurrency options depending on your region.","question":"What payment methods do you accept?"}],"eyebrow":"Pricing FAQ","heading":"Questions about <span class=\"italic-display\">plans & billing.<\/span>"}',
+            ],
+            [
+                'id'      => 25,
+                'type'    => 'testimonials',
+                'enabled' => true,
+                'sort'    => 2,
+                'data'    => '{"eyebrow":"Why teams choose us","heading":"The numbers<br><span class=\"italic-display\">speak for themselves.<\/span>","rating_text":"4.9 · 1,247 reviews on G2","testimonials":[{"name":"Priya Raman","role":"VP Legal · Kairos AI","quote":"The audit trail saved us in two due-diligence calls. That alone is worth the seat."},{"name":"Adrien Chen","role":"Head of Ops · Helix\/Law","quote":"The clause library alone paid for itself in three weeks. Our NDAs are out the door in 90 seconds flat."},{"name":"Tomás Iglesias","role":"COO · Sablecourt","quote":"Counsel signs once, the AI handles the next 80%. Our cycle time dropped 71% in a quarter."},{"name":"Mara Vukov","role":"General Counsel · Northbeam","quote":"We replaced a four-person redlining bottleneck with a single LegalTech workspace. Our reseller deals close in days instead of months — and the lawyers finally sleep."},{"name":"Sara Aoun","role":"Solo Practitioner · Beirut","quote":"I run a one-woman practice. LegalTech is the only reason I have a weekend."},{"name":"Florent Ndiaye","role":"Partner · Atelier 14","quote":"I expected another e-sign tool. What I got was a junior associate that never sleeps."}]}',
+            ],
+            [
+                'id'      => 26,
+                'type'    => 'cta',
+                'enabled' => true,
+                'sort'    => 3,
+                'data'    => '{"pill_text":"No credit card required","subheading":"Generate, sign, and send your first contract before lunch. Cancel anytime.","primary_url":"\/register","primary_text":"Start free trial","secondary_url":"\/contact","heading_line_1":"Start today,","heading_line_2":"cancel anytime.","secondary_text":"Book a demo"}',
+            ],
         ];
 
         foreach ($sections as $s) {
@@ -137,14 +187,13 @@ class CmsSeeder extends Seeder
 
     private function seedPages(): void
     {
-        // section_ids map to the PageSection IDs seeded above
         $pages = [
             [
                 'slug'        => 'home',
                 'title'       => ['en' => 'Home'],
                 'status'      => 'published',
                 'is_system'   => true,
-                'section_ids' => [1, 2, 3, 4, 5, 6, 7, 8, 10],
+                'section_ids' => [1, 2, 3, 4, 5, 6, 7, 10, 8],
             ],
             [
                 'slug'        => 'privacy-policy',
@@ -179,14 +228,21 @@ class CmsSeeder extends Seeder
                 'title'       => ['en' => 'Contact'],
                 'status'      => 'published',
                 'is_system'   => true,
-                'section_ids' => [15],
+                'section_ids' => [15, 5, 29],
             ],
             [
                 'slug'        => 'about',
                 'title'       => ['en' => 'About Us'],
                 'status'      => 'published',
                 'is_system'   => true,
-                'section_ids' => [],
+                'section_ids' => [20, 21, 22],
+            ],
+            [
+                'slug'        => 'pricing',
+                'title'       => ['en' => 'Pricing'],
+                'status'      => 'published',
+                'is_system'   => true,
+                'section_ids' => [23, 24, 25, 26],
             ],
         ];
 
@@ -207,9 +263,11 @@ class CmsSeeder extends Seeder
                 'handle' => 'header',
                 'name'   => ['en' => 'Header'],
                 'items'  => [
-                    ['label' => ['en' => 'Home'],    'url' => '/',        'parent' => null, 'sort' => 0],
-                    ['label' => ['en' => 'About'],   'url' => '/about',   'parent' => null, 'sort' => 1],
-                    ['label' => ['en' => 'Contact'],  'url' => '/contact', 'parent' => null, 'sort' => 2],
+                    ['label' => ['en' => 'Home'],     'url' => '/',          'parent' => null, 'sort' => 0],
+                    ['label' => ['en' => 'About'],    'url' => '/about',   'parent' => null, 'sort' => 1],
+                    ['label' => ['en' => 'Pricing'],  'url' => '/pricing', 'parent' => null, 'sort' => 2],
+                    ['label' => ['en' => 'Blog'],     'url' => '/blog',      'parent' => null, 'sort' => 3],
+                    ['label' => ['en' => 'Contact'],  'url' => '/contact',   'parent' => null, 'sort' => 4],
                 ],
             ],
             [
@@ -217,25 +275,27 @@ class CmsSeeder extends Seeder
                 'name'   => ['en' => 'Footer'],
                 'items'  => [
                     // Product column
-                    ['label' => ['en' => 'Product'],      'url' => null,           'parent' => null, 'sort' => 0, 'key' => 'product'],
-                    ['label' => ['en' => 'Features'],     'url' => '/#features',   'parent' => 'product', 'sort' => 0],
-                    ['label' => ['en' => 'How it works'], 'url' => '/#workflow',   'parent' => 'product', 'sort' => 1],
-                    ['label' => ['en' => 'Pricing'],      'url' => '/#pricing',    'parent' => 'product', 'sort' => 2],
-                    ['label' => ['en' => 'FAQ'],          'url' => '/#faq',        'parent' => 'product', 'sort' => 3],
+                    ['label' => ['en' => 'Product'],      'url' => null,            'parent' => null,      'sort' => 0, 'key' => 'product'],
+                    ['label' => ['en' => 'Features'],     'url' => '/#features',    'parent' => 'product', 'sort' => 0],
+                    ['label' => ['en' => 'How it works'], 'url' => '/#workflow',    'parent' => 'product', 'sort' => 1],
+                    ['label' => ['en' => 'Pricing'],      'url' => '/pricing',    'parent' => 'product', 'sort' => 2],
+                    ['label' => ['en' => 'FAQ'],          'url' => '/#faq',         'parent' => 'product', 'sort' => 3],
                     // Resources column
-                    ['label' => ['en' => 'Resources'],    'url' => null,           'parent' => null, 'sort' => 1, 'key' => 'resources'],
-                    ['label' => ['en' => 'Blog'],         'url' => '/blog',        'parent' => 'resources', 'sort' => 0],
-                    ['label' => ['en' => 'Contact'],      'url' => '/contact',     'parent' => 'resources', 'sort' => 1],
+                    ['label' => ['en' => 'Resources'],    'url' => null,            'parent' => null,        'sort' => 1, 'key' => 'resources'],
+                    ['label' => ['en' => 'Blog'],         'url' => '/blog',         'parent' => 'resources', 'sort' => 0],
+                    ['label' => ['en' => 'Contact'],      'url' => '/contact',      'parent' => 'resources', 'sort' => 1],
+                    ['label' => ['en' => 'Support'],      'url' => '/contact',      'parent' => 'resources', 'sort' => 2],
                     // Company column
-                    ['label' => ['en' => 'Company'],      'url' => null,           'parent' => null, 'sort' => 2, 'key' => 'company'],
-                    ['label' => ['en' => 'About'],        'url' => '/about',       'parent' => 'company', 'sort' => 0],
-                    ['label' => ['en' => 'Contact'],      'url' => '/contact',     'parent' => 'company', 'sort' => 1],
+                    ['label' => ['en' => 'Company'],      'url' => null,            'parent' => null,      'sort' => 2, 'key' => 'company'],
+                    ['label' => ['en' => 'About'],        'url' => '/about',      'parent' => 'company', 'sort' => 0],
+                    ['label' => ['en' => 'Pricing'],      'url' => '/pricing',    'parent' => 'company', 'sort' => 1],
+                    ['label' => ['en' => 'Contact'],      'url' => '/contact',      'parent' => 'company', 'sort' => 2],
                     // Legal column
-                    ['label' => ['en' => 'Legal'],        'url' => null,           'parent' => null, 'sort' => 3, 'key' => 'legal'],
-                    ['label' => ['en' => 'Terms'],        'url' => '/p/terms',          'parent' => 'legal', 'sort' => 0],
-                    ['label' => ['en' => 'Privacy'],      'url' => '/p/privacy-policy', 'parent' => 'legal', 'sort' => 1],
-                    ['label' => ['en' => 'Refund'],       'url' => '/p/refund-policy',  'parent' => 'legal', 'sort' => 2],
-                    ['label' => ['en' => 'Cookies'],      'url' => '/p/cookie-policy',  'parent' => 'legal', 'sort' => 3],
+                    ['label' => ['en' => 'Legal'],        'url' => null,            'parent' => null,    'sort' => 3, 'key' => 'legal'],
+                    ['label' => ['en' => 'Terms'],        'url' => '/terms',          'parent' => 'legal', 'sort' => 0],
+                    ['label' => ['en' => 'Privacy'],      'url' => '/privacy-policy', 'parent' => 'legal', 'sort' => 1],
+                    ['label' => ['en' => 'Refund'],       'url' => '/refund-policy',  'parent' => 'legal', 'sort' => 2],
+                    ['label' => ['en' => 'Cookies'],      'url' => '/cookie-policy',  'parent' => 'legal', 'sort' => 3],
                 ],
             ],
             [
