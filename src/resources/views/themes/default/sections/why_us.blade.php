@@ -7,12 +7,12 @@
     $cards   = array_values(array_filter($d['cards'] ?? [], fn($c) => !empty($c['title'])));
 @endphp
 
-<section class="relative py-28 bg-cream-100 text-ink-900">
+<section id="why-us-{{ $section->id }}" class="relative py-28 bg-cream-100 text-ink-900">
     <div class="absolute inset-0 bg-grid-cream radial-fade pointer-events-none"></div>
     <div class="relative mx-auto max-w-7xl px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
 
 
-        <div>
+        <div data-reveal="right">
             @if($eyebrow)
                 <div class="text-[11px] font-mono uppercase tracking-[.25em] text-ink-500 mb-3">— {{ __($eyebrow) }}</div>
             @endif
@@ -40,7 +40,7 @@
             <div class="grid grid-cols-2 gap-3">
                 @foreach($cards as $card)
                     @php $dark = strtolower($card['dark'] ?? '') === 'yes'; @endphp
-                    <div class="rounded-3xl shadow-card p-6 lift {{ $dark ? 'bg-ink-900 text-white' : 'bg-white' }}">
+                    <div class="rounded-3xl shadow-card p-6 lift {{ $dark ? 'bg-ink-900 text-white' : 'bg-white' }}" data-reveal data-reveal-delay="{{ $loop->index * 80 }}">
                         @if(!empty($card['icon']))
                             <i class="{{ $card['icon'] }} text-2xl {{ $dark ? 'text-lime' : 'text-ink-900' }}"></i>
                         @endif

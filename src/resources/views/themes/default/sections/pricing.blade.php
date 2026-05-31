@@ -17,7 +17,7 @@
 <section id="pricing" class="relative py-28">
     <div class="mx-auto max-w-7xl px-6">
 
-        <div class="text-center max-w-3xl mx-auto">
+        <div class="text-center max-w-3xl mx-auto" data-reveal>
             @if($eyebrow)
                 <div class="text-[11px] font-mono uppercase tracking-[.25em] text-lime mb-3">— {{ __($eyebrow) }}</div>
             @endif
@@ -48,7 +48,7 @@
         </div>
 
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mt-10">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mt-10" data-reveal data-reveal-delay="100">
             @foreach($allPlans as $plan)
                 <div class="pricing-card-wrap" data-tier-cycles="{{ $plan->billing_cycle }}">
                     <x-theme::plan-card :plan="$plan" />

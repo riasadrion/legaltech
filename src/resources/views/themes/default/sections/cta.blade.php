@@ -10,11 +10,11 @@
     $sUrl     = $d['secondary_url']  ?? '#';
 @endphp
 
-<section class="relative py-28 overflow-hidden">
+<section class="relative pt-28 pb-60 overflow-hidden">
     <div class="absolute inset-0 bg-grid radial-fade pointer-events-none"></div>
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] glow-lime opacity-80"></div>
 
-    <div class="relative mx-auto max-w-5xl px-6 text-center">
+    <div class="relative mx-auto max-w-5xl px-6 text-center" data-reveal>
 
         @if($pill)
             <div class="inline-flex items-center gap-2 rounded-full glass px-3 py-1.5 text-xs text-white/75">

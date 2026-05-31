@@ -37,12 +37,21 @@ class ViteAssets
 
     public static function includeAssets(array $entries): string
     {
-        $html = '';
+        $manifest  = self::getManifest();
+        $html      = '';
+        $basePath  = rtrim(request()->getBasePath(), '/') . '/';
 
         foreach ($entries as $entry) {
-            $assetPath = self::asset($entry);
-            if (!$assetPath) {
+            if (!isset($manifest[$entry])) {
                 continue;
+            }
+
+            $chunk     = $manifest[$entry];
+            $assetPath = $basePath . 'assets/vite/' . $chunk['file'];
+
+            // CSS chunks emitted from JS entries
+            foreach ($chunk['css'] ?? [] as $cssFile) {
+                $html .= '<link rel="stylesheet" href="' . $basePath . 'assets/vite/' . $cssFile . '">' . "\n";
             }
 
             if (str_ends_with($assetPath, '.css')) {

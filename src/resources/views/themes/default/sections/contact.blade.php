@@ -15,7 +15,7 @@
 @endphp
 
 
-<section class="relative py-20">
+<section class="relative py-28">
     <div class="mx-auto max-w-7xl px-6">
         <div class="ct-grid">
 

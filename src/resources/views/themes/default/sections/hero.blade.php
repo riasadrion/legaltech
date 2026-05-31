@@ -12,7 +12,7 @@
 
 
         @if(!empty($d['pill_text']))
-            <div class="flex justify-center">
+            <div class="flex justify-center" data-reveal>
                 <a href="{{ $d['pill_url'] ?? '#' }}"
                    class="group inline-flex items-center gap-3 rounded-full glass px-2 py-1.5 pr-4 text-sm text-white/80">
                     @if(!empty($d['pill_label']))
@@ -27,7 +27,7 @@
         @endif
 
 
-        <h1 class="mt-8 text-center font-display text-[60px] leading-[0.93] sm:text-[80px] md:text-[104px] tracking-tight">
+        <h1 class="mt-8 text-center font-display text-[60px] leading-[0.93] sm:text-[80px] md:text-[104px] tracking-tight" data-reveal data-reveal-delay="100">
             @if(!empty($d['heading_line_1']))
                 <span class="grad-text">{{ __($d['heading_line_1']) }} </span>
             @endif
@@ -45,7 +45,7 @@
 
 
         @if(!empty($d['subheading']))
-            <p class="mx-auto mt-6 max-w-xl text-center text-lg text-white/60">
+            <p class="mx-auto mt-6 max-w-xl text-center text-lg text-white/60" data-reveal data-reveal-delay="200">
                 {{ __($d['subheading']) }}
                 @if(!empty($d['subheading_emphasis']))
                     <span class="text-white">{{ __($d['subheading_emphasis']) }}</span>

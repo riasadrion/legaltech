@@ -3,6 +3,9 @@
 import Sortable from 'sortablejs';
 import { ImageResizer } from './utils/image-resize';
 import { confirmModal, toast } from './utils/ui';
+import { initReveal } from './utils/reveal';
+
+initReveal();
 
 const $ = window.jQuery;
 window.Sortable = Sortable;

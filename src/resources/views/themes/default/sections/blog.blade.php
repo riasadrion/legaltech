@@ -41,7 +41,7 @@
 
             @if($featured)
             <a href="{{ route('blog.show', ['slug' => $featured->slug]) }}"
-               class="md:col-span-2 rounded-3xl glass lift relative overflow-hidden flex">
+               class="md:col-span-2 rounded-3xl glass lift relative overflow-hidden flex" data-reveal="right">
                 <div class="absolute -left-20 -bottom-20 w-80 h-80 glow-lime opacity-40 pointer-events-none"></div>
                 <div class="p-8 relative flex flex-col w-full">
                     <div class="flex items-center justify-between mb-6">
@@ -52,9 +52,9 @@
                             {{ $featured->published_at?->format('M j, Y') }}
                         </span>
                     </div>
-                    <h3 class="font-display text-4xl md:text-5xl leading-[0.95]">{{ $featured->getLocalTitle() }}</h3>
-                    <p class="text-white/55 text-[15px] mt-5 leading-relaxed max-w-lg flex-1">
-                        {{ \Illuminate\Support\Str::limit(strip_tags($featured->getLocalExcerpt()), 200) }}
+                    <h3 class="font-display text-4xl md:text-5xl leading-[0.95] line-clamp-2">{{ $featured->getLocalTitle() }}</h3>
+                    <p class="text-white/55 text-[15px] mt-5 leading-relaxed flex-1 line-clamp-4">
+                        {{ \Illuminate\Support\Str::limit(strip_tags($featured->getLocalExcerpt()), 320) }}
                     </p>
                     <span class="mt-8 inline-flex items-center gap-2 text-sm text-lime font-medium relative z-10">
                         {{ __('Read article') }} <x-heroicon-o-arrow-right class="h-4 w-4 inline" />
@@ -67,7 +67,7 @@
             <div class="flex flex-col gap-4">
                 @foreach($side as $post)
                 <a href="{{ route('blog.show', ['slug' => $post->slug]) }}"
-                   class="flex-1 rounded-3xl glass lift relative overflow-hidden block">
+                   class="flex-1 rounded-3xl glass lift relative overflow-hidden block" data-reveal="left" data-reveal-delay="{{ $loop->index * 100 }}">
                     <div class="p-7 relative h-full flex flex-col">
                         <div class="flex items-center justify-between mb-4">
                             <span class="text-[10px] font-mono uppercase tracking-widest rounded-full bg-white/8 border border-white/10 px-2.5 py-1 text-white/60">
@@ -77,9 +77,9 @@
                                 {{ $post->published_at?->format('M j') }}
                             </span>
                         </div>
-                        <h3 class="font-display text-2xl leading-snug">{{ $post->getLocalTitle() }}</h3>
-                        <p class="text-white/50 text-sm mt-2 leading-relaxed flex-1">
-                            {{ \Illuminate\Support\Str::limit(strip_tags($post->getLocalExcerpt()), 130) }}
+                        <h3 class="font-display text-2xl leading-snug line-clamp-2">{{ $post->getLocalTitle() }}</h3>
+                        <p class="text-white/50 text-sm mt-2 leading-relaxed flex-1 line-clamp-2">
+                            {{ \Illuminate\Support\Str::limit(strip_tags($post->getLocalExcerpt()), 110) }}
                         </p>
                         <span class="mt-5 inline-flex items-center gap-2 text-sm text-lime font-medium">
                             {{ __('Read') }} <x-heroicon-o-arrow-right class="h-4 w-4 inline" />

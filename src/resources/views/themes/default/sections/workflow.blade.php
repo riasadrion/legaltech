@@ -12,7 +12,7 @@
     <div class="relative mx-auto max-w-7xl px-6">
 
         <div class="flex flex-wrap items-end justify-between gap-6 mb-16">
-            <div>
+            <div data-reveal>
                 @if($eyebrow)
                     <div class="text-[11px] font-mono uppercase tracking-[.25em] text-ink-500 mb-3">— {{ __($eyebrow) }}</div>
                 @endif
@@ -33,7 +33,8 @@
             @foreach($steps as $i => $step)
                 @php $last = $i === count($steps) - 1; @endphp
                 <div class="relative rounded-3xl p-7 shadow-card lift overflow-hidden
-                            {{ $last ? 'bg-ink-900 text-white' : 'bg-white' }}">
+                            {{ $last ? 'bg-ink-900 text-white' : 'bg-white' }}"
+                     data-reveal data-reveal-delay="{{ $i * 80 }}">
                     @if($last)
                         <div class="absolute -right-10 -bottom-10 w-48 h-48 glow-lime"></div>
                     @endif

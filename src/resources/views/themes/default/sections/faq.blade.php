@@ -8,7 +8,7 @@
 <section id="faq" class="relative py-28">
     <div class="mx-auto max-w-5xl px-6">
 
-        <div class="text-center max-w-2xl mx-auto mb-12">
+        <div class="text-center max-w-2xl mx-auto mb-12" data-reveal>
             @if($eyebrow)
                 <div class="text-[11px] font-mono uppercase tracking-[.25em] text-lime mb-3">— {{ __($eyebrow) }}</div>
             @endif
@@ -18,7 +18,7 @@
         </div>
 
         @if(!empty($items))
-        <div class="divide-y divide-white/8 rounded-3xl glass overflow-hidden">
+        <div class="divide-y divide-white/8 rounded-3xl glass overflow-hidden" data-reveal data-reveal-delay="100">
             @foreach($items as $item)
                 <details class="group p-6">
                     <summary class="flex items-center justify-between gap-6 cursor-pointer list-none">
