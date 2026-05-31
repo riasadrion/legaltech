@@ -161,9 +161,9 @@
                 @php $d = $gatewayDriver->driver(); @endphp
 
                 @if($d === 'stripe')
-                    <x-gateway-credential label="{{ __('Secret key') }}"        name="secret_key"      type="password" placeholder="sk_live_… or sk_test_…" :value="$gateway->credential('secret_key')" />
-                    <x-gateway-credential label="{{ __('Publishable key') }}"   name="publishable_key" type="text"     placeholder="pk_live_… or pk_test_…" :value="$gateway->credential('publishable_key')" />
-                    <x-gateway-credential label="{{ __('Webhook secret') }}"    name="webhook_secret"  type="password" placeholder="whsec_…" :value="$gateway->credential('webhook_secret')" />
+                    <x-gateway-credential label="{{ __('Secret key') }}"        name="secret_key"      type="text"     placeholder="sk_live_… or sk_test_…" :value="$gateway->credential('secret_key')" />
+                    <x-gateway-credential label="{{ __('Publishable key') }}"   name="public_key"      type="text"     placeholder="pk_live_… or pk_test_…" :value="$gateway->credential('public_key')" />
+                    <x-gateway-credential label="{{ __('Webhook secret') }}"    name="webhook_secret"  type="text"     placeholder="whsec_…" :value="$gateway->credential('webhook_secret')" />
 
                 @elseif($d === 'paypal')
                     <x-gateway-credential label="{{ __('Business Email') }}"    name="business_email"  type="email"    placeholder="your@business.com" :value="$gateway->credential('business_email')" />
