@@ -214,7 +214,7 @@ class PaymentGatewaySeeder extends Seeder
             $stripe->setCredentials([
                 'public_key'     => 'pk_test_51Qgl5hEXJkqlhE5dvoJILmWZkxP2c9d3dZpOvxPJe7L84GZWcKtTDwDxUwA3GWK091oyv8srzZrPk8zSDpNh9XIQ00Eow9F1BH',
                 'secret_key'     => 'sk_test_51Qgl5hEXJkqlhE5dd0kHNboynWv0qiHIQhxwi8Yy1HiJ797cyczL9g81VBoN2ErsXlCKS5OAgJcmyJHgsTm3x5Ds0096ta4IjO',
-                'webhook_secret' => 'whsec_dI9nAn0F0bGPRjaiSLo3ydCzfNOSyRqj',
+                'webhook_secret' => 'whsec_bLQgFKEQQ3GBNHHV0vpMnl3AjQW0zgqQ',
             ]);
             $stripe->save();
         }

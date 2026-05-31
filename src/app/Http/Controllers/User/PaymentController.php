@@ -124,11 +124,7 @@ class PaymentController extends Controller
 
     public function handleReturn(Request $request, Payment $payment, PaymentGatewayManager $manager, WalletService $wallet)
     {
-        // On return from the gateway the session may be lost (cross-site redirect),
-        // so re-establish auth from the payment's own owner instead of 403-ing.
-        if (auth('user')->id() !== $payment->user_id) {
-            auth('user')->loginUsingId($payment->user_id);
-        }
+        $this->authorizePayment($payment);
 
         $driver = $manager->driver($request->route('gateway'));
         $payment = $driver->handleReturn($payment, $request->all());

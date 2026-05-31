@@ -891,7 +891,7 @@
 
 @push('scripts')
 <script>
-
+$(function () {
     'use strict';
     function activateTab(tabName) {
         if (!tabName || !$('#' + tabName).length) return;
