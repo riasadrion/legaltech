@@ -62,23 +62,8 @@ class StripeDriver implements PaymentGateway
 
     public function handleReturn(Payment $payment, array $params): Payment
     {
-        // Verify the checkout session directly so the payment completes on return
-        // without depending on the webhook reaching the server.
-        $sessionId = $params['session_id'] ?? $payment->gateway_ref;
-
-        if ($sessionId && ! $payment->isCompleted()) {
-            try {
-                $session = $this->client($payment->gateway)->checkout->sessions->retrieve($sessionId);
-
-                if (($session->payment_status ?? null) === 'paid') {
-                    $payment->status = Payment::STATUS_COMPLETED;
-                    $payment->save();
-                }
-            } catch (\Throwable) {
-                // leave pending — webhook can still complete it later
-            }
-        }
-
+        // Stripe confirms via webhook — the return URL just shows a "pending" screen
+        // Status will be updated when checkout.session.completed webhook fires
         return $payment->fresh();
     }
 
