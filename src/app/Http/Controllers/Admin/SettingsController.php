@@ -162,7 +162,9 @@ class SettingsController extends Controller
         Settings::set('mail.smtp.host', $data['mail_smtp_host'] ?? '', 'string', 'mail');
         Settings::set('mail.smtp.port', $data['mail_smtp_port'] ?? '', 'string', 'mail');
         Settings::set('mail.smtp.username', $data['mail_smtp_username'] ?? '', 'string', 'mail');
-        Settings::set('mail.smtp.password', $data['mail_smtp_password'] ?? '', 'string', 'mail');
+        if (!empty($data['mail_smtp_password'])) {
+            Settings::set('mail.smtp.password', $data['mail_smtp_password'], 'string', 'mail');
+        }
         Settings::set('mail.smtp.encryption', $data['mail_smtp_encryption'] ?? '', 'string', 'mail');
         Settings::set('mail.mailgun.domain', $data['mail_mailgun_domain'] ?? '', 'string', 'mail');
         Settings::set('mail.mailgun.secret', $data['mail_mailgun_secret'] ?? '', 'string', 'mail');

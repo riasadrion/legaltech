@@ -383,7 +383,7 @@
                         <x-form.input name="mail_smtp_host" label="{{ __('SMTP Host') }}" :value="setting('mail.smtp.host')" />
                         <x-form.input name="mail_smtp_port" label="{{ __('SMTP Port') }}" :value="setting('mail.smtp.port', '587')" />
                         <x-form.input name="mail_smtp_username" label="{{ __('Username') }}" :value="setting('mail.smtp.username')" />
-                        <x-form.input name="mail_smtp_password" label="{{ __('Password') }}" type="password" :value="setting('mail.smtp.password')" />
+                        <x-form.input name="mail_smtp_password" label="{{ __('Password') }}" type="password" :value="null" :placeholder="setting('mail.smtp.password') ? __('Saved — leave blank to keep existing') : __('Enter password')" />
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1.5">{{ __('Encryption') }}</label>
                             <select name="mail_smtp_encryption" class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500">
