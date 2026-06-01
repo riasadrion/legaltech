@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Support\Models;
+namespace App\Models;
 
 use App\Services\HtmlPurifier;
 use App\Models\Admin;

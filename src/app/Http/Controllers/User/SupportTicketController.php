@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\User;
 
 use App\Actions\Notify;
-use App\Domain\Support\Models\SupportAttachment;
-use App\Domain\Support\Models\SupportMessage;
-use App\Domain\Support\Models\SupportTicket;
+use App\Models\SupportAttachment;
+use App\Models\SupportMessage;
+use App\Models\SupportTicket;
 use App\Services\FileUploader;
 use App\Models\User;
 use App\Support\AdminNotify;

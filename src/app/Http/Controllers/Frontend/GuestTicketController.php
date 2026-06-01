@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Domain\Support\Models\SupportMessage;
-use App\Domain\Support\Models\SupportTicket;
+use App\Models\SupportMessage;
+use App\Models\SupportTicket;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Mail\Message;

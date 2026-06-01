@@ -18,7 +18,7 @@
         <div>
             <label class="block text-sm font-medium text-gray-700 mb-1">Category</label>
             <select name="category" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-brand-500 focus:border-brand-500">
-                @foreach(\App\Domain\Support\Models\SupportTicket::categories() as $cat)
+                @foreach(\App\Models\SupportTicket::categories() as $cat)
                 <option value="{{ $cat }}" {{ old('category') === $cat ? 'selected' : '' }}>{{ ucfirst($cat) }}</option>
                 @endforeach
             </select>

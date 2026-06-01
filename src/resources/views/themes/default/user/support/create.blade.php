@@ -40,7 +40,7 @@ function udShowFiles(input, listId) {
                 <label class="ud-label">@lang('Category')</label>
                 <select name="category" class="ud-select mt-1" required>
                     <option value="">@lang('Select a category')</option>
-                    @foreach(\App\Domain\Support\Models\SupportTicket::categories() as $cat)
+                    @foreach(\App\Models\SupportTicket::categories() as $cat)
                         <option value="{{ $cat }}" {{ old('category') === $cat ? 'selected' : '' }}>
                             {{ __(ucfirst(str_replace('_', ' ', $cat))) }}
                         </option>

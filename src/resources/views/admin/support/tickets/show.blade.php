@@ -103,7 +103,7 @@
             <form method="POST" action="{{ route('admin.support.tickets.status', $ticket) }}">
                 @csrf @method('PATCH')
                 <select name="status" class="w-full border border-gray-300 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100 rounded-lg px-3 py-2 text-sm mb-3">
-                    @foreach(\App\Domain\Support\Models\SupportTicket::statuses() as $s)
+                    @foreach(\App\Models\SupportTicket::statuses() as $s)
                     <option value="{{ $s }}" {{ $ticket->status === $s ? 'selected' : '' }}>{{ ucfirst(str_replace('_', ' ', $s)) }}</option>
                     @endforeach
                 </select>

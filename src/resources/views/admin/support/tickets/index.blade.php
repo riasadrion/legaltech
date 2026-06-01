@@ -15,13 +15,13 @@
             <x-status-pills :items="$statusPills" :current="request('status', '')" />
             <select name="priority" onchange="this.form.submit()" class="h-9 rounded-lg border border-gray-300 px-3 text-sm shadow-sm">
                 <option value="">@lang('All priority')</option>
-                @foreach(\App\Domain\Support\Models\SupportTicket::priorities() as $p)
+                @foreach(\App\Models\SupportTicket::priorities() as $p)
                 <option value="{{ $p }}" {{ request('priority') === $p ? 'selected' : '' }}>{{ ucfirst(__($p)) }}</option>
                 @endforeach
             </select>
             <select name="category" onchange="this.form.submit()" class="h-9 rounded-lg border border-gray-300 px-3 text-sm shadow-sm">
                 <option value="">@lang('All categories')</option>
-                @foreach(\App\Domain\Support\Models\SupportTicket::categories() as $c)
+                @foreach(\App\Models\SupportTicket::categories() as $c)
                 <option value="{{ $c }}" {{ request('category') === $c ? 'selected' : '' }}>{{ ucfirst(__($c)) }}</option>
                 @endforeach
             </select>
