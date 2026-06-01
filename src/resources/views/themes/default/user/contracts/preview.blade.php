@@ -16,7 +16,7 @@
         </div>
     </div>
 
-    @include('user.contracts._stepper', ['step' => 4])
+    @include('theme::user.contracts._stepper', ['step' => 4])
 
 
     <div class="rounded-2xl glass overflow-hidden">

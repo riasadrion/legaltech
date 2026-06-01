@@ -18,7 +18,7 @@ class UserNotificationController
 
         UserNotification::where('user_id', $user->id)->whereNull('read_at')->update(['read_at' => now()]);
 
-        return view('user.notifications.index', compact('notifications'));
+        return view('theme::user.notifications.index', compact('notifications'));
     }
 
     public function markRead(UserNotification $notification): RedirectResponse

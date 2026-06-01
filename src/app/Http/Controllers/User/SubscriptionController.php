@@ -15,7 +15,7 @@ class SubscriptionController extends Controller
     {
         $gateways = Gateway::enabled()->orderBy('sort')->get();
 
-        return view('user.subscription.checkout', compact('plan', 'gateways'));
+        return view('theme::user.subscription.checkout', compact('plan', 'gateways'));
     }
 
     public function index()
@@ -24,14 +24,14 @@ class SubscriptionController extends Controller
         $subscription = $user->subscription()->with('plan')->first();
         $creditHistory = CreditLog::where('user_id', $user->id)->latest()->paginate(15);
 
-        return view('user.subscription.index', compact('subscription', 'creditHistory'));
+        return view('theme::user.subscription.index', compact('subscription', 'creditHistory'));
     }
 
     public function plans()
     {
         $plans = Plan::active()->orderBy('sort')->get();
 
-        return view('user.subscription.plans', compact('plans'));
+        return view('theme::user.subscription.plans', compact('plans'));
     }
 
     public function subscribe(Request $request, SubscriptionService $subscriptionService)

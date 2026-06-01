@@ -103,7 +103,7 @@ $anySocial = collect(['google','facebook','twitter','linkedin'])
 <div class="auth-divider">
     <span>@lang('Or continue with')</span>
 </div>
-@include('auth.partials.social-buttons')
+@include('theme::auth.partials.social-buttons')
 @endif
 
 <p class="mt-6 text-center text-sm text-white/50">

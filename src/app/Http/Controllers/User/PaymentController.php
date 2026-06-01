@@ -29,19 +29,19 @@ class PaymentController extends Controller
             ->groupBy('gateway_id')
             ->pluck('total', 'gateway_id');
 
-        return view('user.payment.index', compact('gateways', 'payments', 'gatewayTotals', 'balance'));
+        return view('theme::user.payment.index', compact('gateways', 'payments', 'gatewayTotals', 'balance'));
     }
 
     public function create(Request $request)
     {
         if (!$request->gateway) {
             $gateways = Gateway::enabled()->orderBy('sort')->get();
-            return view('user.payment.select', compact('gateways'));
+            return view('theme::user.payment.select', compact('gateways'));
         }
 
         $gateway = Gateway::where('driver', $request->gateway)->enabled()->firstOrFail();
 
-        return view('user.payment.create', compact('gateway'));
+        return view('theme::user.payment.create', compact('gateway'));
     }
 
     public function store(Request $request, PaymentGatewayManager $manager, FileUploader $uploader)
@@ -154,14 +154,14 @@ class PaymentController extends Controller
     {
         $this->authorizePayment($payment);
 
-        return view('user.payment.pending', compact('payment'));
+        return view('theme::user.payment.pending', compact('payment'));
     }
 
     public function success(Payment $payment)
     {
         $this->authorizePayment($payment);
 
-        return view('user.payment.success', compact('payment'));
+        return view('theme::user.payment.success', compact('payment'));
     }
 
     /**

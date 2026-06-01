@@ -13,7 +13,7 @@ class ResetPasswordController extends Controller
 {
     public function show(Request $request, string $token)
     {
-        return view('auth.reset-password', [
+        return view('theme::auth.reset-password', [
             'token' => $token,
             'email' => $request->email,
         ]);

@@ -10,7 +10,7 @@ class ForgotPasswordController extends Controller
 {
     public function show()
     {
-        return view('auth.forgot-password');
+        return view('theme::auth.forgot-password');
     }
 
     public function store(Request $request)

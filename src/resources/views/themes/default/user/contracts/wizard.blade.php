@@ -20,7 +20,7 @@
         </div>
     </div>
 
-    @include('user.contracts._stepper', ['step' => 3])
+    @include('theme::user.contracts._stepper', ['step' => 3])
 
     <form method="POST" action="{{ route('user.contracts.preview') }}" class="space-y-5">
         @csrf

@@ -56,7 +56,7 @@ $anySocial = collect(['google','facebook','twitter','linkedin'])
 <div class="auth-divider">
     <span>@lang('Or continue with')</span>
 </div>
-@include('auth.partials.social-buttons')
+@include('theme::auth.partials.social-buttons')
 @endif
 
 @if(setting('controls.registration_enabled', '1') === '1')

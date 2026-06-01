@@ -16,7 +16,7 @@ class PhoneVerificationController extends Controller
             return redirect()->route('user.dashboard');
         }
 
-        return view('auth.phone-verify', ['user' => $user]);
+        return view('theme::auth.phone-verify', ['user' => $user]);
     }
 
     public function send(Request $request, PhoneVerificationService $service)

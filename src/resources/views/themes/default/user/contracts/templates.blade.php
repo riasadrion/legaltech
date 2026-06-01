@@ -16,7 +16,7 @@
         </div>
     </div>
 
-    @include('user.contracts._stepper', ['step' => 2])
+    @include('theme::user.contracts._stepper', ['step' => 2])
 
     @if($templates->isEmpty())
         <div class="rounded-2xl glass p-14 text-center text-white/40">

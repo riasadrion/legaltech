@@ -17,6 +17,7 @@ class ThemeServiceProvider extends ServiceProvider
         $this->loadViewsFrom(resource_path("views/themes/{$theme}"), 'theme');
 
         Blade::anonymousComponentNamespace("themes.{$theme}.components", 'theme');
+        Blade::anonymousComponentNamespace("themes.{$theme}.components");
 
         view()->share('activeTheme', $theme);
     }

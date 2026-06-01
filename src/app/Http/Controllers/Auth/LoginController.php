@@ -13,7 +13,7 @@ class LoginController extends Controller
 {
     public function show()
     {
-        return view('auth.login');
+        return view('theme::auth.login');
     }
 
     public function store(Request $request, LoginUser $action)

@@ -14,7 +14,7 @@ class TwoFactorSetupController extends Controller
     {
         $user = $request->user('user');
 
-        return view('user.2fa.index', [
+        return view('theme::user.2fa.index', [
             'enabled' => $user->two_factor_enabled,
         ]);
     }
@@ -39,7 +39,7 @@ class TwoFactorSetupController extends Controller
             $secret
         );
 
-        return view('user.2fa.setup', compact('secret', 'qrCodeUrl'));
+        return view('theme::user.2fa.setup', compact('secret', 'qrCodeUrl'));
     }
 
     public function enable(Request $request, Google2FA $google2fa, Recovery $recovery)
@@ -71,7 +71,7 @@ class TwoFactorSetupController extends Controller
 
         session()->forget('2fa_setup_secret');
 
-        return view('user.2fa.recovery-codes', compact('codes'));
+        return view('theme::user.2fa.recovery-codes', compact('codes'));
     }
 
     public function disable(Request $request)
@@ -110,6 +110,6 @@ class TwoFactorSetupController extends Controller
         $user->two_factor_recovery_codes = $codes;
         $user->save();
 
-        return view('user.2fa.recovery-codes', compact('codes'));
+        return view('theme::user.2fa.recovery-codes', compact('codes'));
     }
 }

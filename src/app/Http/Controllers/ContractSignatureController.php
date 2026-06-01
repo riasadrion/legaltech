@@ -13,10 +13,10 @@ class ContractSignatureController extends Controller
         $contract = Contract::with('parties', 'template')->findOrFail($party->contract_id);
 
         if ($party->hasSigned()) {
-            return view('contracts.sign.already-signed', compact('party', 'contract'));
+            return view('theme::contracts.sign.already-signed', compact('party', 'contract'));
         }
 
-        return view('contracts.sign.show', compact('party', 'contract'));
+        return view('theme::contracts.sign.show', compact('party', 'contract'));
     }
 
     public function confirm(string $token)
@@ -39,6 +39,6 @@ class ContractSignatureController extends Controller
             $contract->update(['status' => Contract::STATUS_SIGNED]);
         }
 
-        return view('contracts.sign.confirmed', compact('party', 'contract'));
+        return view('theme::contracts.sign.confirmed', compact('party', 'contract'));
     }
 }

@@ -10,7 +10,7 @@
         <p class="ud-page-sub">@lang('Pick the category that best matches the agreement you want to generate.')</p>
     </div>
 
-    @include('user.contracts._stepper', ['step' => 1])
+    @include('theme::user.contracts._stepper', ['step' => 1])
 
     @php $canAi = auth('user')->user()?->canGenerateAiContract(); @endphp
     <a href="{{ $canAi ? route('user.contracts.ai.create') : route('user.subscription.plans') }}"

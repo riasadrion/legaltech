@@ -10,7 +10,7 @@ class AdminForgotPasswordController extends Controller
 {
     public function show()
     {
-        return view('auth.admin-forgot-password');
+        return view('admin.auth.admin-forgot-password');
     }
 
     public function store(Request $request)

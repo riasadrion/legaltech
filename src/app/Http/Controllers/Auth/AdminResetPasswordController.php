@@ -13,7 +13,7 @@ class AdminResetPasswordController extends Controller
 {
     public function show(Request $request, string $token)
     {
-        return view('auth.admin-reset-password', [
+        return view('admin.auth.admin-reset-password', [
             'token' => $token,
             'email' => $request->email,
         ]);

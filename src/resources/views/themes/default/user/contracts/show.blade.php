@@ -7,7 +7,7 @@
 
 
     @if(in_array($contract->status, ['editing', 'ready']))
-        @include('user.contracts._stepper', ['step' => 5])
+        @include('theme::user.contracts._stepper', ['step' => 5])
     @endif
 
 

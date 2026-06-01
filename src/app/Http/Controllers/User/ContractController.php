@@ -29,7 +29,7 @@ class ContractController extends Controller
             ->latest()
             ->paginate(12);
 
-        return view('user.contracts.index', compact('contracts'));
+        return view('theme::user.contracts.index', compact('contracts'));
     }
 
     public function create()
@@ -39,14 +39,14 @@ class ContractController extends Controller
             ->get()
             ->filter(fn($c) => $c->templates_count > 0);
 
-        return view('user.contracts.create', compact('categories'));
+        return view('theme::user.contracts.create', compact('categories'));
     }
 
     public function templates(ContractTemplateCategory $category)
     {
         $templates = $category->templates()->active()->orderBy('sort')->get();
 
-        return view('user.contracts.templates', compact('category', 'templates'));
+        return view('theme::user.contracts.templates', compact('category', 'templates'));
     }
 
     public function wizard(ContractTemplate $template)
@@ -58,7 +58,7 @@ class ContractController extends Controller
         $template->load('fields');
         $groups = $template->fields->groupBy(fn($f) => $f->group ?: 'Details');
 
-        return view('user.contracts.wizard', compact('template', 'groups'));
+        return view('theme::user.contracts.wizard', compact('template', 'groups'));
     }
 
     public function preview(Request $request)
@@ -76,7 +76,7 @@ class ContractController extends Controller
             ],
         ]);
 
-        return view('user.contracts.preview', [
+        return view('theme::user.contracts.preview', [
             'template' => $template,
             'fields'   => $data['fields'] ?? [],
             'parties'  => $data['parties'],
@@ -179,7 +179,7 @@ class ContractController extends Controller
                 ->with('upgrade_ai', 'Unlock AI contract drafting — upgrade to a Pro plan to draft custom agreements in plain English.');
         }
 
-        return view('user.contracts.ai-create');
+        return view('theme::user.contracts.ai-create');
     }
 
     // AI custom contract — generate from user brief
@@ -288,7 +288,7 @@ class ContractController extends Controller
         $this->authorizeContract($contract);
         $contract->load('template', 'parties');
 
-        return view('user.contracts.show', compact('contract'));
+        return view('theme::user.contracts.show', compact('contract'));
     }
 
     public function update(Request $request, Contract $contract)

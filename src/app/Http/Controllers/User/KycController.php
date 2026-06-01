@@ -15,7 +15,7 @@ class KycController extends Controller
         $user = auth('user')->user();
         $submission = KycSubmission::where('user_id', $user->id)->latest()->first();
 
-        return view('user.kyc.index', compact('user', 'submission'));
+        return view('theme::user.kyc.index', compact('user', 'submission'));
     }
 
     public function create()
@@ -26,7 +26,7 @@ class KycController extends Controller
             return redirect()->route('user.kyc.index');
         }
 
-        return view('user.kyc.create', compact('user'));
+        return view('theme::user.kyc.create', compact('user'));
     }
 
     public function store(Request $request)

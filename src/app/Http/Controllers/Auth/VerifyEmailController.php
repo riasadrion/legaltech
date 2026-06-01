@@ -10,7 +10,7 @@ class VerifyEmailController extends Controller
 {
     public function notice()
     {
-        return view('auth.verify-email');
+        return view('theme::auth.verify-email');
     }
 
     public function verify(EmailVerificationRequest $request)

@@ -40,6 +40,6 @@ class CheckMaintenance
             return $next($request);
         }
 
-        return response()->view('errors.503', [], 503);
+        return response()->view('theme::errors.503', [], 503);
     }
 }

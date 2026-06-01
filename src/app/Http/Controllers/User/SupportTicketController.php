@@ -22,12 +22,12 @@ class SupportTicketController
             ->orderByDesc('updated_at')
             ->paginate(20);
 
-        return view('user.support.index', compact('tickets'));
+        return view('theme::user.support.index', compact('tickets'));
     }
 
     public function create(): View
     {
-        return view('user.support.create');
+        return view('theme::user.support.create');
     }
 
     public function store(Request $request): RedirectResponse
@@ -86,7 +86,7 @@ class SupportTicketController
 
         $ticket->load(['messages' => fn ($q) => $q->where('is_internal', false)->with(['author', 'attachments'])]);
 
-        return view('user.support.show', compact('ticket'));
+        return view('theme::user.support.show', compact('ticket'));
     }
 
     public function reply(Request $request, string $reference): RedirectResponse

@@ -17,7 +17,7 @@ class TwoFactorController extends Controller
             return redirect()->route('login');
         }
 
-        return view('auth.two-factor-challenge');
+        return view('theme::auth.two-factor-challenge');
     }
 
     public function verify(Request $request, Google2FA $google2fa, LoginUser $loginUser)

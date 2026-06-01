@@ -18,7 +18,7 @@ class ProfileController extends Controller
         $user = $request->user('user');
         $countries = $this->countryList();
 
-        return view('user.profile', compact('user', 'countries'));
+        return view('theme::user.profile', compact('user', 'countries'));
     }
 
     public function update(Request $request)

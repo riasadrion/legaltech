@@ -52,7 +52,7 @@ class DashboardController extends Controller
             ->latest()
             ->first();
 
-        return view('user.dashboard', compact('nudges', 'recentContract'));
+        return view('theme::user.dashboard', compact('nudges', 'recentContract'));
     }
 
     public function dismissNudge(Request $request)

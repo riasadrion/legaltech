@@ -18,7 +18,7 @@ class RegisterController extends Controller
     {
         $this->abortIfDisabled();
 
-        return view('auth.register', [
+        return view('theme::auth.register', [
             'extraFields' => RegistrationFields::all(),
         ]);
     }
