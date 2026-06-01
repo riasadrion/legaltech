@@ -100,9 +100,9 @@
         <h2 class="text-lg font-bold text-gray-900">{{ __('Drafting your contract template…') }}</h2>
         <p id="ai-loader-step" class="mt-2 text-sm text-gray-500">{{ __('Sending brief to the AI') }}</p>
         <div class="mt-5 flex items-center justify-center gap-1.5">
-            <span class="h-1.5 w-1.5 rounded-full bg-brand-600 animate-bounce" style="animation-delay:0ms"></span>
-            <span class="h-1.5 w-1.5 rounded-full bg-brand-600 animate-bounce" style="animation-delay:150ms"></span>
-            <span class="h-1.5 w-1.5 rounded-full bg-brand-600 animate-bounce" style="animation-delay:300ms"></span>
+            <span class="h-1.5 w-1.5 rounded-full bg-brand-600 animate-bounce" class="delay-0"></span>
+            <span class="h-1.5 w-1.5 rounded-full bg-brand-600 animate-bounce" class="delay-150"></span>
+            <span class="h-1.5 w-1.5 rounded-full bg-brand-600 animate-bounce" class="delay-300"></span>
         </div>
         <p class="mt-5 text-xs text-gray-400">{{ __('This may take 15–60 seconds. Please don\'t close this window.') }}</p>
     </div>

@@ -24,6 +24,7 @@ Route::middleware(['auth:user', 'account.active', 'verified.email', 'verified.ph
         Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::put('profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password');
         Route::delete('profile/avatar', [ProfileController::class, 'deleteAvatar'])->name('profile.avatar.delete');
+        Route::delete('profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
         // Contracts — wizard flow: create → templates → wizard → preview → store
         Route::get('contracts', [ContractController::class, 'index'])->name('contracts.index');

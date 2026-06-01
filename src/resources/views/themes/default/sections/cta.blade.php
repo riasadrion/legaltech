@@ -10,7 +10,7 @@
     $sUrl     = $d['secondary_url']  ?? '#';
 @endphp
 
-<section class="relative pt-28 pb-60 overflow-hidden">
+<section class="relative pt-28 pb-40 overflow-hidden">
     <div class="absolute inset-0 bg-grid radial-fade pointer-events-none"></div>
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] glow-lime opacity-80"></div>
 

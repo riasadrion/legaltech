@@ -764,3 +764,84 @@
 
 /* ─── Translations table column widths ─── */
 .col-w-half { width: 50%; }
+
+/* ─── Cookie Consent ─── */
+.cc-banner {
+    position: fixed !important; bottom: 24px !important; left: 24px !important; right: auto !important; z-index: 9999;
+    width: 340px; max-width: calc(100vw - 48px);
+    display: none;
+}
+.cc-banner.cc-open { display: block; }
+.cc-card {
+    background: #13141A; border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px; padding: 18px 18px 16px; position: relative;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.45);
+}
+.cc-banner-close {
+    position: absolute; top: 12px; right: 12px;
+    background: transparent; border: none; cursor: pointer;
+    color: #6b7280; padding: 2px; line-height: 1;
+}
+.cc-banner-close:hover { color: #d1d5db; }
+.cc-card-head { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 14px; }
+.cc-icon-wrap { flex-shrink: 0; color: #D4FF3A; margin-top: 1px; }
+.cc-title { font-size: 14px; font-weight: 600; color: #f9fafb; margin-bottom: 4px; }
+.cc-desc { font-size: 12px; color: #9ca3af; line-height: 1.5; }
+.cc-link { color: #D4FF3A; text-decoration: underline; }
+.cc-actions { display: flex; gap: 8px; }
+.cc-btn { border-radius: 8px; padding: 7px 16px; font-size: 13px; font-weight: 500; cursor: pointer; border: none; }
+.cc-btn-primary { background: #D4FF3A; color: #08090C; }
+.cc-btn-primary:hover { background: #c8f030; }
+.cc-btn-ghost { background: rgba(255,255,255,0.07); color: #d1d5db; }
+.cc-btn-ghost:hover { background: rgba(255,255,255,0.12); }
+
+.cc-reopen {
+    position: fixed !important; bottom: 24px !important; left: 24px !important; right: auto !important; z-index: 9998;
+    display: none; align-items: center; gap: 6px;
+    background: #13141A; border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px; padding: 6px 14px 6px 10px;
+    font-size: 12px; color: #9ca3af; cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+.cc-reopen.cc-open { display: flex; }
+.cc-reopen:hover { color: #f9fafb; }
+
+.cc-modal { display: none; position: fixed; inset: 0; z-index: 10000; align-items: flex-end; justify-content: flex-start; padding: 24px; }
+.cc-modal.cc-open { display: flex; }
+.cc-modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.5); }
+.cc-modal-panel {
+    position: relative; width: 380px; max-width: 100%;
+    background: #13141A; border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px; padding: 20px;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.6);
+}
+.cc-modal-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.cc-modal-title { font-size: 15px; font-weight: 600; color: #f9fafb; }
+.cc-modal-close { background: transparent; border: none; cursor: pointer; color: #6b7280; padding: 2px; }
+.cc-modal-close:hover { color: #d1d5db; }
+.cc-modal-intro { font-size: 12px; color: #9ca3af; line-height: 1.6; margin-bottom: 16px; }
+.cc-cat-list { list-style: none; padding: 0; margin: 0 0 16px; }
+.cc-cat { padding: 12px 0; border-top: 1px solid rgba(255,255,255,0.06); }
+.cc-cat-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.cc-cat-title { font-size: 13px; font-weight: 500; color: #f9fafb; margin-bottom: 3px; }
+.cc-cat-desc { font-size: 11px; color: #6b7280; line-height: 1.5; }
+.cc-pill { font-size: 11px; border-radius: 20px; padding: 2px 10px; white-space: nowrap; flex-shrink: 0; }
+.cc-pill-locked { background: rgba(212,255,58,0.12); color: #D4FF3A; }
+.cc-modal-actions { display: flex; gap: 8px; justify-content: flex-end; }
+
+/* ─── Animation delays ─── */
+.delay-0   { animation-delay: 0ms; }
+.delay-150 { animation-delay: 150ms; }
+.delay-300 { animation-delay: 300ms; }
+
+/* ─── JS-generated HTML helpers ─── */
+.file-size-label { color: rgba(255,255,255,0.3); margin-left: auto; }
+.legend-color-dot { display: inline-block; width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+
+/* ─── Auth layout radial gradients ─── */
+.auth-glow-top {
+    background: radial-gradient(ellipse 120% 70% at 30% -10%, rgba(124,92,255,0.28) 0%, transparent 60%);
+}
+.auth-glow-bottom {
+    background: radial-gradient(ellipse 110% 65% at 70% 110%, color-mix(in srgb, var(--brand-color) 10%, transparent) 0%, transparent 60%);
+}

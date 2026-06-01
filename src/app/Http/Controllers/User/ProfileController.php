@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Domain\Upload\FileUploader;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
@@ -96,6 +97,31 @@ class ProfileController extends Controller
             'AE' => 'United Arab Emirates', 'GB' => 'United Kingdom', 'US' => 'United States',
             'UY' => 'Uruguay', 'VN' => 'Vietnam',
         ];
+    }
+
+    public function destroy(Request $request)
+    {
+        $user = $request->user('user');
+
+        $request->validate([
+            'delete_password' => ['required', 'string', function ($_attr, $val, $fail) use ($user) {
+                if (! Hash::check($val, $user->password)) {
+                    $fail(__('Password is incorrect.'));
+                }
+            }],
+        ]);
+
+        Auth::guard('user')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        if ($user->avatar_path) {
+            Storage::disk('uploads')->delete($user->avatar_path);
+        }
+
+        $user->delete();
+
+        return redirect('/')->with('success', __('Your account and all associated data have been permanently deleted.'));
     }
 
     public function deleteAvatar(Request $request)

@@ -10,8 +10,11 @@ use App\Domain\Contract\Models\ContractTemplate;
 use App\Domain\Contract\Models\ContractTemplateCategory;
 use App\Domain\Contract\Services\ContractAiService;
 use App\Domain\Contract\Services\ContractPdfExporter;
+use App\Domain\Notifications\Models\NotificationTemplate;
+use App\Domain\Settings\Facades\Settings;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Mail\Message;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
@@ -387,15 +390,27 @@ class ContractController extends Controller
 
             $signUrl = route('contracts.sign', $party->token);
 
-            Mail::send([], [], function ($m) use ($party, $contract, $signUrl) {
-                $appName = config('app.name');
-                $appUrl  = config('app.url');
-                $html    = view('emails.contracts.sign-request', compact('party', 'contract', 'signUrl', 'appName', 'appUrl'))->render();
+            $tpl = NotificationTemplate::where('key', 'contract_sign_request')->where('is_active', true)->first();
+            if ($tpl) {
+                $vars = [
+                    'party.name'     => $party->name,
+                    'contract.title' => $contract->title,
+                    'sign.url'       => $signUrl,
+                    'app.name'       => config('app.name'),
+                    'app.url'        => config('app.url'),
+                ];
+                $subject  = $tpl->renderSubject($vars, app()->getLocale());
+                $htmlBody = $tpl->renderEmailBody($vars, app()->getLocale());
+                $fromEmail = Settings::get('mail.from_address', config('mail.from.address'));
+                $fromName  = Settings::get('mail.from_name', config('app.name'));
 
-                $m->to($party->email, $party->name)
-                  ->subject("Signature required: {$contract->title}")
-                  ->html($html);
-            });
+                Mail::send([], [], function (Message $m) use ($party, $subject, $htmlBody, $fromEmail, $fromName) {
+                    $m->to($party->email, $party->name)
+                      ->from($fromEmail, $fromName)
+                      ->subject($subject)
+                      ->html($htmlBody);
+                });
+            }
         }
 
         $contract->update(['status' => Contract::STATUS_SENT]);

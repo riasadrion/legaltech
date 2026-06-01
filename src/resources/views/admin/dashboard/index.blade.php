@@ -307,7 +307,7 @@
     var legendHtml = '';
     donutData.forEach(function(d, i) {
         var pct = ((d.value / donutTotal) * 100).toFixed(0);
-        legendHtml += '<div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-sm flex-shrink-0" style="background:' + colors[i] + '"></span><span class="text-xs flex-1 legend-label">' + d.label + '</span><span class="text-xs legend-value">$' + (d.value / 1000).toFixed(1) + 'K</span><span class="text-xs legend-pct">' + pct + '%</span></div>';
+        legendHtml += '<div class="flex items-center gap-2"><span class="legend-color-dot" style="background:' + colors[i] + '"></span><span class="text-xs flex-1 legend-label">' + d.label + '</span><span class="text-xs legend-value">$' + (d.value / 1000).toFixed(1) + 'K</span><span class="text-xs legend-pct">' + pct + '%</span></div>';
     });
     document.getElementById('donutLegend').innerHTML = legendHtml;
     @else

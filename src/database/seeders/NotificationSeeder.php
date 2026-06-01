@@ -164,6 +164,22 @@ class NotificationSeeder extends Seeder
                 'email_body' => ['en' => '<p>Hi {{user.name}},</p><p>There\'s an update on your support ticket.</p><p><strong>Reference:</strong> #{{ticket.reference}}<br><strong>Subject:</strong> {{ticket.subject}}</p><p><a href="{{ticket.url}}">View ticket and reply →</a></p>'],
                 'sms_body' => ['en' => 'Update on ticket #{{ticket.reference}}. Visit {{ticket.url}} to view.'],
             ],
+            [
+                'key' => 'contract_sign_request',
+                'name' => 'Contract Sign Request',
+                'description' => 'Sent to a party when their signature is requested on a contract.',
+                'channels' => ['email'],
+                'variables' => [
+                    ['key' => 'party.name',    'description' => 'Signer\'s name'],
+                    ['key' => 'contract.title','description' => 'Contract title'],
+                    ['key' => 'sign.url',      'description' => 'Link to sign the contract'],
+                    ['key' => 'app.name',      'description' => 'Application name'],
+                    ['key' => 'app.url',       'description' => 'Application URL'],
+                ],
+                'subject' => ['en' => 'Signature required: {{contract.title}}'],
+                'email_body' => ['en' => '<p>Hi {{party.name}},</p><p>You have been requested to sign a contract: <strong>{{contract.title}}</strong>.</p><p>Please click the button below to review and sign the document.</p><p><a href="{{sign.url}}" style="display:inline-block;background:#9acd32;color:#0f0f0f;padding:14px 32px;border-radius:8px;text-decoration:none;font-weight:700;">Review &amp; Sign</a></p><p>If you cannot click the button, copy and paste this link into your browser:<br>{{sign.url}}</p><p>This link is unique to you. Do not share it.</p>'],
+                'sms_body' => ['en' => ''],
+            ],
         ];
 
         foreach ($templates as $data) {

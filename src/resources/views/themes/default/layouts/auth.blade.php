@@ -34,8 +34,8 @@
         <aside class="hidden lg:flex relative w-1/2 bg-ink-950 overflow-hidden">
 
             <div class="absolute inset-0 bg-grid radial-fade pointer-events-none"></div>
-            <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 120% 70% at 30% -10%, rgba(124,92,255,0.28) 0%, transparent 60%);"></div>
-            <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 110% 65% at 70% 110%, color-mix(in srgb, var(--brand-color) 10%, transparent) 0%, transparent 60%);"></div>
+            <div class="absolute inset-0 pointer-events-none auth-glow-top"></div>
+            <div class="absolute inset-0 pointer-events-none auth-glow-bottom"></div>
 
             <div class="relative w-full p-12 flex flex-col">
 

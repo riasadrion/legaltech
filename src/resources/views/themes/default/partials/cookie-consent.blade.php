@@ -1,6 +1,6 @@
 @if(setting('controls.cookie_consent') === '1')
 {{-- ───────────────── GDPR Cookie Consent ─────────────────
-     - Banner: bottom-right dark glass card
+     - Banner: bottom-left dark glass card
      - Stores consent in localStorage as JSON with version + timestamp
      - Re-openable via floating "Cookie settings" pill
      - All styles in default.css (no inline styles)
@@ -110,10 +110,26 @@
     function show(el)  { el.classList.add('cc-open');  }
     function hide(el)  { el.classList.remove('cc-open'); }
 
+    var SNOOZE_DAYS = 7;
+
     function showBanner()    { show(banner);  hide(reopen); }
     function hideBanner()    { hide(banner);  show(reopen); }
+    function hideAll()       { hide(banner);  hide(reopen); }
     function openPrefs()     { show(modal); }
     function closePrefs()    { hide(modal); }
+
+    function isSnoozed() {
+        try {
+            var s = JSON.parse(localStorage.getItem(STORAGE_KEY + '_snooze'));
+            return s && s.until && new Date(s.until) > new Date();
+        } catch (e) { return false; }
+    }
+
+    function snooze() {
+        var until = new Date();
+        until.setDate(until.getDate() + SNOOZE_DAYS);
+        localStorage.setItem(STORAGE_KEY + '_snooze', JSON.stringify({ until: until.toISOString() }));
+    }
 
     function setConsent(decision) {
         writeConsent({
@@ -122,25 +138,26 @@
             decision: decision,
             categories: { necessary: true }
         });
-        hideBanner();
+        hideAll();
         closePrefs();
     }
 
     // Initial state
     var saved = readConsent();
     if (saved && saved.decision) {
-        hide(banner);
-        show(reopen);
+        hideAll();
+    } else if (isSnoozed()) {
+        hideAll();
     } else {
         setTimeout(function () { show(banner); }, 600);
     }
 
     // Wire buttons
     document.getElementById('cookie-accept').addEventListener('click', function () { setConsent('accepted'); });
-    document.getElementById('cookie-reject').addEventListener('click', function () { setConsent('rejected'); });
+    document.getElementById('cookie-reject').addEventListener('click', function () { snooze(); hideAll(); closePrefs(); });
     document.getElementById('cookie-prefs').addEventListener('click', openPrefs);
     document.getElementById('cookie-save-prefs').addEventListener('click', function () { setConsent('saved'); });
-    reopen.addEventListener('click', openPrefs);
+    reopen.addEventListener('click', function () { showBanner(); });
 
     // Close modal via backdrop / X / Cancel
     modal.querySelectorAll('[data-cc-close]').forEach(function (el) {

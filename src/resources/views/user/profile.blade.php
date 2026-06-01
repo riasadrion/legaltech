@@ -195,6 +195,40 @@
 
     </div>
 
+    <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+    <div class="ud-card border border-red-500/20 lg:col-span-2">
+        <div class="ud-card-header">
+            <div>
+                <div class="ud-section-title text-red-400">{{ __('Delete Account') }}</div>
+                <div class="ud-section-desc">{{ __('Permanently delete your account and all associated data. This action cannot be undone.') }}</div>
+            </div>
+        </div>
+
+        <form method="POST" action="{{ route('user.profile.destroy') }}" id="delete-account-form">
+            @csrf
+            @method('DELETE')
+            <div class="space-y-4">
+                <div>
+                    <label class="ud-label" for="delete_password">{{ __('Confirm your password to continue') }}</label>
+                    <input type="password" id="delete_password" name="delete_password" autocomplete="current-password"
+                           class="ud-input @error('delete_password') border-red-500/50 @enderror"
+                           placeholder="{{ __('Enter your password') }}">
+                    @error('delete_password') <div class="ud-field-err">{{ $message }}</div> @enderror
+                </div>
+            </div>
+            <div class="mt-6">
+                <button type="button" id="delete-account-btn"
+                        class="inline-flex items-center gap-2 rounded-lg bg-red-600 px-5 py-2 text-sm font-semibold text-white hover:bg-red-700">
+                    <x-heroicon-o-trash class="h-4 w-4" />
+                    {{ __('Delete My Account') }}
+                </button>
+            </div>
+        </form>
+    </div>
+    </div>
+
+    </div>
+
 </div>
 
 @push('scripts')
@@ -210,6 +244,18 @@ $(function () {
             $('#avatar-initials').addClass('hidden');
         };
         reader.readAsDataURL(file);
+    });
+
+    $('#delete-account-btn').on('click', function () {
+        if (!$('#delete_password').val().trim()) {
+            alert('{{ __("Please enter your password to confirm.") }}');
+            return;
+        }
+        confirmModal.show(
+            '{{ __("Delete Account") }}',
+            '{{ __("This will permanently delete your account and all associated data. This cannot be undone.") }}',
+            function () { $('#delete-account-form').submit(); }
+        );
     });
 });
 </script>

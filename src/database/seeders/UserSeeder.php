@@ -224,7 +224,7 @@ class UserSeeder extends Seeder
                 'username'            => 'testuser',
                 'name'                => 'Test User',
                 'email'               => 'testuser@example.com',
-                'password'            => Hash::make('password'),
+                'password'            => Hash::make('123456'),
                 'balance'             => 480.00,
                 'country_code'        => 'US',
                 'status'              => 'active',
