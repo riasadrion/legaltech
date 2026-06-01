@@ -33,19 +33,9 @@ use App\Http\Controllers\Admin\Support\TicketController as SupportTicketControll
 use App\Http\Controllers\Admin\TranslationController;
 use App\Http\Controllers\Admin\UserController;
 
-use App\Models\Admin;
 use Illuminate\Auth\SessionGuard;
 use Illuminate\Support\Facades\Route;
 
-// Dev-only: auto-login as super admin to preview the shell
-if (app()->isLocal()) {
-    Route::get('admin/dev-login', function () {
-        $admin = Admin::first();
-        auth('admin')->login($admin);
-
-        return redirect()->route('admin.dashboard');
-    });
-}
 
 Route::prefix('admin')
     ->name('admin.')
