@@ -72,13 +72,13 @@
                         <p class="font-display text-4xl text-white leading-tight">
                             {{ setting('site.tagline', __('Welcome back. Pick up where you left off.')) }}
                         </p>
-                        <p class="text-white/60 mt-4 text-sm">{{ __('Secure, fast, and built for modern teams.') }}</p>
+                        <p class="text-white/60 mt-4 text-sm">@lang('Secure, fast, and built for modern teams.')</p>
                     </div>
                 @endif
 
 
                 <div class="text-[11px] font-mono uppercase tracking-widest text-white/35">
-                    {{ __('Secured by') }} <span class="text-lime">●</span> {{ now()->format('Y') }} · {{ setting('site.name', config('app.name')) }}
+                    @lang('Secured by') <span class="text-lime">●</span> {{ now()->format('Y') }} · {{ setting('site.name', config('app.name')) }}
                 </div>
             </div>
         </aside>
@@ -106,7 +106,7 @@
                 </a>
                 <a href="{{ route('home') }}" class="text-sm text-white/60 hover:text-white inline-flex items-center gap-1.5 ml-auto">
                     <x-heroicon-o-arrow-left class="h-4 w-4" />
-                    {{ __('Back to home') }}
+                    @lang('Back to home')
                 </a>
             </div>
 

@@ -27,7 +27,7 @@
 
         <div class="relative mx-auto max-w-4xl px-6 text-center">
             <div class="flex items-center justify-center gap-2 text-sm text-white/30 mb-8">
-                <a href="{{ route('home') }}" class="hover:text-white/60 transition">{{ __('Home') }}</a>
+                <a href="{{ route('home') }}" class="hover:text-white/60 transition">@lang('Home')</a>
                 <span>/</span>
                 <span class="text-white/50">{{ $page->getLocalTitle() }}</span>
             </div>

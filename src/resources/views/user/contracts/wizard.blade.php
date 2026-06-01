@@ -15,7 +15,7 @@
             <p class="text-[12px] text-white/45 mt-1">
                 {{ $template->description }}
                 @if($template->description) · @endif
-                <span class="text-lime/80">{{ $template->credits_cost }} {{ __('credit(s)') }}</span>
+                <span class="text-lime/80">{{ $template->credits_cost }} @lang('credit(s)')</span>
             </p>
         </div>
     </div>
@@ -65,7 +65,7 @@
                                 <select name="fields[{{ $field->key }}]"
                                         {{ $field->required ? 'required' : '' }}
                                         class="ud-input">
-                                    <option value="">{{ __('Select…') }}</option>
+                                    <option value="">@lang('Select…')</option>
                                     @foreach($field->options ?? [] as $opt)
                                         <option value="{{ $opt }}" {{ $oldVal === $opt ? 'selected' : '' }}>{{ $opt }}</option>
                                     @endforeach
@@ -101,11 +101,11 @@
 
         <div class="rounded-2xl glass overflow-hidden">
             <div class="px-5 py-3 border-b border-white/8 flex items-center justify-between">
-                <h2 class="text-[12px] font-mono uppercase tracking-widest text-white/50">{{ __('Parties') }}</h2>
+                <h2 class="text-[12px] font-mono uppercase tracking-widest text-white/50">@lang('Parties')</h2>
                 <button type="button" id="add-party-btn"
                         class="text-[12px] text-lime hover:underline flex items-center gap-1">
                     <x-heroicon-o-plus class="h-3.5 w-3.5" />
-                    {{ __('Add party') }}
+                    @lang('Add party')
                 </button>
             </div>
             <div class="px-5 py-5 space-y-4" id="parties-list">
@@ -116,18 +116,18 @@
                 @foreach($existingParties as $i => $p)
                     <div class="party-row space-y-3 {{ $i > 0 ? 'pt-4 border-t border-white/8' : '' }}">
                         <div class="flex items-center justify-between">
-                            <div class="text-[11px] font-mono text-white/35 uppercase tracking-widest">{{ __('Party') }} {{ $i + 1 }}</div>
+                            <div class="text-[11px] font-mono text-white/35 uppercase tracking-widest">@lang('Party') {{ $i + 1 }}</div>
                             @if($i > 0)
-                                <button type="button" class="remove-party text-red-400 hover:text-red-300 text-[11px]">{{ __('Remove') }}</button>
+                                <button type="button" class="remove-party text-red-400 hover:text-red-300 text-[11px]">@lang('Remove')</button>
                             @endif
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                            <input type="text" name="parties[{{ $i }}][name]" placeholder="{{ __('Full name') }}" required class="ud-input" value="{{ $p['name'] ?? '' }}" />
-                            <input type="email" name="parties[{{ $i }}][email]" placeholder="{{ __('Email address') }}" required class="ud-input" value="{{ $p['email'] ?? '' }}" />
+                            <input type="text" name="parties[{{ $i }}][name]" placeholder="@lang('Full name')" required class="ud-input" value="{{ $p['name'] ?? '' }}" />
+                            <input type="email" name="parties[{{ $i }}][email]" placeholder="@lang('Email address')" required class="ud-input" value="{{ $p['email'] ?? '' }}" />
                         </div>
                         <select name="parties[{{ $i }}][role]" class="ud-input">
-                            <option value="signer" {{ ($p['role'] ?? 'signer') !== 'viewer' ? 'selected' : '' }}>{{ __('Signer') }}</option>
-                            <option value="viewer" {{ ($p['role'] ?? '') === 'viewer' ? 'selected' : '' }}>{{ __('Viewer only') }}</option>
+                            <option value="signer" {{ ($p['role'] ?? 'signer') !== 'viewer' ? 'selected' : '' }}>@lang('Signer')</option>
+                            <option value="viewer" {{ ($p['role'] ?? '') === 'viewer' ? 'selected' : '' }}>@lang('Viewer only')</option>
                         </select>
                     </div>
                 @endforeach
@@ -136,9 +136,9 @@
 
         <div class="flex items-center justify-between gap-3">
             <a href="{{ route('user.contracts.templates', $template->category_id) }}"
-               class="text-[13px] text-white/50 hover:text-white">{{ __('Back') }}</a>
+               class="text-[13px] text-white/50 hover:text-white">@lang('Back')</a>
             <button type="submit" class="btn-lime rounded-xl px-5 py-3 text-[13px] font-semibold flex items-center gap-2">
-                {{ __('Review & Preview') }}
+                @lang('Review & Preview')
                 <x-heroicon-o-arrow-right class="h-4 w-4" />
             </button>
         </div>
@@ -171,16 +171,16 @@
         var list = document.getElementById('parties-list');
         var html = '<div class="party-row space-y-3 pt-4 border-t border-white/8">'
             + '<div class="flex items-center justify-between">'
-            + '<div class="text-[11px] font-mono text-white/35 uppercase tracking-widest">{{ __('Party') }} ' + (idx + 1) + '</div>'
-            + '<button type="button" class="remove-party text-red-400 hover:text-red-300 text-[11px]">{{ __('Remove') }}</button>'
+            + '<div class="text-[11px] font-mono text-white/35 uppercase tracking-widest">@lang('Party') ' + (idx + 1) + '</div>'
+            + '<button type="button" class="remove-party text-red-400 hover:text-red-300 text-[11px]">@lang('Remove')</button>'
             + '</div>'
             + '<div class="grid grid-cols-1 md:grid-cols-2 gap-3">'
-            + '<input type="text" name="parties[' + idx + '][name]" placeholder="{{ __('Full name') }}" required class="ud-input" />'
-            + '<input type="email" name="parties[' + idx + '][email]" placeholder="{{ __('Email address') }}" required class="ud-input" />'
+            + '<input type="text" name="parties[' + idx + '][name]" placeholder="@lang('Full name')" required class="ud-input" />'
+            + '<input type="email" name="parties[' + idx + '][email]" placeholder="@lang('Email address')" required class="ud-input" />'
             + '</div>'
             + '<select name="parties[' + idx + '][role]" class="ud-input">'
-            + '<option value="signer">{{ __('Signer') }}</option>'
-            + '<option value="viewer">{{ __('Viewer only') }}</option>'
+            + '<option value="signer">@lang('Signer')</option>'
+            + '<option value="viewer">@lang('Viewer only')</option>'
             + '</select>'
             + '</div>';
         list.insertAdjacentHTML('beforeend', html);

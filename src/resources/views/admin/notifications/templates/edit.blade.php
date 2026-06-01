@@ -16,7 +16,7 @@
                 @csrf @method('PUT')
 
                 <div class="mb-5">
-                    <label class="block text-sm font-medium text-gray-700 mb-1">{{ __('Channels') }}</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">@lang('Channels')</label>
                     <div class="flex gap-4">
                         @foreach(['email' => __('Email'), 'sms' => __('SMS'), 'in_app' => __('In-App')] as $ch => $label)
                         <label class="flex items-center gap-2 text-sm">
@@ -34,19 +34,19 @@
                         <input type="checkbox" name="is_active" value="1"
                             {{ $template->is_active ? 'checked' : '' }}
                             class="rounded border-gray-300 text-brand-600">
-                        {{ __('Active') }}
+                        @lang('Active')
                     </label>
                 </div>
 
 
                 <div class="mb-5">
-                    <label class="block text-sm font-medium text-gray-700 mb-1">{{ __('Subject') }}</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">@lang('Subject')</label>
                     <x-translatable-input name="subject" :value="$template->subject ?? []" />
                 </div>
 
 
                 <div class="mb-5 translatable-input space-y-2">
-                    <label class="block text-sm font-medium text-gray-700">{{ __('Email Body') }}</label>
+                    <label class="block text-sm font-medium text-gray-700">@lang('Email Body')</label>
                     <div class="flex gap-1.5">
                         @foreach($languages as $lang)
                         <button type="button"
@@ -68,7 +68,7 @@
 
 
                 <div class="mb-5 translatable-input space-y-2">
-                    <label class="block text-sm font-medium text-gray-700">{{ __('SMS Body') }}</label>
+                    <label class="block text-sm font-medium text-gray-700">@lang('SMS Body')</label>
                     <div class="flex gap-1.5">
                         @foreach($languages as $lang)
                         <button type="button"
@@ -91,11 +91,11 @@
                 <div class="flex items-center gap-3 mt-4">
                     <button type="submit" class="inline-flex items-center gap-2 rounded-lg bg-brand-600 px-5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-brand-700">
                         <x-heroicon-o-check class="h-4 w-4" />
-                        {{ __('Save Template') }}
+                        @lang('Save Template')
                     </button>
                     <a href="{{ route('admin.notifications.templates.index') }}" class="btn-secondary">
                         <x-heroicon-o-x-mark class="h-4 w-4" />
-                        {{ __('Cancel') }}
+                        @lang('Cancel')
                     </a>
                 </div>
             </form>
@@ -103,12 +103,12 @@
 
 
         <div class="bg-white rounded-xl border border-gray-200 p-6">
-            <h3 class="text-sm font-semibold text-gray-900 mb-3">{{ __('Send Test Email') }}</h3>
+            <h3 class="text-sm font-semibold text-gray-900 mb-3">@lang('Send Test Email')</h3>
             <form method="POST" action="{{ route('admin.notifications.templates.test', $template) }}" class="flex gap-3">
                 @csrf
                 <input type="email" name="test_email" placeholder="you@example.com" required
                     class="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-brand-500 focus:border-brand-500">
-                <button type="submit" class="btn-secondary">{{ __('Send Test') }}</button>
+                <button type="submit" class="btn-secondary">@lang('Send Test')</button>
             </form>
         </div>
     </div>
@@ -116,7 +116,7 @@
 
     <div class="space-y-6">
         <div class="bg-white rounded-xl border border-gray-200 p-6">
-            <h3 class="text-sm font-semibold text-gray-900 mb-3">{{ __('Available Variables') }}</h3>
+            <h3 class="text-sm font-semibold text-gray-900 mb-3">@lang('Available Variables')</h3>
             <ul class="space-y-1.5">
                 @foreach($template->variables ?? [] as $var)
                 <li>
@@ -129,14 +129,14 @@
                 @endforeach
                 <li><code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded">{{ '{'.'{user.name}'.'}' }}</code> <span class="text-xs text-gray-400">{{ __('User\'s name') }}</span></li>
                 <li><code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded">{{ '{'.'{user.email}'.'}' }}</code> <span class="text-xs text-gray-400">{{ __('User\'s email') }}</span></li>
-                <li><code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded">{{ '{'.'{app.name}'.'}' }}</code> <span class="text-xs text-gray-400">{{ __('App name') }}</span></li>
-                <li><code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded">{{ '{'.'{app.url}'.'}' }}</code> <span class="text-xs text-gray-400">{{ __('App URL') }}</span></li>
+                <li><code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded">{{ '{'.'{app.name}'.'}' }}</code> <span class="text-xs text-gray-400">@lang('App name')</span></li>
+                <li><code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded">{{ '{'.'{app.url}'.'}' }}</code> <span class="text-xs text-gray-400">@lang('App URL')</span></li>
             </ul>
         </div>
 
         @if($versions->isNotEmpty())
         <div class="bg-white rounded-xl border border-gray-200 p-6">
-            <h3 class="text-sm font-semibold text-gray-900 mb-3">{{ __('Version History') }}</h3>
+            <h3 class="text-sm font-semibold text-gray-900 mb-3">@lang('Version History')</h3>
             <ul class="space-y-2">
                 @foreach($versions as $version)
                 <li class="flex items-center justify-between text-sm">
@@ -145,7 +145,7 @@
                         @csrf
                         <button type="submit" class="text-xs text-brand-600 hover:text-brand-700"
                             data-confirm="{{ __('Roll back to v:version?', ['version' => $version->version]) }}"
-                            data-confirm-title="{{ __('Restore version') }}">{{ __('Restore') }}</button>
+                            data-confirm-title="@lang('Restore version')">@lang('Restore')</button>
                     </form>
                 </li>
                 @endforeach

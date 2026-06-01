@@ -11,8 +11,8 @@
             <x-heroicon-o-arrow-left class="h-4 w-4" />
         </a>
         <div>
-            <h1 class="page-title">{{ __('Translations') }} — {{ $selectedLang?->name ?? strtoupper($locale) }}</h1>
-            <p class="page-subtitle">{{ __('Translating from') }} <b>{{ strtoupper($defaultLocale) }}</b> → <b>{{ strtoupper($locale) }}</b></p>
+            <h1 class="page-title">@lang('Translations') — {{ $selectedLang?->name ?? strtoupper($locale) }}</h1>
+            <p class="page-subtitle">@lang('Translating from') <b>{{ strtoupper($defaultLocale) }}</b> → <b>{{ strtoupper($locale) }}</b></p>
         </div>
     </div>
 
@@ -22,7 +22,7 @@
             <button type="button" data-modal-open="add-translation-modal"
                     class="inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-brand-700">
                 <x-heroicon-o-plus class="h-4 w-4" />
-                {{ __('Add Key') }}
+                @lang('Add Key')
             </button>
             @if($locale !== $defaultLocale)
             <div class="flex items-center gap-2">
@@ -33,7 +33,7 @@
                         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
                     <x-heroicon-o-arrow-path id="sync-keywords-icon" class="h-4 w-4" />
-                    <span id="sync-keywords-text">{{ __('Sync Keywords') }}</span>
+                    <span id="sync-keywords-text">@lang('Sync Keywords')</span>
                 </button>
                 <button type="button" id="auto-translate-btn"
                         class="inline-flex items-center gap-1.5 rounded-lg border border-brand-200 bg-brand-50 px-4 py-2 text-sm font-medium text-brand-700 hover:bg-brand-100 disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap">
@@ -42,7 +42,7 @@
                         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
                     <x-heroicon-o-language id="auto-translate-icon" class="h-4 w-4 flex-shrink-0" />
-                    <span id="auto-translate-text" class="min-w-max">{{ __('Auto-translate') }}</span>
+                    <span id="auto-translate-text" class="min-w-max">@lang('Auto-translate')</span>
                 </button>
                 <span id="pending-count" class="text-xs text-gray-400">
                     <svg class="inline animate-spin h-3 w-3 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -58,29 +58,29 @@
 
         <form method="GET" class="flex items-center gap-2">
             <input type="hidden" name="locale" value="{{ $locale }}">
-            <input type="text" name="q" value="{{ request('q') }}" placeholder="{{ __('Search English key or value...') }}"
+            <input type="text" name="q" value="{{ request('q') }}" placeholder="@lang('Search English key or value...')"
                    class="h-9 w-64 rounded-lg border border-gray-300 px-3 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500">
-            <button type="submit" class="inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700">{{ __('Search') }}</button>
+            <button type="submit" class="inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700">@lang('Search')</button>
             @if(request('q'))
-                <a href="{{ route('admin.translations.index', ['locale' => $locale]) }}" class="inline-flex items-center rounded-lg border border-gray-300 px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-50">{{ __('Clear') }}</a>
+                <a href="{{ route('admin.translations.index', ['locale' => $locale]) }}" class="inline-flex items-center rounded-lg border border-gray-300 px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-50">@lang('Clear')</a>
             @endif
         </form>
     </div>
 
 
-    <x-modal id="add-translation-modal" title="{{ __('Add Translation Key') }}">
+    <x-modal id="add-translation-modal" title="@lang('Add Translation Key')">
         <form method="POST" action="{{ route('admin.translations.store') }}">
             @csrf
             <input type="hidden" name="locale" value="{{ $locale }}">
             <input type="hidden" name="group" value="*">
             <div class="space-y-4">
                 <div>
-                    <label class="mb-1 block text-sm font-medium text-gray-700">{{ __('English Text') }}</label>
-                    <input type="text" name="key" placeholder="{{ __('Welcome to our site') }}" required
+                    <label class="mb-1 block text-sm font-medium text-gray-700">@lang('English Text')</label>
+                    <input type="text" name="key" placeholder="@lang('Welcome to our site')" required
                            class="w-full h-9 rounded-lg border border-gray-300 px-3 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500">
                 </div>
                 <div>
-                    <label class="mb-1 block text-sm font-medium text-gray-700">{{ strtoupper($locale) }} {{ __('Translation') }}</label>
+                    <label class="mb-1 block text-sm font-medium text-gray-700">{{ strtoupper($locale) }} @lang('Translation')</label>
                     <input type="text" name="value" placeholder="{{ __('Translation in :locale', ['locale' => $selectedLang?->name ?? $locale]) }}" required
                            class="w-full h-9 rounded-lg border border-gray-300 px-3 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500">
                 </div>
@@ -89,11 +89,11 @@
                 <button type="button" data-modal-close="add-translation-modal"
                         class="btn-secondary">
                     <x-heroicon-o-x-mark class="h-4 w-4" />
-                    {{ __('Cancel') }}
+                    @lang('Cancel')
                 </button>
                 <button type="submit" class="inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700">
                     <x-heroicon-o-check class="h-4 w-4" />
-                    {{ __('Add') }}
+                    @lang('Add')
                 </button>
             </div>
         </form>
@@ -105,9 +105,9 @@
             <thead class="bg-gray-50">
                 <tr>
                     <th class="px-5 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wide w-12"></th>
-                    <th class="px-5 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wide" class="col-w-half">{{ __('English Text') }}</th>
+                    <th class="px-5 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wide" class="col-w-half">@lang('English Text')</th>
                     <th class="px-5 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wide" class="col-w-half">
-                        <span class="text-brand-600">{{ strtoupper($locale) }} {{ __('Translation') }}</span>
+                        <span class="text-brand-600">{{ strtoupper($locale) }} @lang('Translation')</span>
                     </th>
                 </tr>
             </thead>
@@ -120,10 +120,10 @@
                             <button type="submit" data-confirm="{{ __('Delete \':key\' from all languages?', ['key' => $t->key]) }}" class="text-red-400 hover:text-red-600 text-sm">&times;</button>
                         </form>
                     </td>
-                    <td class="px-5 py-2" data-label="{{ __('English Text') }}">
+                    <td class="px-5 py-2" data-label="@lang('English Text')">
                         <div class="text-sm text-gray-900">{{ $t->key }}</div>
                     </td>
-                    <td class="px-5 py-2" data-label="{{ strtoupper($locale) }} {{ __('Translation') }}">
+                    <td class="px-5 py-2" data-label="{{ strtoupper($locale) }} @lang('Translation')">
                         <form method="POST" action="{{ route('admin.translations.store') }}" class="flex items-center gap-2">
                             @csrf
                             <input type="hidden" name="locale" value="{{ $locale }}">
@@ -135,8 +135,8 @@
                                    dir="{{ $langDirection ?? 'ltr' }}"
                                    class="flex-1 rounded border px-2 py-1 text-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500
                                           {{ !($existingTranslations[$t->key] ?? null) ? 'border-amber-300 bg-amber-50 placeholder-amber-400' : 'border-gray-200' }}"
-                                   placeholder="{{ __('Enter translation...') }}">
-                            <button type="submit" class="flex-shrink-0 rounded-lg bg-brand-600 px-2.5 py-1 text-xs font-medium text-white hover:bg-brand-700">{{ __('Save') }}</button>
+                                   placeholder="@lang('Enter translation...')">
+                            <button type="submit" class="flex-shrink-0 rounded-lg bg-brand-600 px-2.5 py-1 text-xs font-medium text-white hover:bg-brand-700">@lang('Save')</button>
                         </form>
                     </td>
                 </tr>
@@ -144,10 +144,10 @@
                 <tr>
                     <td colspan="3" class="px-5 py-14 text-center text-sm text-gray-400">
                         @if($translations->total() === 0 && !request('q'))
-                            <p class="mb-2">{{ __('No translation keys yet.') }}</p>
-                            <p>{{ __('Add English keys using the form above. When you add new languages later, all keys will be copied automatically.') }}</p>
+                            <p class="mb-2">@lang('No translation keys yet.')</p>
+                            <p>@lang('Add English keys using the form above. When you add new languages later, all keys will be copied automatically.')</p>
                         @else
-                            {{ __('No results match your search.') }} <a href="{{ route('admin.translations.index', ['locale' => $locale]) }}" class="text-brand-600 hover:underline">{{ __('Clear search') }}</a>
+                            @lang('No results match your search.') <a href="{{ route('admin.translations.index', ['locale' => $locale]) }}" class="text-brand-600 hover:underline">@lang('Clear search')</a>
                         @endif
                     </td>
                 </tr>
@@ -202,7 +202,7 @@ function handleSyncKeywords(btn) {
             btn.disabled = false;
             spinner.classList.add('hidden');
             icon.classList.remove('hidden');
-            text.textContent = '{{ __('Sync Keywords') }}';
+            text.textContent = '@lang('Sync Keywords')';
         }
         if (data.added > 0) {
             showToast(msg, 'success');
@@ -213,7 +213,7 @@ function handleSyncKeywords(btn) {
         btn.disabled = false;
         spinner.classList.add('hidden');
         icon.classList.remove('hidden');
-        text.textContent = '{{ __('Sync Keywords') }}';
+        text.textContent = '@lang('Sync Keywords')';
     });
 }
 
@@ -384,7 +384,7 @@ function startAutoTranslate() {
         atBtn.disabled = false;
         spinner.classList.add('hidden');
         icon.classList.remove('hidden');
-        text.textContent = '{{ __('Auto-translate') }}';
+        text.textContent = '@lang('Auto-translate')';
         pendingEl.classList.remove('hidden');
     }
 }

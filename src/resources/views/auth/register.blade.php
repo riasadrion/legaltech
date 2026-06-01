@@ -15,30 +15,30 @@
     @csrf
 
     <div class="auth-field-wrap">
-        <label class="auth-label" for="name">{{ __('Name') }}</label>
+        <label class="auth-label" for="name">@lang('Name')</label>
         <input id="name" name="name" type="text" value="{{ old('name') }}"
-               placeholder="{{ __('Your name') }}" autocomplete="name"
+               placeholder="@lang('Your name')" autocomplete="name"
                class="auth-input {{ $errors->has('name') ? 'auth-input-err' : '' }}">
     </div>
 
     <div class="auth-field-wrap">
-        <label class="auth-label" for="email">{{ __('Email address') }}</label>
+        <label class="auth-label" for="email">@lang('Email address')</label>
         <input id="email" name="email" type="email" value="{{ old('email') }}"
                placeholder="you@example.com" autocomplete="email" required
                class="auth-input {{ $errors->has('email') ? 'auth-input-err' : '' }}">
     </div>
 
     <div class="auth-field-wrap">
-        <label class="auth-label" for="password">{{ __('Password') }}</label>
+        <label class="auth-label" for="password">@lang('Password')</label>
         <input id="password" name="password" type="password"
-               placeholder="{{ __('Min 8 characters') }}" autocomplete="new-password" required
+               placeholder="@lang('Min 8 characters')" autocomplete="new-password" required
                class="auth-input {{ $errors->has('password') ? 'auth-input-err' : '' }}">
     </div>
 
     <div class="auth-field-wrap">
-        <label class="auth-label" for="password_confirmation">{{ __('Confirm password') }}</label>
+        <label class="auth-label" for="password_confirmation">@lang('Confirm password')</label>
         <input id="password_confirmation" name="password_confirmation" type="password"
-               placeholder="{{ __('Repeat password') }}" autocomplete="new-password" required
+               placeholder="@lang('Repeat password')" autocomplete="new-password" required
                class="auth-input">
     </div>
 
@@ -76,10 +76,10 @@
                    {{ old('policy_agreement') ? 'checked' : '' }} required
                    class="auth-checkbox mt-0.5">
             <span class="text-sm text-white/55 leading-snug">
-                {{ __('I agree to the') }}
-                <a href="{{ route('page.show', 'terms') }}" target="_blank" class="auth-link">{{ __('Terms') }}</a>
-                {{ __('and') }}
-                <a href="{{ route('page.show', 'privacy-policy') }}" target="_blank" class="auth-link">{{ __('Privacy Policy') }}</a>.
+                @lang('I agree to the')
+                <a href="{{ route('page.show', 'terms') }}" target="_blank" class="auth-link">@lang('Terms')</a>
+                @lang('and')
+                <a href="{{ route('page.show', 'privacy-policy') }}" target="_blank" class="auth-link">@lang('Privacy Policy')</a>.
             </span>
         </label>
         @error('policy_agreement')
@@ -91,7 +91,7 @@
     <x-turnstile />
 
     <button type="submit" class="auth-btn-primary w-full">
-        {{ __('Create account') }}
+        @lang('Create account')
     </button>
 </form>
 
@@ -101,14 +101,14 @@ $anySocial = collect(['google','facebook','twitter','linkedin'])
 @endphp
 @if($anySocial)
 <div class="auth-divider">
-    <span>{{ __('Or continue with') }}</span>
+    <span>@lang('Or continue with')</span>
 </div>
 @include('auth.partials.social-buttons')
 @endif
 
 <p class="mt-6 text-center text-sm text-white/50">
-    {{ __('Already have an account?') }}
-    <a href="{{ route('login') }}" class="auth-link font-medium">{{ __('Sign in') }}</a>
+    @lang('Already have an account?')
+    <a href="{{ route('login') }}" class="auth-link font-medium">@lang('Sign in')</a>
 </p>
 
 @endsection

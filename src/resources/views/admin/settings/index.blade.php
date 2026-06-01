@@ -1,54 +1,54 @@
 @extends('admin.layouts.app')
 
 @section('content')
-<x-page-header title="{{ __('Settings') }}" subtitle="{{ __('General site configuration.') }}" />
+<x-page-header title="@lang('Settings')" subtitle="@lang('General site configuration.')" />
 
 <div class="rounded-xl border border-gray-200 bg-white overflow-hidden">
 
     <div class="flex border-b border-gray-200 bg-gray-50 px-6 overflow-x-auto">
         <button type="button" class="tab-button active flex items-center gap-2 px-4 py-3 text-sm font-semibold text-gray-900 border-b-2 border-brand-600 whitespace-nowrap" data-tab="general">
             <x-heroicon-o-cog-6-tooth class="h-4 w-4" />
-            {{ __('General') }}
+            @lang('General')
         </button>
         <button type="button" class="tab-button flex items-center gap-2 px-4 py-3 text-sm font-semibold text-gray-600 border-b-2 border-transparent hover:text-gray-900 whitespace-nowrap" data-tab="ai">
             <x-heroicon-o-sparkles class="h-4 w-4" />
-            {{ __('AI Setup') }}
+            @lang('AI Setup')
         </button>
         <button type="button" class="tab-button flex items-center gap-2 px-4 py-3 text-sm font-semibold text-gray-600 border-b-2 border-transparent hover:text-gray-900 whitespace-nowrap" data-tab="controls">
             <x-heroicon-o-shield-check class="h-4 w-4" />
-            {{ __('Global Controls') }}
+            @lang('Global Controls')
         </button>
         <button type="button" class="tab-button flex items-center gap-2 px-4 py-3 text-sm font-semibold text-gray-600 border-b-2 border-transparent hover:text-gray-900 whitespace-nowrap" data-tab="brand">
             <x-heroicon-o-swatch class="h-4 w-4" />
-            {{ __('Brand & Appearance') }}
+            @lang('Brand & Appearance')
         </button>
         <button type="button" class="tab-button flex items-center gap-2 px-4 py-3 text-sm font-semibold text-gray-600 border-b-2 border-transparent hover:text-gray-900 whitespace-nowrap" data-tab="seo">
             <x-heroicon-o-magnifying-glass class="h-4 w-4" />
-            {{ __('SEO & Footer') }}
+            @lang('SEO & Footer')
         </button>
         <button type="button" class="tab-button flex items-center gap-2 px-4 py-3 text-sm font-semibold text-gray-600 border-b-2 border-transparent hover:text-gray-900 whitespace-nowrap" data-tab="integrations">
             <x-heroicon-o-puzzle-piece class="h-4 w-4" />
-            {{ __('Integrations') }}
+            @lang('Integrations')
         </button>
         <button type="button" class="tab-button flex items-center gap-2 px-4 py-3 text-sm font-semibold text-gray-600 border-b-2 border-transparent hover:text-gray-900 whitespace-nowrap" data-tab="email">
             <x-heroicon-o-envelope class="h-4 w-4" />
-            {{ __('Email') }}
+            @lang('Email')
         </button>
         <button type="button" class="tab-button flex items-center gap-2 px-4 py-3 text-sm font-semibold text-gray-600 border-b-2 border-transparent hover:text-gray-900 whitespace-nowrap" data-tab="sms">
             <x-heroicon-o-chat-bubble-left class="h-4 w-4" />
-            {{ __('SMS') }}
+            @lang('SMS')
         </button>
         <button type="button" class="tab-button flex items-center gap-2 px-4 py-3 text-sm font-semibold text-gray-600 border-b-2 border-transparent hover:text-gray-900 whitespace-nowrap" data-tab="storage">
             <x-heroicon-o-cloud-arrow-up class="h-4 w-4" />
-            {{ __('Storage') }}
+            @lang('Storage')
         </button>
         <button type="button" class="tab-button flex items-center gap-2 px-4 py-3 text-sm font-semibold text-gray-600 border-b-2 border-transparent hover:text-gray-900 whitespace-nowrap" data-tab="social">
             <x-heroicon-o-user-circle class="h-4 w-4" />
-            {{ __('Social Login') }}
+            @lang('Social Login')
         </button>
         <button type="button" class="tab-button flex items-center gap-2 px-4 py-3 text-sm font-semibold text-gray-600 border-b-2 border-transparent hover:text-gray-900 whitespace-nowrap" data-tab="queue">
             <x-heroicon-o-arrow-path class="h-4 w-4" />
-            {{ __('Queue') }}
+            @lang('Queue')
         </button>
     </div>
 
@@ -59,12 +59,12 @@
             <form method="POST" action="{{ route('admin.settings.update', 'general') }}" class="space-y-5">
                 @csrf @method('PUT')
                 <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                    <x-form.input name="site_name" label="{{ __('Site Name') }}" :value="old('site_name', setting('site.name', config('app.name')))" required />
-                    <x-form.input name="site_tagline" label="{{ __('Tagline') }}" :value="old('site_tagline', setting('site.tagline'))" placeholder="{{ __('Your short slogan') }}" />
-                    <x-form.input name="site_email" label="{{ __('Contact Email') }}" type="email" :value="old('site_email', setting('site.email'))" />
-                    <x-form.input name="site_phone" label="{{ __('Contact Phone') }}" :value="old('site_phone', setting('site.phone'))" />
+                    <x-form.input name="site_name" label="@lang('Site Name')" :value="old('site_name', setting('site.name', config('app.name')))" required />
+                    <x-form.input name="site_tagline" label="@lang('Tagline')" :value="old('site_tagline', setting('site.tagline'))" placeholder="@lang('Your short slogan')" />
+                    <x-form.input name="site_email" label="@lang('Contact Email')" type="email" :value="old('site_email', setting('site.email'))" />
+                    <x-form.input name="site_phone" label="@lang('Contact Phone')" :value="old('site_phone', setting('site.phone'))" />
                     <div>
-                        <label class="mb-1.5 block text-sm font-medium text-gray-700">{{ __('Timezone') }}</label>
+                        <label class="mb-1.5 block text-sm font-medium text-gray-700">@lang('Timezone')</label>
                         <select name="site_timezone" class="w-full h-9 rounded-lg border border-gray-300 px-3 text-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500">
                             @php $current = old('site_timezone', setting('site.timezone', config('app.timezone', 'UTC'))); @endphp
                             @foreach(timezone_identifiers_list() as $tz)
@@ -72,13 +72,13 @@
                             @endforeach
                         </select>
                     </div>
-                    <x-form.input name="site_currency" label="{{ __('Default Currency (ISO 4217)') }}" :value="old('site_currency', setting('site.currency', 'USD'))" placeholder="USD" maxlength="3" />
-                    <x-form.input name="site_currency_symbol" label="{{ __('Currency Symbol') }}" :value="old('site_currency_symbol', setting('site.currency_symbol', '$'))" placeholder="$" maxlength="10" />
+                    <x-form.input name="site_currency" label="@lang('Default Currency (ISO 4217)')" :value="old('site_currency', setting('site.currency', 'USD'))" placeholder="USD" maxlength="3" />
+                    <x-form.input name="site_currency_symbol" label="@lang('Currency Symbol')" :value="old('site_currency_symbol', setting('site.currency_symbol', '$'))" placeholder="$" maxlength="10" />
                 </div>
                 <div class="flex items-center gap-3">
                     <button type="submit" class="inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-brand-700">
                         <x-heroicon-o-check class="h-4 w-4" />
-                        {{ __('Save General') }}
+                        @lang('Save General')
                     </button>
                 </div>
             </form>
@@ -185,7 +185,7 @@
 
                 <button type="submit" class="inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-brand-700">
                     <x-heroicon-o-check class="h-4 w-4" />
-                    {{ __('Save Controls') }}
+                    @lang('Save Controls')
                 </button>
             </form>
         </div>
@@ -199,7 +199,7 @@
                 <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
 
                     <div>
-                        <label class="mb-1.5 block text-sm font-medium text-gray-700">{{ __('Primary / Accent Color') }}</label>
+                        <label class="mb-1.5 block text-sm font-medium text-gray-700">@lang('Primary / Accent Color')</label>
                         <div class="flex items-center gap-3">
                             <input type="color" name="primary_color" value="{{ old('primary_color', setting('site.primary_color', '#D4FF3A')) }}"
                                 class="h-9 w-14 cursor-pointer rounded-lg border border-gray-300 bg-white p-1">
@@ -208,7 +208,7 @@
                                 placeholder="#D4FF3A" maxlength="7"
                                 oninput="document.querySelector('[name=primary_color]').value=this.value">
                         </div>
-                        <p class="mt-1 text-xs text-gray-400">{{ __('Buttons, links, highlights across the frontend.') }}</p>
+                        <p class="mt-1 text-xs text-gray-400">@lang('Buttons, links, highlights across the frontend.')</p>
                     </div>
                     <script>
                         document.querySelector('[name=primary_color]').addEventListener('input', function() { document.getElementById('primary_color_hex').value = this.value; });
@@ -216,10 +216,10 @@
 
 
                     <div class="flex flex-col">
-                        <label class="mb-1.5 block text-sm font-medium text-gray-700">{{ __('Site Font') }}</label>
+                        <label class="mb-1.5 block text-sm font-medium text-gray-700">@lang('Site Font')</label>
                         @php $currentFont = old('site_font', setting('site.font', 'system')); @endphp
                         <select id="site_font_select" name="site_font" class="w-full h-9 rounded-lg border border-gray-300 px-3 text-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500">
-                            <option value="system" @selected($currentFont === 'system')>{{ __('Default (Manrope)') }}</option>
+                            <option value="system" @selected($currentFont === 'system')>@lang('Default (Manrope)')</option>
                             @foreach(['Inter','Roboto','Lato','Open Sans','Poppins','Nunito','Source Sans 3','Work Sans','DM Sans','Manrope','Montserrat','Plus Jakarta Sans'] as $font)
                                 <option value="{{ $font }}" @selected($currentFont === $font)>{{ $font }}</option>
                             @endforeach
@@ -232,7 +232,7 @@
 
 
                     <div>
-                        <label class="mb-1.5 block text-sm font-medium text-gray-700">{{ __('Logo') }} <span class="text-xs text-gray-400 font-normal">{{ __('(for dark backgrounds)') }}</span></label>
+                        <label class="mb-1.5 block text-sm font-medium text-gray-700">@lang('Logo') <span class="text-xs text-gray-400 font-normal">@lang('(for dark backgrounds)')</span></label>
                         @php $logo = setting('site.logo'); @endphp
                         <label class="upload-drop relative flex flex-col w-full h-44 rounded-lg border-2 border-dashed border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-800/50 hover:bg-gray-100 dark:hover:bg-slate-800 transition cursor-pointer overflow-hidden">
                             <div class="upload-preview flex-1 flex items-center justify-center min-h-0 p-3 bg-ink-900 rounded-t-md">
@@ -243,8 +243,8 @@
                                 @endif
                             </div>
                             <div class="upload-info shrink-0 flex flex-col items-center gap-0.5 bg-white/70 dark:bg-slate-900/60 border-t border-gray-200 dark:border-slate-700 px-3 py-2">
-                                <span class="text-sm font-medium text-gray-700 dark:text-slate-100 truncate max-w-full">{{ __('Click or drop files') }}</span>
-                                <span class="text-xs text-gray-500 dark:text-slate-400 text-center">{{ __('PNG, JPG, WebP — max 500px wide, max 2 MB') }}</span>
+                                <span class="text-sm font-medium text-gray-700 dark:text-slate-100 truncate max-w-full">@lang('Click or drop files')</span>
+                                <span class="text-xs text-gray-500 dark:text-slate-400 text-center">@lang('PNG, JPG, WebP — max 500px wide, max 2 MB')</span>
                             </div>
                             <input type="file" name="site_logo" accept="image/*" class="hidden">
                         </label>
@@ -252,7 +252,7 @@
 
 
                     <div>
-                        <label class="mb-1.5 block text-sm font-medium text-gray-700">{{ __('Logo (Light Mode)') }} <span class="text-xs text-gray-400 font-normal">{{ __('(for light backgrounds)') }}</span></label>
+                        <label class="mb-1.5 block text-sm font-medium text-gray-700">@lang('Logo (Light Mode)') <span class="text-xs text-gray-400 font-normal">@lang('(for light backgrounds)')</span></label>
                         @php $darkLogo = setting('site.dark_logo'); @endphp
                         <label class="upload-drop relative flex flex-col w-full h-44 rounded-lg border-2 border-dashed border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-800/50 hover:bg-gray-100 dark:hover:bg-slate-800 transition cursor-pointer overflow-hidden">
                             <div class="upload-preview upload-preview-light flex-1 flex items-center justify-center min-h-0 p-3 rounded-t-md">
@@ -263,8 +263,8 @@
                                 @endif
                             </div>
                             <div class="upload-info shrink-0 flex flex-col items-center gap-0.5 bg-white/70 dark:bg-slate-900/60 border-t border-gray-200 dark:border-slate-700 px-3 py-2">
-                                <span class="text-sm font-medium text-gray-700 dark:text-slate-100 truncate max-w-full">{{ __('Click or drop files') }}</span>
-                                <span class="text-xs text-gray-500 dark:text-slate-400 text-center">{{ __('PNG, JPG, WebP — max 500px wide, max 2 MB') }}</span>
+                                <span class="text-sm font-medium text-gray-700 dark:text-slate-100 truncate max-w-full">@lang('Click or drop files')</span>
+                                <span class="text-xs text-gray-500 dark:text-slate-400 text-center">@lang('PNG, JPG, WebP — max 500px wide, max 2 MB')</span>
                             </div>
                             <input type="file" name="site_dark_logo" accept="image/*" class="hidden">
                         </label>
@@ -272,7 +272,7 @@
 
 
                     <div>
-                        <label class="mb-1.5 block text-sm font-medium text-gray-700">{{ __('Favicon') }}</label>
+                        <label class="mb-1.5 block text-sm font-medium text-gray-700">@lang('Favicon')</label>
                         @php $favicon = setting('site.favicon'); @endphp
                         <label class="upload-drop relative flex flex-col w-full h-44 rounded-lg border-2 border-dashed border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-800/50 hover:bg-gray-100 dark:hover:bg-slate-800 transition cursor-pointer overflow-hidden">
                             <div class="upload-preview flex-1 flex items-center justify-center min-h-0 p-3">
@@ -283,8 +283,8 @@
                                 @endif
                             </div>
                             <div class="upload-info shrink-0 flex flex-col items-center gap-0.5 bg-white/70 dark:bg-slate-900/60 border-t border-gray-200 dark:border-slate-700 px-3 py-2">
-                                <span class="text-sm font-medium text-gray-700 dark:text-slate-100 truncate max-w-full">{{ __('Click or drop files') }}</span>
-                                <span class="text-xs text-gray-500 dark:text-slate-400 text-center">{{ __('PNG, ICO — max 512 KB') }}</span>
+                                <span class="text-sm font-medium text-gray-700 dark:text-slate-100 truncate max-w-full">@lang('Click or drop files')</span>
+                                <span class="text-xs text-gray-500 dark:text-slate-400 text-center">@lang('PNG, ICO — max 512 KB')</span>
                             </div>
                             <input type="file" name="site_favicon" accept="image/*" class="hidden">
                         </label>
@@ -292,7 +292,7 @@
 
 
                     <div>
-                        <label class="mb-1.5 block text-sm font-medium text-gray-700">{{ __('Default OG / Social Share Image') }}</label>
+                        <label class="mb-1.5 block text-sm font-medium text-gray-700">@lang('Default OG / Social Share Image')</label>
                         @php $og = setting('site.og_image'); @endphp
                         <label class="upload-drop relative flex flex-col w-full h-44 rounded-lg border-2 border-dashed border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-800/50 hover:bg-gray-100 dark:hover:bg-slate-800 transition cursor-pointer overflow-hidden">
                             <div class="upload-preview flex-1 flex items-center justify-center min-h-0 p-3">
@@ -303,8 +303,8 @@
                                 @endif
                             </div>
                             <div class="upload-info shrink-0 flex flex-col items-center gap-0.5 bg-white/70 dark:bg-slate-900/60 border-t border-gray-200 dark:border-slate-700 px-3 py-2">
-                                <span class="text-sm font-medium text-gray-700 dark:text-slate-100 truncate max-w-full">{{ __('Click or drop files') }}</span>
-                                <span class="text-xs text-gray-500 dark:text-slate-400 text-center">{{ __('1200×630 recommended — max 2 MB') }}</span>
+                                <span class="text-sm font-medium text-gray-700 dark:text-slate-100 truncate max-w-full">@lang('Click or drop files')</span>
+                                <span class="text-xs text-gray-500 dark:text-slate-400 text-center">@lang('1200×630 recommended — max 2 MB')</span>
                             </div>
                             <input type="file" name="site_og_image" accept="image/*" class="hidden">
                         </label>
@@ -313,15 +313,15 @@
 
 
                 <div>
-                    <label class="mb-1.5 block text-sm font-medium text-gray-700">{{ __('Custom CSS') }}</label>
+                    <label class="mb-1.5 block text-sm font-medium text-gray-700">@lang('Custom CSS')</label>
                     <textarea name="custom_css" rows="8" placeholder="/* Your custom CSS here */" class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm font-mono focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500">{{ old('custom_css', setting('site.custom_css')) }}</textarea>
-                    <p class="mt-1 text-xs text-gray-400">{{ __('Injected into every frontend page. Changes take effect immediately on save.') }}</p>
+                    <p class="mt-1 text-xs text-gray-400">@lang('Injected into every frontend page. Changes take effect immediately on save.')</p>
                 </div>
 
                 <div class="flex items-center gap-3">
                     <button type="submit" class="inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-brand-700">
                         <x-heroicon-o-check class="h-4 w-4" />
-                        {{ __('Save Brand') }}
+                        @lang('Save Brand')
                     </button>
                 </div>
             </form>
@@ -332,22 +332,22 @@
             <form method="POST" action="{{ route('admin.settings.update', 'seo') }}" class="space-y-5">
                 @csrf @method('PUT')
                 <div>
-                    <label class="mb-1.5 block text-sm font-medium text-gray-700">{{ __('Default Meta Description') }}</label>
+                    <label class="mb-1.5 block text-sm font-medium text-gray-700">@lang('Default Meta Description')</label>
                     <textarea name="meta_description" rows="2"
                         class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"
                         maxlength="300">{{ old('meta_description', setting('site.meta_description')) }}</textarea>
                 </div>
                 <div>
-                    <label class="mb-1.5 block text-sm font-medium text-gray-700">{{ __('Footer Text') }}</label>
+                    <label class="mb-1.5 block text-sm font-medium text-gray-700">@lang('Footer Text')</label>
                     <textarea name="footer_text" rows="2"
                         class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"
                         maxlength="500">{{ old('footer_text', setting('site.footer_text')) }}</textarea>
-                    <p class="mt-1 text-xs text-gray-400">{{ __('Shown in the site footer. Plain text only.') }}</p>
+                    <p class="mt-1 text-xs text-gray-400">@lang('Shown in the site footer. Plain text only.')</p>
                 </div>
                 <div class="flex items-center gap-3">
                     <button type="submit" class="inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-brand-700">
                         <x-heroicon-o-check class="h-4 w-4" />
-                        {{ __('Save SEO & Footer') }}
+                        @lang('Save SEO & Footer')
                     </button>
                 </div>
             </form>
@@ -363,14 +363,14 @@
                     @csrf @method('PUT')
 
                     <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                        <x-form.input name="mail_from_address" label="{{ __('From Address') }}" type="email"
+                        <x-form.input name="mail_from_address" label="@lang('From Address')" type="email"
                             :value="setting('mail.from_address', config('mail.from.address'))" required />
-                        <x-form.input name="mail_from_name" label="{{ __('From Name') }}"
+                        <x-form.input name="mail_from_name" label="@lang('From Name')"
                             :value="setting('mail.from_name', config('mail.from.name', config('app.name')))" required />
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1.5">{{ __('Driver') }}</label>
+                        <label class="block text-sm font-medium text-gray-700 mb-1.5">@lang('Driver')</label>
                         <select name="mail_driver" id="mail_driver"
                             class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500">
                             @foreach(['log' => 'Log (dev)', 'smtp' => 'SMTP', 'sendmail' => 'PHP Mail (Sendmail)', 'mailgun' => 'Mailgun', 'ses' => 'Amazon SES', 'postmark' => 'Postmark', 'resend' => 'Resend'] as $val => $label)
@@ -380,12 +380,12 @@
                     </div>
 
                     <div id="driver-smtp" class="driver-fields {{ $mailDriver !== 'smtp' ? 'hidden' : '' }} grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <x-form.input name="mail_smtp_host" label="{{ __('SMTP Host') }}" :value="setting('mail.smtp.host')" />
-                        <x-form.input name="mail_smtp_port" label="{{ __('SMTP Port') }}" :value="setting('mail.smtp.port', '587')" />
-                        <x-form.input name="mail_smtp_username" label="{{ __('Username') }}" :value="setting('mail.smtp.username')" />
-                        <x-form.input name="mail_smtp_password" label="{{ __('Password') }}" type="password" :value="null" :placeholder="setting('mail.smtp.password') ? __('Saved — leave blank to keep existing') : __('Enter password')" />
+                        <x-form.input name="mail_smtp_host" label="@lang('SMTP Host')" :value="setting('mail.smtp.host')" />
+                        <x-form.input name="mail_smtp_port" label="@lang('SMTP Port')" :value="setting('mail.smtp.port', '587')" />
+                        <x-form.input name="mail_smtp_username" label="@lang('Username')" :value="setting('mail.smtp.username')" />
+                        <x-form.input name="mail_smtp_password" label="@lang('Password')" type="password" :value="null" :placeholder="setting('mail.smtp.password') ? __('Saved — leave blank to keep existing') : __('Enter password')" />
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1.5">{{ __('Encryption') }}</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-1.5">@lang('Encryption')</label>
                             <select name="mail_smtp_encryption" class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500">
                                 @foreach(['tls' => 'TLS', 'ssl' => 'SSL', '' => 'None'] as $val => $label)
                                 <option value="{{ $val }}" {{ setting('mail.smtp.encryption') === $val ? 'selected' : '' }}>{{ $label }}</option>
@@ -395,35 +395,35 @@
                     </div>
 
                     <div id="driver-mailgun" class="driver-fields {{ $mailDriver !== 'mailgun' ? 'hidden' : '' }} grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <x-form.input name="mail_mailgun_domain" label="{{ __('Domain') }}" :value="setting('mail.mailgun.domain')" />
-                        <x-form.input name="mail_mailgun_secret" label="{{ __('API Key') }}" :value="setting('mail.mailgun.secret')" />
+                        <x-form.input name="mail_mailgun_domain" label="@lang('Domain')" :value="setting('mail.mailgun.domain')" />
+                        <x-form.input name="mail_mailgun_secret" label="@lang('API Key')" :value="setting('mail.mailgun.secret')" />
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1.5">{{ __('Endpoint') }}</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-1.5">@lang('Endpoint')</label>
                             <select name="mail_mailgun_endpoint" class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500">
-                                <option value="api.mailgun.net" {{ setting('mail.mailgun.endpoint') === 'api.mailgun.net' ? 'selected' : '' }}>{{ __('US (api.mailgun.net)') }}</option>
-                                <option value="api.eu.mailgun.net" {{ setting('mail.mailgun.endpoint') === 'api.eu.mailgun.net' ? 'selected' : '' }}>{{ __('EU (api.eu.mailgun.net)') }}</option>
+                                <option value="api.mailgun.net" {{ setting('mail.mailgun.endpoint') === 'api.mailgun.net' ? 'selected' : '' }}>@lang('US (api.mailgun.net)')</option>
+                                <option value="api.eu.mailgun.net" {{ setting('mail.mailgun.endpoint') === 'api.eu.mailgun.net' ? 'selected' : '' }}>@lang('EU (api.eu.mailgun.net)')</option>
                             </select>
                         </div>
                     </div>
 
                     <div id="driver-ses" class="driver-fields {{ $mailDriver !== 'ses' ? 'hidden' : '' }} grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <x-form.input name="mail_ses_key" label="{{ __('Access Key') }}" :value="setting('mail.ses.key')" />
-                        <x-form.input name="mail_ses_secret" label="{{ __('Secret Key') }}" type="password" :value="setting('mail.ses.secret')" />
-                        <x-form.input name="mail_ses_region" label="{{ __('Region') }}" :value="setting('mail.ses.region', 'us-east-1')" />
+                        <x-form.input name="mail_ses_key" label="@lang('Access Key')" :value="setting('mail.ses.key')" />
+                        <x-form.input name="mail_ses_secret" label="@lang('Secret Key')" type="password" :value="setting('mail.ses.secret')" />
+                        <x-form.input name="mail_ses_region" label="@lang('Region')" :value="setting('mail.ses.region', 'us-east-1')" />
                     </div>
 
                     <div id="driver-postmark" class="driver-fields {{ $mailDriver !== 'postmark' ? 'hidden' : '' }} grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <x-form.input name="mail_postmark_token" label="{{ __('Server Token') }}" :value="setting('mail.postmark.token')" />
+                        <x-form.input name="mail_postmark_token" label="@lang('Server Token')" :value="setting('mail.postmark.token')" />
                     </div>
 
                     <div id="driver-resend" class="driver-fields {{ $mailDriver !== 'resend' ? 'hidden' : '' }} grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <x-form.input name="mail_resend_key" label="{{ __('API Key') }}" :value="setting('mail.resend.key')" />
+                        <x-form.input name="mail_resend_key" label="@lang('API Key')" :value="setting('mail.resend.key')" />
                     </div>
 
                     <div class="flex items-center gap-3 pt-2">
                         <button type="submit" class="inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-brand-700">
                             <x-heroicon-o-check class="h-4 w-4" />
-                            {{ __('Save Email') }}
+                            @lang('Save Email')
                         </button>
                     </div>
                 </form>
@@ -436,8 +436,8 @@
                                 <x-heroicon-o-paper-airplane class="h-5 w-5" />
                             </div>
                             <div>
-                                <h3 class="text-sm font-semibold text-gray-900">{{ __('Send Test Email') }}</h3>
-                                <p class="text-xs text-gray-500">{{ __('Verify your mail driver is working correctly.') }}</p>
+                                <h3 class="text-sm font-semibold text-gray-900">@lang('Send Test Email')</h3>
+                                <p class="text-xs text-gray-500">@lang('Verify your mail driver is working correctly.')</p>
                             </div>
                         </div>
 
@@ -453,7 +453,7 @@
                         <form method="POST" action="{{ route('admin.system.test-mail') }}" class="mt-4 space-y-3">
                             @csrf
                             <div>
-                                <label class="mb-1.5 block text-xs font-medium text-gray-600">{{ __('Send to') }}</label>
+                                <label class="mb-1.5 block text-xs font-medium text-gray-600">@lang('Send to')</label>
                                 <input type="email" name="email"
                                     value="{{ old('email', auth('admin')->user()?->email) }}"
                                     placeholder="you@example.com" required
@@ -461,7 +461,7 @@
                             </div>
                             <button type="submit" class="w-full inline-flex items-center justify-center gap-1.5 rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-brand-700">
                                 <x-heroicon-o-paper-airplane class="h-4 w-4" />
-                                {{ __('Send Test Email') }}
+                                @lang('Send Test Email')
                             </button>
                         </form>
                     </div>
@@ -478,7 +478,7 @@
             <form method="POST" action="{{ route('admin.settings.update', 'sms') }}" class="space-y-5">
                 @csrf @method('PUT')
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1.5">{{ __('Driver') }}</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-1.5">@lang('Driver')</label>
                     <select name="sms_driver" id="sms_driver"
                         class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500">
                         @foreach(['log' => 'Log (dev)', 'twilio' => 'Twilio', 'vonage' => 'Vonage', 'messagebird' => 'MessageBird', 'textmagic' => 'Textmagic'] as $val => $label)
@@ -488,31 +488,31 @@
                 </div>
 
                 <div id="sms-twilio" class="sms-fields {{ $smsDriver !== 'twilio' ? 'hidden' : '' }} grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <x-form.input name="sms_twilio_sid" label="{{ __('Account SID') }}" :value="setting('sms.twilio.sid')" />
-                    <x-form.input name="sms_twilio_token" label="{{ __('Auth Token') }}" type="password" :value="setting('sms.twilio.token')" />
-                    <x-form.input name="sms_twilio_from" label="{{ __('From Number') }}" :value="setting('sms.twilio.from')" />
+                    <x-form.input name="sms_twilio_sid" label="@lang('Account SID')" :value="setting('sms.twilio.sid')" />
+                    <x-form.input name="sms_twilio_token" label="@lang('Auth Token')" type="password" :value="setting('sms.twilio.token')" />
+                    <x-form.input name="sms_twilio_from" label="@lang('From Number')" :value="setting('sms.twilio.from')" />
                 </div>
 
                 <div id="sms-vonage" class="sms-fields {{ $smsDriver !== 'vonage' ? 'hidden' : '' }} grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <x-form.input name="sms_vonage_api_key" label="{{ __('API Key') }}" :value="setting('sms.vonage.api_key')" />
-                    <x-form.input name="sms_vonage_api_secret" label="{{ __('API Secret') }}" type="password" :value="setting('sms.vonage.api_secret')" />
-                    <x-form.input name="sms_vonage_from" label="{{ __('From Name') }}" :value="setting('sms.vonage.from', 'DocsAI')" />
+                    <x-form.input name="sms_vonage_api_key" label="@lang('API Key')" :value="setting('sms.vonage.api_key')" />
+                    <x-form.input name="sms_vonage_api_secret" label="@lang('API Secret')" type="password" :value="setting('sms.vonage.api_secret')" />
+                    <x-form.input name="sms_vonage_from" label="@lang('From Name')" :value="setting('sms.vonage.from', 'DocsAI')" />
                 </div>
 
                 <div id="sms-messagebird" class="sms-fields {{ $smsDriver !== 'messagebird' ? 'hidden' : '' }} grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <x-form.input name="sms_messagebird_api_key" label="{{ __('API Key') }}" :value="setting('sms.messagebird.api_key')" />
-                    <x-form.input name="sms_messagebird_from" label="{{ __('From') }}" :value="setting('sms.messagebird.from', 'DocsAI')" />
+                    <x-form.input name="sms_messagebird_api_key" label="@lang('API Key')" :value="setting('sms.messagebird.api_key')" />
+                    <x-form.input name="sms_messagebird_from" label="@lang('From')" :value="setting('sms.messagebird.from', 'DocsAI')" />
                 </div>
 
                 <div id="sms-textmagic" class="sms-fields {{ $smsDriver !== 'textmagic' ? 'hidden' : '' }} grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <x-form.input name="sms_textmagic_username" label="{{ __('Username') }}" :value="setting('sms.textmagic.username')" />
-                    <x-form.input name="sms_textmagic_api_key" label="{{ __('API Key') }}" :value="setting('sms.textmagic.api_key')" />
+                    <x-form.input name="sms_textmagic_username" label="@lang('Username')" :value="setting('sms.textmagic.username')" />
+                    <x-form.input name="sms_textmagic_api_key" label="@lang('API Key')" :value="setting('sms.textmagic.api_key')" />
                 </div>
 
                 <div class="flex items-center gap-3">
                     <button type="submit" class="inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-brand-700">
                         <x-heroicon-o-check class="h-4 w-4" />
-                        {{ __('Save SMS') }}
+                        @lang('Save SMS')
                     </button>
                 </div>
             </form>
@@ -551,7 +551,7 @@
 
 
                 <div class="storage-fields-local {{ $storageDriver !== 'local' ? 'hidden' : '' }}">
-                    <p class="text-sm text-gray-500">{{ __('Files are stored at') }} <code class="rounded bg-gray-100 dark:bg-slate-700 px-1">/assets/uploads/</code> {{ __('in the project root, served directly by the web server.') }}</p>
+                    <p class="text-sm text-gray-500">@lang('Files are stored at') <code class="rounded bg-gray-100 dark:bg-slate-700 px-1">/assets/uploads/</code> @lang('in the project root, served directly by the web server.')</p>
                 </div>
 
                 <div class="storage-fields-s3 {{ $storageDriver !== 's3' ? 'hidden' : '' }} grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -589,7 +589,7 @@
                 <div class="flex items-center gap-3 pt-2">
                     <button type="submit" class="inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-brand-700">
                         <x-heroicon-o-check class="h-4 w-4" />
-                        {{ __('Save Storage') }}
+                        @lang('Save Storage')
                     </button>
                 </div>
             </form>
@@ -641,21 +641,21 @@
 
                         <div class="px-5 py-4 space-y-4">
                             <div>
-                                <label class="mb-1.5 block text-xs font-medium text-gray-600 dark:text-slate-400">{{ __('Client ID') }}</label>
+                                <label class="mb-1.5 block text-xs font-medium text-gray-600 dark:text-slate-400">@lang('Client ID')</label>
                                 <input type="text" name="social_{{ $key }}_client_id"
                                     value="{{ old('social_'.$key.'_client_id', setting('social.'.$key.'.client_id')) }}"
                                     placeholder="Paste your {{ $provider['label'] }} Client ID"
                                     class="w-full h-9 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 text-sm text-gray-900 dark:text-slate-100 placeholder-gray-400 dark:placeholder-slate-500 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500" />
                             </div>
                             <div>
-                                <label class="mb-1.5 block text-xs font-medium text-gray-600 dark:text-slate-400">{{ __('Client Secret') }}</label>
+                                <label class="mb-1.5 block text-xs font-medium text-gray-600 dark:text-slate-400">@lang('Client Secret')</label>
                                 <input type="password" name="social_{{ $key }}_client_secret"
                                     value="{{ old('social_'.$key.'_client_secret', setting('social.'.$key.'.client_secret')) }}"
                                     placeholder="••••••••••••••••"
                                     class="w-full h-9 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 text-sm text-gray-900 dark:text-slate-100 placeholder-gray-400 dark:placeholder-slate-500 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500" />
                             </div>
                             <p class="text-xs text-gray-400 dark:text-slate-500">
-                                {{ __('Callback:') }}
+                                @lang('Callback:')
                                 <code class="font-mono text-gray-500 dark:text-slate-400">{{ config('app.url') }}/auth/{{ $key }}/callback</code>
                             </p>
                         </div>
@@ -665,7 +665,7 @@
 
                 <button type="submit" class="inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-brand-700">
                     <x-heroicon-o-check class="h-4 w-4" />
-                    {{ __('Save Social Login') }}
+                    @lang('Save Social Login')
                 </button>
             </form>
         </div>
@@ -680,14 +680,14 @@
                     @csrf @method('PUT')
                     <div class="flex items-start justify-between">
                         <div>
-                            <h3 class="text-sm font-semibold text-gray-900">{{ __('Queue Heavy Operations') }}</h3>
+                            <h3 class="text-sm font-semibold text-gray-900">@lang('Queue Heavy Operations')</h3>
                             <p class="text-sm font-normal text-gray-500 mt-1">
-                                {{ __('When enabled, broadcast newsletters and bulk notifications are dispatched to the database queue.') }}
+                                @lang('When enabled, broadcast newsletters and bulk notifications are dispatched to the database queue.')
                             </p>
                             @if(!$queueEnabled)
-                            <p class="text-sm font-normal text-gray-400 mt-2">{{ __('Currently') }} <strong>{{ __('off') }}</strong> — {{ __('operations run synchronously.') }}</p>
+                            <p class="text-sm font-normal text-gray-400 mt-2">@lang('Currently') <strong>@lang('off')</strong> — @lang('operations run synchronously.')</p>
                             @else
-                            <p class="text-sm font-normal text-green-700 mt-2">{{ __('Currently') }} <strong>{{ __('on') }}</strong> — {{ __('jobs are queued in the database.') }}</p>
+                            <p class="text-sm font-normal text-green-700 mt-2">@lang('Currently') <strong>@lang('on')</strong> — @lang('jobs are queued in the database.')</p>
                             @endif
                         </div>
                         <x-form.toggle name="queue_enabled" :checked="$queueEnabled" />
@@ -695,7 +695,7 @@
 
                     @if($queueEnabled)
                     <div class="bg-gray-50 rounded-lg border border-gray-200 p-3">
-                        <p class="text-xs font-medium text-gray-600 mb-1">{{ __('Required cron entry on your server:') }}</p>
+                        <p class="text-xs font-medium text-gray-600 mb-1">@lang('Required cron entry on your server:')</p>
                         <code class="text-xs font-mono text-gray-800 break-all">* * * * * cd {{ base_path() }} && php artisan schedule:run >> /dev/null 2>&1</code>
                     </div>
                     @endif
@@ -703,7 +703,7 @@
                     <div class="flex items-center gap-3">
                         <button type="submit" class="inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-brand-700">
                             <x-heroicon-o-check class="h-4 w-4" />
-                            {{ __('Save Queue') }}
+                            @lang('Save Queue')
                         </button>
                     </div>
                 </form>
@@ -726,16 +726,16 @@
                                 </svg>
                             </div>
                             <div>
-                                <h3 class="text-sm font-semibold text-gray-900">{{ __('Cloudflare Turnstile (Captcha)') }}</h3>
-                                <p class="mt-1 text-sm font-normal text-gray-500">{{ __('Protects login, registration, and contact forms from bots.') }} <a href="https://dash.cloudflare.com/?to=/:account/turnstile" target="_blank" class="text-brand-600 hover:text-brand-700">{{ __('Get keys →') }}</a></p>
+                                <h3 class="text-sm font-semibold text-gray-900">@lang('Cloudflare Turnstile (Captcha)')</h3>
+                                <p class="mt-1 text-sm font-normal text-gray-500">@lang('Protects login, registration, and contact forms from bots.') <a href="https://dash.cloudflare.com/?to=/:account/turnstile" target="_blank" class="text-brand-600 hover:text-brand-700">@lang('Get keys →')</a></p>
                             </div>
                         </div>
                         <x-form.toggle name="turnstile_enabled" :checked="setting('integrations.turnstile.enabled') === '1'" />
                     </div>
                     <div class="p-5">
                         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                            <x-form.input name="turnstile_site_key" label="{{ __('Site Key') }}" :value="old('turnstile_site_key', setting('integrations.turnstile.site_key'))" placeholder="0x4AAAAAAA..." />
-                            <x-form.input name="turnstile_secret_key" label="{{ __('Secret Key') }}" type="password" :value="old('turnstile_secret_key', setting('integrations.turnstile.secret_key'))" placeholder="0x4AAAAAAA..." />
+                            <x-form.input name="turnstile_site_key" label="@lang('Site Key')" :value="old('turnstile_site_key', setting('integrations.turnstile.site_key'))" placeholder="0x4AAAAAAA..." />
+                            <x-form.input name="turnstile_secret_key" label="@lang('Secret Key')" type="password" :value="old('turnstile_secret_key', setting('integrations.turnstile.secret_key'))" placeholder="0x4AAAAAAA..." />
                         </div>
                     </div>
                 </section>
@@ -752,14 +752,14 @@
                                 </svg>
                             </div>
                             <div>
-                                <h3 class="text-sm font-semibold text-gray-900">{{ __('Google Analytics 4') }}</h3>
-                                <p class="mt-1 text-sm font-normal text-gray-500">{{ __('Adds the GA4 tracking snippet to all public pages.') }} <a href="https://analytics.google.com/" target="_blank" class="text-brand-600 hover:text-brand-700">{{ __('Get Measurement ID →') }}</a></p>
+                                <h3 class="text-sm font-semibold text-gray-900">@lang('Google Analytics 4')</h3>
+                                <p class="mt-1 text-sm font-normal text-gray-500">@lang('Adds the GA4 tracking snippet to all public pages.') <a href="https://analytics.google.com/" target="_blank" class="text-brand-600 hover:text-brand-700">@lang('Get Measurement ID →')</a></p>
                             </div>
                         </div>
                         <x-form.toggle name="ga_enabled" :checked="setting('integrations.ga.enabled') === '1'" />
                     </div>
                     <div class="p-5">
-                        <x-form.input name="ga_measurement_id" label="{{ __('Measurement ID') }}" :value="old('ga_measurement_id', setting('integrations.ga.measurement_id'))" placeholder="G-XXXXXXXXXX" />
+                        <x-form.input name="ga_measurement_id" label="@lang('Measurement ID')" :value="old('ga_measurement_id', setting('integrations.ga.measurement_id'))" placeholder="G-XXXXXXXXXX" />
                     </div>
                 </section>
 
@@ -776,24 +776,24 @@
                                 </svg>
                             </div>
                             <div>
-                                <h3 class="text-sm font-semibold text-gray-900">{{ __('Tawk.to Live Chat') }}</h3>
-                                <p class="mt-1 text-sm font-normal text-gray-500">{{ __('Embeds the Tawk.to chat widget on all public pages.') }} <a href="https://dashboard.tawk.to/" target="_blank" class="text-brand-600 hover:text-brand-700">{{ __('Get widget IDs →') }}</a></p>
+                                <h3 class="text-sm font-semibold text-gray-900">@lang('Tawk.to Live Chat')</h3>
+                                <p class="mt-1 text-sm font-normal text-gray-500">@lang('Embeds the Tawk.to chat widget on all public pages.') <a href="https://dashboard.tawk.to/" target="_blank" class="text-brand-600 hover:text-brand-700">@lang('Get widget IDs →')</a></p>
                             </div>
                         </div>
                         <x-form.toggle name="tawk_enabled" :checked="setting('integrations.tawk.enabled') === '1'" />
                     </div>
                     <div class="p-5 space-y-3">
                         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                            <x-form.input name="tawk_property_id" label="{{ __('Property ID') }}" :value="old('tawk_property_id', setting('integrations.tawk.property_id'))" placeholder="65...abc" />
-                            <x-form.input name="tawk_widget_id" label="{{ __('Widget ID') }}" :value="old('tawk_widget_id', setting('integrations.tawk.widget_id'))" placeholder="default" />
+                            <x-form.input name="tawk_property_id" label="@lang('Property ID')" :value="old('tawk_property_id', setting('integrations.tawk.property_id'))" placeholder="65...abc" />
+                            <x-form.input name="tawk_widget_id" label="@lang('Widget ID')" :value="old('tawk_widget_id', setting('integrations.tawk.widget_id'))" placeholder="default" />
                         </div>
-                        <p class="text-sm font-normal text-gray-500">{{ __('Find these in Tawk.to → Administration → Chat Widget. The embed URL is') }} <code class="rounded bg-gray-100 px-1 text-xs">embed.tawk.to/<strong>PROPERTY_ID</strong>/<strong>WIDGET_ID</strong></code></p>
+                        <p class="text-sm font-normal text-gray-500">@lang('Find these in Tawk.to → Administration → Chat Widget. The embed URL is') <code class="rounded bg-gray-100 px-1 text-xs">embed.tawk.to/<strong>PROPERTY_ID</strong>/<strong>WIDGET_ID</strong></code></p>
                     </div>
                 </section>
 
                 <button type="submit" class="inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-brand-700">
                     <x-heroicon-o-check class="h-4 w-4" />
-                    {{ __('Save Integrations') }}
+                    @lang('Save Integrations')
                 </button>
             </form>
         </div>
@@ -805,24 +805,24 @@
                 <input type="hidden" name="_tab" value="ai">
 
                 <div>
-                    <h3 class="text-sm font-semibold text-gray-900">{{ __('OpenAI API') }}</h3>
-                    <p class="text-sm text-gray-500 mt-0.5">{{ __('Used for AI-powered contract generation.') }}</p>
+                    <h3 class="text-sm font-semibold text-gray-900">@lang('OpenAI API')</h3>
+                    <p class="text-sm text-gray-500 mt-0.5">@lang('Used for AI-powered contract generation.')</p>
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">{{ __('API Key') }}</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">@lang('API Key')</label>
                     <div class="flex gap-2">
                         <input id="ai_openai_key_input" type="password" name="ai_openai_key"
                                placeholder="{{ setting('ai.openai_key') ? __('Saved — enter new key to replace') : 'sk-...' }}"
                                class="h-9 flex-1 rounded-lg border border-gray-300 px-3 text-sm font-mono shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500" />
                         <button type="button" id="ai_show_key_btn"
-                                class="rounded-lg border border-gray-300 px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-50">{{ __('Show') }}</button>
+                                class="rounded-lg border border-gray-300 px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-50">@lang('Show')</button>
                     </div>
-                    <p class="mt-1 text-xs text-gray-400">{{ __('Leave blank to keep the existing key.') }}</p>
+                    <p class="mt-1 text-xs text-gray-400">@lang('Leave blank to keep the existing key.')</p>
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">{{ __('Model') }}</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">@lang('Model')</label>
                     <select name="ai_openai_model"
                             class="h-9 w-full rounded-lg border border-gray-300 px-3 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500">
                         @foreach(['gpt-5.5', 'gpt-5.5-pro', 'gpt-5.4', 'gpt-5.4-pro', 'gpt-5.4-mini', 'gpt-5.4-nano', 'gpt-5-mini', 'gpt-5-nano', 'gpt-5', 'gpt-4.1', 'gpt-4o', 'gpt-4o-mini', 'gpt-4-turbo', 'gpt-3.5-turbo'] as $model)
@@ -833,38 +833,38 @@
 
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">{{ __('Max Tokens per Section') }}</label>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">@lang('Max Tokens per Section')</label>
                         <input type="number" name="ai_openai_max_tokens"
                                value="{{ old('ai_openai_max_tokens', setting('ai.openai_max_tokens', 800)) }}"
                                min="100" max="4000"
                                class="h-9 w-full rounded-lg border border-gray-300 px-3 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500" />
-                        <p class="mt-1 text-xs text-gray-400">{{ __('100 – 4000') }}</p>
+                        <p class="mt-1 text-xs text-gray-400">@lang('100 – 4000')</p>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">{{ __('Temperature') }}</label>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">@lang('Temperature')</label>
                         <input type="number" name="ai_openai_temperature" step="0.1"
                                value="{{ old('ai_openai_temperature', setting('ai.openai_temperature', 0.3)) }}"
                                min="0" max="2"
                                class="h-9 w-full rounded-lg border border-gray-300 px-3 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500" />
-                        <p class="mt-1 text-xs text-gray-400">{{ __('0 = precise, 1 = creative, 2 = wild') }}</p>
+                        <p class="mt-1 text-xs text-gray-400">@lang('0 = precise, 1 = creative, 2 = wild')</p>
                     </div>
                 </div>
 
                 @if(setting('ai.openai_key'))
                 <div class="rounded-lg bg-green-50 border border-green-200 px-4 py-3 text-sm text-green-700">
-                    ✓ {{ __('API key is configured.') }}
-                    {{ __('Model:') }} <strong>{{ setting('ai.openai_model', 'gpt-4o') }}</strong>
+                    ✓ @lang('API key is configured.')
+                    @lang('Model:') <strong>{{ setting('ai.openai_model', 'gpt-4o') }}</strong>
                 </div>
                 @else
                 <div class="rounded-lg bg-yellow-50 border border-yellow-200 px-4 py-3 text-sm text-yellow-700">
-                    {{ __('No API key set — contract AI generation will fail until one is added.') }}
+                    @lang('No API key set — contract AI generation will fail until one is added.')
                 </div>
                 @endif
 
                 <div>
                     <button type="submit" class="inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-brand-700">
                         <x-heroicon-o-check class="h-4 w-4" />
-                        {{ __('Save AI Settings') }}
+                        @lang('Save AI Settings')
                     </button>
                 </div>
             </form>

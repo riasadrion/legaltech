@@ -9,7 +9,7 @@
 
     <div class="page-header">
         <div>
-            <h1 class="page-title">{{ __('Dashboard') }}</h1>
+            <h1 class="page-title">@lang('Dashboard')</h1>
             <p class="page-subtitle">{{ __('Welcome back, :name', ['name' => auth('admin')->user()->name]) }} 👋</p>
         </div>
     </div>
@@ -20,7 +20,7 @@
             <div class="stat-accent"></div>
             <div class="flex items-start justify-between mb-4">
                 <div>
-                    <div class="stat-label">{{ __('Total Users') }}</div>
+                    <div class="stat-label">@lang('Total Users')</div>
                     <div class="stat-value">{{ number_format($stats['totalUsers']) }}</div>
                 </div>
                 <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/25">
@@ -38,7 +38,7 @@
             <div class="stat-accent"></div>
             <div class="flex items-start justify-between mb-4">
                 <div>
-                    <div class="stat-label">{{ __('Revenue') }}</div>
+                    <div class="stat-label">@lang('Revenue')</div>
                     <div class="stat-value">{{ $stats['revenue']->format() }}</div>
                 </div>
                 <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-lg shadow-emerald-500/25">
@@ -56,7 +56,7 @@
             <div class="stat-accent"></div>
             <div class="flex items-start justify-between mb-4">
                 <div>
-                    <div class="stat-label">{{ __('Open Tickets') }}</div>
+                    <div class="stat-label">@lang('Open Tickets')</div>
                     <div class="stat-value">{{ number_format($stats['openTickets']) }}</div>
                 </div>
                 <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-amber-500 to-amber-600 text-white shadow-lg shadow-amber-500/25">
@@ -74,7 +74,7 @@
             <div class="stat-accent"></div>
             <div class="flex items-start justify-between mb-4">
                 <div>
-                    <div class="stat-label">{{ __('Active Gateways') }}</div>
+                    <div class="stat-label">@lang('Active Gateways')</div>
                     <div class="stat-value">{{ number_format($stats['activeGateways']) }}</div>
                 </div>
                 <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-slate-600 to-slate-700 text-white shadow-lg shadow-slate-500/25">
@@ -93,8 +93,8 @@
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
         <div class="lg:col-span-2 card-table">
             <div class="chart-card-header">
-                    <h3 class="text-sm font-semibold">{{ __('Revenue Analytics') }}</h3>
-                    <p class="chart-card-sub">{{ __('Monthly performance breakdown') }}</p>
+                    <h3 class="text-sm font-semibold">@lang('Revenue Analytics')</h3>
+                    <p class="chart-card-sub">@lang('Monthly performance breakdown')</p>
             </div>
             <div class="chart-card-body">
                 <div id="revenueChart"></div>
@@ -104,8 +104,8 @@
         @if(!empty($chartData['revenueByPlan']))
         <div class="card-table">
             <div class="chart-card-header">
-                <h3 class="text-sm font-semibold">{{ __('Revenue Mix') }}</h3>
-                <p class="chart-card-sub">{{ __('By subscription tier') }}</p>
+                <h3 class="text-sm font-semibold">@lang('Revenue Mix')</h3>
+                <p class="chart-card-sub">@lang('By subscription tier')</p>
             </div>
             <div class="chart-card-body">
                 <div id="revenueDonut"></div>
@@ -115,8 +115,8 @@
         @else
         <div class="card-table">
             <div class="chart-card-header">
-                <h3 class="text-sm font-semibold">{{ __('Payment Methods') }}</h3>
-                <p class="chart-card-sub">{{ __('Revenue by gateway') }}</p>
+                <h3 class="text-sm font-semibold">@lang('Payment Methods')</h3>
+                <p class="chart-card-sub">@lang('Revenue by gateway')</p>
             </div>
             <div class="chart-card-body">
                 <div id="gatewayChart"></div>
@@ -132,8 +132,8 @@
         <div class="lg:col-span-2 card-table">
             <div class="chart-card-header flex items-center justify-between">
                 <div>
-                    <h3 class="text-sm font-semibold">{{ __('Recent Transactions') }}</h3>
-                    <p class="chart-card-sub">{{ __('Latest wallet activity') }}</p>
+                    <h3 class="text-sm font-semibold">@lang('Recent Transactions')</h3>
+                    <p class="chart-card-sub">@lang('Latest wallet activity')</p>
                 </div>
                 <a href="{{ route('admin.reports.index') }}" class="text-xs text-brand-600 hover:text-brand-700 font-medium">View All →</a>
             </div>
@@ -182,8 +182,8 @@
         <div class="card-table">
             <div class="chart-card-header flex items-center justify-between">
                 <div>
-                    <h3 class="text-sm font-semibold">{{ __('Recent Users') }}</h3>
-                    <p class="chart-card-sub">{{ __('Latest signups') }}</p>
+                    <h3 class="text-sm font-semibold">@lang('Recent Users')</h3>
+                    <p class="chart-card-sub">@lang('Latest signups')</p>
                 </div>
                 <a href="{{ route('admin.users.index') }}" class="text-xs text-brand-600 hover:text-brand-700 font-medium">View All →</a>
             </div>

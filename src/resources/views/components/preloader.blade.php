@@ -33,7 +33,7 @@
             </svg>
         </div>
     </div>
-    <div id="fe-preloader-label">{{ __('Loading') }}</div>
+    <div id="fe-preloader-label">@lang('Loading')</div>
 </div>
 
 @once

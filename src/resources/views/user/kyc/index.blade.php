@@ -6,8 +6,8 @@
 <div class="space-y-6">
 
     <div>
-        <h1 class="ud-page-title">{{ __('Identity Verification (KYC)') }}</h1>
-        <p class="ud-page-sub">{{ __('Verify your identity to access all platform features.') }}</p>
+        <h1 class="ud-page-title">@lang('Identity Verification (KYC)')</h1>
+        <p class="ud-page-sub">@lang('Verify your identity to access all platform features.')</p>
     </div>
 
     <div class="ud-card">
@@ -17,10 +17,10 @@
                     <x-heroicon-s-check-circle class="h-6 w-6 text-lime" />
                 </div>
                 <div>
-                    <p class="font-semibold text-white">{{ __('Verified') }}</p>
-                    <p class="text-sm text-white/50">{{ __('Your identity has been verified successfully.') }}</p>
+                    <p class="font-semibold text-white">@lang('Verified')</p>
+                    <p class="text-sm text-white/50">@lang('Your identity has been verified successfully.')</p>
                 </div>
-                <span class="ml-auto ud-badge ud-badge-green">{{ __('Approved') }}</span>
+                <span class="ml-auto ud-badge ud-badge-green">@lang('Approved')</span>
             </div>
 
         @elseif($user->kyc_status === 'pending' && $submission)
@@ -29,10 +29,10 @@
                     <x-heroicon-o-clock class="h-6 w-6 text-amber-400" />
                 </div>
                 <div>
-                    <p class="font-semibold text-white">{{ __('Under Review') }}</p>
+                    <p class="font-semibold text-white">@lang('Under Review')</p>
                     <p class="text-sm text-white/50">{{ __('Submitted on :date. We\'ll notify you when reviewed.', ['date' => $submission->created_at->format('d M Y')]) }}</p>
                 </div>
-                <span class="ml-auto ud-badge ud-badge-amber">{{ __('Pending') }}</span>
+                <span class="ml-auto ud-badge ud-badge-amber">@lang('Pending')</span>
             </div>
 
         @elseif($user->kyc_status === 'rejected' && $submission)
@@ -42,15 +42,15 @@
                         <x-heroicon-o-x-circle class="h-6 w-6 text-red-400" />
                     </div>
                     <div>
-                        <p class="font-semibold text-white">{{ __('Verification Rejected') }}</p>
+                        <p class="font-semibold text-white">@lang('Verification Rejected')</p>
                         @if($submission->rejection_reason)
                             <p class="text-sm text-white/50">{{ __('Reason: :reason', ['reason' => $submission->rejection_reason]) }}</p>
                         @endif
                     </div>
-                    <span class="ml-auto ud-badge ud-badge-red">{{ __('Rejected') }}</span>
+                    <span class="ml-auto ud-badge ud-badge-red">@lang('Rejected')</span>
                 </div>
                 <a href="{{ route('user.kyc.create') }}" class="ud-btn-primary inline-flex">
-                    {{ __('Re-submit Documents') }}
+                    @lang('Re-submit Documents')
                 </a>
             </div>
 
@@ -61,10 +61,10 @@
                         <x-heroicon-o-identification class="h-6 w-6 text-white/50" />
                     </div>
                     <div>
-                        <p class="font-semibold text-white">{{ __('Not Verified') }}</p>
-                        <p class="text-sm text-white/50">{{ __('Submit your identity documents to unlock full access.') }}</p>
+                        <p class="font-semibold text-white">@lang('Not Verified')</p>
+                        <p class="text-sm text-white/50">@lang('Submit your identity documents to unlock full access.')</p>
                     </div>
-                    <span class="ml-auto ud-badge ud-badge-gray">{{ __('Unverified') }}</span>
+                    <span class="ml-auto ud-badge ud-badge-gray">@lang('Unverified')</span>
                 </div>
 
 
@@ -85,7 +85,7 @@
                 </div>
 
                 <a href="{{ route('user.kyc.create') }}" class="ud-btn-primary inline-flex">
-                    {{ __('Start Verification') }}
+                    @lang('Start Verification')
                 </a>
             </div>
         @endif

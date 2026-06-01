@@ -7,12 +7,12 @@
 
     <div class="flex items-center justify-between">
         <div>
-            <h1 class="ud-page-title">{{ __('Support Tickets') }}</h1>
-            <p class="ud-page-sub">{{ __('Get help from our support team.') }}</p>
+            <h1 class="ud-page-title">@lang('Support Tickets')</h1>
+            <p class="ud-page-sub">@lang('Get help from our support team.')</p>
         </div>
         <a href="{{ route('user.support.create') }}" class="ud-btn-primary inline-flex">
             <x-heroicon-o-plus class="h-4 w-4" />
-            {{ __('New Ticket') }}
+            @lang('New Ticket')
         </a>
     </div>
 
@@ -20,10 +20,10 @@
         @if($tickets->isEmpty())
             <div class="ud-empty py-16">
                 <x-heroicon-o-chat-bubble-left-right class="h-12 w-12" />
-                <div class="ud-empty-title">{{ __('No tickets yet') }}</div>
-                <div class="ud-empty-body">{{ __('Open a ticket and our team will get back to you.') }}</div>
+                <div class="ud-empty-title">@lang('No tickets yet')</div>
+                <div class="ud-empty-body">@lang('Open a ticket and our team will get back to you.')</div>
                 <a href="{{ route('user.support.create') }}" class="ud-btn-primary inline-flex mt-2">
-                    {{ __('Open a Ticket') }}
+                    @lang('Open a Ticket')
                 </a>
             </div>
         @else
@@ -31,11 +31,11 @@
                 <table class="w-full text-sm">
                     <thead>
                         <tr class="border-b border-white/8">
-                            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-white/45">{{ __('Reference') }}</th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-white/45">{{ __('Subject') }}</th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-white/45">{{ __('Category') }}</th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-white/45">{{ __('Status') }}</th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-white/45">{{ __('Updated') }}</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-white/45">@lang('Reference')</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-white/45">@lang('Subject')</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-white/45">@lang('Category')</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-white/45">@lang('Status')</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-white/45">@lang('Updated')</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-white/5">

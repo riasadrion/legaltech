@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ __('Sign Contract') }} — {{ $contract->title }}</title>
+    <title>@lang('Sign Contract') — {{ $contract->title }}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
@@ -39,7 +39,7 @@
     <div class="rounded-2xl glass border border-white/10 overflow-hidden">
         <div class="flex items-center gap-2 px-5 py-3 border-b border-white/8 bg-white/3">
             <x-heroicon-o-document-text class="h-4 w-4 text-white/40 shrink-0" />
-            <span class="text-[12px] text-white/40 font-medium uppercase tracking-widest">{{ __('Contract Document') }}</span>
+            <span class="text-[12px] text-white/40 font-medium uppercase tracking-widest">@lang('Contract Document')</span>
         </div>
         <div class="px-6 py-6 max-h-[50vh] overflow-y-auto contract-editor-body text-white/80 text-[13px] leading-relaxed scrollbar-dark">
             <?php echo $contract->body_html ?>
@@ -49,20 +49,20 @@
 
     <div class="rounded-2xl glass border border-white/10 p-6 space-y-4">
         <p class="text-[13px] text-white/55 leading-relaxed">
-            {{ __('By clicking "I Agree and Sign", you confirm that you have read the contract above and agree to be legally bound by its terms. Your IP address and timestamp will be recorded as proof of your signature.') }}
+            @lang('By clicking "I Agree and Sign", you confirm that you have read the contract above and agree to be legally bound by its terms. Your IP address and timestamp will be recorded as proof of your signature.')
         </p>
         <form method="POST" action="{{ route('contracts.sign.confirm', $party->token) }}">
             @csrf
             <button type="submit"
                     class="btn-lime rounded-xl w-full py-3 text-[13px] font-semibold flex items-center justify-center gap-2">
                 <x-heroicon-o-check-badge class="h-5 w-5" />
-                {{ __('I Agree and Sign') }}
+                @lang('I Agree and Sign')
             </button>
         </form>
     </div>
 
     <p class="text-center text-[11px] text-white/25">
-        {{ config('app.name') }} &mdash; {{ __('Secure electronic contract signing') }}
+        {{ config('app.name') }} &mdash; @lang('Secure electronic contract signing')
     </p>
 
 </div>

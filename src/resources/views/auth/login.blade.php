@@ -19,7 +19,7 @@
     @csrf
 
     <div class="auth-field-wrap">
-        <label class="auth-label" for="email">{{ __('Email address') }}</label>
+        <label class="auth-label" for="email">@lang('Email address')</label>
         <input id="email" name="email" type="email" value="{{ old('email') }}"
                placeholder="you@example.com" autocomplete="email" required
                class="auth-input {{ $errors->has('email') ? 'auth-input-err' : '' }}">
@@ -27,8 +27,8 @@
 
     <div class="auth-field-wrap">
         <div class="flex items-center justify-between mb-1.5">
-            <label class="auth-label mb-0" for="password">{{ __('Password') }}</label>
-            <a href="{{ route('password.request') }}" class="auth-link text-xs">{{ __('Forgot password?') }}</a>
+            <label class="auth-label mb-0" for="password">@lang('Password')</label>
+            <a href="{{ route('password.request') }}" class="auth-link text-xs">@lang('Forgot password?')</a>
         </div>
         <input id="password" name="password" type="password"
                placeholder="••••••••" autocomplete="current-password" required
@@ -38,13 +38,13 @@
     <div class="flex items-center gap-2">
         <input id="remember" name="remember" type="checkbox"
                class="auth-checkbox" {{ old('remember') ? 'checked' : '' }}>
-        <label for="remember" class="text-sm text-white/60 cursor-pointer">{{ __('Remember me') }}</label>
+        <label for="remember" class="text-sm text-white/60 cursor-pointer">@lang('Remember me')</label>
     </div>
 
     <x-turnstile />
 
     <button type="submit" class="auth-btn-primary w-full">
-        {{ __('Sign in') }}
+        @lang('Sign in')
     </button>
 </form>
 
@@ -54,15 +54,15 @@ $anySocial = collect(['google','facebook','twitter','linkedin'])
 @endphp
 @if($anySocial)
 <div class="auth-divider">
-    <span>{{ __('Or continue with') }}</span>
+    <span>@lang('Or continue with')</span>
 </div>
 @include('auth.partials.social-buttons')
 @endif
 
 @if(setting('controls.registration_enabled', '1') === '1')
 <p class="mt-6 text-center text-sm text-white/50">
-    {{ __("Don't have an account?") }}
-    <a href="{{ route('register') }}" class="auth-link font-medium">{{ __('Sign up') }}</a>
+    @lang("Don't have an account?")
+    <a href="{{ route('register') }}" class="auth-link font-medium">@lang('Sign up')</a>
 </p>
 @endif
 

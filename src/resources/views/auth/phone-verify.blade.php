@@ -8,7 +8,7 @@
 @if($hasPhone)
 
     <p class="mb-5 text-sm text-gray-500 text-center">
-        {{ __('We sent a 6-digit code to') }} <strong>{{ $user->mobile_country_code }}{{ $user->mobile }}</strong>.
+        @lang('We sent a 6-digit code to') <strong>{{ $user->mobile_country_code }}{{ $user->mobile }}</strong>.
     </p>
 
     <form method="POST" action="{{ route('phone.verify') }}" class="space-y-5">
@@ -16,7 +16,7 @@
 
         <x-form.input
             name="code"
-            label="{{ __('Verification code') }}"
+            label="@lang('Verification code')"
             type="text"
             inputmode="numeric"
             autocomplete="one-time-code"
@@ -27,7 +27,7 @@
 
         <button type="submit"
                 class="w-full rounded-xl bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500">
-            {{ __('Verify') }}
+            @lang('Verify')
         </button>
     </form>
 
@@ -36,13 +36,13 @@
         <input type="hidden" name="mobile_country_code" value="{{ $user->mobile_country_code }}">
         <input type="hidden" name="mobile" value="{{ $user->mobile }}">
         <button type="submit" class="text-sm text-brand-600 hover:text-brand-700 font-medium">
-            {{ __('Resend code') }}
+            @lang('Resend code')
         </button>
     </form>
 @else
 
     <p class="mb-5 text-sm text-gray-500 text-center">
-        {{ __('Enter your phone number to receive a verification code.') }}
+        @lang('Enter your phone number to receive a verification code.')
     </p>
 
     <form method="POST" action="{{ route('phone.send') }}" class="space-y-5">
@@ -51,7 +51,7 @@
         <div class="grid grid-cols-3 gap-3">
             <x-form.input
                 name="mobile_country_code"
-                label="{{ __('Country') }}"
+                label="@lang('Country')"
                 type="text"
                 placeholder="+1"
                 :value="old('mobile_country_code', $user->mobile_country_code ?? '+1')"
@@ -60,7 +60,7 @@
             <div class="col-span-2">
                 <x-form.input
                     name="mobile"
-                    label="{{ __('Phone number') }}"
+                    label="@lang('Phone number')"
                     type="tel"
                     inputmode="numeric"
                     placeholder="5551234567"
@@ -72,13 +72,13 @@
 
         <button type="submit"
                 class="w-full rounded-xl bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500">
-            {{ __('Send code') }}
+            @lang('Send code')
         </button>
     </form>
 @endif
 
 <form method="POST" action="{{ route('logout') }}" class="mt-6 text-center">
     @csrf
-    <button type="submit" class="text-sm font-medium text-gray-500 hover:text-gray-700">{{ __('Sign out') }}</button>
+    <button type="submit" class="text-sm font-medium text-gray-500 hover:text-gray-700">@lang('Sign out')</button>
 </form>
 @endsection

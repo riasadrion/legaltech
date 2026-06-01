@@ -19,19 +19,19 @@
     @csrf
 
     <div class="auth-field-wrap">
-        <label class="auth-label" for="email">{{ __('Email address') }}</label>
+        <label class="auth-label" for="email">@lang('Email address')</label>
         <input id="email" name="email" type="email" value="{{ old('email') }}"
                placeholder="you@example.com" autocomplete="email" required
                class="auth-input {{ $errors->has('email') ? 'auth-input-err' : '' }}">
     </div>
 
     <button type="submit" class="auth-btn-primary w-full">
-        {{ __('Send reset link') }}
+        @lang('Send reset link')
     </button>
 </form>
 
 <p class="mt-6 text-center text-sm text-white/50">
-    <a href="{{ route('login') }}" class="auth-link">{{ __('← Back to sign in') }}</a>
+    <a href="{{ route('login') }}" class="auth-link">@lang('← Back to sign in')</a>
 </p>
 
 @endsection

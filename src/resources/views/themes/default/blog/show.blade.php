@@ -22,7 +22,7 @@
 
 
         <div class="flex flex-wrap items-center gap-2 text-sm text-white/40 mb-6">
-            <a href="{{ route('blog.index') }}" class="hover:text-white/70 transition">{{ __('Blog') }}</a>
+            <a href="{{ route('blog.index') }}" class="hover:text-white/70 transition">@lang('Blog')</a>
             @if($post->category)
                 <span>/</span>
                 <a href="{{ route('blog.category', $post->category->slug) }}"
@@ -81,7 +81,7 @@
     <div class="mt-10 flex items-center justify-between">
         <a href="{{ route('blog.index') }}"
            class="inline-flex items-center gap-2 text-sm text-white/40 hover:text-white transition">
-            <x-heroicon-o-arrow-left class="h-4 w-4" />{{ __('All articles') }}
+            <x-heroicon-o-arrow-left class="h-4 w-4" />@lang('All articles')
         </a>
     </div>
 </div>
@@ -90,7 +90,7 @@
 @if($related->isNotEmpty())
 <section class="relative border-t border-white/8 bg-ink-900 py-20">
     <div class="mx-auto max-w-6xl px-6">
-        <h2 class="font-display text-3xl text-white mb-12">{{ __('Other Posts') }}</h2>
+        <h2 class="font-display text-3xl text-white mb-12">@lang('Other Posts')</h2>
         <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             @foreach($related as $rPost)
             <article class="group glass rounded-2xl overflow-hidden lift">

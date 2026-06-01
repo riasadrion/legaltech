@@ -7,9 +7,9 @@
 ─────────────────────────────────────────────────────── --}}
 
 
-<div id="cookie-banner" class="cc-banner" role="dialog" aria-live="polite" aria-label="{{ __('Cookie consent') }}">
+<div id="cookie-banner" class="cc-banner" role="dialog" aria-live="polite" aria-label="@lang('Cookie consent')">
     <div class="cc-card">
-        <button type="button" id="cookie-reject" class="cc-banner-close" aria-label="{{ __('Reject non-essential cookies') }}">
+        <button type="button" id="cookie-reject" class="cc-banner-close" aria-label="@lang('Reject non-essential cookies')">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
             </svg>
@@ -25,20 +25,20 @@
                 </svg>
             </div>
             <div class="cc-card-body">
-                <p class="cc-title">{{ __('We use cookies') }}</p>
+                <p class="cc-title">@lang('We use cookies')</p>
                 <p class="cc-desc">
-                    {{ __('We use strictly necessary cookies to make this site work — session, security, and language preference. We never set marketing or tracking cookies without your consent.') }}
-                    <a href="{{ route('page.show', 'cookie-policy') }}" class="cc-link">{{ __('Learn more') }}</a>
+                    @lang('We use strictly necessary cookies to make this site work — session, security, and language preference. We never set marketing or tracking cookies without your consent.')
+                    <a href="{{ route('page.show', 'cookie-policy') }}" class="cc-link">@lang('Learn more')</a>
                 </p>
             </div>
         </div>
 
         <div class="cc-actions">
             <button type="button" id="cookie-accept" class="cc-btn cc-btn-primary">
-                {{ __('Accept') }}
+                @lang('Accept')
             </button>
             <button type="button" id="cookie-prefs" class="cc-btn cc-btn-ghost">
-                {{ __('Preferences') }}
+                @lang('Preferences')
             </button>
         </div>
     </div>
@@ -49,8 +49,8 @@
     <div class="cc-modal-backdrop" data-cc-close></div>
     <div class="cc-modal-panel">
         <div class="cc-modal-head">
-            <h3 id="cc-prefs-title" class="cc-modal-title">{{ __('Cookie preferences') }}</h3>
-            <button type="button" class="cc-modal-close" data-cc-close aria-label="{{ __('Close') }}">
+            <h3 id="cc-prefs-title" class="cc-modal-title">@lang('Cookie preferences')</h3>
+            <button type="button" class="cc-modal-close" data-cc-close aria-label="@lang('Close')">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
                 </svg>
@@ -58,34 +58,34 @@
         </div>
 
         <p class="cc-modal-intro">
-            {{ __('We respect your privacy. Choose what you want to allow. You can change this anytime via the cookie settings link in the footer.') }}
+            @lang('We respect your privacy. Choose what you want to allow. You can change this anytime via the cookie settings link in the footer.')
         </p>
 
         <ul class="cc-cat-list">
             <li class="cc-cat">
                 <div class="cc-cat-head">
                     <div>
-                        <p class="cc-cat-title">{{ __('Strictly necessary') }}</p>
-                        <p class="cc-cat-desc">{{ __('Required for the site to function: session, CSRF protection, language. Cannot be disabled.') }}</p>
+                        <p class="cc-cat-title">@lang('Strictly necessary')</p>
+                        <p class="cc-cat-desc">@lang('Required for the site to function: session, CSRF protection, language. Cannot be disabled.')</p>
                     </div>
-                    <span class="cc-pill cc-pill-locked">{{ __('Always on') }}</span>
+                    <span class="cc-pill cc-pill-locked">@lang('Always on')</span>
                 </div>
             </li>
         </ul>
 
         <div class="cc-modal-actions">
-            <button type="button" class="cc-btn cc-btn-ghost" data-cc-close>{{ __('Cancel') }}</button>
-            <button type="button" id="cookie-save-prefs" class="cc-btn cc-btn-primary">{{ __('Save preferences') }}</button>
+            <button type="button" class="cc-btn cc-btn-ghost" data-cc-close>@lang('Cancel')</button>
+            <button type="button" id="cookie-save-prefs" class="cc-btn cc-btn-primary">@lang('Save preferences')</button>
         </div>
     </div>
 </div>
 
 
-<button type="button" id="cookie-reopen" class="cc-reopen" aria-label="{{ __('Cookie settings') }}">
+<button type="button" id="cookie-reopen" class="cc-reopen" aria-label="@lang('Cookie settings')">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M21.598 11.064a1.006 1.006 0 0 0-.854-.172A2.938 2.938 0 0 1 20 11a3 3 0 0 1-3-3 1 1 0 0 0-1-1 3 3 0 0 1-2.84-3.94 1 1 0 0 0-.21-1A10 10 0 1 0 22 12a1.06 1.06 0 0 0-.402-.936z"/>
     </svg>
-    {{ __('Cookies') }}
+    @lang('Cookies')
 </button>
 
 @push('scripts')

@@ -24,12 +24,12 @@
                         class="px-4 py-2 rounded-lg text-sm font-medium transition-colors
                                {{ isset($activeTheme) ? 'border border-white/10 bg-white/5 text-white/70 hover:bg-white/10' : 'border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-700 dark:text-slate-200 hover:bg-gray-50 dark:hover:bg-slate-600' }}"
                         onclick="window.confirmModal.close()">
-                    {{ __('Cancel') }}
+                    @lang('Cancel')
                 </button>
                 <button type="button" id="confirm-btn"
                         class="px-4 py-2 rounded-lg text-sm font-medium transition-colors
                                {{ isset($activeTheme) ? 'bg-lime text-black hover:bg-lime/90' : 'bg-red-600 text-white hover:bg-red-700' }}">
-                    {{ __('Confirm') }}
+                    @lang('Confirm')
                 </button>
             </div>
         </div>

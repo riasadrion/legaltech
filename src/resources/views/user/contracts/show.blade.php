@@ -38,28 +38,28 @@
                 <form method="POST" action="{{ route('user.contracts.ai.regenerate', $contract) }}" id="regenerate-form" data-no-page-loader>
                     @csrf
                     <button type="button"
-                            onclick="confirmModal.show('{{ __('Regenerate Contract') }}', '{{ __('1 AI draft will be deducted. This will overwrite the current content.') }}', function(){ showRegenLoader(); document.getElementById('regenerate-form').submit(); })"
+                            onclick="confirmModal.show('@lang('Regenerate Contract')', '@lang('1 AI draft will be deducted. This will overwrite the current content.')', function(){ showRegenLoader(); document.getElementById('regenerate-form').submit(); })"
                             class="btn-ghost rounded-lg px-3 py-2 text-[12px] flex items-center gap-1.5 text-lime/80 hover:text-lime">
                         <x-heroicon-o-sparkles class="h-4 w-4" />
-                        {{ __('Regenerate') }}
+                        @lang('Regenerate')
                     </button>
                 </form>
                 @endif
                 <a href="{{ route('user.contracts.pdf', $contract) }}" target="_blank"
                    class="btn-ghost rounded-lg px-3 py-2 text-[12px] flex items-center gap-1.5">
                     <x-heroicon-o-arrow-down-tray class="h-4 w-4" />
-                    {{ __('Download PDF') }}
+                    @lang('Download PDF')
                 </a>
                 <button type="button" id="save-contract-btn"
                         class="btn-ghost rounded-lg px-3 py-2 text-[12px] flex items-center gap-1.5">
                     <x-heroicon-o-check class="h-4 w-4" />
-                    {{ __('Save') }}
+                    @lang('Save')
                 </button>
                 <form method="POST" action="{{ route('user.contracts.finalize', $contract) }}">
                     @csrf
                     <button class="btn-lime rounded-lg px-3 py-2 text-[12px] flex items-center gap-1.5">
                         <x-heroicon-o-lock-closed class="h-4 w-4" />
-                        {{ __('Finalize') }}
+                        @lang('Finalize')
                     </button>
                 </form>
             @endif
@@ -68,31 +68,31 @@
                 <a href="{{ route('user.contracts.pdf', $contract) }}" target="_blank"
                    class="btn-ghost rounded-lg px-3 py-2 text-[12px] flex items-center gap-1.5">
                     <x-heroicon-o-arrow-down-tray class="h-4 w-4" />
-                    {{ __('Download PDF') }}
+                    @lang('Download PDF')
                 </a>
                 <form method="POST" action="{{ route('user.contracts.send-sign', $contract) }}">
                     @csrf
                     <button class="btn-lime rounded-lg px-3 py-2 text-[12px] flex items-center gap-1.5">
                         <x-heroicon-o-paper-airplane class="h-4 w-4" />
-                        {{ __('Send for Signature') }}
+                        @lang('Send for Signature')
                     </button>
                 </form>
                 <form method="POST" action="{{ route('user.contracts.revert', $contract) }}">
                     @csrf
                     <button class="btn-ghost rounded-lg px-3 py-2 text-[12px] text-white/50 hover:text-white flex items-center gap-1.5">
                         <x-heroicon-o-pencil class="h-4 w-4" />
-                        {{ __('Edit') }}
+                        @lang('Edit')
                     </button>
                 </form>
             @endif
 
             @if(in_array($contract->status, ['ready', 'editing', 'draft']))
                 <form method="POST" action="{{ route('user.contracts.destroy', $contract) }}"
-                      onsubmit="return confirm('{{ __('Delete this contract? This cannot be undone.') }}')">
+                      onsubmit="return confirm('@lang('Delete this contract? This cannot be undone.')')">
                     @csrf @method('DELETE')
                     <button class="btn-ghost rounded-lg px-3 py-2 text-[12px] text-red-400 hover:text-red-300 flex items-center gap-1.5">
                         <x-heroicon-o-trash class="h-4 w-4" />
-                        {{ __('Delete') }}
+                        @lang('Delete')
                     </button>
                 </form>
             @endif
@@ -114,7 +114,7 @@
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
             </svg>
-            <span class="text-sm">{{ __('AI is generating your contract…') }}</span>
+            <span class="text-sm">@lang('AI is generating your contract…')</span>
         </div>
     </div>
     @else
@@ -130,13 +130,13 @@
                 <div class="rounded-2xl glass overflow-hidden">
                     <div class="px-5 py-3 border-b border-white/8 flex items-center gap-2">
                         <x-heroicon-o-pencil-square class="h-4 w-4 text-white/40" />
-                        <span class="text-[11px] font-mono uppercase tracking-widest text-white/40">{{ __('Editor') }}</span>
+                        <span class="text-[11px] font-mono uppercase tracking-widest text-white/40">@lang('Editor')</span>
                     </div>
 
 
                     <div class="px-5 pt-4">
                         <input type="text" name="title" value="{{ $contract->title }}"
-                               class="ud-input font-display text-lg" placeholder="{{ __('Contract title…') }}" required />
+                               class="ud-input font-display text-lg" placeholder="@lang('Contract title…')" required />
                     </div>
 
 
@@ -151,7 +151,7 @@
             <div class="rounded-2xl glass overflow-hidden">
                 <div class="px-5 py-3 border-b border-white/8 flex items-center gap-2">
                     <x-heroicon-o-document-text class="h-4 w-4 text-white/40" />
-                    <span class="text-[11px] font-mono uppercase tracking-widest text-white/40">{{ __('Contract') }}</span>
+                    <span class="text-[11px] font-mono uppercase tracking-widest text-white/40">@lang('Contract')</span>
                 </div>
                 <div class="px-6 py-6 contract-editor-body text-white/85 text-[14px] leading-relaxed">
                     <?php echo $contract->body_html ?>
@@ -166,7 +166,7 @@
 
             <div class="rounded-2xl glass overflow-hidden">
                 <div class="px-5 py-3 border-b border-white/8">
-                    <h3 class="text-[11px] font-mono uppercase tracking-widest text-white/40">{{ __('Parties') }}</h3>
+                    <h3 class="text-[11px] font-mono uppercase tracking-widest text-white/40">@lang('Parties')</h3>
                 </div>
                 <div class="divide-y divide-white/6">
                     @foreach($contract->parties as $party)
@@ -178,9 +178,9 @@
                         <div class="text-right shrink-0">
                             <div class="text-[10px] font-mono uppercase text-white/30">{{ ucfirst($party->role) }}</div>
                             @if($party->hasSigned())
-                                <div class="text-[10px] text-lime mt-0.5">✓ {{ __('Signed') }}</div>
+                                <div class="text-[10px] text-lime mt-0.5">✓ @lang('Signed')</div>
                             @elseif($party->role === 'signer')
-                                <div class="text-[10px] text-white/30 mt-0.5">{{ __('Pending') }}</div>
+                                <div class="text-[10px] text-white/30 mt-0.5">@lang('Pending')</div>
                             @endif
                         </div>
                     </div>
@@ -190,18 +190,18 @@
 
 
             <div class="rounded-2xl glass p-5 space-y-3">
-                <h3 class="text-[11px] font-mono uppercase tracking-widest text-white/40">{{ __('Details') }}</h3>
+                <h3 class="text-[11px] font-mono uppercase tracking-widest text-white/40">@lang('Details')</h3>
                 <div class="space-y-2 text-[12px]">
                     <div class="flex justify-between">
-                        <span class="text-white/45">{{ __('Template') }}</span>
+                        <span class="text-white/45">@lang('Template')</span>
                         <span class="text-white/80">{{ $contract->template->name ?? '—' }}</span>
                     </div>
                     <div class="flex justify-between">
-                        <span class="text-white/45">{{ __('Credits used') }}</span>
+                        <span class="text-white/45">@lang('Credits used')</span>
                         <span class="text-white/80">{{ $contract->credits_used }}</span>
                     </div>
                     <div class="flex justify-between">
-                        <span class="text-white/45">{{ __('Created') }}</span>
+                        <span class="text-white/45">@lang('Created')</span>
                         <span class="text-white/80">{{ $contract->created_at->format('d M Y') }}</span>
                     </div>
                 </div>
@@ -223,8 +223,8 @@
                 <x-heroicon-o-sparkles class="h-9 w-9 text-lime animate-pulse" />
             </div>
         </div>
-        <h2 class="text-lg font-bold text-white">{{ __('Regenerating your contract…') }}</h2>
-        <p id="ai-regen-step" class="mt-2 text-sm text-white/55">{{ __('Reviewing your brief') }}</p>
+        <h2 class="text-lg font-bold text-white">@lang('Regenerating your contract…')</h2>
+        <p id="ai-regen-step" class="mt-2 text-sm text-white/55">@lang('Reviewing your brief')</p>
         <div class="mt-5 flex items-center justify-center gap-1.5">
             <span class="h-1.5 w-1.5 rounded-full bg-lime animate-bounce" class="delay-0"></span>
             <span class="h-1.5 w-1.5 rounded-full bg-lime animate-bounce" class="delay-150"></span>

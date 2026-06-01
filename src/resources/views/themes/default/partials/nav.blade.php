@@ -71,22 +71,22 @@
                 @guest('user')
                     <a href="{{ route('login') }}"
                        class="hidden sm:inline text-sm px-4 py-2 text-white/80 hover:text-white">
-                        {{ __('Sign in') }}
+                        @lang('Sign in')
                     </a>
                     <a href="{{ route('register') }}"
                        class="btn-lime rounded-full px-5 py-2.5 text-sm flex items-center gap-2">
-                        {{ __('Get started') }}
+                        @lang('Get started')
                         <x-heroicon-o-arrow-top-right-on-square class="h-4 w-4" />
                     </a>
                 @else
                     <a href="{{ route('user.dashboard') }}"
                        class="hidden sm:inline text-sm px-4 py-2 text-white/80 hover:text-white">
-                        {{ __('Dashboard') }}
+                        @lang('Dashboard')
                     </a>
                     <form method="POST" action="{{ route('logout') }}" class="inline">
                         @csrf
                         <button type="submit" class="btn-lime rounded-full px-5 py-2.5 text-sm flex items-center gap-2">
-                            {{ __('Sign out') }}
+                            @lang('Sign out')
                             <x-heroicon-o-arrow-right-on-rectangle class="h-4 w-4" />
                         </button>
                     </form>
@@ -140,19 +140,19 @@
             <div class="mt-4 pt-4 border-t border-white/10 flex flex-col gap-2">
                 @guest('user')
                     <a href="{{ route('login') }}" class="block text-center text-sm px-4 py-2.5 rounded-xl glass text-white/80 hover:text-white">
-                        {{ __('Sign in') }}
+                        @lang('Sign in')
                     </a>
                     <a href="{{ route('register') }}" class="btn-lime rounded-xl text-center px-4 py-2.5 text-sm">
-                        {{ __('Get started') }}
+                        @lang('Get started')
                     </a>
                 @else
                     <a href="{{ route('user.dashboard') }}" class="block text-center text-sm px-4 py-2.5 rounded-xl glass text-white/80 hover:text-white">
-                        {{ __('Dashboard') }}
+                        @lang('Dashboard')
                     </a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit" class="btn-lime w-full rounded-xl text-center px-4 py-2.5 text-sm">
-                            {{ __('Sign out') }}
+                            @lang('Sign out')
                         </button>
                     </form>
                 @endguest

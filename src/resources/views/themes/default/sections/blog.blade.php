@@ -59,7 +59,7 @@
                         </p>
                     </div>
                     <span class="mt-8 inline-flex items-center gap-2 text-sm text-lime font-medium relative z-10">
-                        {{ __('Read article') }} <x-heroicon-o-arrow-right class="h-4 w-4 inline" />
+                        @lang('Read article') <x-heroicon-o-arrow-right class="h-4 w-4 inline" />
                     </span>
                 </div>
             </a>
@@ -84,7 +84,7 @@
                             {{ \Illuminate\Support\Str::limit(strip_tags($post->getLocalExcerpt()), 110) }}
                         </p>
                         <span class="mt-5 inline-flex items-center gap-2 text-sm text-lime font-medium">
-                            {{ __('Read') }} <x-heroicon-o-arrow-right class="h-4 w-4 inline" />
+                            @lang('Read') <x-heroicon-o-arrow-right class="h-4 w-4 inline" />
                         </span>
                     </div>
                 </a>

@@ -6,13 +6,13 @@
 <x-page-header :title="__('Notification Templates')">
     <x-slot name="actions">
         <a href="{{ route('admin.settings.index') }}" class="inline-flex items-center gap-1.5 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-2 text-sm font-medium text-gray-700 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-700">
-            <x-heroicon-o-cog-6-tooth class="h-4 w-4" />{{ __('Settings') }}
+            <x-heroicon-o-cog-6-tooth class="h-4 w-4" />@lang('Settings')
         </a>
         <a href="{{ route('admin.notifications.logs.index') }}" class="inline-flex items-center gap-1.5 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-2 text-sm font-medium text-gray-700 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-700">
-            <x-heroicon-o-list-bullet class="h-4 w-4" />{{ __('Logs') }}
+            <x-heroicon-o-list-bullet class="h-4 w-4" />@lang('Logs')
         </a>
         <a href="{{ route('admin.notifications.health.index') }}" class="inline-flex items-center gap-1.5 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-2 text-sm font-medium text-gray-700 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-700">
-            <x-heroicon-o-heart class="h-4 w-4" />{{ __('Email Health') }}
+            <x-heroicon-o-heart class="h-4 w-4" />@lang('Email Health')
         </a>
     </x-slot>
 </x-page-header>
@@ -20,10 +20,10 @@
 <x-table>
     <x-slot name="head">
         <tr>
-            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">{{ __('Template') }}</th>
-            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">{{ __('Key') }}</th>
-            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">{{ __('Channels') }}</th>
-            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">{{ __('Status') }}</th>
+            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">@lang('Template')</th>
+            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">@lang('Key')</th>
+            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">@lang('Channels')</th>
+            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">@lang('Status')</th>
             <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500"></th>
         </tr>
     </x-slot>
@@ -56,7 +56,7 @@
             </span>
         </td>
         <td class="px-4 py-3 text-right">
-            <a href="{{ route('admin.notifications.templates.edit', $template) }}" class="text-sm text-brand-600 hover:text-brand-700">{{ __('Edit') }}</a>
+            <a href="{{ route('admin.notifications.templates.edit', $template) }}" class="text-sm text-brand-600 hover:text-brand-700">@lang('Edit')</a>
         </td>
     </tr>
     @empty

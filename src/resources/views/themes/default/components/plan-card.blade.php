@@ -39,11 +39,11 @@
         <div class="relative flex items-center justify-between">
             <h3 class="font-display text-3xl text-white">{{ $plan->name }}</h3>
             @if($featured)
-                <span class="text-[10px] font-semibold uppercase tracking-widest bg-lime text-ink-900 px-2.5 py-1 rounded-full">{{ __('Recommended') }}</span>
+                <span class="text-[10px] font-semibold uppercase tracking-widest bg-lime text-ink-900 px-2.5 py-1 rounded-full">@lang('Recommended')</span>
             @elseif($isEnterprise)
-                <span class="text-[11px] font-mono text-white/45">{{ __('Custom') }}</span>
+                <span class="text-[11px] font-mono text-white/45">@lang('Custom')</span>
             @elseif($isFree)
-                <span class="text-[11px] font-mono text-lime/80">{{ __('Free') }}</span>
+                <span class="text-[11px] font-mono text-lime/80">@lang('Free')</span>
             @endif
         </div>
 
@@ -68,7 +68,7 @@
                         @if($plan->ai_drafts > 0)
                             {{ $plan->ai_drafts }} {{ trans_choice('AI draft|AI drafts', $plan->ai_drafts) }}
                         @else
-                            {{ __('Unlimited AI drafts') }}
+                            @lang('Unlimited AI drafts')
                         @endif
                     </span>
                 </li>
@@ -80,7 +80,7 @@
                     @if($plan->credits > 0)
                         {{ $plan->credits }} {{ trans_choice('contract generation|contract generations', $plan->credits) }}
                     @else
-                        {{ __('Unlimited contract generations') }}
+                        @lang('Unlimited contract generations')
                     @endif
                 </span>
             </li>

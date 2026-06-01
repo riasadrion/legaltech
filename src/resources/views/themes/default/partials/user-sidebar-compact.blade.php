@@ -30,44 +30,44 @@
 <!-- nav -->
 <nav class="mt-5 px-4 space-y-0.5 flex-1 overflow-y-auto no-sb">
 
-    <div class="text-[10px] font-mono uppercase tracking-widest text-white/35 px-3 mb-1">{{ __('Workspace') }}</div>
+    <div class="text-[10px] font-mono uppercase tracking-widest text-white/35 px-3 mb-1">@lang('Workspace')</div>
 
     <a href="{{ route('user.dashboard') }}" class="nav-item {{ $isActive('user.dashboard') ? 'active' : '' }}">
         <x-heroicon-o-home class="h-[1rem] w-[1rem] shrink-0" />
-        {{ __('Dashboard') }}
+        @lang('Dashboard')
     </a>
 
 
     <a href="{{ route('user.contracts.ai.create') }}" class="nav-item {{ $isActive('user.contracts.ai.*') ? 'active' : '' }}">
         <x-heroicon-o-sparkles class="h-[1rem] w-[1rem] shrink-0 text-lime" />
-        {{ __('AI Contract') }}
+        @lang('AI Contract')
     </a>
 
     <a href="{{ route('user.contracts.index') }}" class="nav-item {{ $isActive('user.contracts.*') && !$isActive('user.contracts.ai.*') ? 'active' : '' }}">
         <x-heroicon-o-document-text class="h-[1rem] w-[1rem] shrink-0" />
-        {{ __('Contracts') }}
+        @lang('Contracts')
     </a>
 
     <a href="{{ route('user.subscription.index') }}" class="nav-item {{ $isActive('user.subscription.*') ? 'active' : '' }}">
         <x-heroicon-o-square-3-stack-3d class="h-[1rem] w-[1rem] shrink-0" />
-        {{ __('Subscription') }}
+        @lang('Subscription')
     </a>
 
     <a href="{{ route('user.payment.index') }}" class="nav-item {{ $isActive('user.payment.*') ? 'active' : '' }}">
         <x-heroicon-o-credit-card class="h-[1rem] w-[1rem] shrink-0" />
-        {{ __('Payments') }}
+        @lang('Payments')
     </a>
 
-    <div class="text-[10px] font-mono uppercase tracking-widest text-white/35 px-3 mt-5 mb-1">{{ __('Account') }}</div>
+    <div class="text-[10px] font-mono uppercase tracking-widest text-white/35 px-3 mt-5 mb-1">@lang('Account')</div>
 
     <a href="{{ route('user.kyc.index') }}" class="nav-item {{ $isActive('user.kyc.*') ? 'active' : '' }}">
         <x-heroicon-o-identification class="h-[1rem] w-[1rem] shrink-0" />
-        {{ __('Verification') }}
+        @lang('Verification')
     </a>
 
     <a href="{{ route('user.2fa.index') }}" class="nav-item {{ $isActive('user.2fa.*') ? 'active' : '' }}">
         <x-heroicon-o-shield-check class="h-[1rem] w-[1rem] shrink-0" />
-        {{ __('Security') }}
+        @lang('Security')
     </a>
 
     @php
@@ -76,7 +76,7 @@
     @endphp
     <a href="{{ route('user.notifications.index') }}" class="nav-item {{ $isActive('user.notifications.*') ? 'active' : '' }}">
         <x-heroicon-o-bell class="h-[1rem] w-[1rem] shrink-0" />
-        {{ __('Notifications') }}
+        @lang('Notifications')
         @if($sidebarUnread > 0)
             <span class="ml-auto pill pill-sign">{{ $sidebarUnread > 9 ? '9+' : $sidebarUnread }}</span>
         @endif
@@ -84,7 +84,7 @@
 
     <a href="{{ route('user.support.index') }}" class="nav-item {{ $isActive('user.support.*') ? 'active' : '' }}">
         <x-heroicon-o-lifebuoy class="h-[1rem] w-[1rem] shrink-0" />
-        {{ __('Support') }}
+        @lang('Support')
     </a>
 
 </nav>
@@ -100,19 +100,19 @@
 <div class="mt-auto p-4 shrink-0">
     <div class="rounded-2xl border border-white/8 p-4 bg-white/2">
         <div class="flex items-center justify-between">
-            <span class="text-[11px] font-mono uppercase tracking-widest text-white/45">{{ __('Plan usage') }}</span>
+            <span class="text-[11px] font-mono uppercase tracking-widest text-white/45">@lang('Plan usage')</span>
             <span class="text-[10px] text-lime">{{ $subActive ? $sub->plan->name : __('Free') }}</span>
         </div>
-        <div class="mt-3 text-[13px] text-white">{{ $sidebarBalance->format() }} {{ __('balance') }}</div>
+        <div class="mt-3 text-[13px] text-white">{{ $sidebarBalance->format() }} @lang('balance')</div>
         @if($subActive && $sub->plan->credits > 0)
         <div class="mt-2 h-1.5 rounded-full bg-white/8 overflow-hidden">
             @php $pct = min(100, round(($sub->credits_remaining / $sub->plan->credits) * 100)); @endphp
             <div class="h-full bg-lime rounded-full" style="width:{{ $pct }}%"></div>
         </div>
-        <div class="mt-1 text-[11px] text-white/40">{{ number_format($sub->credits_remaining) }} / {{ number_format($sub->plan->credits) }} {{ __('credits') }}</div>
+        <div class="mt-1 text-[11px] text-white/40">{{ number_format($sub->credits_remaining) }} / {{ number_format($sub->plan->credits) }} @lang('credits')</div>
         @endif
         <a href="{{ route('user.subscription.plans') }}" class="mt-3 text-[11px] text-lime hover:underline inline-flex items-center gap-1">
-            {{ __('Manage plan') }} <x-heroicon-o-arrow-right class="h-3 w-3" />
+            @lang('Manage plan') <x-heroicon-o-arrow-right class="h-3 w-3" />
         </a>
     </div>
 </div>

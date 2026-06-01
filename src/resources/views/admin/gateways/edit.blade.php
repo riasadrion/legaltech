@@ -22,13 +22,13 @@
 
         <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
             <div class="border-b border-gray-100 px-5 py-3.5">
-                <h3 class="text-sm font-semibold text-gray-900">{{ __('General') }}</h3>
+                <h3 class="text-sm font-semibold text-gray-900">@lang('General')</h3>
             </div>
             <div class="px-5 py-5 space-y-4">
                 <div class="flex items-center justify-between">
                     <div>
-                        <label class="text-sm font-medium text-gray-900">{{ __('Enabled') }}</label>
-                        <p class="text-xs text-gray-500">{{ __('Show this gateway to users during payment.') }}</p>
+                        <label class="text-sm font-medium text-gray-900">@lang('Enabled')</label>
+                        <p class="text-xs text-gray-500">@lang('Show this gateway to users during payment.')</p>
                     </div>
                     <label class="relative inline-flex cursor-pointer items-center">
                         <input type="hidden" name="enabled" value="0">
@@ -39,7 +39,7 @@
                 </div>
 
                 <div>
-                    <label class="mb-1.5 block text-xs font-medium text-gray-600">{{ __('Display name') }}</label>
+                    <label class="mb-1.5 block text-xs font-medium text-gray-600">@lang('Display name')</label>
                     <input type="text" name="name" value="{{ old('name', $gateway->name ?? $gatewayDriver->name()) }}"
                            class="h-9 w-full rounded-lg border px-3 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-brand-500 {{ $errors->has('name') ? 'border-red-400 focus:border-red-400' : 'border-gray-300 focus:border-brand-500' }}" />
                     @error('name')<p class="mt-1 text-xs text-red-600">{{ $message }}</p>@enderror
@@ -47,17 +47,17 @@
 
 
                 <div class="border-t border-gray-100 pt-4">
-                    <h4 class="text-sm font-medium text-gray-900 mb-3">{{ __('Currency Settings') }}</h4>
+                    <h4 class="text-sm font-medium text-gray-900 mb-3">@lang('Currency Settings')</h4>
                     
                     <div class="grid grid-cols-2 gap-4">
                         <div>
-                            <label class="mb-1.5 block text-xs font-medium text-gray-600">{{ __('Currency Code') }}</label>
+                            <label class="mb-1.5 block text-xs font-medium text-gray-600">@lang('Currency Code')</label>
                             <input type="text" name="currency_code" maxlength="3" value="{{ old('currency_code', $gateway->currency_code ?? 'USD') }}"
                                    class="h-9 w-full rounded-lg border px-3 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-brand-500 uppercase {{ $errors->has('currency_code') ? 'border-red-400 focus:border-red-400' : 'border-gray-300 focus:border-brand-500' }}" />
                             @error('currency_code')<p class="mt-1 text-xs text-red-600">{{ $message }}</p>@enderror
                         </div>
                         <div>
-                            <label class="mb-1.5 block text-xs font-medium text-gray-600">{{ __('Currency Symbol') }}</label>
+                            <label class="mb-1.5 block text-xs font-medium text-gray-600">@lang('Currency Symbol')</label>
                             <input type="text" name="currency_symbol" maxlength="10" value="{{ old('currency_symbol', $gateway->currency_symbol ?? '$') }}"
                                    class="h-9 w-full rounded-lg border px-3 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-brand-500 {{ $errors->has('currency_symbol') ? 'border-red-400 focus:border-red-400' : 'border-gray-300 focus:border-brand-500' }}" />
                             @error('currency_symbol')<p class="mt-1 text-xs text-red-600">{{ $message }}</p>@enderror
@@ -66,23 +66,23 @@
 
                     <div class="grid grid-cols-3 gap-4 mt-4">
                         <div>
-                            <label class="mb-1.5 block text-xs font-medium text-gray-600">{{ __('Exchange Rate') }}</label>
+                            <label class="mb-1.5 block text-xs font-medium text-gray-600">@lang('Exchange Rate')</label>
                             <input type="number" name="exchange_rate" step="0.00000001" min="0.00000001" value="{{ old('exchange_rate', $gateway->exchange_rate ?? 1.0) }}"
                                    class="h-9 w-full rounded-lg border px-3 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-brand-500 {{ $errors->has('exchange_rate') ? 'border-red-400 focus:border-red-400' : 'border-gray-300 focus:border-brand-500' }}" />
                             @error('exchange_rate')
                                 <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
                             @else
-                                <p class="mt-1 text-xs text-gray-400">{{ __('Base = 1.0') }}</p>
+                                <p class="mt-1 text-xs text-gray-400">@lang('Base = 1.0')</p>
                             @enderror
                         </div>
                         <div>
-                            <label class="mb-1.5 block text-xs font-medium text-gray-600">{{ __('Decimal Places') }}</label>
+                            <label class="mb-1.5 block text-xs font-medium text-gray-600">@lang('Decimal Places')</label>
                             <input type="number" name="decimal_places" min="0" max="8" value="{{ old('decimal_places', $gateway->decimal_places ?? 2) }}"
                                    class="h-9 w-full rounded-lg border px-3 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-brand-500 {{ $errors->has('decimal_places') ? 'border-red-400 focus:border-red-400' : 'border-gray-300 focus:border-brand-500' }}" />
                             @error('decimal_places')<p class="mt-1 text-xs text-red-600">{{ $message }}</p>@enderror
                         </div>
                         <div>
-                            <label class="mb-1.5 block text-xs font-medium text-gray-600">{{ __('Symbol Position') }}</label>
+                            <label class="mb-1.5 block text-xs font-medium text-gray-600">@lang('Symbol Position')</label>
                             <select name="symbol_position"
                                     class="h-9 w-full rounded-lg border px-3 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-brand-500 {{ $errors->has('symbol_position') ? 'border-red-400 focus:border-red-400' : 'border-gray-300 focus:border-brand-500' }}">
                                 <option value="before" {{ old('symbol_position', $gateway->symbol_position ?? 'before') === 'before' ? 'selected' : '' }}>{{ __('Before ($100)') }}</option>
@@ -94,17 +94,17 @@
                 </div>
 
                 <div class="border-t border-gray-100 pt-4">
-                    <h4 class="text-sm font-medium text-gray-900 mb-3">{{ __('Amount Limits & Fees') }}</h4>
+                    <h4 class="text-sm font-medium text-gray-900 mb-3">@lang('Amount Limits & Fees')</h4>
                     
                     <div class="grid grid-cols-2 gap-4">
                         <div>
-                            <label class="mb-1.5 block text-xs font-medium text-gray-600">{{ __('Min Amount') }}</label>
+                            <label class="mb-1.5 block text-xs font-medium text-gray-600">@lang('Min Amount')</label>
                             <input type="number" name="min_amount" value="{{ old('min_amount', $gateway->min_amount ?? 1.00) }}" min="0.01" step="0.01"
                                    class="h-9 w-full rounded-lg border px-3 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-brand-500 {{ $errors->has('min_amount') ? 'border-red-400 focus:border-red-400' : 'border-gray-300 focus:border-brand-500' }}" />
                             @error('min_amount')<p class="mt-1 text-xs text-red-600">{{ $message }}</p>@enderror
                         </div>
                         <div>
-                            <label class="mb-1.5 block text-xs font-medium text-gray-600">{{ __('Max Amount') }}</label>
+                            <label class="mb-1.5 block text-xs font-medium text-gray-600">@lang('Max Amount')</label>
                             <input type="number" name="max_amount" value="{{ old('max_amount', $gateway->max_amount ?? 10000) }}" min="0.01" step="0.01"
                                    class="h-9 w-full rounded-lg border px-3 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-brand-500 {{ $errors->has('max_amount') ? 'border-red-400 focus:border-red-400' : 'border-gray-300 focus:border-brand-500' }}" />
                             @error('max_amount')<p class="mt-1 text-xs text-red-600">{{ $message }}</p>@enderror
@@ -113,17 +113,17 @@
 
                     <div class="grid grid-cols-2 gap-4 mt-4">
                         <div>
-                            <label class="mb-1.5 block text-xs font-medium text-gray-600">{{ __('Flat Fee') }}</label>
+                            <label class="mb-1.5 block text-xs font-medium text-gray-600">@lang('Flat Fee')</label>
                             <input type="number" name="fee_flat" value="{{ old('fee_flat', $gateway->fee_flat ?? 0) }}" min="0" step="0.01"
                                    class="h-9 w-full rounded-lg border px-3 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-brand-500 {{ $errors->has('fee_flat') ? 'border-red-400 focus:border-red-400' : 'border-gray-300 focus:border-brand-500' }}" />
                             @error('fee_flat')
                                 <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
                             @else
-                                <p class="mt-1 text-xs text-gray-400">{{ __('Fixed fee amount') }}</p>
+                                <p class="mt-1 text-xs text-gray-400">@lang('Fixed fee amount')</p>
                             @enderror
                         </div>
                         <div>
-                            <label class="mb-1.5 block text-xs font-medium text-gray-600">{{ __('Percentage fee (%)') }}</label>
+                            <label class="mb-1.5 block text-xs font-medium text-gray-600">@lang('Percentage fee (%)')</label>
                             <input type="number" name="fee_percent" value="{{ old('fee_percent', $gateway->fee_percent ?? 0) }}" min="0" max="100" step="0.01"
                                    class="h-9 w-full rounded-lg border px-3 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-brand-500 {{ $errors->has('fee_percent') ? 'border-red-400 focus:border-red-400' : 'border-gray-300 focus:border-brand-500' }}" />
                             @error('fee_percent')<p class="mt-1 text-xs text-red-600">{{ $message }}</p>@enderror
@@ -132,7 +132,7 @@
                 </div>
 
                 <div class="border-t border-gray-100 pt-4">
-                    <label class="mb-1.5 block text-xs font-medium text-gray-600">{{ __('Sort order') }}</label>
+                    <label class="mb-1.5 block text-xs font-medium text-gray-600">@lang('Sort order')</label>
                     <input type="number" name="sort" value="{{ old('sort', $gateway->sort ?? 0) }}" min="0"
                            class="h-9 w-32 rounded-lg border px-3 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-brand-500 {{ $errors->has('sort') ? 'border-red-400 focus:border-red-400' : 'border-gray-300 focus:border-brand-500' }}" />
                     @error('sort')<p class="mt-1 text-xs text-red-600">{{ $message }}</p>@enderror
@@ -140,7 +140,7 @@
 
                 @if($gatewayDriver->driver() === 'manual')
                 <div class="border-t border-gray-100 pt-4">
-                    <label class="mb-1.5 block text-xs font-medium text-gray-600">{{ __('Instructions (shown to user)') }}</label>
+                    <label class="mb-1.5 block text-xs font-medium text-gray-600">@lang('Instructions (shown to user)')</label>
                     <textarea name="instructions" rows="4"
                               class="w-full rounded-lg border px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-brand-500 {{ $errors->has('instructions') ? 'border-red-400 focus:border-red-400' : 'border-gray-300 focus:border-brand-500' }}">{{ old('instructions', $gateway->instructions) }}</textarea>
                     @error('instructions')<p class="mt-1 text-xs text-red-600">{{ $message }}</p>@enderror
@@ -153,66 +153,66 @@
         @if($gatewayDriver->driver() !== 'manual')
         <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
             <div class="border-b border-gray-100 px-5 py-3.5">
-                <h3 class="text-sm font-semibold text-gray-900">{{ __('API Credentials') }}</h3>
-                <p class="text-xs text-gray-400 mt-0.5">{{ __('Leave blank to keep existing value.') }}</p>
+                <h3 class="text-sm font-semibold text-gray-900">@lang('API Credentials')</h3>
+                <p class="text-xs text-gray-400 mt-0.5">@lang('Leave blank to keep existing value.')</p>
             </div>
             <div class="px-5 py-5 space-y-4">
 
                 @php $d = $gatewayDriver->driver(); @endphp
 
                 @if($d === 'stripe')
-                    <x-gateway-credential label="{{ __('Secret key') }}"        name="secret_key"      type="text"     placeholder="sk_live_… or sk_test_…" :value="$gateway->credential('secret_key')" />
-                    <x-gateway-credential label="{{ __('Publishable key') }}"   name="public_key"      type="text"     placeholder="pk_live_… or pk_test_…" :value="$gateway->credential('public_key')" />
-                    <x-gateway-credential label="{{ __('Webhook secret') }}"    name="webhook_secret"  type="text"     placeholder="whsec_…" :value="$gateway->credential('webhook_secret')" />
+                    <x-gateway-credential label="@lang('Secret key')"        name="secret_key"      type="text"     placeholder="sk_live_… or sk_test_…" :value="$gateway->credential('secret_key')" />
+                    <x-gateway-credential label="@lang('Publishable key')"   name="public_key"      type="text"     placeholder="pk_live_… or pk_test_…" :value="$gateway->credential('public_key')" />
+                    <x-gateway-credential label="@lang('Webhook secret')"    name="webhook_secret"  type="text"     placeholder="whsec_…" :value="$gateway->credential('webhook_secret')" />
 
                 @elseif($d === 'paypal')
-                    <x-gateway-credential label="{{ __('Business Email') }}"    name="business_email"  type="email"    placeholder="your@business.com" :value="$gateway->credential('business_email')" />
+                    <x-gateway-credential label="@lang('Business Email')"    name="business_email"  type="email"    placeholder="your@business.com" :value="$gateway->credential('business_email')" />
                     <x-gateway-sandbox-toggle :gateway="$gateway" />
 
                 @elseif($d === 'razorpay')
-                    <x-gateway-credential label="{{ __('Key ID') }}"            name="key_id"          type="text"     placeholder="rzp_live_… or rzp_test_…" :value="$gateway->credential('key_id')" />
-                    <x-gateway-credential label="{{ __('Key Secret') }}"        name="key_secret"      type="password" placeholder="{{ __('Razorpay Key Secret') }}" :value="$gateway->credential('key_secret')" />
-                    <x-gateway-credential label="{{ __('Webhook Secret') }}"    name="webhook_secret"  type="password" placeholder="{{ __('Set in Razorpay dashboard') }}" :value="$gateway->credential('webhook_secret')" />
+                    <x-gateway-credential label="@lang('Key ID')"            name="key_id"          type="text"     placeholder="rzp_live_… or rzp_test_…" :value="$gateway->credential('key_id')" />
+                    <x-gateway-credential label="@lang('Key Secret')"        name="key_secret"      type="password" placeholder="@lang('Razorpay Key Secret')" :value="$gateway->credential('key_secret')" />
+                    <x-gateway-credential label="@lang('Webhook Secret')"    name="webhook_secret"  type="password" placeholder="@lang('Set in Razorpay dashboard')" :value="$gateway->credential('webhook_secret')" />
 
                 @elseif($d === 'paystack')
-                    <x-gateway-credential label="{{ __('Secret Key') }}"        name="secret_key"      type="password" placeholder="sk_live_… or sk_test_…" :value="$gateway->credential('secret_key')" />
-                    <x-gateway-credential label="{{ __('Public Key') }}"        name="public_key"      type="text"     placeholder="pk_live_… or pk_test_…" :value="$gateway->credential('public_key')" />
-                    <x-gateway-credential label="{{ __('Webhook Secret') }}"    name="webhook_secret"  type="password" placeholder="{{ __('Set in Paystack dashboard') }}" :value="$gateway->credential('webhook_secret')" />
+                    <x-gateway-credential label="@lang('Secret Key')"        name="secret_key"      type="password" placeholder="sk_live_… or sk_test_…" :value="$gateway->credential('secret_key')" />
+                    <x-gateway-credential label="@lang('Public Key')"        name="public_key"      type="text"     placeholder="pk_live_… or pk_test_…" :value="$gateway->credential('public_key')" />
+                    <x-gateway-credential label="@lang('Webhook Secret')"    name="webhook_secret"  type="password" placeholder="@lang('Set in Paystack dashboard')" :value="$gateway->credential('webhook_secret')" />
 
                 @elseif($d === 'flutterwave')
-                    <x-gateway-credential label="{{ __('Secret Key') }}"        name="secret_key"      type="password" placeholder="FLWSECK_TEST-… or FLWSECK-…" :value="$gateway->credential('secret_key')" />
-                    <x-gateway-credential label="{{ __('Public Key') }}"        name="public_key"      type="text"     placeholder="FLWPUBK_TEST-… or FLWPUBK-…" :value="$gateway->credential('public_key')" />
-                    <x-gateway-credential label="{{ __('Webhook Hash (verif-hash)') }}" name="webhook_secret" type="password" placeholder="{{ __('Custom hash set in Flutterwave dashboard') }}" :value="$gateway->credential('webhook_secret')" />
+                    <x-gateway-credential label="@lang('Secret Key')"        name="secret_key"      type="password" placeholder="FLWSECK_TEST-… or FLWSECK-…" :value="$gateway->credential('secret_key')" />
+                    <x-gateway-credential label="@lang('Public Key')"        name="public_key"      type="text"     placeholder="FLWPUBK_TEST-… or FLWPUBK-…" :value="$gateway->credential('public_key')" />
+                    <x-gateway-credential label="@lang('Webhook Hash (verif-hash)')" name="webhook_secret" type="password" placeholder="@lang('Custom hash set in Flutterwave dashboard')" :value="$gateway->credential('webhook_secret')" />
 
                 @elseif($d === 'mollie')
-                    <x-gateway-credential label="{{ __('API Key') }}"           name="api_key"         type="password" placeholder="live_… or test_…" :value="$gateway->credential('api_key')" />
-                    <p class="text-xs text-gray-400">{{ __('Mollie does not sign webhook bodies — verification is done by fetching payment status from the API on each call.') }}</p>
+                    <x-gateway-credential label="@lang('API Key')"           name="api_key"         type="password" placeholder="live_… or test_…" :value="$gateway->credential('api_key')" />
+                    <p class="text-xs text-gray-400">@lang('Mollie does not sign webhook bodies — verification is done by fetching payment status from the API on each call.')</p>
 
                 @elseif($d === 'mercadopago')
-                    <x-gateway-credential label="{{ __('Access Token') }}"      name="access_token"    type="password" placeholder="APP_USR-… or TEST-…" :value="$gateway->credential('access_token')" />
-                    <x-gateway-credential label="{{ __('Webhook Secret (x-signature)') }}" name="webhook_secret" type="password" placeholder="{{ __('Set in Mercado Pago developer panel') }}" :value="$gateway->credential('webhook_secret')" />
+                    <x-gateway-credential label="@lang('Access Token')"      name="access_token"    type="password" placeholder="APP_USR-… or TEST-…" :value="$gateway->credential('access_token')" />
+                    <x-gateway-credential label="@lang('Webhook Secret (x-signature)')" name="webhook_secret" type="password" placeholder="@lang('Set in Mercado Pago developer panel')" :value="$gateway->credential('webhook_secret')" />
                     <x-gateway-sandbox-toggle :gateway="$gateway" />
 
                 @elseif($d === 'coinbase_commerce')
-                    <x-gateway-credential label="{{ __('API Key') }}"           name="api_key"         type="password" placeholder="{{ __('Coinbase Commerce API key') }}" :value="$gateway->credential('api_key')" />
-                    <x-gateway-credential label="{{ __('Webhook Secret') }}"    name="webhook_secret"  type="password" placeholder="{{ __('Shared secret from Coinbase Commerce') }}" :value="$gateway->credential('webhook_secret')" />
+                    <x-gateway-credential label="@lang('API Key')"           name="api_key"         type="password" placeholder="@lang('Coinbase Commerce API key')" :value="$gateway->credential('api_key')" />
+                    <x-gateway-credential label="@lang('Webhook Secret')"    name="webhook_secret"  type="password" placeholder="@lang('Shared secret from Coinbase Commerce')" :value="$gateway->credential('webhook_secret')" />
 
                 @elseif($d === 'coingate')
-                    <x-gateway-credential label="{{ __('API Token') }}"         name="api_token"       type="password" placeholder="{{ __('CoinGate API token') }}" :value="$gateway->credential('api_token')" />
-                    <x-gateway-credential label="{{ __('Receive Currency') }}"  name="receive_currency" type="text"    placeholder="e.g. USD, EUR, BTC" :value="$gateway->credential('receive_currency')" />
+                    <x-gateway-credential label="@lang('API Token')"         name="api_token"       type="password" placeholder="@lang('CoinGate API token')" :value="$gateway->credential('api_token')" />
+                    <x-gateway-credential label="@lang('Receive Currency')"  name="receive_currency" type="text"    placeholder="e.g. USD, EUR, BTC" :value="$gateway->credential('receive_currency')" />
                     <x-gateway-sandbox-toggle :gateway="$gateway" />
-                    <p class="text-xs text-gray-400">{{ __('CoinGate does not sign IPN bodies. Verification relies on HTTPS-only delivery.') }}</p>
+                    <p class="text-xs text-gray-400">@lang('CoinGate does not sign IPN bodies. Verification relies on HTTPS-only delivery.')</p>
 
                 @elseif($d === 'nowpayments')
-                    <x-gateway-credential label="{{ __('API Key') }}"           name="api_key"         type="password" placeholder="{{ __('NOWPayments API key') }}" :value="$gateway->credential('api_key')" />
-                    <x-gateway-credential label="{{ __('IPN Secret') }}"        name="ipn_secret"      type="password" placeholder="{{ __('IPN secret from NOWPayments dashboard') }}" :value="$gateway->credential('ipn_secret')" />
-                    <x-gateway-credential label="{{ __('Pay Currency') }}"      name="pay_currency"    type="text"     placeholder="e.g. btc, eth, usdt" :value="$gateway->credential('pay_currency')" />
+                    <x-gateway-credential label="@lang('API Key')"           name="api_key"         type="password" placeholder="@lang('NOWPayments API key')" :value="$gateway->credential('api_key')" />
+                    <x-gateway-credential label="@lang('IPN Secret')"        name="ipn_secret"      type="password" placeholder="@lang('IPN secret from NOWPayments dashboard')" :value="$gateway->credential('ipn_secret')" />
+                    <x-gateway-credential label="@lang('Pay Currency')"      name="pay_currency"    type="text"     placeholder="e.g. btc, eth, usdt" :value="$gateway->credential('pay_currency')" />
                     <x-gateway-sandbox-toggle :gateway="$gateway" />
 
                 @elseif($d === 'izipay')
-                    <x-gateway-credential label="{{ __('Shop ID') }}"           name="shop_id"         type="text"     placeholder="{{ __('Izipay Shop ID') }}" :value="$gateway->credential('shop_id')" />
-                    <x-gateway-credential label="{{ __('API Key (password)') }}" name="api_key"        type="password" placeholder="{{ __('Izipay API key / password') }}" :value="$gateway->credential('api_key')" />
-                    <x-gateway-credential label="{{ __('Public Key') }}"        name="public_key"      type="text"     placeholder="{{ __('Izipay public key (for JS form)') }}" :value="$gateway->credential('public_key')" />
+                    <x-gateway-credential label="@lang('Shop ID')"           name="shop_id"         type="text"     placeholder="@lang('Izipay Shop ID')" :value="$gateway->credential('shop_id')" />
+                    <x-gateway-credential label="@lang('API Key (password)')" name="api_key"        type="password" placeholder="@lang('Izipay API key / password')" :value="$gateway->credential('api_key')" />
+                    <x-gateway-credential label="@lang('Public Key')"        name="public_key"      type="text"     placeholder="@lang('Izipay public key (for JS form)')" :value="$gateway->credential('public_key')" />
                     <x-gateway-sandbox-toggle :gateway="$gateway" />
 
                 @endif
@@ -227,12 +227,12 @@
             <button type="submit"
                     class="inline-flex items-center gap-2 rounded-lg bg-brand-600 px-5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-brand-700">
                 <x-heroicon-o-check class="h-4 w-4" />
-                {{ __('Save changes') }}
+                @lang('Save changes')
             </button>
             <a href="{{ route('admin.gateways.index') }}"
                class="btn-secondary">
                 <x-heroicon-o-x-mark class="h-4 w-4" />
-                {{ __('Cancel') }}
+                @lang('Cancel')
             </a>
         </div>
 

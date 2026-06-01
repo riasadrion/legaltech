@@ -97,7 +97,7 @@ $match = collect($dialCodes)->firstWhere('dial', $currentDial);
 
         <input type="tel" id="{{ $inputId }}" name="{{ $name }}"
                value="{{ old($name, $mobileValue) }}"
-               placeholder="{{ __('555 000 0000') }}"
+               placeholder="@lang('555 000 0000')"
                {{ $required ? 'required' : '' }}
                class="phone-number-input {{ $inputClass }}">
     </div>
@@ -105,7 +105,7 @@ $match = collect($dialCodes)->firstWhere('dial', $currentDial);
 
     <div class="phone-dropdown hidden" data-phone-dropdown role="listbox">
         <div class="phone-search-wrap">
-            <input type="text" placeholder="{{ __('Search country…') }}" class="phone-search" data-phone-search autocomplete="off">
+            <input type="text" placeholder="@lang('Search country…')" class="phone-search" data-phone-search autocomplete="off">
         </div>
         <ul class="phone-list" data-phone-list>
             @foreach($dialCodes as $c)

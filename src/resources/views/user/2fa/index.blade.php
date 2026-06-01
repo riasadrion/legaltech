@@ -6,8 +6,8 @@
 <div class="space-y-6">
 
     <div>
-        <h1 class="ud-page-title">{{ __('Two-Factor Authentication') }}</h1>
-        <p class="ud-page-sub">{{ __('Add an extra layer of security to your account.') }}</p>
+        <h1 class="ud-page-title">@lang('Two-Factor Authentication')</h1>
+        <p class="ud-page-sub">@lang('Add an extra layer of security to your account.')</p>
     </div>
 
     <div class="ud-card">
@@ -18,31 +18,31 @@
                         <x-heroicon-o-shield-check class="h-6 w-6 text-lime" />
                     </div>
                     <div>
-                        <p class="font-semibold text-white">{{ __('2FA is Enabled') }}</p>
-                        <p class="text-sm text-white/50">{{ __('Your account is protected with two-factor authentication.') }}</p>
+                        <p class="font-semibold text-white">@lang('2FA is Enabled')</p>
+                        <p class="text-sm text-white/50">@lang('Your account is protected with two-factor authentication.')</p>
                     </div>
-                    <span class="ml-auto ud-badge ud-badge-green">{{ __('Active') }}</span>
+                    <span class="ml-auto ud-badge ud-badge-green">@lang('Active')</span>
                 </div>
 
                 <div class="border-t border-white/8 pt-5 space-y-4">
                     <div>
-                        <p class="text-sm font-medium text-white/70 mb-2">{{ __('Recovery Codes') }}</p>
+                        <p class="text-sm font-medium text-white/70 mb-2">@lang('Recovery Codes')</p>
                         <a href="{{ route('user.2fa.setup') }}" class="ud-btn-ghost inline-flex">
                             <x-heroicon-o-arrow-path class="h-4 w-4" />
-                            {{ __('Regenerate Recovery Codes') }}
+                            @lang('Regenerate Recovery Codes')
                         </a>
                     </div>
 
                     <div class="border-t border-white/8 pt-4">
-                        <p class="text-sm text-white/50 mb-3">{{ __('To disable 2FA, confirm your current password:') }}</p>
+                        <p class="text-sm text-white/50 mb-3">@lang('To disable 2FA, confirm your current password:')</p>
                         <form method="POST" action="{{ route('user.2fa.disable') }}">
                             @csrf
                             <div class="flex gap-3">
-                                <input name="password" type="password" placeholder="{{ __('Current password') }}"
+                                <input name="password" type="password" placeholder="@lang('Current password')"
                                        class="ud-input flex-1" />
                                 <button type="submit" class="ud-btn-danger inline-flex shrink-0"
-                                        data-confirm="{{ __('Are you sure you want to disable two-factor authentication?') }}">
-                                    {{ __('Disable 2FA') }}
+                                        data-confirm="@lang('Are you sure you want to disable two-factor authentication?')">
+                                    @lang('Disable 2FA')
                                 </button>
                             </div>
                             @error('password')
@@ -60,10 +60,10 @@
                         <x-heroicon-o-shield-exclamation class="h-6 w-6 text-amber-400" />
                     </div>
                     <div>
-                        <p class="font-semibold text-white">{{ __('2FA is Not Enabled') }}</p>
-                        <p class="text-sm text-white/50">{{ __('Protect your account with an authenticator app.') }}</p>
+                        <p class="font-semibold text-white">@lang('2FA is Not Enabled')</p>
+                        <p class="text-sm text-white/50">@lang('Protect your account with an authenticator app.')</p>
                     </div>
-                    <span class="ml-auto ud-badge ud-badge-gray">{{ __('Disabled') }}</span>
+                    <span class="ml-auto ud-badge ud-badge-gray">@lang('Disabled')</span>
                 </div>
 
                 <div class="grid grid-cols-1 gap-3 sm:grid-cols-3">
@@ -84,7 +84,7 @@
 
                 <a href="{{ route('user.2fa.setup') }}" class="ud-btn-primary inline-flex">
                     <x-heroicon-o-shield-check class="h-4 w-4" />
-                    {{ __('Enable Two-Factor Authentication') }}
+                    @lang('Enable Two-Factor Authentication')
                 </a>
             </div>
         @endif

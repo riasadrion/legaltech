@@ -7,15 +7,15 @@
 
     <div class="flex items-center justify-between">
         <div>
-            <h1 class="ud-page-title">{{ __('Notifications') }}</h1>
-            <p class="ud-page-sub">{{ __('Your activity and system notifications.') }}</p>
+            <h1 class="ud-page-title">@lang('Notifications')</h1>
+            <p class="ud-page-sub">@lang('Your activity and system notifications.')</p>
         </div>
         @if($notifications->isNotEmpty())
         <form method="POST" action="{{ route('user.notifications.read-all') }}">
             @csrf
             <button type="submit" class="ud-btn-ghost text-xs">
                 <x-heroicon-o-check-circle class="h-4 w-4" />
-                {{ __('Mark all read') }}
+                @lang('Mark all read')
             </button>
         </form>
         @endif
@@ -25,7 +25,7 @@
         @if($notifications->isEmpty())
             <div class="ud-empty py-16">
                 <x-heroicon-o-bell class="h-12 w-12" />
-                <div class="ud-empty-title">{{ __('No notifications yet') }}</div>
+                <div class="ud-empty-title">@lang('No notifications yet')</div>
                 <div class="ud-empty-body">{{ __('You\'re all caught up. New activity will appear here.') }}</div>
             </div>
         @else
@@ -51,7 +51,7 @@
 
                     @if($n->url)
                     <a href="{{ $n->url }}" class="shrink-0 text-xs text-lime/80 hover:text-lime whitespace-nowrap">
-                        {{ __('View') }} →
+                        @lang('View') →
                     </a>
                     @endif
                 </div>

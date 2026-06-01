@@ -15,8 +15,8 @@ $plan = $plan ?? null;
                 <x-heroicon-o-arrow-left class="h-4 w-4" />
             </a>
             <div>
-                <h1 class="text-xl font-bold text-gray-900">{{ __('New Plan') }}</h1>
-                <p class="text-sm text-gray-400">{{ __('Create a new subscription plan') }}</p>
+                <h1 class="text-xl font-bold text-gray-900">@lang('New Plan')</h1>
+                <p class="text-sm text-gray-400">@lang('Create a new subscription plan')</p>
             </div>
         </div>
 
@@ -26,12 +26,12 @@ $plan = $plan ?? null;
             <button type="submit"
                     class="inline-flex items-center gap-2 rounded-lg bg-brand-600 px-5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-brand-700">
                 <x-heroicon-o-check class="h-4 w-4" />
-                {{ __('Create Plan') }}
+                @lang('Create Plan')
             </button>
             <a href="{{ route('admin.plans.index') }}"
                class="btn-secondary">
                 <x-heroicon-o-x-mark class="h-4 w-4" />
-                {{ __('Cancel') }}
+                @lang('Cancel')
             </a>
         </div>
     </form>

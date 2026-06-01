@@ -13,7 +13,7 @@
         </a>
         <div>
             <h1 class="ud-page-title !mb-0">{{ $gateway->name }}</h1>
-            <p class="text-[12px] text-white/45">{{ __('Enter amount to add to your wallet') }}</p>
+            <p class="text-[12px] text-white/45">@lang('Enter amount to add to your wallet')</p>
         </div>
     </div>
 
@@ -40,12 +40,12 @@
                 <div class="text-[12px] text-white/60">
                     {{ __('Min: :min · Max: :max', ['min' => $gateway->formatAmount($gateway->min_amount), 'max' => $gateway->formatAmount($gateway->max_amount)]) }}
                     @if($gateway->fee_flat > 0 || $gateway->fee_percent > 0)
-                        · {{ __('Fee:') }}
+                        · @lang('Fee:')
                         @if($gateway->fee_flat > 0){{ $gateway->formatAmount($gateway->fee_flat) }}@endif
                         @if($gateway->fee_flat > 0 && $gateway->fee_percent > 0) + @endif
                         @if($gateway->fee_percent > 0){{ $gateway->fee_percent }}%@endif
                     @else
-                        · <span class="text-lime/80">{{ __('No fee') }}</span>
+                        · <span class="text-lime/80">@lang('No fee')</span>
                     @endif
                 </div>
             </div>
@@ -61,7 +61,7 @@
 
             <div>
                 <label class="block text-[12px] font-medium text-white/60 mb-1.5">
-                    {{ __('Amount') }} ({{ $gateway->currency_code }})
+                    @lang('Amount') ({{ $gateway->currency_code }})
                 </label>
                 <div class="relative">
                     @if($gateway->symbol_position === 'before')
@@ -91,12 +91,12 @@
 
             @if($gateway->driver === 'manual')
             <div>
-                <label class="block text-[12px] font-medium text-white/60 mb-1.5">{{ __('Upload payment receipt') }}</label>
+                <label class="block text-[12px] font-medium text-white/60 mb-1.5">@lang('Upload payment receipt')</label>
                 <input type="file" name="receipt" accept=".jpg,.jpeg,.png,.webp,.pdf"
                        class="block w-full text-[13px] text-white/50
                               file:mr-3 file:rounded-lg file:border-0 file:bg-lime/10 file:px-3 file:py-2
                               file:text-[12px] file:font-medium file:text-lime hover:file:bg-lime/20" />
-                <p class="mt-1 text-[11px] text-white/35">{{ __('JPG, PNG, WebP or PDF, max 5MB') }}</p>
+                <p class="mt-1 text-[11px] text-white/35">@lang('JPG, PNG, WebP or PDF, max 5MB')</p>
                 @error('receipt')<p class="mt-1 text-[11px] text-red-400">{{ $message }}</p>@enderror
             </div>
             @endif
@@ -105,7 +105,7 @@
 
             <button type="submit" class="btn-lime rounded-xl w-full py-2.5 text-[13px] font-semibold mt-1">
                 @if($gateway->driver === 'manual')
-                    {{ __('Submit payment request') }}
+                    @lang('Submit payment request')
                 @else
                     {{ __('Continue to :gateway', ['gateway' => $gateway->name]) }}
                 @endif

@@ -21,18 +21,18 @@
         <div class="rounded-2xl glass border border-lime/30 bg-lime/5 px-5 py-4 flex items-start gap-3">
             <x-heroicon-o-sparkles class="h-5 w-5 text-lime shrink-0 mt-0.5" />
             <div>
-                <div class="text-white font-medium text-sm">{{ __('AI contract drafting is a Pro feature') }}</div>
+                <div class="text-white font-medium text-sm">@lang('AI contract drafting is a Pro feature')</div>
                 <div class="text-white/65 text-[13px] mt-0.5">{{ session('upgrade_ai') }}</div>
             </div>
         </div>
     @endif
 
     <div class="text-center max-w-2xl mx-auto">
-        <div class="text-[11px] font-mono uppercase tracking-[.25em] text-lime mb-3">— {{ __('Pricing') }}</div>
+        <div class="text-[11px] font-mono uppercase tracking-[.25em] text-lime mb-3">— @lang('Pricing')</div>
         <h1 class="font-display text-5xl md:text-6xl leading-[0.95] text-white">
-            {{ __('Choose your') }} <span class="italic-display">{{ __('plan.') }}</span>
+            @lang('Choose your') <span class="italic-display">@lang('plan.')</span>
         </h1>
-        <p class="text-white/65 mt-4">{{ __('Switch anytime — your history follows you.') }}</p>
+        <p class="text-white/65 mt-4">@lang('Switch anytime — your history follows you.')</p>
     </div>
 
 
@@ -64,7 +64,7 @@
     </div>
     @endforeach
 
-    <p class="text-center text-xs text-white/35">{{ __('All plans include full export of your data. Cancel anytime.') }}</p>
+    <p class="text-center text-xs text-white/35">@lang('All plans include full export of your data. Cancel anytime.')</p>
 
 </div>
 

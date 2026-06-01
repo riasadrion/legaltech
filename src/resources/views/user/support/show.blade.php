@@ -25,7 +25,7 @@ function udShowFiles(input, listId) {
         <div>
             <h1 class="ud-page-title">{{ $ticket->subject }}</h1>
             <p class="ud-page-sub">
-                {{ __('Ticket') }} #{{ $ticket->reference }}
+                @lang('Ticket') #{{ $ticket->reference }}
                 · {{ __(ucfirst(str_replace('_', ' ', $ticket->category))) }}
                 · {{ $ticket->created_at->format('d M Y') }}
             </p>
@@ -56,7 +56,7 @@ function udShowFiles(input, listId) {
                         {{ $isUser ? ($msg->author?->name ?? __('You')) : __('Support Team') }}
                     </span>
                     @if(!$isUser)
-                        <span class="ud-badge ud-badge-violet text-xs">{{ __('Staff') }}</span>
+                        <span class="ud-badge ud-badge-violet text-xs">@lang('Staff')</span>
                     @endif
                 </div>
                 <span class="text-xs text-white/35">{{ $msg->created_at->diffForHumans() }}</span>
@@ -82,11 +82,11 @@ function udShowFiles(input, listId) {
     <div class="ud-card">
         <form method="POST" action="{{ route('user.support.reply', $ticket->reference) }}"
               enctype="multipart/form-data" class="px-4 py-4 space-y-3">
-            <h2 class="ud-card-title">{{ __('Reply') }}</h2>
+            <h2 class="ud-card-title">@lang('Reply')</h2>
             @csrf
             <div>
                 <textarea name="body" rows="5" class="ud-input resize-none"
-                          placeholder="{{ __('Write your reply...') }}" required>{{ old('body') }}</textarea>
+                          placeholder="@lang('Write your reply...')" required>{{ old('body') }}</textarea>
                 @error('body') <p class="mt-1 text-xs text-red-400">{{ $message }}</p> @enderror
             </div>
             <div>
@@ -94,22 +94,22 @@ function udShowFiles(input, listId) {
                     <input type="file" name="attachments[]" multiple class="sr-only" id="file-reply"
                            accept=".jpg,.jpeg,.png,.webp,.pdf,.txt" onchange="udShowFiles(this,'file-list-reply')" />
                     <x-heroicon-o-paper-clip class="h-5 w-5 text-white/30" />
-                    <span class="ud-dropzone-text">{{ __('Attach files') }}</span>
-                    <span class="ud-dropzone-hint">{{ __('JPG, PNG, PDF, TXT — max 10 MB each') }}</span>
+                    <span class="ud-dropzone-text">@lang('Attach files')</span>
+                    <span class="ud-dropzone-hint">@lang('JPG, PNG, PDF, TXT — max 10 MB each')</span>
                     <ul id="file-list-reply" class="ud-file-list"></ul>
                 </label>
             </div>
             <div class="flex items-center gap-3">
                 <button type="submit" class="ud-btn-primary inline-flex">
                     <x-heroicon-o-paper-airplane class="h-4 w-4" />
-                    {{ __('Send Reply') }}
+                    @lang('Send Reply')
                 </button>
                 <form method="POST" action="{{ route('user.support.close', $ticket->reference) }}" class="inline">
                     @csrf
                     <button type="submit" class="ud-btn-ghost inline-flex text-red-400 hover:text-red-300"
-                            data-confirm="{{ __('Close this ticket?') }}">
+                            data-confirm="@lang('Close this ticket?')">
                         <x-heroicon-o-x-circle class="h-4 w-4" />
-                        {{ __('Close Ticket') }}
+                        @lang('Close Ticket')
                     </button>
                 </form>
             </div>
@@ -118,8 +118,8 @@ function udShowFiles(input, listId) {
     @else
     <div class="ud-card p-5 flex items-center gap-3 text-white/50 text-sm">
         <x-heroicon-o-lock-closed class="h-4 w-4 shrink-0" />
-        {{ __('This ticket is closed. Open a new ticket if you need further help.') }}
-        <a href="{{ route('user.support.create') }}" class="ml-auto ud-btn-ghost inline-flex text-xs">{{ __('New Ticket') }}</a>
+        @lang('This ticket is closed. Open a new ticket if you need further help.')
+        <a href="{{ route('user.support.create') }}" class="ml-auto ud-btn-ghost inline-flex text-xs">@lang('New Ticket')</a>
     </div>
     @endif
 

@@ -50,17 +50,17 @@
                     @csrf
                     <x-heroicon-o-envelope class="h-4 w-4 text-white/40 shrink-0" />
                     <input type="email" name="email" required
-                           placeholder="{{ __('you@company.com') }}"
+                           placeholder="@lang('you@company.com')"
                            class="flex-1 min-w-0 bg-transparent outline-none text-sm placeholder:text-white/35 text-white py-2">
 
                     <input type="text" name="website" tabindex="-1" autocomplete="off"
                            class="absolute opacity-0 pointer-events-none -z-10" aria-hidden="true">
                     <button type="submit" class="btn-lime rounded-full text-sm px-4 py-2 shrink-0">
-                        <span data-label>{{ __('Subscribe') }}</span>
+                        <span data-label>@lang('Subscribe')</span>
                     </button>
                 </form>
                 <p id="newsletter-msg" class="text-[11px] mt-2 text-white/40">
-                    {{ __('One short email a month. No tracking pixels.') }}
+                    @lang('One short email a month. No tracking pixels.')
                 </p>
             </div>
 
@@ -136,7 +136,7 @@
 
             <div class="text-xs text-white/45 {{ $hasSocials ? '' : 'w-full text-center' }}">
                 &copy; {{ now()->year }} {{ setting('site.name', config('app.name')) }}.
-                {{ __('All rights reserved.') }}
+                @lang('All rights reserved.')
             </div>
 
             @if($hasSocials)<div></div>@endif
@@ -169,7 +169,7 @@ $(function () {
         e.preventDefault();
 
         $btn.prop('disabled', true).addClass('opacity-70');
-        $label.text('{{ __('Sending…') }}');
+        $label.text('@lang('Sending…')');
 
         $.ajax({
             url: $form.attr('action'),
@@ -179,11 +179,11 @@ $(function () {
             headers: { 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json' },
         }).done(function (res) {
             var color = res.status === 'info' ? idleClass : okClass;
-            $msg.removeClass(classes).addClass(color).text(res.message || '{{ __('Subscribed.') }}');
-            $label.text('{{ __('Subscribed ✓') }}');
+            $msg.removeClass(classes).addClass(color).text(res.message || '@lang('Subscribed.')');
+            $label.text('@lang('Subscribed ✓')');
             $input.val('');
         }).fail(function (xhr) {
-            var message = '{{ __('Something went wrong. Please try again.') }}';
+            var message = '@lang('Something went wrong. Please try again.')';
             if (xhr.responseJSON && xhr.responseJSON.errors && xhr.responseJSON.errors.email) {
                 message = xhr.responseJSON.errors.email[0];
             } else if (xhr.responseJSON && xhr.responseJSON.message) {

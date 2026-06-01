@@ -21,7 +21,7 @@
     @if($templates->isEmpty())
         <div class="rounded-2xl glass p-14 text-center text-white/40">
             <x-heroicon-o-document-text class="h-10 w-10 mx-auto mb-3 opacity-30" />
-            <div class="text-sm">{{ __('No templates in this category yet.') }}</div>
+            <div class="text-sm">@lang('No templates in this category yet.')</div>
         </div>
     @else
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -43,7 +43,7 @@
                         @endif
                     </div>
                     <div class="mt-auto flex items-center gap-1 text-[12px] text-lime/70 group-hover:text-lime transition">
-                        {{ __('Use this template') }}
+                        @lang('Use this template')
                         <x-heroicon-o-arrow-right class="h-3.5 w-3.5" />
                     </div>
                 </a>

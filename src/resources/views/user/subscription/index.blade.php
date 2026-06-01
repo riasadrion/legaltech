@@ -7,8 +7,8 @@
 
 
     <div>
-        <h1 class="ud-page-title">{{ __('My Subscription') }}</h1>
-        <p class="ud-page-sub">{{ __('Manage your subscription and view your plan details.') }}</p>
+        <h1 class="ud-page-title">@lang('My Subscription')</h1>
+        <p class="ud-page-sub">@lang('Manage your subscription and view your plan details.')</p>
     </div>
 
 
@@ -44,27 +44,27 @@
                 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
                     @if($subscription->plan->hasCreditLimit())
                     <div>
-                        <p class="ud-stat-label">{{ __('Credits remaining') }}</p>
+                        <p class="ud-stat-label">@lang('Credits remaining')</p>
                         <p class="text-xl font-semibold text-white mt-2">{{ number_format($subscription->credits_remaining) }}</p>
-                        <p class="text-xs text-white/30 mt-0.5">{{ __('of') }} {{ number_format($subscription->plan->credits) }}</p>
+                        <p class="text-xs text-white/30 mt-0.5">@lang('of') {{ number_format($subscription->plan->credits) }}</p>
                     </div>
                     @endif
 
                     @if($subscription->plan->ai_contract_generation)
                     <div>
-                        <p class="ud-stat-label">{{ __('AI drafts remaining') }}</p>
+                        <p class="ud-stat-label">@lang('AI drafts remaining')</p>
                         <p class="text-xl font-semibold text-lime mt-2">{{ number_format($subscription->ai_drafts_remaining) }}</p>
-                        <p class="text-xs text-white/30 mt-0.5">{{ __('of') }} {{ number_format($subscription->plan->ai_drafts) }}</p>
+                        <p class="text-xs text-white/30 mt-0.5">@lang('of') {{ number_format($subscription->plan->ai_drafts) }}</p>
                     </div>
                     @endif
 
                     <div>
-                        <p class="ud-stat-label">{{ __('Period ends') }}</p>
+                        <p class="ud-stat-label">@lang('Period ends')</p>
                         <p class="text-xl font-semibold text-white mt-2">{{ $subscription->current_period_end?->format('d M Y') }}</p>
                     </div>
 
                     <div>
-                        <p class="ud-stat-label">{{ __('Days remaining') }}</p>
+                        <p class="ud-stat-label">@lang('Days remaining')</p>
                         <p class="text-xl font-semibold {{ $subscription->daysRemaining() <= 0 ? 'text-red-400' : 'text-white' }} mt-2">
                             {{ max(0, $subscription->daysRemaining()) }}
                         </p>
@@ -74,17 +74,17 @@
 
                 <div class="border-t border-white/8 pt-4">
                     <a href="{{ route('user.subscription.plans') }}" class="ud-btn-ghost">
-                        {{ __('View Plans') }}
+                        @lang('View Plans')
                     </a>
                 </div>
             </div>
         @else
             <div class="ud-empty">
                 <x-heroicon-o-ticket class="h-12 w-12" />
-                <div class="ud-empty-title">{{ __('No active subscription') }}</div>
-                <div class="ud-empty-body">{{ __('Choose a plan to get started') }}</div>
+                <div class="ud-empty-title">@lang('No active subscription')</div>
+                <div class="ud-empty-body">@lang('Choose a plan to get started')</div>
                 <a href="{{ route('user.subscription.plans') }}" class="ud-btn-primary mt-4 inline-flex">
-                    {{ __('View Plans') }}
+                    @lang('View Plans')
                 </a>
             </div>
         @endif
@@ -94,22 +94,22 @@
     @if($subscription && $subscription->plan->hasCreditLimit())
     <div class="ud-card">
         <div class="ud-card-header">
-            <h2 class="ud-card-title">{{ __('Credit history') }}</h2>
+            <h2 class="ud-card-title">@lang('Credit history')</h2>
         </div>
 
         @if($creditHistory->isEmpty())
             <div class="ud-empty">
                 <x-heroicon-o-sparkles class="h-10 w-10" />
-                <div class="ud-empty-title">{{ __('No credit transactions yet') }}</div>
+                <div class="ud-empty-title">@lang('No credit transactions yet')</div>
             </div>
         @else
             <div class="overflow-x-auto">
                 <table class="w-full text-sm">
                     <thead>
                         <tr class="border-b border-white/8">
-                            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-white/45">{{ __('Date') }}</th>
-                            <th class="px-4 py-3 text-right text-xs font-semibold uppercase tracking-wide text-white/45">{{ __('Amount') }}</th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-white/45">{{ __('Description') }}</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-white/45">@lang('Date')</th>
+                            <th class="px-4 py-3 text-right text-xs font-semibold uppercase tracking-wide text-white/45">@lang('Amount')</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-white/45">@lang('Description')</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-white/5">

@@ -5,8 +5,8 @@
 
 
     <div>
-        <h1 class="text-xl font-bold text-gray-900">{{ __('Subscriptions') }}</h1>
-        <p class="mt-0.5 text-sm text-gray-500">{{ __('All user subscriptions across plans.') }}</p>
+        <h1 class="text-xl font-bold text-gray-900">@lang('Subscriptions')</h1>
+        <p class="mt-0.5 text-sm text-gray-500">@lang('All user subscriptions across plans.')</p>
     </div>
 
 
@@ -17,16 +17,16 @@
                 <input type="hidden" name="status" value="{{ request('status') }}">
             @endif
             <select name="plan" class="h-9 rounded-lg border border-gray-300 px-3 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500">
-                <option value="">{{ __('All plans') }}</option>
+                <option value="">@lang('All plans')</option>
                 @foreach($plans as $plan)
                     <option value="{{ $plan->id }}" @selected(request('plan') == $plan->id)>{{ $plan->name }}</option>
                 @endforeach
             </select>
-            <input type="text" name="q" value="{{ request('q') }}" placeholder="{{ __('Name or email…') }}"
+            <input type="text" name="q" value="{{ request('q') }}" placeholder="@lang('Name or email…')"
                    class="h-9 w-52 rounded-lg border border-gray-300 px-3 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500" />
-            <button type="submit" class="inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700">{{ __('Filter') }}</button>
+            <button type="submit" class="inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700">@lang('Filter')</button>
             @if(request()->hasAny(['q','plan']))
-                <a href="{{ route('admin.subscriptions.index', request('status') ? ['status' => request('status')] : []) }}" class="inline-flex items-center rounded-lg border border-gray-300 px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-50">{{ __('Clear') }}</a>
+                <a href="{{ route('admin.subscriptions.index', request('status') ? ['status' => request('status')] : []) }}" class="inline-flex items-center rounded-lg border border-gray-300 px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-50">@lang('Clear')</a>
             @endif
         </form>
     </div>
@@ -35,27 +35,27 @@
         <table class="min-w-full divide-y divide-gray-200 text-sm responsive-table">
             <thead class="bg-gray-50">
                 <tr>
-                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">{{ __('User') }}</th>
-                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">{{ __('Plan') }}</th>
-                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">{{ __('Status') }}</th>
-                    <th class="hide-mobile px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">{{ __('Credits') }}</th>
-                    <th class="hide-mobile px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">{{ __('Period Ends') }}</th>
-                    <th class="hide-mobile px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">{{ __('Started') }}</th>
+                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">@lang('User')</th>
+                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">@lang('Plan')</th>
+                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">@lang('Status')</th>
+                    <th class="hide-mobile px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">@lang('Credits')</th>
+                    <th class="hide-mobile px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">@lang('Period Ends')</th>
+                    <th class="hide-mobile px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">@lang('Started')</th>
                     <th class="px-4 py-3 text-right text-xs font-semibold uppercase tracking-wide text-gray-500"></th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-100">
                 @forelse($subscriptions as $sub)
                 <tr class="hover:bg-gray-50">
-                    <td class="px-4 py-3" data-label="{{ __('User') }}">
+                    <td class="px-4 py-3" data-label="@lang('User')">
                         <div class="font-medium text-gray-900">{{ $sub->user->name ?: '—' }}</div>
                         <div class="text-xs text-gray-400">{{ $sub->user->email }}</div>
                     </td>
-                    <td class="px-4 py-3 text-gray-700" data-label="{{ __('Plan') }}">
+                    <td class="px-4 py-3 text-gray-700" data-label="@lang('Plan')">
                         <div class="font-medium">{{ $sub->plan->name ?? '—' }}</div>
                         <div class="text-xs text-gray-400">{{ ucfirst($sub->plan->billing_cycle ?? '') }}</div>
                     </td>
-                    <td class="px-4 py-3" data-label="{{ __('Status') }}">
+                    <td class="px-4 py-3" data-label="@lang('Status')">
                         @php
                             $sc = match($sub->status) {
                                 'active'    => 'bg-green-100 text-green-700',
@@ -69,23 +69,23 @@
                             {{ ucfirst(str_replace('_', ' ', __($sub->status))) }}
                         </span>
                     </td>
-                    <td class="px-4 py-3 text-gray-700" data-label="{{ __('Credits') }}">{{ number_format($sub->credits_remaining) }}</td>
-                    <td class="px-4 py-3 text-xs text-gray-500 whitespace-nowrap" data-label="{{ __('Period Ends') }}">
+                    <td class="px-4 py-3 text-gray-700" data-label="@lang('Credits')">{{ number_format($sub->credits_remaining) }}</td>
+                    <td class="px-4 py-3 text-xs text-gray-500 whitespace-nowrap" data-label="@lang('Period Ends')">
                         {{ formatDate($sub->current_period_end, false) ?? '—' }}
                     </td>
-                    <td class="px-4 py-3 text-xs text-gray-500 whitespace-nowrap" data-label="{{ __('Started') }}">
+                    <td class="px-4 py-3 text-xs text-gray-500 whitespace-nowrap" data-label="@lang('Started')">
                         {{ formatDate($sub->created_at, false) }}
                     </td>
                     <td class="px-4 py-3 text-right" data-label="">
                         <a href="{{ route('admin.subscriptions.show', $sub) }}"
                            class="inline-flex items-center gap-1 rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-600 shadow-sm hover:bg-gray-50">
                             <x-heroicon-o-eye class="h-3.5 w-3.5" />
-                            {{ __('View') }}
+                            @lang('View')
                         </a>
                     </td>
                 </tr>
                 @empty
-                <tr><td colspan="7" class="px-4 py-14 text-center text-sm text-gray-400">{{ __('No subscriptions found.') }}</td></tr>
+                <tr><td colspan="7" class="px-4 py-14 text-center text-sm text-gray-400">@lang('No subscriptions found.')</td></tr>
                 @endforelse
             </tbody>
         </table>

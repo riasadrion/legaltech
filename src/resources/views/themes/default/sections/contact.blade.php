@@ -30,14 +30,14 @@
                         </svg>
                     </div>
                     <div>
-                        <h3 class="font-display text-3xl mt-2 text-white">{{ __('Message sent.') }}</h3>
-                        <p class="text-white/50 text-sm mt-2">{{ __("We'll get back to you within two hours on business days.") }}</p>
+                        <h3 class="font-display text-3xl mt-2 text-white">@lang('Message sent.')</h3>
+                        <p class="text-white/50 text-sm mt-2">@lang("We'll get back to you within two hours on business days.")</p>
                     </div>
-                    <a href="{{ url()->current() }}" class="mt-2 text-sm text-lime underline underline-offset-4">{{ __('Send another') }}</a>
+                    <a href="{{ url()->current() }}" class="mt-2 text-sm text-lime underline underline-offset-4">@lang('Send another')</a>
                 </div>
                 @else
 
-                <h2 class="font-display text-3xl mb-8 text-white">{{ __('Send us a message.') }}</h2>
+                <h2 class="font-display text-3xl mb-8 text-white">@lang('Send us a message.')</h2>
 
                 @if($errors->any())
                 <div class="ct-error-box">
@@ -54,7 +54,7 @@
 
                     @if(!empty($topics))
                     <div class="ct-topic">
-                        <div class="text-[11px] font-mono uppercase tracking-widest text-white/40 mb-3">{{ __('Topic') }}</div>
+                        <div class="text-[11px] font-mono uppercase tracking-widest text-white/40 mb-3">@lang('Topic')</div>
                         <div class="flex flex-wrap gap-2" id="{{ $gid }}-chips">
                             @foreach($topics as $i => $topic)
                             <button type="button" data-topic="{{ $topic }}"
@@ -70,12 +70,12 @@
 
                     <div class="grid sm:grid-cols-2 gap-4 mb-4">
                         <div>
-                            <label class="block text-[11px] font-mono uppercase tracking-widest text-white/40 mb-2">{{ __('Full name') }}</label>
+                            <label class="block text-[11px] font-mono uppercase tracking-widest text-white/40 mb-2">@lang('Full name')</label>
                             <input type="text" name="name" value="{{ old('name') }}" placeholder="Elena Martí" required class="ct-field">
                             @error('name')<p class="mt-1 text-xs text-red-400">{{ $message }}</p>@enderror
                         </div>
                         <div>
-                            <label class="block text-[11px] font-mono uppercase tracking-widest text-white/40 mb-2">{{ __('Work email') }}</label>
+                            <label class="block text-[11px] font-mono uppercase tracking-widest text-white/40 mb-2">@lang('Work email')</label>
                             <input type="email" name="email" value="{{ old('email') }}" placeholder="you@company.com" required class="ct-field">
                             @error('email')<p class="mt-1 text-xs text-red-400">{{ $message }}</p>@enderror
                         </div>
@@ -83,7 +83,7 @@
 
 
                     <div class="mb-6">
-                        <label class="block text-[11px] font-mono uppercase tracking-widest text-white/40 mb-2">{{ __('Message') }}</label>
+                        <label class="block text-[11px] font-mono uppercase tracking-widest text-white/40 mb-2">@lang('Message')</label>
                         <textarea name="message" rows="5" required placeholder="{{ __('Tell us what you\'re working on…') }}" class="ct-field">{{ old('message') }}</textarea>
                         @error('message')<p class="mt-1 text-xs text-red-400">{{ $message }}</p>@enderror
                     </div>
@@ -92,12 +92,12 @@
 
                     <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mt-6">
                         <p class="text-[12px] text-white/35 max-w-xs">
-                            {{ __('By sending you agree to our') }}
-                            <a href="{{ route('page.show', 'privacy-policy') }}" class="underline underline-offset-2 hover:text-white/60">{{ __('Privacy Policy') }}</a>.
-                            {{ __('We never sell data.') }}
+                            @lang('By sending you agree to our')
+                            <a href="{{ route('page.show', 'privacy-policy') }}" class="underline underline-offset-2 hover:text-white/60">@lang('Privacy Policy')</a>.
+                            @lang('We never sell data.')
                         </p>
                         <button type="submit" class="btn-lime rounded-full px-7 py-3.5 text-[15px] flex items-center gap-2 shrink-0">
-                            {{ __('Send message') }}
+                            @lang('Send message')
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
                             </svg>
@@ -114,7 +114,7 @@
                 <div class="glass rounded-3xl p-7 relative overflow-hidden lift">
                     <div class="absolute -right-10 -bottom-10 w-52 h-52 glow-lime opacity-50 pointer-events-none"></div>
                     <div class="relative">
-                        <div class="text-[11px] font-mono uppercase tracking-widest text-lime mb-4">{{ __('Response time') }}</div>
+                        <div class="text-[11px] font-mono uppercase tracking-widest text-lime mb-4">@lang('Response time')</div>
                         <span class="font-display text-6xl leading-none text-white">{{ $respTime }}</span>
                         <p class="text-white/50 text-sm mt-3">{{ __($respNote) }}</p>
                         <div class="mt-5 flex items-center gap-2 text-[12px] text-white/40">
@@ -129,7 +129,7 @@
 
 
                 <div class="glass rounded-3xl p-7 lift">
-                    <div class="text-[11px] font-mono uppercase tracking-widest text-white/40 mb-5">{{ __('Reach us directly') }}</div>
+                    <div class="text-[11px] font-mono uppercase tracking-widest text-white/40 mb-5">@lang('Reach us directly')</div>
                     <ul class="flex flex-col gap-4">
                         <li class="flex items-center gap-4">
                             <span class="ct-icon-wrap">
@@ -138,7 +138,7 @@
                                 </svg>
                             </span>
                             <div>
-                                <div class="text-[11px] font-mono uppercase tracking-widest text-white/40">{{ __('Email') }}</div>
+                                <div class="text-[11px] font-mono uppercase tracking-widest text-white/40">@lang('Email')</div>
                                 <a href="mailto:{{ config('mail.from.address') }}" class="text-sm text-white hover:text-white/70 transition">{{ config('mail.from.address') }}</a>
                             </div>
                         </li>
@@ -147,7 +147,7 @@
 
 
                 <div class="glass-cream rounded-3xl p-7 lift">
-                    <div class="text-[11px] font-mono uppercase tracking-widest text-ink-400 mb-3">{{ __('Enterprise') }}</div>
+                    <div class="text-[11px] font-mono uppercase tracking-widest text-ink-400 mb-3">@lang('Enterprise')</div>
                     <h3 class="font-display text-2xl leading-snug text-ink-900">{{ __($entHeading) }}</h3>
                     <p class="text-ink-500 text-sm mt-2 leading-relaxed">{{ __($entBody) }}</p>
                     <a href="{{ route('contact') }}" class="mt-5 inline-flex items-center gap-2 rounded-full bg-ink-900 text-white text-sm font-medium px-5 py-2.5 hover:bg-ink-800 transition">

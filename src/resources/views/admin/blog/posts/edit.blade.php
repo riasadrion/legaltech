@@ -11,14 +11,14 @@
                 <x-heroicon-o-arrow-left class="h-4 w-4" />
             </a>
             <div class="flex-1">
-                <h1 class="text-xl font-bold text-gray-900">{{ __('Edit Post') }}</h1>
+                <h1 class="text-xl font-bold text-gray-900">@lang('Edit Post')</h1>
                 <p class="text-sm text-gray-400 font-mono">{{ $post->slug }}</p>
             </div>
             @if($post->isLive())
             <a href="{{ route('blog.show', $post->slug) }}" target="_blank"
                class="btn-secondary">
                 <x-heroicon-o-eye class="h-4 w-4" />
-                {{ __('View live') }}
+                @lang('View live')
             </a>
             @endif
         </div>
@@ -29,12 +29,12 @@
             <button type="submit"
                     class="inline-flex items-center gap-2 rounded-lg bg-brand-600 px-5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-brand-700">
                 <x-heroicon-o-check class="h-4 w-4" />
-                {{ __('Save changes') }}
+                @lang('Save changes')
             </button>
             <a href="{{ route('admin.blog.posts.index') }}"
                class="btn-secondary">
                 <x-heroicon-o-x-mark class="h-4 w-4" />
-                {{ __('Cancel') }}
+                @lang('Cancel')
             </a>
         </div>
     </form>

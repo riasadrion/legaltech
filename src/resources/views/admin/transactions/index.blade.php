@@ -9,8 +9,8 @@
 
 
     <div>
-        <h1 class="text-xl font-bold text-gray-900">{{ __('Transaction Logs') }}</h1>
-        <p class="mt-0.5 text-sm text-gray-500">{{ __('Full ledger of all wallet credits, debits and adjustments.') }}</p>
+        <h1 class="text-xl font-bold text-gray-900">@lang('Transaction Logs')</h1>
+        <p class="mt-0.5 text-sm text-gray-500">@lang('Full ledger of all wallet credits, debits and adjustments.')</p>
     </div>
 
 
@@ -20,7 +20,7 @@
                 <x-heroicon-o-arrow-down-circle class="w-5 h-5"/>
             </div>
             <div>
-                <div class="text-xs text-gray-500">{{ __('Total Credits') }}</div>
+                <div class="text-xs text-gray-500">@lang('Total Credits')</div>
                 <div class="text-lg font-bold text-gray-900">${{ number_format($summary['total_credit'], 2) }}</div>
             </div>
         </div>
@@ -29,7 +29,7 @@
                 <x-heroicon-o-arrow-up-circle class="w-5 h-5"/>
             </div>
             <div>
-                <div class="text-xs text-gray-500">{{ __('Total Debits') }}</div>
+                <div class="text-xs text-gray-500">@lang('Total Debits')</div>
                 <div class="text-lg font-bold text-gray-900">${{ number_format($summary['total_debit'], 2) }}</div>
             </div>
         </div>
@@ -38,7 +38,7 @@
                 <x-heroicon-o-list-bullet class="w-5 h-5"/>
             </div>
             <div>
-                <div class="text-xs text-gray-500">{{ __('Total Entries') }}</div>
+                <div class="text-xs text-gray-500">@lang('Total Entries')</div>
                 <div class="text-lg font-bold text-gray-900">{{ number_format($summary['count']) }}</div>
             </div>
         </div>
@@ -46,19 +46,19 @@
 
 
     <form method="GET" class="flex flex-wrap items-center gap-2">
-        <input type="text" name="q" value="{{ request('q') }}" placeholder="{{ __('User name or email…') }}"
+        <input type="text" name="q" value="{{ request('q') }}" placeholder="@lang('User name or email…')"
                class="h-9 w-56 rounded-lg border border-gray-300 px-3 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"/>
 
         <select name="type" data-auto-submit
                 class="h-9 rounded-lg border border-gray-300 px-3 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500">
-            <option value="">{{ __('All types') }}</option>
-            <option value="credit"       {{ request('type') === 'credit'       ? 'selected' : '' }}>{{ __('Credit') }}</option>
-            <option value="debit"        {{ request('type') === 'debit'        ? 'selected' : '' }}>{{ __('Debit') }}</option>
-            <option value="adjustment"   {{ request('type') === 'adjustment'   ? 'selected' : '' }}>{{ __('Adjustment') }}</option>
-            <option value="fee"          {{ request('type') === 'fee'          ? 'selected' : '' }}>{{ __('Fee') }}</option>
-            <option value="refund"       {{ request('type') === 'refund'       ? 'selected' : '' }}>{{ __('Refund') }}</option>
-            <option value="transfer_in"  {{ request('type') === 'transfer_in'  ? 'selected' : '' }}>{{ __('Transfer In') }}</option>
-            <option value="transfer_out" {{ request('type') === 'transfer_out' ? 'selected' : '' }}>{{ __('Transfer Out') }}</option>
+            <option value="">@lang('All types')</option>
+            <option value="credit"       {{ request('type') === 'credit'       ? 'selected' : '' }}>@lang('Credit')</option>
+            <option value="debit"        {{ request('type') === 'debit'        ? 'selected' : '' }}>@lang('Debit')</option>
+            <option value="adjustment"   {{ request('type') === 'adjustment'   ? 'selected' : '' }}>@lang('Adjustment')</option>
+            <option value="fee"          {{ request('type') === 'fee'          ? 'selected' : '' }}>@lang('Fee')</option>
+            <option value="refund"       {{ request('type') === 'refund'       ? 'selected' : '' }}>@lang('Refund')</option>
+            <option value="transfer_in"  {{ request('type') === 'transfer_in'  ? 'selected' : '' }}>@lang('Transfer In')</option>
+            <option value="transfer_out" {{ request('type') === 'transfer_out' ? 'selected' : '' }}>@lang('Transfer Out')</option>
         </select>
 
         <div class="relative">
@@ -79,13 +79,13 @@
 
         <button type="submit"
                 class="inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700">
-            {{ __('Filter') }}
+            @lang('Filter')
         </button>
 
         @if(request()->hasAny(['q','type','from','to','daterange']))
         <a href="{{ route('admin.transactions.index') }}"
            class="inline-flex items-center rounded-lg border border-gray-300 px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-50">
-            {{ __('Clear') }}
+            @lang('Clear')
         </a>
         @endif
     </form>
@@ -95,13 +95,13 @@
         <table class="min-w-full divide-y divide-gray-200 text-sm responsive-table">
             <thead class="bg-gray-50">
                 <tr>
-                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">{{ __('ID') }}</th>
-                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">{{ __('User') }}</th>
-                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">{{ __('Type') }}</th>
-                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">{{ __('Amount') }}</th>
-                    <th class="hide-mobile px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">{{ __('Balance After') }}</th>
-                    <th class="hide-mobile px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">{{ __('Description') }}</th>
-                    <th class="hide-mobile px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">{{ __('Date') }}</th>
+                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">@lang('ID')</th>
+                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">@lang('User')</th>
+                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">@lang('Type')</th>
+                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">@lang('Amount')</th>
+                    <th class="hide-mobile px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">@lang('Balance After')</th>
+                    <th class="hide-mobile px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">@lang('Description')</th>
+                    <th class="hide-mobile px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">@lang('Date')</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-100">
@@ -119,8 +119,8 @@
                     $tc = $typeColors[$tx->type] ?? 'bg-gray-100 text-gray-600';
                 @endphp
                 <tr class="hover:bg-gray-50">
-                    <td class="px-4 py-3 font-mono text-xs text-gray-400" data-label="{{ __('ID') }}">#{{ $tx->id }}</td>
-                    <td class="px-4 py-3" data-label="{{ __('User') }}">
+                    <td class="px-4 py-3 font-mono text-xs text-gray-400" data-label="@lang('ID')">#{{ $tx->id }}</td>
+                    <td class="px-4 py-3" data-label="@lang('User')">
                         @if($tx->user)
                         <a href="{{ route('admin.users.show', $tx->user) }}" class="hover:text-brand-600">
                             <div class="font-medium text-gray-900">{{ $tx->user->name ?: '—' }}</div>
@@ -130,27 +130,27 @@
                         <span class="text-gray-400">—</span>
                         @endif
                     </td>
-                    <td class="px-4 py-3" data-label="{{ __('Type') }}">
+                    <td class="px-4 py-3" data-label="@lang('Type')">
                         <span class="inline-flex rounded-full px-2.5 py-0.5 text-xs font-semibold {{ $tc }}">
                             {{ ucfirst(str_replace('_', ' ', $tx->type)) }}
                         </span>
                     </td>
-                    <td class="px-4 py-3 font-semibold {{ $tx->isCredit() ? 'text-emerald-600' : 'text-red-600' }}" data-label="{{ __('Amount') }}">
+                    <td class="px-4 py-3 font-semibold {{ $tx->isCredit() ? 'text-emerald-600' : 'text-red-600' }}" data-label="@lang('Amount')">
                         {{ $tx->formattedAmount() }}
                     </td>
-                    <td class="hide-mobile px-4 py-3 text-xs text-gray-600 font-mono" data-label="{{ __('Balance After') }}">
+                    <td class="hide-mobile px-4 py-3 text-xs text-gray-600 font-mono" data-label="@lang('Balance After')">
                         ${{ number_format($tx->balance_after, 2) }}
                     </td>
-                    <td class="hide-mobile px-4 py-3 text-xs text-gray-500 max-w-xs truncate" data-label="{{ __('Description') }}" title="{{ $tx->description }}">
+                    <td class="hide-mobile px-4 py-3 text-xs text-gray-500 max-w-xs truncate" data-label="@lang('Description')" title="{{ $tx->description }}">
                         {{ $tx->description ?: '—' }}
                     </td>
-                    <td class="hide-mobile px-4 py-3 text-xs text-gray-400 whitespace-nowrap" data-label="{{ __('Date') }}">
+                    <td class="hide-mobile px-4 py-3 text-xs text-gray-400 whitespace-nowrap" data-label="@lang('Date')">
                         {{ formatDate($tx->created_at) }}
                     </td>
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="7" class="px-4 py-14 text-center text-sm text-gray-400">{{ __('No transactions found.') }}</td>
+                    <td colspan="7" class="px-4 py-14 text-center text-sm text-gray-400">@lang('No transactions found.')</td>
                 </tr>
                 @endforelse
             </tbody>

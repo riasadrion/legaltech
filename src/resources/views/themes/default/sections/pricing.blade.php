@@ -70,9 +70,9 @@ $(function () {
     var $cards  = $('.pricing-card-wrap');
 
     var cycleLabels = {
-        per_contract: '{{ __("Per contract") }}',
-        monthly:      '{{ __("Per month") }}',
-        yearly:       '{{ __("Per year") }}',
+        per_contract: '@lang("Per contract")',
+        monthly:      '@lang("Per month")',
+        yearly:       '@lang("Per year")',
     };
 
     function applyCycle(cycle) {

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ __('Already Signed') }}</title>
+    <title>@lang('Already Signed')</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
@@ -23,7 +23,7 @@
     </div>
 
     <div>
-        <h1 class="font-display text-3xl text-white">{{ __('Already signed') }}</h1>
+        <h1 class="font-display text-3xl text-white">@lang('Already signed')</h1>
         <p class="text-white/50 text-sm mt-2">
             {{ __('You signed this contract on :date.', ['date' => $party->signed_at->format('d M Y, H:i')]) }} UTC
         </p>
@@ -31,21 +31,21 @@
 
     <div class="rounded-2xl glass border border-white/10 p-5 text-left space-y-2 text-[12px]">
         <div class="flex justify-between items-center">
-            <span class="text-white/40">{{ __('Contract') }}</span>
+            <span class="text-white/40">@lang('Contract')</span>
             <span class="text-white font-medium">{{ $party->contract->title ?? '—' }}</span>
         </div>
         <div class="flex justify-between items-center">
-            <span class="text-white/40">{{ __('Signed by') }}</span>
+            <span class="text-white/40">@lang('Signed by')</span>
             <span class="text-white">{{ $party->name }}</span>
         </div>
         <div class="flex justify-between items-center">
-            <span class="text-white/40">{{ __('Date') }}</span>
+            <span class="text-white/40">@lang('Date')</span>
             <span class="text-white">{{ $party->signed_at->format('d M Y, H:i') }} UTC</span>
         </div>
     </div>
 
     <p class="text-[11px] text-white/20">
-        {{ config('app.name') }} &mdash; {{ __('Secure electronic contract signing') }}
+        {{ config('app.name') }} &mdash; @lang('Secure electronic contract signing')
     </p>
 
 </div>

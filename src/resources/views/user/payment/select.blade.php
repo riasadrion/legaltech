@@ -6,16 +6,16 @@
 <div class="space-y-6">
 
     <div>
-        <h1 class="ud-page-title">{{ __('Add Funds') }}</h1>
-        <p class="ud-page-sub">{{ __('Choose a payment method to continue.') }}</p>
+        <h1 class="ud-page-title">@lang('Add Funds')</h1>
+        <p class="ud-page-sub">@lang('Choose a payment method to continue.')</p>
     </div>
 
     @if($gateways->isEmpty())
     <div class="rounded-2xl glass p-12 text-center text-white/40">
         <x-heroicon-o-credit-card class="h-10 w-10 mx-auto mb-3 opacity-30" />
-        <div class="text-sm">{{ __('No payment methods are currently available.') }}</div>
+        <div class="text-sm">@lang('No payment methods are currently available.')</div>
         <a href="{{ route('user.payment.index') }}" class="btn-ghost rounded-lg px-4 py-2 text-[13px] inline-flex items-center gap-1.5 mt-4">
-            {{ __('Back') }}
+            @lang('Back')
         </a>
     </div>
     @else
@@ -36,9 +36,9 @@
             <div>
                 <div class="text-[13px] font-medium text-white leading-tight">{{ $gateway->name }}</div>
                 <div class="text-[11px] text-white/40 mt-0.5">
-                    {{ __('Min') }} {{ $gateway->formatAmount($gateway->min_amount) }}
+                    @lang('Min') {{ $gateway->formatAmount($gateway->min_amount) }}
                     @if($gateway->fee_flat == 0 && $gateway->fee_percent == 0)
-                        · <span class="text-lime/70">{{ __('No fee') }}</span>
+                        · <span class="text-lime/70">@lang('No fee')</span>
                     @endif
                 </div>
             </div>

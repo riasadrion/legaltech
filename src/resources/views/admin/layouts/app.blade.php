@@ -146,7 +146,7 @@
             <div class="relative flex-1 max-w-md" id="search-container">
                 <div class="header-search">
                     <x-heroicon-o-magnifying-glass class="h-4 w-4 text-gray-400 flex-shrink-0" />
-                    <input type="text" id="menu-search" placeholder="{{ __('Search pages...') }}">
+                    <input type="text" id="menu-search" placeholder="@lang('Search pages...')">
                 </div>
                 <div id="search-results" class="hidden absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-64 overflow-y-auto"></div>
             </div>
@@ -237,18 +237,18 @@
                         </div>
                         <a href="{{ route('admin.profile') }}" class="dd-item">
                             <x-heroicon-o-user class="h-4 w-4 text-gray-400" />
-                            {{ __('Profile') }}
+                            @lang('Profile')
                         </a>
                         <a href="{{ route('admin.settings.index') }}" class="dd-item">
                             <x-heroicon-o-cog-6-tooth class="h-4 w-4 text-gray-400" />
-                            {{ __('Settings') }}
+                            @lang('Settings')
                         </a>
                         <div class="dd-sep"></div>
                         <form method="POST" action="{{ route('admin.logout') }}" id="admin-logout-form">
                             @csrf
                             <button type="submit" class="dd-item danger w-full text-left">
                                 <x-heroicon-o-arrow-left-on-rectangle class="h-4 w-4" />
-                                {{ __('Sign out') }}
+                                @lang('Sign out')
                             </button>
                         </form>
                     </div>

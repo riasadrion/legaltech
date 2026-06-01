@@ -81,7 +81,7 @@
                     <div class="w-full max-w-xs md:max-w-sm hidden sm:block shrink-0">
                         <div class="flex items-center gap-2 rounded-xl bg-white/4 border border-white/10 px-3 py-2">
                             <x-heroicon-o-magnifying-glass class="h-4 w-4 text-white/40 shrink-0" />
-                            <span class="flex-1 text-[13px] text-white/35 select-none">{{ __('Search…') }}</span>
+                            <span class="flex-1 text-[13px] text-white/35 select-none">@lang('Search…')</span>
                             <kbd class="hidden md:inline text-[10px] font-mono text-white/35 border border-white/10 rounded px-1.5 py-0.5">⌘K</kbd>
                         </div>
                     </div>
@@ -98,7 +98,7 @@
 
                         <a href="{{ route('user.contracts.create') }}" class="hidden sm:flex btn-lime rounded-lg px-3 py-2 text-sm items-center gap-1.5">
                             <x-heroicon-o-sparkles class="h-4 w-4" />
-                            {{ __('New contract') }}
+                            @lang('New contract')
                         </a>
 
 
@@ -106,7 +106,7 @@
                             <button type="button"
                                     class="w-9 h-9 grid place-items-center rounded-lg bg-white/4 border border-white/10 text-white/70 relative hover:bg-white/8 transition"
                                     data-notification-trigger
-                                    aria-label="{{ __('Notifications') }}">
+                                    aria-label="@lang('Notifications')">
                                 <x-heroicon-o-bell class="h-5 w-5" />
                                 @if($unreadCount > 0)
                                 <span class="absolute -top-1 -right-1 w-4 h-4 grid place-items-center text-[9px] font-bold rounded-full bg-lime text-ink-900">{{ $unreadCount > 9 ? '9+' : $unreadCount }}</span>
@@ -126,7 +126,7 @@
                                 @if($notifications->isEmpty())
                                     <div class="p-6 text-center">
                                         <x-heroicon-o-bell-slash class="h-8 w-8 text-white/30 mx-auto mb-2" />
-                                        <p class="text-[13px] text-white/50">{{ __('No notifications') }}</p>
+                                        <p class="text-[13px] text-white/50">@lang('No notifications')</p>
                                     </div>
                                 @else
                                     <div class="divide-y divide-white/8">
@@ -148,7 +148,7 @@
                                     </div>
                                     <div class="border-t border-white/8 p-3">
                                         <a href="{{ route('user.notifications.index') }}" class="block text-center text-[12px] text-lime hover:text-lime-soft transition">
-                                            {{ __('View all notifications') }}
+                                            @lang('View all notifications')
                                         </a>
                                     </div>
                                 @endif
@@ -181,13 +181,13 @@
                                 </div>
                                 <div class="ud-user-dropdown-body">
                                     <a href="{{ route('user.profile') }}" class="ud-user-dropdown-item">
-                                        <x-heroicon-o-user class="h-4 w-4" />{{ __('Profile') }}
+                                        <x-heroicon-o-user class="h-4 w-4" />@lang('Profile')
                                     </a>
                                     <a href="{{ route('user.2fa.index') }}" class="ud-user-dropdown-item">
-                                        <x-heroicon-o-shield-check class="h-4 w-4" />{{ __('Security') }}
+                                        <x-heroicon-o-shield-check class="h-4 w-4" />@lang('Security')
                                     </a>
                                     <a href="{{ route('user.notifications.index') }}" class="ud-user-dropdown-item">
-                                        <x-heroicon-o-bell class="h-4 w-4" />{{ __('Notifications') }}
+                                        <x-heroicon-o-bell class="h-4 w-4" />@lang('Notifications')
                                         @if($unreadCount > 0)
                                         <span class="ml-auto pill pill-sign">{{ $unreadCount }}</span>
                                         @endif
@@ -197,7 +197,7 @@
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf
                                         <button type="submit" class="ud-user-dropdown-item text-red-400 hover:text-red-300 w-full">
-                                            <x-heroicon-o-arrow-right-on-rectangle class="h-4 w-4" />{{ __('Sign out') }}
+                                            <x-heroicon-o-arrow-right-on-rectangle class="h-4 w-4" />@lang('Sign out')
                                         </button>
                                     </form>
                                 </div>

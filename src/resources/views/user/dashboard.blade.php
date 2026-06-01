@@ -25,22 +25,22 @@
             <div class="md:col-span-7">
                 <div class="text-[11px] font-mono uppercase tracking-[.25em] text-lime mb-2">— {{ now()->format('l · d M Y') }}</div>
                 <h1 class="font-display text-5xl md:text-6xl leading-[0.95] text-white">
-                    {{ __('Welcome back,') }} <span class="italic-display">{{ $user->name ?? __('there') }}.</span>
+                    @lang('Welcome back,') <span class="italic-display">{{ $user->name ?? __('there') }}.</span>
                 </h1>
                 <p class="text-white/65 mt-3 max-w-md">
                     @if($isActive)
-                        {{ __('You\'re on the') }} <span class="text-white">{{ $subscription->plan->name }}</span> {{ __('plan.') }}
+                        {{ __('You\'re on the') }} <span class="text-white">{{ $subscription->plan->name }}</span> @lang('plan.')
                         @if($subscription->plan->ai_contract_generation)
                             @if($subscription->plan->ai_drafts > 0)
-                                {{ number_format($subscription->ai_drafts_remaining) }} {{ __('AI drafts remaining.') }}
+                                {{ number_format($subscription->ai_drafts_remaining) }} @lang('AI drafts remaining.')
                             @else
-                                {{ __('Unlimited AI drafts.') }}
+                                @lang('Unlimited AI drafts.')
                             @endif
                         @endif
                     @elseif($pendingPayments > 0)
-                        {{ __('You\'ve got') }} <span class="text-white">{{ $pendingPayments }} {{ __('payments awaiting approval') }}</span>.
+                        {{ __('You\'ve got') }} <span class="text-white">{{ $pendingPayments }} @lang('payments awaiting approval')</span>.
                     @else
-                        {{ __('Manage your account, billing, and subscription from here.') }}
+                        @lang('Manage your account, billing, and subscription from here.')
                     @endif
                 </p>
 
@@ -52,15 +52,15 @@
                                placeholder="{{ __('Generate a contract — e.g. \'NDA with Helix/Law, mutual, UK law\'') }}"
                                class="flex-1 bg-transparent outline-none text-[14px] placeholder:text-white/35 py-2 min-w-0 text-white">
                         <button type="submit" class="btn-lime rounded-xl px-4 py-2 text-[13px] flex items-center gap-1.5 shrink-0">
-                            {{ __('Continue') }}
+                            @lang('Continue')
                         </button>
                     </div>
                     <p class="text-[11px] text-white/35 mt-2">
                         @if($user->canGenerateAiContract())
-                            {{ __('Add parties and generate on the next step.') }}
+                            @lang('Add parties and generate on the next step.')
                         @else
                             <x-heroicon-o-lock-closed class="inline h-3 w-3 -mt-0.5" />
-                            {{ __('Available on') }} <a href="{{ route('user.subscription.plans') }}" class="text-lime hover:underline">{{ __('Pro plans') }}</a>.
+                            @lang('Available on') <a href="{{ route('user.subscription.plans') }}" class="text-lime hover:underline">@lang('Pro plans')</a>.
                         @endif
                     </p>
                 </form>
@@ -85,7 +85,7 @@
                             $signers = $recentContract->signers;
                         @endphp
                         <div class="flex items-center justify-between">
-                            <div class="text-[11px] font-mono text-white/45">{{ __('MOST RECENT') }}</div>
+                            <div class="text-[11px] font-mono text-white/45">@lang('MOST RECENT')</div>
                             <span class="pill {{ $pill }}">{{ __(ucfirst($recentContract->status)) }}</span>
                         </div>
                         <h3 class="font-display text-xl mt-1 text-white truncate">{{ $recentContract->title }}</h3>
@@ -101,12 +101,12 @@
                                         <path d="M5 35 C 20 5, 35 50, 55 25 S 95 5, 115 30 S 160 50, 195 15"
                                               fill="none" stroke="#D4FF3A" stroke-width="2" stroke-linecap="round" />
                                     </svg>
-                                    <div class="text-[10px] text-white/50 mt-1">{{ __('signed') }}</div>
+                                    <div class="text-[10px] text-white/50 mt-1">@lang('signed')</div>
                                 @else
                                     <div class="h-9 border-b border-dashed border-white/20 flex items-end">
-                                        <span class="text-[10px] font-mono text-white/35 pb-1">{{ __('awaiting…') }}</span>
+                                        <span class="text-[10px] font-mono text-white/35 pb-1">@lang('awaiting…')</span>
                                     </div>
-                                    <div class="text-[10px] text-white/50 mt-1">{{ __('pending') }}</div>
+                                    <div class="text-[10px] text-white/50 mt-1">@lang('pending')</div>
                                 @endif
                             </div>
                             @endforeach
@@ -117,15 +117,15 @@
                             <a href="{{ route('user.contracts.show', $recentContract) }}"
                                class="btn-ghost rounded-lg px-3 py-2 text-[12px] flex items-center gap-1.5">
                                 <x-heroicon-o-arrow-top-right-on-square class="h-4 w-4" />
-                                {{ __('Open') }}
+                                @lang('Open')
                             </a>
                         </div>
                     @else
                         <div class="text-center py-8">
-                            <div class="text-[11px] font-mono text-white/45 mb-3">{{ __('NO CONTRACTS YET') }}</div>
+                            <div class="text-[11px] font-mono text-white/45 mb-3">@lang('NO CONTRACTS YET')</div>
                             <a href="{{ route('user.contracts.index') }}"
                                class="btn-lime rounded-xl px-4 py-2 text-[13px] inline-flex items-center gap-1.5">
-                                {{ __('Create contract') }}
+                                @lang('Create contract')
                             </a>
                         </div>
                     @endif
@@ -142,7 +142,7 @@
             <x-heroicon-o-information-circle class="ud-nudge-icon h-4 w-4 shrink-0" />
             <span class="flex-1 min-w-0 truncate ud-nudge-title">{{ $nudge['title'] }}</span>
             <a href="{{ $nudge['action'] }}" class="ud-nudge-action shrink-0">{{ $nudge['label'] }} →</a>
-            <button type="button" class="ud-nudge-dismiss" data-dismiss-nudge="{{ $nudge['key'] }}" aria-label="{{ __('Dismiss') }}">
+            <button type="button" class="ud-nudge-dismiss" data-dismiss-nudge="{{ $nudge['key'] }}" aria-label="@lang('Dismiss')">
                 <x-heroicon-o-x-mark class="h-4 w-4" />
             </button>
         </div>
@@ -160,12 +160,12 @@
 
         <div class="rounded-2xl glass p-5 relative overflow-hidden">
             <div class="flex items-center justify-between">
-                <span class="text-[11px] font-mono uppercase tracking-widest text-white/45">{{ __('Wallet') }}</span>
+                <span class="text-[11px] font-mono uppercase tracking-widest text-white/45">@lang('Wallet')</span>
                 <x-heroicon-o-banknotes class="h-4 w-4 text-white/45" />
             </div>
             <div class="font-display text-3xl md:text-5xl mt-2 text-white">{{ $currency }}{{ number_format($balance, 2) }}</div>
             <div class="mt-2 flex items-center gap-1.5 text-[11px]">
-                <a href="{{ route('user.payment.index') }}" class="text-lime hover:underline">{{ __('View history') }} →</a>
+                <a href="{{ route('user.payment.index') }}" class="text-lime hover:underline">@lang('View history') →</a>
             </div>
             <svg viewBox="0 0 120 30" class="absolute right-2 bottom-2 w-20 h-7">
                 <path class="spark" d="M0 22 Q 20 8 40 16 T 80 6 T 120 12"/>
@@ -175,19 +175,19 @@
 
         <div class="rounded-2xl glass p-5 relative overflow-hidden">
             <div class="flex items-center justify-between">
-                <span class="text-[11px] font-mono uppercase tracking-widest text-white/45">{{ __('Plan') }}</span>
+                <span class="text-[11px] font-mono uppercase tracking-widest text-white/45">@lang('Plan')</span>
                 <x-heroicon-o-square-3-stack-3d class="h-4 w-4 text-white/45" />
             </div>
             @if($isActive)
                 <div class="font-display text-2xl md:text-3xl mt-2 text-white">{{ $subscription->plan->name }}</div>
                 <div class="mt-2 flex items-center gap-1.5 text-[11px]">
                     <span class="pulse-dot inline-block w-1.5 h-1.5 rounded-full bg-lime"></span>
-                    <span class="text-white/55">{{ __('Active') }}</span>
+                    <span class="text-white/55">@lang('Active')</span>
                 </div>
             @else
                 <div class="font-display text-3xl md:text-5xl mt-2 text-white/30">—</div>
                 <div class="mt-2 text-[11px]">
-                    <a href="{{ route('user.subscription.plans') }}" class="text-lime hover:underline">{{ __('Browse plans') }} →</a>
+                    <a href="{{ route('user.subscription.plans') }}" class="text-lime hover:underline">@lang('Browse plans') →</a>
                 </div>
             @endif
         </div>
@@ -195,7 +195,7 @@
 
         <div class="rounded-2xl glass p-5 relative overflow-hidden">
             <div class="flex items-center justify-between">
-                <span class="text-[11px] font-mono uppercase tracking-widest text-white/45">{{ __('Credits') }}</span>
+                <span class="text-[11px] font-mono uppercase tracking-widest text-white/45">@lang('Credits')</span>
                 <x-heroicon-o-sparkles class="h-4 w-4 text-white/45" />
             </div>
             @if($isActive && $subscription->plan->credits > 0)
@@ -210,19 +210,19 @@
                 @if($subscription->plan->ai_contract_generation)
                 <div class="mt-3 flex items-center gap-1.5 text-[11px] text-white/40">
                     <x-heroicon-o-sparkles class="h-3.5 w-3.5 text-lime/60" />
-                    <span>{{ $subscription->ai_drafts_remaining }} / {{ $subscription->plan->ai_drafts }} {{ __('AI drafts') }}</span>
+                    <span>{{ $subscription->ai_drafts_remaining }} / {{ $subscription->plan->ai_drafts }} @lang('AI drafts')</span>
                 </div>
                 @endif
             @else
                 <div class="font-display text-3xl md:text-5xl mt-2 text-white/25">—</div>
-                <div class="mt-2 text-[11px] text-white/40">{{ __('No active plan') }}</div>
+                <div class="mt-2 text-[11px] text-white/40">@lang('No active plan')</div>
             @endif
         </div>
 
 
         <div class="rounded-2xl glass p-5 relative overflow-hidden">
             <div class="flex items-center justify-between">
-                <span class="text-[11px] font-mono uppercase tracking-widest text-white/45">{{ __('Renews') }}</span>
+                <span class="text-[11px] font-mono uppercase tracking-widest text-white/45">@lang('Renews')</span>
                 <x-heroicon-o-calendar-days class="h-4 w-4 text-white/45" />
             </div>
             @if($isActive)
@@ -232,7 +232,7 @@
                 </div>
             @else
                 <div class="font-display text-3xl md:text-5xl mt-2 text-white/25">—</div>
-                <div class="mt-2 text-[11px] text-white/40">{{ __('No plan') }}</div>
+                <div class="mt-2 text-[11px] text-white/40">@lang('No plan')</div>
             @endif
         </div>
 
@@ -246,26 +246,26 @@
     <section class="rounded-2xl glass overflow-hidden">
         <div class="px-5 pt-5 flex flex-wrap items-end justify-between gap-3 border-b border-white/8 pb-3">
             <div>
-                <h2 class="font-display text-2xl text-white">{{ __('Recent Payments') }}</h2>
-                <div class="text-[12px] text-white/50 mt-0.5">{{ $payments->count() }} {{ __('transactions') }}</div>
+                <h2 class="font-display text-2xl text-white">@lang('Recent Payments')</h2>
+                <div class="text-[12px] text-white/50 mt-0.5">{{ $payments->count() }} @lang('transactions')</div>
             </div>
-            <a href="{{ route('user.payment.index') }}" class="text-[13px] text-lime hover:underline">{{ __('View all') }} →</a>
+            <a href="{{ route('user.payment.index') }}" class="text-[13px] text-lime hover:underline">@lang('View all') →</a>
         </div>
 
         @if($payments->isEmpty())
             <div class="px-5 py-10 text-center text-white/45 text-sm">
-                {{ __('No payments yet — add funds to get started.') }}
+                @lang('No payments yet — add funds to get started.')
             </div>
         @else
         <div class="overflow-x-auto">
             <table class="w-full text-[13px]">
                 <thead class="text-[10px] font-mono uppercase tracking-widest text-white/40">
                     <tr class="border-b border-white/6">
-                        <th class="text-left font-medium px-5 py-3">{{ __('Payment') }}</th>
-                        <th class="text-left font-medium py-3 hidden sm:table-cell">{{ __('Gateway') }}</th>
-                        <th class="text-left font-medium py-3">{{ __('Amount') }}</th>
-                        <th class="text-left font-medium py-3 hidden sm:table-cell">{{ __('Status') }}</th>
-                        <th class="text-right font-medium py-3 pr-5 hidden md:table-cell">{{ __('Date') }}</th>
+                        <th class="text-left font-medium px-5 py-3">@lang('Payment')</th>
+                        <th class="text-left font-medium py-3 hidden sm:table-cell">@lang('Gateway')</th>
+                        <th class="text-left font-medium py-3">@lang('Amount')</th>
+                        <th class="text-left font-medium py-3 hidden sm:table-cell">@lang('Status')</th>
+                        <th class="text-right font-medium py-3 pr-5 hidden md:table-cell">@lang('Date')</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-white/5">
@@ -295,8 +295,8 @@
             </table>
         </div>
         <div class="px-5 py-3 border-t border-white/8 flex items-center justify-between text-[12px] text-white/50">
-            <span>{{ __('Showing') }} <span class="text-white">{{ $payments->count() }}</span> {{ __('payments') }}</span>
-            <a href="{{ route('user.payment.index') }}" class="text-lime hover:underline">{{ __('See all') }} →</a>
+            <span>@lang('Showing') <span class="text-white">{{ $payments->count() }}</span> @lang('payments')</span>
+            <a href="{{ route('user.payment.index') }}" class="text-lime hover:underline">@lang('See all') →</a>
         </div>
         @endif
     </section>

@@ -5,8 +5,8 @@
 @section('content')
 <div class="space-y-5">
     <div>
-        <h1 class="text-xl font-bold text-gray-900">{{ __('KYC Submissions') }}</h1>
-        <p class="mt-0.5 text-sm text-gray-500">{{ __('Review identity verification submissions.') }}</p>
+        <h1 class="text-xl font-bold text-gray-900">@lang('KYC Submissions')</h1>
+        <p class="mt-0.5 text-sm text-gray-500">@lang('Review identity verification submissions.')</p>
     </div>
 
     <x-status-pills :items="$statusPills" :current="$status" />
@@ -15,10 +15,10 @@
         <table class="min-w-full divide-y divide-gray-200 text-sm responsive-table">
             <thead class="bg-gray-50">
                 <tr>
-                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">{{ __('User') }}</th>
-                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">{{ __('Date') }}</th>
-                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">{{ __('ID Type') }}</th>
-                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">{{ __('Status') }}</th>
+                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">@lang('User')</th>
+                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">@lang('Date')</th>
+                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">@lang('ID Type')</th>
+                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">@lang('Status')</th>
                     <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500"></th>
                 </tr>
             </thead>
@@ -26,24 +26,24 @@
                 @forelse($submissions as $sub)
                 @php $sc = match($sub->status) { 'approved' => 'bg-green-100 text-green-700', 'rejected' => 'bg-red-100 text-red-700', default => 'bg-amber-100 text-amber-700' }; @endphp
                 <tr class="hover:bg-gray-50">
-                    <td class="px-4 py-3" data-label="{{ __('User') }}">
+                    <td class="px-4 py-3" data-label="@lang('User')">
                         <div class="font-medium text-gray-900">{{ $sub->user->name }}</div>
                         <div class="text-xs text-gray-400">{{ $sub->user->email }}</div>
                     </td>
-                    <td class="px-4 py-3 text-xs text-gray-500 whitespace-nowrap" data-label="{{ __('Date') }}">{{ formatDate($sub->created_at) }}</td>
-                    <td class="px-4 py-3 text-gray-700" data-label="{{ __('ID Type') }}">{{ $sub->data['id_type'] ? ucfirst(str_replace('_', ' ', __($sub->data['id_type']))) : '—' }}</td>
-                    <td class="px-4 py-3" data-label="{{ __('Status') }}">
+                    <td class="px-4 py-3 text-xs text-gray-500 whitespace-nowrap" data-label="@lang('Date')">{{ formatDate($sub->created_at) }}</td>
+                    <td class="px-4 py-3 text-gray-700" data-label="@lang('ID Type')">{{ $sub->data['id_type'] ? ucfirst(str_replace('_', ' ', __($sub->data['id_type']))) : '—' }}</td>
+                    <td class="px-4 py-3" data-label="@lang('Status')">
                         <span class="inline-flex rounded-full px-2.5 py-0.5 text-xs font-semibold {{ $sc }}">{{ ucfirst(__($sub->status)) }}</span>
                     </td>
                     <td class="px-4 py-3 text-right" data-label="">
                         <a href="{{ route('admin.kyc.show', $sub) }}"
                            class="inline-flex items-center gap-1 rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-600 shadow-sm hover:bg-gray-50">
-                            {{ __('Review') }}
+                            @lang('Review')
                         </a>
                     </td>
                 </tr>
                 @empty
-                <tr><td colspan="5" class="px-4 py-14 text-center text-sm text-gray-400">{{ __('No KYC submissions found.') }}</td></tr>
+                <tr><td colspan="5" class="px-4 py-14 text-center text-sm text-gray-400">@lang('No KYC submissions found.')</td></tr>
                 @endforelse
             </tbody>
         </table>
