@@ -18,7 +18,6 @@ use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\Notifications\EmailHealthController;
 use App\Http\Controllers\Admin\Notifications\NotificationLogController;
 use App\Http\Controllers\Admin\Notifications\TemplateController;
-use App\Http\Controllers\Admin\Ops\BugReportController;
 use App\Http\Controllers\Admin\Ops\ReportController;
 use App\Http\Controllers\Admin\Ops\SchedulerController;
 use App\Http\Controllers\Admin\Ops\SystemController;
@@ -245,11 +244,8 @@ Route::prefix('admin')
         Route::get('ops/scheduler', [SchedulerController::class, 'index'])->name('ops.scheduler.index')->middleware('permission:system.view');
         Route::post('ops/scheduler/run', [SchedulerController::class, 'run'])->name('ops.scheduler.run')->middleware('permission:system.view');
 
-        // Bug reports
-        Route::get('ops/bug-reports', [BugReportController::class, 'index'])->name('ops.bug-reports.index')->middleware('permission:system.view');
-        Route::post('ops/bug-reports', [BugReportController::class, 'store'])->name('ops.bug-reports.store')->middleware('permission:system.view');
-        Route::patch('ops/bug-reports/{bugReport}', [BugReportController::class, 'update'])->name('ops.bug-reports.update')->middleware('permission:system.view');
-        Route::delete('ops/bug-reports/{bugReport}', [BugReportController::class, 'destroy'])->name('ops.bug-reports.destroy')->middleware('permission:system.view');
+        // Bug reports — static form, submitted via AJAX to the central cystall.com endpoint
+        Route::view('ops/bug-reports', 'admin.ops.bug-reports.index')->name('ops.bug-reports.index')->middleware('permission:system.view');
 
         Route::post('cache/clear', function () {
             try {
