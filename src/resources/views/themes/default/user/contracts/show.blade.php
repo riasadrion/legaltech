@@ -136,7 +136,7 @@
 
                     <div class="px-5 pt-4">
                         <input type="text" name="title" value="{{ $contract->title }}"
-                               class="ud-input font-display text-lg" placeholder="@lang('Contract title…')" required />
+                               class="ud-input font-display text-lg" :placeholder="__('Contract title…')" required />
                     </div>
 
 

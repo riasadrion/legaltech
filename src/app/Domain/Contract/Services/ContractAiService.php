@@ -7,12 +7,25 @@ use App\Domain\Contract\Models\Contract;
 class ContractAiService
 {
     /**
+     * Guard the OpenAI boundary in demo mode so the API is never
+     * called (and no credits/tokens are spent) on the public demo.
+     */
+    private function assertNotDemo(): void
+    {
+        if (config('app.demo')) {
+            throw new \RuntimeException(__('AI contract generation is disabled in demo mode.'));
+        }
+    }
+
+    /**
      * Build a contract template body from an admin description.
      * The AI produces full HTML with {{placeholders}} embedded
      * for every client-fillable value.
      */
     public function buildTemplate(string $description): string
     {
+        $this->assertNotDemo();
+
         $apiKey = setting('ai.openai_key');
 
         if (!$apiKey) {
@@ -63,6 +76,8 @@ class ContractAiService
      */
     public function draftFromUserBrief(string $brief, array $parties = []): array
     {
+        $this->assertNotDemo();
+
         $apiKey = setting('ai.openai_key');
 
         if (!$apiKey) {

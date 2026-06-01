@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Domain\Auth\Actions\HandleSocialLogin;
-use App\Domain\Settings\Facades\Settings;
+use App\Actions\HandleSocialLogin;
+use App\Facades\Settings;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;

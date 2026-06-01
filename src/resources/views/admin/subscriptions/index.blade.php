@@ -22,7 +22,7 @@
                     <option value="{{ $plan->id }}" @selected(request('plan') == $plan->id)>{{ $plan->name }}</option>
                 @endforeach
             </select>
-            <input type="text" name="q" value="{{ request('q') }}" placeholder="@lang('Name or email…')"
+            <input type="text" name="q" value="{{ request('q') }}" :placeholder="__('Name or email…')"
                    class="h-9 w-52 rounded-lg border border-gray-300 px-3 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500" />
             <button type="submit" class="inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700">@lang('Filter')</button>
             @if(request()->hasAny(['q','plan']))
@@ -47,15 +47,15 @@
             <tbody class="divide-y divide-gray-100">
                 @forelse($subscriptions as $sub)
                 <tr class="hover:bg-gray-50">
-                    <td class="px-4 py-3" data-label="@lang('User')">
+                    <td class="px-4 py-3" :data-label="__('User')">
                         <div class="font-medium text-gray-900">{{ $sub->user->name ?: '—' }}</div>
                         <div class="text-xs text-gray-400">{{ $sub->user->email }}</div>
                     </td>
-                    <td class="px-4 py-3 text-gray-700" data-label="@lang('Plan')">
+                    <td class="px-4 py-3 text-gray-700" :data-label="__('Plan')">
                         <div class="font-medium">{{ $sub->plan->name ?? '—' }}</div>
                         <div class="text-xs text-gray-400">{{ ucfirst($sub->plan->billing_cycle ?? '') }}</div>
                     </td>
-                    <td class="px-4 py-3" data-label="@lang('Status')">
+                    <td class="px-4 py-3" :data-label="__('Status')">
                         @php
                             $sc = match($sub->status) {
                                 'active'    => 'bg-green-100 text-green-700',
@@ -69,11 +69,11 @@
                             {{ ucfirst(str_replace('_', ' ', __($sub->status))) }}
                         </span>
                     </td>
-                    <td class="px-4 py-3 text-gray-700" data-label="@lang('Credits')">{{ number_format($sub->credits_remaining) }}</td>
-                    <td class="px-4 py-3 text-xs text-gray-500 whitespace-nowrap" data-label="@lang('Period Ends')">
+                    <td class="px-4 py-3 text-gray-700" :data-label="__('Credits')">{{ number_format($sub->credits_remaining) }}</td>
+                    <td class="px-4 py-3 text-xs text-gray-500 whitespace-nowrap" :data-label="__('Period Ends')">
                         {{ formatDate($sub->current_period_end, false) ?? '—' }}
                     </td>
-                    <td class="px-4 py-3 text-xs text-gray-500 whitespace-nowrap" data-label="@lang('Started')">
+                    <td class="px-4 py-3 text-xs text-gray-500 whitespace-nowrap" :data-label="__('Started')">
                         {{ formatDate($sub->created_at, false) }}
                     </td>
                     <td class="px-4 py-3 text-right" data-label="">

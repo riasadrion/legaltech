@@ -30,14 +30,14 @@
             <tbody class="divide-y divide-gray-100">
                 @forelse ($staff as $member)
                 <tr class="hover:bg-gray-50">
-                    <td class="px-4 py-3" data-label="@lang('Name / Email')">
+                    <td class="px-4 py-3" :data-label="__('Name / Email')">
                         <div class="font-medium text-sm text-gray-900">{{ $member->name }}</div>
                         <div class="text-xs text-gray-500">{{ $member->email }}</div>
                     </td>
-                    <td class="px-4 py-3 text-sm text-gray-600" data-label="@lang('Role')">
+                    <td class="px-4 py-3 text-sm text-gray-600" :data-label="__('Role')">
                         {{ $member->roles->pluck('name')->map(fn($n) => ucfirst(str_replace('_', ' ', $n)))->join(', ') ?: '—' }}
                     </td>
-                    <td class="px-4 py-3" data-label="@lang('Status')">
+                    <td class="px-4 py-3" :data-label="__('Status')">
                         @php
                             $sc = $member->status === 'active'
                                 ? 'bg-green-100 text-green-700'
@@ -57,7 +57,7 @@
                             </a>
                             <form method="POST" action="{{ route('admin.staff.destroy', $member) }}" class="inline">
                                 @csrf @method('DELETE')
-                                <button type="submit" data-confirm="@lang('Delete this staff member?')"
+                                <button type="submit" :data-confirm="__('Delete this staff member?')"
                                         class="inline-flex items-center gap-1 rounded-lg border border-red-200 bg-white px-3 py-1.5 text-xs font-medium text-red-600 shadow-sm hover:bg-red-50">
                                     <x-heroicon-o-trash class="h-3.5 w-3.5" />
                                     @lang('Delete')

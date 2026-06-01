@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Notifications;
 
-use App\Domain\Settings\Facades\Settings;
+use App\Facades\Settings;
 use Illuminate\View\View;
 
 class EmailHealthController

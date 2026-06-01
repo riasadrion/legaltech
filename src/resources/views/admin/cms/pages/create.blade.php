@@ -14,12 +14,12 @@
         </div>
 
         <div class="rounded-xl border border-gray-200 bg-white p-6 space-y-5 mt-5">
-            <x-form.input name="title[en]" label="@lang('Title')" :value="old('title.en')" required />
+            <x-form.input name="title[en]" :label="__('Title')" :value="old('title.en')" required />
 
-            <x-form.input name="slug" label="@lang('Slug')" placeholder="@lang('e.g. about-us')" :value="old('slug')" required
-                hint="@lang('Lowercase letters, numbers, hyphens and slashes only. Used in the URL: /your-slug')" />
+            <x-form.input name="slug" :label="__('Slug')" :placeholder="__('e.g. about-us')" :value="old('slug')" required
+                :hint="__('Lowercase letters, numbers, hyphens and slashes only. Used in the URL: /your-slug')" />
 
-            <x-form.select name="status" label="@lang('Status')">
+            <x-form.select name="status" :label="__('Status')">
                 <option value="draft" @selected(old('status', 'draft') === 'draft')>@lang('Draft')</option>
                 <option value="published" @selected(old('status') === 'published')>@lang('Published')</option>
             </x-form.select>

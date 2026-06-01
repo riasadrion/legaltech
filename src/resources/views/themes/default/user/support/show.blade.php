@@ -86,7 +86,7 @@ function udShowFiles(input, listId) {
             @csrf
             <div>
                 <textarea name="body" rows="5" class="ud-input resize-none"
-                          placeholder="@lang('Write your reply...')" required>{{ old('body') }}</textarea>
+                          :placeholder="__('Write your reply...')" required>{{ old('body') }}</textarea>
                 @error('body') <p class="mt-1 text-xs text-red-400">{{ $message }}</p> @enderror
             </div>
             <div>
@@ -107,7 +107,7 @@ function udShowFiles(input, listId) {
                 <form method="POST" action="{{ route('user.support.close', $ticket->reference) }}" class="inline">
                     @csrf
                     <button type="submit" class="ud-btn-ghost inline-flex text-red-400 hover:text-red-300"
-                            data-confirm="@lang('Close this ticket?')">
+                            :data-confirm="__('Close this ticket?')">
                         <x-heroicon-o-x-circle class="h-4 w-4" />
                         @lang('Close Ticket')
                     </button>

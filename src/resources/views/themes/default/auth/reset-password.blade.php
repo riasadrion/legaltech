@@ -25,14 +25,14 @@
     <div class="auth-field-wrap">
         <label class="auth-label" for="password">@lang('New password')</label>
         <input id="password" name="password" type="password"
-               placeholder="@lang('Min 8 characters')" autocomplete="new-password" required
+               :placeholder="__('Min 8 characters')" autocomplete="new-password" required
                class="auth-input {{ $errors->has('password') ? 'auth-input-err' : '' }}">
     </div>
 
     <div class="auth-field-wrap">
         <label class="auth-label" for="password_confirmation">@lang('Confirm new password')</label>
         <input id="password_confirmation" name="password_confirmation" type="password"
-               placeholder="@lang('Repeat password')" autocomplete="new-password" required
+               :placeholder="__('Repeat password')" autocomplete="new-password" required
                class="auth-input">
     </div>
 

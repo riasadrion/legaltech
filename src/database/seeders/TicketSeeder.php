@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Domain\Support\Models\SupportTicket;
-use App\Domain\Support\Models\SupportMessage;
+use App\Models\SupportTicket;
+use App\Models\SupportMessage;
 use App\Models\User;
 use App\Models\Admin;
 use Illuminate\Database\Seeder;

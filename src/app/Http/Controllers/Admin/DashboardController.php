@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Domain\Payment\Models\Gateway;
 use App\Domain\Payment\Models\Payment;
-use App\Domain\Support\Models\SupportTicket;
+use App\Models\SupportTicket;
 use App\Domain\Subscription\Models\Plan;
 use App\Domain\Wallet\Models\Transaction;
 use App\Domain\Wallet\ValueObjects\Money;

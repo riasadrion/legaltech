@@ -2,7 +2,7 @@
 
 namespace App\Mail;
 
-use App\Domain\Cms\Models\Subscriber;
+use App\Models\Subscriber;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;

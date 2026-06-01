@@ -22,7 +22,7 @@
                 @forelse($registeredDrivers as $driverKey)
                 @php $gw = $gateways->get($driverKey); $driver = $manager->driver($driverKey); @endphp
                 <tr class="hover:bg-gray-50">
-                    <td class="px-4 py-3" data-label="@lang('Gateway')">
+                    <td class="px-4 py-3" :data-label="__('Gateway')">
                         <div class="flex items-center gap-3">
                             @if($gw?->logoUrl())
                             <img src="{{ $gw->logoUrl() }}" alt="{{ $gw->name }}" class="h-10 w-10 rounded-lg object-contain flex-shrink-0">
@@ -35,21 +35,21 @@
                             </div>
                         </div>
                     </td>
-                    <td class="px-4 py-3" data-label="@lang('Status')">
+                    <td class="px-4 py-3" :data-label="__('Status')">
                         @if($gw?->enabled)
                             <span class="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-semibold text-green-700">@lang('Enabled')</span>
                         @else
                             <span class="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-semibold text-gray-500">@lang('Disabled')</span>
                         @endif
                     </td>
-                    <td class="px-4 py-3 text-xs text-gray-600" data-label="@lang('Min / Max')">
+                    <td class="px-4 py-3 text-xs text-gray-600" :data-label="__('Min / Max')">
                         @if($gw)
                             {{ $gw->formatAmount($gw->min_amount) }} – {{ $gw->formatAmount($gw->max_amount) }}
                         @else
                             <span class="text-gray-400">@lang('Not configured')</span>
                         @endif
                     </td>
-                    <td class="px-4 py-3 text-xs text-gray-600" data-label="@lang('Fee')">
+                    <td class="px-4 py-3 text-xs text-gray-600" :data-label="__('Fee')">
                         @if($gw)
                             @if($gw->fee_flat > 0 || $gw->fee_percent > 0)
                                 @if($gw->fee_flat > 0) {{ $gw->formatAmount($gw->fee_flat) }} @endif

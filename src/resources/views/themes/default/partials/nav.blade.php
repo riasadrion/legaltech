@@ -1,5 +1,5 @@
 @php
-    use App\Domain\Cms\Models\Menu;
+    use App\Models\Menu;
     $headerMenu = Menu::handle('header');
     $navItems = $headerMenu ? $headerMenu->items()->get() : collect();
 @endphp

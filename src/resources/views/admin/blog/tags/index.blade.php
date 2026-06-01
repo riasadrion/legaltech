@@ -25,7 +25,7 @@
                     </div>
                     <form method="POST" action="{{ route('admin.blog.tags.destroy', $tag) }}" class="inline">
                         @csrf @method('DELETE')
-                        <button type="submit" data-confirm="@lang('Delete this tag?')"
+                        <button type="submit" :data-confirm="__('Delete this tag?')"
                                 class="text-xs text-red-500 hover:text-red-700">@lang('Delete')</button>
                     </form>
                 </li>
@@ -41,8 +41,8 @@
             </div>
             <form method="POST" action="{{ route('admin.blog.tags.store') }}" class="px-5 py-5 space-y-4">
                 @csrf
-                <x-form.input name="name[en]" label="@lang('Name')" :value="old('name.en')" required />
-                <x-form.input name="slug" label="@lang('Slug')" :value="old('slug')" hint="@lang('Auto-generated if blank.')" />
+                <x-form.input name="name[en]" :label="__('Name')" :value="old('name.en')" required />
+                <x-form.input name="slug" :label="__('Slug')" :value="old('slug')" :hint="__('Auto-generated if blank.')" />
                 <button type="submit"
                         class="inline-flex items-center gap-2 rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-brand-700">
                     <x-heroicon-o-plus class="h-4 w-4" />

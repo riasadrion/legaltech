@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Domain\Payment\Models\Payment;
-use App\Domain\Support\Models\SupportTicket;
+use App\Models\SupportTicket;
 use App\Models\Admin;
 use App\Models\AdminNotification;
 use Illuminate\Database\Seeder;

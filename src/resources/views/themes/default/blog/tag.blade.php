@@ -59,7 +59,7 @@
         </div>
 
         @if($posts->hasPages())
-        <div class="mt-12 flex justify-center">{{ $posts->links() }}</div>
+        <div class="mt-12"><x-pagination :paginator="$posts" /></div>
         @endif
         @endif
     </div>

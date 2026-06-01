@@ -62,13 +62,13 @@
                             </form>
                             <form method="POST" action="{{ route('admin.cms.sections.detach', [$page, $section]) }}" class="inline">
                                 @csrf
-                                <button type="submit" data-confirm="@lang('Detach this section from the page?')"
+                                <button type="submit" :data-confirm="__('Detach this section from the page?')"
                                         class="text-xs text-amber-500 hover:text-amber-700">@lang('Detach')</button>
                             </form>
                             @if($section->type === 'custom_html')
                                 <form method="POST" action="{{ route('admin.cms.sections.destroy', [$page, $section]) }}" class="inline">
                                     @csrf @method('DELETE')
-                                    <button type="submit" data-confirm="@lang('Permanently delete this section?')"
+                                    <button type="submit" :data-confirm="__('Permanently delete this section?')"
                                             class="text-xs text-red-500 hover:text-red-700">@lang('Delete')</button>
                                 </form>
                             @endif
@@ -91,14 +91,14 @@
                         <select name="source"
                                 class="flex-1 h-9 rounded-lg border border-gray-300 px-3 text-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500">
                             @if($availableTypes->isNotEmpty())
-                                <optgroup label="@lang('Create new')">
+                                <optgroup :label="__('Create new')">
                                     @foreach($availableTypes as $type => $cfg)
                                         <option value="{{ $type }}">{{ $cfg['label'] }}</option>
                                     @endforeach
                                 </optgroup>
                             @endif
                             @if($reusableSections->isNotEmpty())
-                                <optgroup label="@lang('Reuse existing')">
+                                <optgroup :label="__('Reuse existing')">
                                     @foreach($reusableSections as $existing)
                                         @php
                                             $label = config('sections.' . $existing->type . '.label', $existing->type);
@@ -133,13 +133,13 @@
                         <h3 class="text-sm font-semibold text-gray-900">@lang('Page settings')</h3>
                     </div>
                     <div class="px-5 py-5 space-y-4">
-                        <x-form.input name="slug" label="@lang('Slug')" :value="old('slug', $page->slug)"
+                        <x-form.input name="slug" :label="__('Slug')" :value="old('slug', $page->slug)"
                             :required="true" :readonly="$page->is_system" />
 
-                        <x-form.input name="title[en]" label="@lang('Title')"
+                        <x-form.input name="title[en]" :label="__('Title')"
                             :value="old('title.en', $page->title['en'] ?? '')" required />
 
-                        <x-form.input name="meta_title[en]" label="@lang('Meta title')"
+                        <x-form.input name="meta_title[en]" :label="__('Meta title')"
                             :value="old('meta_title.en', $page->meta_title['en'] ?? '')" />
 
                         <div>
@@ -148,7 +148,7 @@
                                       class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500">{{ old('meta_description.en', $page->meta_description['en'] ?? '') }}</textarea>
                         </div>
 
-                        <x-form.select name="status" label="@lang('Status')">
+                        <x-form.select name="status" :label="__('Status')">
                             <option value="draft" @selected(old('status', $page->status) === 'draft')>@lang('Draft')</option>
                             <option value="published" @selected(old('status', $page->status) === 'published')>@lang('Published')</option>
                         </x-form.select>

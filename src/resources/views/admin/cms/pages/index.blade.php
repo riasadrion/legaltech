@@ -29,9 +29,9 @@
             <tbody class="divide-y divide-gray-100">
                 @forelse($pages as $page)
                 <tr class="hover:bg-gray-50">
-                    <td class="px-4 py-3 font-medium text-gray-900" data-label="@lang('Title')">{{ $page->getLocalTitle() }}</td>
-                    <td class="px-4 py-3 font-mono text-gray-500 text-xs" data-label="@lang('Slug')">/{{ $page->slug }}</td>
-                    <td class="px-4 py-3" data-label="@lang('Status')">
+                    <td class="px-4 py-3 font-medium text-gray-900" :data-label="__('Title')">{{ $page->getLocalTitle() }}</td>
+                    <td class="px-4 py-3 font-mono text-gray-500 text-xs" :data-label="__('Slug')">/{{ $page->slug }}</td>
+                    <td class="px-4 py-3" :data-label="__('Status')">
                         @if($page->status === 'published')
                             <span class="inline-flex items-center rounded-full bg-green-50 px-2 py-0.5 text-xs font-medium text-green-700">@lang('Published')</span>
                         @else
@@ -41,18 +41,18 @@
                             <span class="ml-1 inline-flex items-center rounded-full bg-blue-50 px-2 py-0.5 text-xs font-medium text-blue-600">@lang('System')</span>
                         @endif
                     </td>
-                    <td class="px-4 py-3 text-gray-500" data-label="@lang('Sections')">{{ count($page->section_ids ?? []) }}</td>
+                    <td class="px-4 py-3 text-gray-500" :data-label="__('Sections')">{{ count($page->section_ids ?? []) }}</td>
                     <td class="px-4 py-3 text-right" data-label="">
                         <div class="flex items-center justify-end gap-2">
                             <a href="{{ route('admin.cms.pages.edit', $page) }}"
-                               class="text-gray-400 hover:text-brand-600" title="@lang('Edit')">
+                               class="text-gray-400 hover:text-brand-600" :title="__('Edit')">
                                 <x-heroicon-o-pencil class="h-4 w-4" />
                             </a>
                             @if(!$page->is_system)
                             <form method="POST" action="{{ route('admin.cms.pages.destroy', $page) }}">
                                 @csrf @method('DELETE')
-                                <button type="submit" data-confirm="@lang('Delete this page?')"
-                                        class="text-gray-400 hover:text-red-500" title="@lang('Delete')">
+                                <button type="submit" :data-confirm="__('Delete this page?')"
+                                        class="text-gray-400 hover:text-red-500" :title="__('Delete')">
                                     <x-heroicon-o-trash class="h-4 w-4" />
                                 </button>
                             </form>

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Domain\I18n\Models\Language;
+use App\Models\Language;
 use App\Http\Controllers\Controller;
 use App\Support\GoogleTranslate;
 use Illuminate\Http\Request;

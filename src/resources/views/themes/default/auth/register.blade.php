@@ -17,7 +17,7 @@
     <div class="auth-field-wrap">
         <label class="auth-label" for="name">@lang('Name')</label>
         <input id="name" name="name" type="text" value="{{ old('name') }}"
-               placeholder="@lang('Your name')" autocomplete="name"
+               :placeholder="__('Your name')" autocomplete="name"
                class="auth-input {{ $errors->has('name') ? 'auth-input-err' : '' }}">
     </div>
 
@@ -31,14 +31,14 @@
     <div class="auth-field-wrap">
         <label class="auth-label" for="password">@lang('Password')</label>
         <input id="password" name="password" type="password"
-               placeholder="@lang('Min 8 characters')" autocomplete="new-password" required
+               :placeholder="__('Min 8 characters')" autocomplete="new-password" required
                class="auth-input {{ $errors->has('password') ? 'auth-input-err' : '' }}">
     </div>
 
     <div class="auth-field-wrap">
         <label class="auth-label" for="password_confirmation">@lang('Confirm password')</label>
         <input id="password_confirmation" name="password_confirmation" type="password"
-               placeholder="@lang('Repeat password')" autocomplete="new-password" required
+               :placeholder="__('Repeat password')" autocomplete="new-password" required
                class="auth-input">
     </div>
 

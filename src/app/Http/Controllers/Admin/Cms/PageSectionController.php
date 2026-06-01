@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin\Cms;
 
-use App\Domain\Cms\Models\Page;
-use App\Domain\Cms\Models\PageSection;
-use App\Domain\Cms\SchemaNormalizer;
-use App\Domain\Cms\SectionDataProcessor;
+use App\Models\Page;
+use App\Models\PageSection;
+use App\Services\SchemaNormalizer;
+use App\Services\SectionDataProcessor;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 

@@ -32,10 +32,13 @@
                 @lang('All')
             </a>
             @foreach($categories as $cat)
+            @if($cat->posts_count > 0)
             <a href="{{ route('blog.category', $cat->slug) }}"
-               class="rounded-full px-4 py-1.5 text-sm font-medium transition glass text-white/60 hover:text-white">
+               class="inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-sm font-medium transition glass text-white/60 hover:text-white">
                 {{ $cat->getLocalName() }}
+                <span class="text-xs text-white/35 font-normal">{{ $cat->posts_count }}</span>
             </a>
+            @endif
             @endforeach
 
             <a href="{{ route('blog.rss') }}"
@@ -59,31 +62,35 @@
         </div>
         @else
 
-        @foreach($posts as $post)
-        @if($loop->first)
+        @php
+            // Featured hero only on page 1; the rest fill the grid evenly.
+            $heroPost  = $posts->onFirstPage() ? $posts->first() : null;
+            $gridPosts = $heroPost ? $posts->slice(1) : $posts;
+        @endphp
 
+        @if($heroPost)
         <article class="group relative glass rounded-3xl overflow-hidden mb-8 lift">
-            <a href="{{ route('blog.show', $post->slug) }}" class="flex flex-col md:flex-row">
-                @if($post->cover_image)
+            <a href="{{ route('blog.show', $heroPost->slug) }}" class="flex flex-col md:flex-row">
+                @if($heroPost->cover_image)
                 <div class="md:w-1/2 aspect-video md:aspect-auto overflow-hidden">
-                    <img src="{{ upload_url($post->cover_image) }}" alt="{{ $post->getLocalTitle() }}"
+                    <img src="{{ upload_url($heroPost->cover_image) }}" alt="{{ $heroPost->getLocalTitle() }}"
                          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                 </div>
                 @endif
-                <div class="p-8 md:p-10 {{ $post->cover_image ? 'md:w-1/2' : 'w-full' }} flex flex-col justify-center">
-                    @if($post->category)
+                <div class="p-8 md:p-10 {{ $heroPost->cover_image ? 'md:w-1/2' : 'w-full' }} flex flex-col justify-center">
+                    @if($heroPost->category)
                     <span class="text-[11px] font-semibold text-lime uppercase tracking-widest mb-3">
-                        {{ $post->category->getLocalName() }}
+                        {{ $heroPost->category->getLocalName() }}
                     </span>
                     @endif
                     <h2 class="font-display text-3xl text-white leading-tight mb-4 group-hover:text-lime transition">
-                        {{ $post->getLocalTitle() }}
+                        {{ $heroPost->getLocalTitle() }}
                     </h2>
-                    @if($post->getLocalExcerpt())
-                    <p class="text-white/50 leading-relaxed mb-6 line-clamp-3">{{ $post->getLocalExcerpt() }}</p>
+                    @if($heroPost->getLocalExcerpt())
+                    <p class="text-white/50 leading-relaxed mb-6 line-clamp-3">{{ $heroPost->getLocalExcerpt() }}</p>
                     @endif
                     <div class="flex items-center gap-3 text-sm text-white/30">
-                        <time>{{ $post->published_at->format('M j, Y') }}</time>
+                        <time>{{ $heroPost->published_at->format('M j, Y') }}</time>
                     </div>
                     <div class="mt-6 inline-flex items-center gap-2 text-sm font-medium text-lime">
                         @lang('Read article') <x-heroicon-o-arrow-right class="h-4 w-4 inline" />
@@ -91,11 +98,11 @@
                 </div>
             </a>
         </article>
-        @if($posts->count() > 1)
-        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         @endif
-        @else
 
+        @if($gridPosts->isNotEmpty())
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            @foreach($gridPosts as $post)
             <article class="group glass rounded-2xl overflow-hidden lift flex flex-col">
                 @if($post->cover_image)
                 <div class="aspect-video overflow-hidden">
@@ -121,16 +128,14 @@
                     </div>
                 </div>
             </article>
-        @endif
-        @endforeach
-        @if($posts->count() > 1)
+            @endforeach
         </div>
         @endif
 
 
         @if($posts->hasPages())
-        <div class="mt-12 flex justify-center">
-            {{ $posts->links() }}
+        <div class="mt-12">
+            <x-pagination :paginator="$posts" />
         </div>
         @endif
 

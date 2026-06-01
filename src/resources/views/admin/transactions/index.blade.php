@@ -46,7 +46,7 @@
 
 
     <form method="GET" class="flex flex-wrap items-center gap-2">
-        <input type="text" name="q" value="{{ request('q') }}" placeholder="@lang('User name or email…')"
+        <input type="text" name="q" value="{{ request('q') }}" :placeholder="__('User name or email…')"
                class="h-9 w-56 rounded-lg border border-gray-300 px-3 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"/>
 
         <select name="type" data-auto-submit
@@ -119,8 +119,8 @@
                     $tc = $typeColors[$tx->type] ?? 'bg-gray-100 text-gray-600';
                 @endphp
                 <tr class="hover:bg-gray-50">
-                    <td class="px-4 py-3 font-mono text-xs text-gray-400" data-label="@lang('ID')">#{{ $tx->id }}</td>
-                    <td class="px-4 py-3" data-label="@lang('User')">
+                    <td class="px-4 py-3 font-mono text-xs text-gray-400" :data-label="__('ID')">#{{ $tx->id }}</td>
+                    <td class="px-4 py-3" :data-label="__('User')">
                         @if($tx->user)
                         <a href="{{ route('admin.users.show', $tx->user) }}" class="hover:text-brand-600">
                             <div class="font-medium text-gray-900">{{ $tx->user->name ?: '—' }}</div>
@@ -130,21 +130,21 @@
                         <span class="text-gray-400">—</span>
                         @endif
                     </td>
-                    <td class="px-4 py-3" data-label="@lang('Type')">
+                    <td class="px-4 py-3" :data-label="__('Type')">
                         <span class="inline-flex rounded-full px-2.5 py-0.5 text-xs font-semibold {{ $tc }}">
                             {{ ucfirst(str_replace('_', ' ', $tx->type)) }}
                         </span>
                     </td>
-                    <td class="px-4 py-3 font-semibold {{ $tx->isCredit() ? 'text-emerald-600' : 'text-red-600' }}" data-label="@lang('Amount')">
+                    <td class="px-4 py-3 font-semibold {{ $tx->isCredit() ? 'text-emerald-600' : 'text-red-600' }}" :data-label="__('Amount')">
                         {{ $tx->formattedAmount() }}
                     </td>
-                    <td class="hide-mobile px-4 py-3 text-xs text-gray-600 font-mono" data-label="@lang('Balance After')">
+                    <td class="hide-mobile px-4 py-3 text-xs text-gray-600 font-mono" :data-label="__('Balance After')">
                         ${{ number_format($tx->balance_after, 2) }}
                     </td>
-                    <td class="hide-mobile px-4 py-3 text-xs text-gray-500 max-w-xs truncate" data-label="@lang('Description')" title="{{ $tx->description }}">
+                    <td class="hide-mobile px-4 py-3 text-xs text-gray-500 max-w-xs truncate" :data-label="__('Description')" title="{{ $tx->description }}">
                         {{ $tx->description ?: '—' }}
                     </td>
-                    <td class="hide-mobile px-4 py-3 text-xs text-gray-400 whitespace-nowrap" data-label="@lang('Date')">
+                    <td class="hide-mobile px-4 py-3 text-xs text-gray-400 whitespace-nowrap" :data-label="__('Date')">
                         {{ formatDate($tx->created_at) }}
                     </td>
                 </tr>

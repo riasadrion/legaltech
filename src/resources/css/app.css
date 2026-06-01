@@ -838,6 +838,41 @@
 .file-size-label { color: rgba(255,255,255,0.3); margin-left: auto; }
 .legend-color-dot { display: inline-block; width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
 
+/* ─── Frontend theme utilities ─── */
+.glass {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+.glass-cream {
+    background: rgba(251, 250, 246, 0.06);
+    border: 1px solid rgba(251, 250, 246, 0.12);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+.lift {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.lift:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.5);
+}
+.glow-lime {
+    background: radial-gradient(ellipse at center, var(--brand-color) 0%, transparent 70%);
+    filter: blur(40px);
+    pointer-events: none;
+}
+.bg-grid {
+    background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+.radial-fade {
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(124,92,255,0.18) 0%, transparent 70%);
+    position: absolute; inset: 0; pointer-events: none;
+}
+
 /* ─── Auth layout radial gradients ─── */
 .auth-glow-top {
     background: radial-gradient(ellipse 120% 70% at 30% -10%, rgba(124,92,255,0.28) 0%, transparent 60%);

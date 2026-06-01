@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Cms;
 
-use App\Domain\Cms\Models\Subscriber;
+use App\Models\Subscriber;
 use App\Http\Controllers\Controller;
 use App\Mail\NewsletterBroadcast;
 use Illuminate\Http\Request;

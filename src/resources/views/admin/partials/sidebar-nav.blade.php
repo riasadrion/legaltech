@@ -1,5 +1,5 @@
 @php
-    $navItems = \App\Domain\Admin\Navigation\AdminNavigation::forUser(auth('admin')->user());
+    $navItems = \App\Support\AdminNavigation::forUser(auth('admin')->user());
 @endphp
 
 @foreach ($navItems as $item)

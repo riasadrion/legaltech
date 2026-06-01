@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Domain\Blog\Models\BlogPost;
-use App\Domain\Blog\Models\BlogCategory;
+use App\Models\BlogPost;
+use App\Models\BlogCategory;
 use App\Models\Admin;
 use Illuminate\Database\Seeder;
 

@@ -1,5 +1,5 @@
 @php
-    use App\Domain\Blog\Models\BlogPost;
+    use App\Models\BlogPost;
 
     $d        = $section->data ?? [];
     $eyebrow  = $d['eyebrow']   ?? '';

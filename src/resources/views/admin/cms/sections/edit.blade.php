@@ -34,7 +34,7 @@
             @php
                 $d = $section->data ?? [];
                 $rawSchema = config('sections.' . $section->type . '.fields');
-                $schema = is_array($rawSchema) ? \App\Domain\Cms\SchemaNormalizer::normalize($rawSchema) : null;
+                $schema = is_array($rawSchema) ? \App\Services\SchemaNormalizer::normalize($rawSchema) : null;
             @endphp
 
             @if(is_array($schema))

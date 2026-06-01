@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Domain\I18n\Models\Language;
+use App\Models\Language;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 

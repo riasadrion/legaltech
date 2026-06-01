@@ -1,2 +1,2 @@
 @props(['content' => '', 'allowedTags' => null])
-<?php echo app(\App\Domain\Cms\Sanitizer\HtmlPurifier::class)->clean($content ?? '', $allowedTags); ?>
+<?php echo app(\App\Services\HtmlPurifier::class)->clean($content ?? '', $allowedTags); ?>

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Domain\Settings\Facades\Settings;
-use App\Domain\Upload\FileUploader;
+use App\Facades\Settings;
+use App\Services\FileUploader;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;

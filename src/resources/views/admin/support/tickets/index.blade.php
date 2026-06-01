@@ -15,19 +15,19 @@
             <x-status-pills :items="$statusPills" :current="request('status', '')" />
             <select name="priority" onchange="this.form.submit()" class="h-9 rounded-lg border border-gray-300 px-3 text-sm shadow-sm">
                 <option value="">@lang('All priority')</option>
-                @foreach(\App\Domain\Support\Models\SupportTicket::priorities() as $p)
+                @foreach(\App\Models\SupportTicket::priorities() as $p)
                 <option value="{{ $p }}" {{ request('priority') === $p ? 'selected' : '' }}>{{ ucfirst(__($p)) }}</option>
                 @endforeach
             </select>
             <select name="category" onchange="this.form.submit()" class="h-9 rounded-lg border border-gray-300 px-3 text-sm shadow-sm">
                 <option value="">@lang('All categories')</option>
-                @foreach(\App\Domain\Support\Models\SupportTicket::categories() as $c)
+                @foreach(\App\Models\SupportTicket::categories() as $c)
                 <option value="{{ $c }}" {{ request('category') === $c ? 'selected' : '' }}>{{ ucfirst(__($c)) }}</option>
                 @endforeach
             </select>
         </div>
         <form method="GET" class="flex items-center gap-2">
-            <input type="text" name="search" value="{{ request('search') }}" placeholder="@lang('Reference or subject…')"
+            <input type="text" name="search" value="{{ request('search') }}" :placeholder="__('Reference or subject…')"
                    class="h-9 w-52 rounded-lg border border-gray-300 px-3 text-sm shadow-sm">
             <button type="submit" class="inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700">@lang('Search')</button>
             @if(request()->hasAny(['search', 'status', 'priority', 'category']))
@@ -67,22 +67,22 @@
                     };
                 @endphp
                 <tr class="hover:bg-gray-50">
-                    <td class="px-4 py-3" data-label="@lang('Ref')">
+                    <td class="px-4 py-3" :data-label="__('Ref')">
                         <a href="{{ route('admin.support.tickets.show', $ticket) }}" class="font-mono text-xs font-semibold text-brand-600 hover:text-brand-700">#{{ $ticket->reference }}</a>
                     </td>
-                    <td class="px-4 py-3 max-w-xs" data-label="@lang('Subject')">
+                    <td class="px-4 py-3 max-w-xs" :data-label="__('Subject')">
                         <div class="truncate text-sm font-medium text-gray-900">{{ $ticket->subject }}</div>
                         <div class="text-xs text-gray-400">{{ ucfirst(__($ticket->category)) }}</div>
                     </td>
-                    <td class="px-4 py-3 text-sm text-gray-600" data-label="@lang('From')">{{ $ticket->getAuthorName() }}</td>
-                    <td class="px-4 py-3 text-xs {{ $priorityColor }}" data-label="@lang('Priority')">{{ ucfirst(__($ticket->priority)) }}</td>
-                    <td class="px-4 py-3" data-label="@lang('Status')">
+                    <td class="px-4 py-3 text-sm text-gray-600" :data-label="__('From')">{{ $ticket->getAuthorName() }}</td>
+                    <td class="px-4 py-3 text-xs {{ $priorityColor }}" :data-label="__('Priority')">{{ ucfirst(__($ticket->priority)) }}</td>
+                    <td class="px-4 py-3" :data-label="__('Status')">
                         <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold {{ $statusColor }}">
                             {{ ucfirst(str_replace('_', ' ', __($ticket->status))) }}
                         </span>
                     </td>
-                    <td class="px-4 py-3 text-sm text-gray-600" data-label="@lang('Assigned')">{{ $ticket->assignee?->name ?? '—' }}</td>
-                    <td class="px-4 py-3 text-xs text-gray-400" data-label="@lang('Updated')">{{ $ticket->updated_at->diffForHumans() }}</td>
+                    <td class="px-4 py-3 text-sm text-gray-600" :data-label="__('Assigned')">{{ $ticket->assignee?->name ?? '—' }}</td>
+                    <td class="px-4 py-3 text-xs text-gray-400" :data-label="__('Updated')">{{ $ticket->updated_at->diffForHumans() }}</td>
                     <td class="px-4 py-3 text-right" data-label="">
                         <a href="{{ route('admin.support.tickets.show', $ticket) }}"
                            class="inline-flex items-center gap-1 rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-600 shadow-sm hover:bg-gray-50">

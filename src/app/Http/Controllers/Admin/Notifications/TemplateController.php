@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin\Notifications;
 
-use App\Domain\Cms\Sanitizer\HtmlPurifier;
-use App\Domain\I18n\Models\Language;
-use App\Domain\Notifications\Channels\EmailChannel;
-use App\Domain\Notifications\Models\NotificationTemplate;
-use App\Domain\Notifications\Models\NotificationTemplateVersion;
+use App\Services\HtmlPurifier;
+use App\Models\Language;
+use App\Notifications\Channels\EmailChannel;
+use App\Models\NotificationTemplate;
+use App\Models\NotificationTemplateVersion;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;

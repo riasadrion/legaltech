@@ -5,7 +5,7 @@
 @section('content')
 
 
-<div class="relative bg-ink-950 pt-36 pb-20 overflow-hidden">
+<div class="relative bg-ink-950 pt-36 pb-10 overflow-hidden">
     <div class="absolute inset-0 bg-grid opacity-[0.03] pointer-events-none"></div>
     <div class="radial-fade pointer-events-none"></div>
     <div class="relative mx-auto max-w-6xl px-6">
@@ -23,7 +23,7 @@
     </div>
 </div>
 
-<div class="bg-ink-950 py-16">
+<div class="bg-ink-950 pt-4 pb-16">
     <div class="mx-auto max-w-6xl px-6">
         @if($posts->isEmpty())
         <div class="py-24 text-center text-white/30">
@@ -56,7 +56,7 @@
         </div>
 
         @if($posts->hasPages())
-        <div class="mt-12 flex justify-center">{{ $posts->links() }}</div>
+        <div class="mt-12"><x-pagination :paginator="$posts" /></div>
         @endif
         @endif
     </div>

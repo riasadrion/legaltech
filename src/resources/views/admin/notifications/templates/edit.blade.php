@@ -5,7 +5,7 @@
 @section('content')
 <x-page-header :title="__('Edit: :name', ['name' => $template->name])" back="{{ route('admin.notifications.templates.index') }}" />
 
-@php $languages = \App\Domain\I18n\Models\Language::all(); @endphp
+@php $languages = \App\Models\Language::all(); @endphp
 
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
@@ -145,7 +145,7 @@
                         @csrf
                         <button type="submit" class="text-xs text-brand-600 hover:text-brand-700"
                             data-confirm="{{ __('Roll back to v:version?', ['version' => $version->version]) }}"
-                            data-confirm-title="@lang('Restore version')">@lang('Restore')</button>
+                            :data-confirm-title="__('Restore version')">@lang('Restore')</button>
                     </form>
                 </li>
                 @endforeach

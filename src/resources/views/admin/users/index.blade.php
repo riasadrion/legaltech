@@ -21,7 +21,7 @@
                 <option value="approved" @selected(request('kyc') === 'approved')>@lang('Approved')</option>
                 <option value="rejected" @selected(request('kyc') === 'rejected')>@lang('Rejected')</option>
             </select>
-            <input type="text" name="q" value="{{ request('q') }}" placeholder="@lang('Name or email…')"
+            <input type="text" name="q" value="{{ request('q') }}" :placeholder="__('Name or email…')"
                     class="h-9 w-52 rounded-lg border border-gray-300 px-3 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500" />
             <button type="submit" class="inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700">@lang('Search')</button>
             @if(request()->hasAny(['q','kyc']))
@@ -39,7 +39,7 @@
             <span class="text-sm font-semibold text-amber-700" id="bulk-count">@lang('0 selected')</span>
             <span class="h-4 w-px bg-amber-200"></span>
             <button type="submit" name="action" value="ban"
-                    data-confirm="@lang('Ban selected users?')"
+                    :data-confirm="__('Ban selected users?')"
                     class="rounded-md bg-yellow-100 px-3 py-1 text-xs font-semibold text-yellow-800 ring-1 ring-yellow-300 hover:bg-yellow-200">
                 @lang('Ban')
             </button>
@@ -48,7 +48,7 @@
                 @lang('Unban')
             </button>
             <button type="submit" name="action" value="delete"
-                    data-confirm="@lang('Delete selected users? This cannot be undone.')"
+                    :data-confirm="__('Delete selected users? This cannot be undone.')"
                     class="rounded-md bg-red-100 px-3 py-1 text-xs font-semibold text-red-800 ring-1 ring-red-300 hover:bg-red-200">
                 @lang('Delete')
             </button>
@@ -78,7 +78,7 @@
                             <input type="checkbox" name="user_ids[]" value="{{ $user->id }}"
                                    class="row-check h-4 w-4 rounded border-gray-300 text-brand-600 focus:ring-brand-500">
                         </td>
-                        <td class="px-4 py-3" data-label="@lang('User')">
+                        <td class="px-4 py-3" :data-label="__('User')">
                             <div class="flex items-center gap-3">
                                 <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-600 text-xs font-bold text-white">
                                     {{ strtoupper(substr($user->name ?: $user->email, 0, 1)) }}
@@ -89,7 +89,7 @@
                                 </div>
                             </div>
                         </td>
-                        <td class="px-4 py-3" data-label="@lang('Status')">
+                        <td class="px-4 py-3" :data-label="__('Status')">
                             @php
                                 $sc = match($user->status) {
                                     'active' => 'bg-green-100 text-green-700',
@@ -101,7 +101,7 @@
                                 {{ ucfirst(__($user->status)) }}
                             </span>
                         </td>
-                        <td class="hide-mobile px-4 py-3" data-label="@lang('KYC')">
+                        <td class="hide-mobile px-4 py-3" :data-label="__('KYC')">
                             @php
                                 $kc = match($user->kyc_status ?? 'none') {
                                     'approved' => 'bg-emerald-100 text-emerald-700',
@@ -114,7 +114,7 @@
                                 {{ ucfirst(__($user->kyc_status ?? 'none')) }}
                             </span>
                         </td>
-                        <td class="hide-mobile px-4 py-3" data-label="@lang('Email')">
+                        <td class="hide-mobile px-4 py-3" :data-label="__('Email')">
                             @if($user->email_verified_at)
                                 <span class="inline-flex items-center gap-1 text-xs font-medium text-green-600">
                                     <x-heroicon-s-check-circle class="h-3.5 w-3.5" /> @lang('Verified')
@@ -125,7 +125,7 @@
                                 </span>
                             @endif
                         </td>
-                        <td class="hide-mobile px-4 py-3 text-xs text-gray-500 whitespace-nowrap" data-label="@lang('Joined')">
+                        <td class="hide-mobile px-4 py-3 text-xs text-gray-500 whitespace-nowrap" :data-label="__('Joined')">
                             {{ formatDate($user->created_at, false) }}
                         </td>
                         <td class="px-4 py-3 text-right" data-label="">

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Ops;
 
-use App\Domain\Ops\Models\BugReport;
+use App\Models\BugReport;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;

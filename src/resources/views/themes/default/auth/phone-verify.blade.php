@@ -16,7 +16,7 @@
 
         <x-form.input
             name="code"
-            label="@lang('Verification code')"
+            :label="__('Verification code')"
             type="text"
             inputmode="numeric"
             autocomplete="one-time-code"
@@ -51,7 +51,7 @@
         <div class="grid grid-cols-3 gap-3">
             <x-form.input
                 name="mobile_country_code"
-                label="@lang('Country')"
+                :label="__('Country')"
                 type="text"
                 placeholder="+1"
                 :value="old('mobile_country_code', $user->mobile_country_code ?? '+1')"
@@ -60,7 +60,7 @@
             <div class="col-span-2">
                 <x-form.input
                     name="mobile"
-                    label="@lang('Phone number')"
+                    :label="__('Phone number')"
                     type="tel"
                     inputmode="numeric"
                     placeholder="5551234567"

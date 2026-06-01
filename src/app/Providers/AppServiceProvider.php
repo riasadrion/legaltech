@@ -2,9 +2,9 @@
 
 namespace App\Providers;
 
-use App\Domain\Admin\Navigation\AdminNavigation;
-use App\Domain\Settings\Facades\Settings;
-use App\Domain\Settings\Repositories\DatabaseSettingsRepository;
+use App\Support\AdminNavigation;
+use App\Facades\Settings;
+use App\Repositories\DatabaseSettingsRepository;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -275,14 +275,14 @@ class AppServiceProvider extends ServiceProvider
     {
         try {
             if (Settings::string('controls.sms_verification') === '1') {
-                \App\Domain\Auth\Registration\RegistrationFields::add('mobile', [
+                \App\Support\RegistrationFields::add('mobile', [
                     'label'    => __('Phone number'),
                     'type'     => 'tel',
                     'required' => true,
                     'rules'    => ['required', 'string', 'max:20'],
                     'sort'     => 10,
                 ]);
-                \App\Domain\Auth\Registration\RegistrationFields::add('mobile_country_code', [
+                \App\Support\RegistrationFields::add('mobile_country_code', [
                     'label'    => '',
                     'type'     => 'hidden',
                     'required' => false,

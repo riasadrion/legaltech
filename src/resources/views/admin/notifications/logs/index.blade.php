@@ -69,16 +69,16 @@
             <tbody class="divide-y divide-gray-100">
                 @forelse($logs as $log)
                 <tr class="hover:bg-gray-50">
-                    <td class="px-4 py-3" data-label="@lang('Template')">
+                    <td class="px-4 py-3" :data-label="__('Template')">
                         <span class="inline-flex items-center rounded bg-gray-100 px-2 py-0.5 text-xs font-mono text-gray-700">
                             {{ $log->notification_key }}
                         </span>
                     </td>
-                    <td class="px-4 py-3" data-label="@lang('Channel')">
+                    <td class="px-4 py-3" :data-label="__('Channel')">
                         <span class="badge badge-neutral uppercase">{{ $log->channel }}</span>
                     </td>
-                    <td class="px-4 py-3 text-sm text-gray-700" data-label="@lang('Recipient')">{{ $log->recipient }}</td>
-                    <td class="px-4 py-3" data-label="@lang('Status')">
+                    <td class="px-4 py-3 text-sm text-gray-700" :data-label="__('Recipient')">{{ $log->recipient }}</td>
+                    <td class="px-4 py-3" :data-label="__('Status')">
                         <span class="badge {{ $log->status === 'sent' ? 'badge-success' : ($log->status === 'failed' ? 'badge-danger' : 'badge-neutral') }}">
                             {{ __(ucfirst($log->status)) }}
                         </span>
@@ -86,7 +86,7 @@
                         <div class="text-xs text-red-500 mt-0.5 truncate max-w-xs" title="{{ $log->error }}">{{ $log->error }}</div>
                         @endif
                     </td>
-                    <td class="px-4 py-3 text-xs text-gray-400 whitespace-nowrap" data-label="@lang('Sent')">{{ $log->created_at->diffForHumans() }}</td>
+                    <td class="px-4 py-3 text-xs text-gray-400 whitespace-nowrap" :data-label="__('Sent')">{{ $log->created_at->diffForHumans() }}</td>
                 </tr>
                 @empty
                 <tr>

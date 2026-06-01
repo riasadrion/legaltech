@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use App\Domain\Auth\Concerns\HasRoles;
+use App\Concerns\HasRoles;
 use App\Domain\Payment\Models\Payment;
 
-use App\Domain\Settings\Concerns\LogsActivity;
+use App\Concerns\LogsActivity;
 use App\Domain\Subscription\Models\UserSubscription;
 use App\Notifications\Auth\VerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;

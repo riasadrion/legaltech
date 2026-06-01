@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Domain\I18n\Models\Language;
+use App\Models\Language;
 use Illuminate\Database\Seeder;
 
 class LanguagesSeeder extends Seeder
