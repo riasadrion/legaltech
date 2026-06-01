@@ -7,7 +7,7 @@ use App\Domain\Payment\Models\Gateway;
 use App\Domain\Payment\PaymentGatewayManager;
 use App\Domain\Subscription\Models\Plan;
 use App\Domain\Subscription\SubscriptionService;
-use App\Domain\Upload\FileUploader;
+use App\Services\FileUploader;
 use App\Domain\Wallet\Services\WalletService;
 use App\Domain\Wallet\ValueObjects\Money;
 use App\Http\Controllers\Controller;

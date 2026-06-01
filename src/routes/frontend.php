@@ -1,7 +1,7 @@
 <?php
 
-use App\Domain\Blog\Models\BlogPost;
-use App\Domain\Cms\Models\Page;
+use App\Models\BlogPost;
+use App\Models\Page;
 use App\Http\Controllers\ContractSignatureController;
 use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\Frontend\ContactController;

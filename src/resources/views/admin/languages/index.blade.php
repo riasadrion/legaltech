@@ -31,22 +31,22 @@
             <tbody class="divide-y divide-gray-100">
                 @forelse($languages as $language)
                 <tr class="hover:bg-gray-50">
-                    <td class="px-4 py-3 font-medium text-gray-900" data-label="@lang('Language')">
+                    <td class="px-4 py-3 font-medium text-gray-900" :data-label="__('Language')">
                         {{ $language->name }}
                         @if($language->native_name !== $language->name)
                             <span class="ml-1 text-xs text-gray-400">{{ $language->native_name }}</span>
                         @endif
                     </td>
-                    <td class="px-4 py-3 font-mono text-gray-600" data-label="@lang('Code')">{{ $language->code }}</td>
-                    <td class="px-4 py-3 text-gray-600" data-label="@lang('Direction')">{{ strtoupper($language->direction) }}</td>
-                    <td class="px-4 py-3" data-label="@lang('Status')">
+                    <td class="px-4 py-3 font-mono text-gray-600" :data-label="__('Code')">{{ $language->code }}</td>
+                    <td class="px-4 py-3 text-gray-600" :data-label="__('Direction')">{{ strtoupper($language->direction) }}</td>
+                    <td class="px-4 py-3" :data-label="__('Status')">
                         @if($language->is_active)
                             <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-emerald-100 text-emerald-700">@lang('Active')</span>
                         @else
                             <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-gray-100 text-gray-500">@lang('Disabled')</span>
                         @endif
                     </td>
-                    <td class="px-4 py-3" data-label="@lang('Default')">
+                    <td class="px-4 py-3" :data-label="__('Default')">
                         @if($language->is_default)
                             <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-purple-100 text-purple-700">@lang('Default')</span>
                         @else

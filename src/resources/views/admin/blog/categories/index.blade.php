@@ -25,9 +25,9 @@
             <tbody class="divide-y divide-gray-100">
                 @forelse($categories as $category)
                 <tr class="hover:bg-gray-50">
-                    <td class="px-4 py-3 font-medium text-gray-900" data-label="@lang('Name')">{{ $category->getLocalName() }}</td>
-                    <td class="px-4 py-3 font-mono text-gray-500 text-xs" data-label="@lang('Slug')">{{ $category->slug }}</td>
-                    <td class="px-4 py-3 text-gray-500" data-label="@lang('Posts')">{{ $category->posts_count }}</td>
+                    <td class="px-4 py-3 font-medium text-gray-900" :data-label="__('Name')">{{ $category->getLocalName() }}</td>
+                    <td class="px-4 py-3 font-mono text-gray-500 text-xs" :data-label="__('Slug')">{{ $category->slug }}</td>
+                    <td class="px-4 py-3 text-gray-500" :data-label="__('Posts')">{{ $category->posts_count }}</td>
                     <td class="px-4 py-3 text-right" data-label="">
                         <div class="flex items-center justify-end gap-3">
                             <a href="{{ route('admin.blog.categories.edit', $category) }}"
@@ -36,7 +36,7 @@
                             </a>
                             <form method="POST" action="{{ route('admin.blog.categories.destroy', $category) }}" class="inline">
                                 @csrf @method('DELETE')
-                                <button type="submit" data-confirm="@lang('Delete this category?')"
+                                <button type="submit" :data-confirm="__('Delete this category?')"
                                         class="text-gray-400 hover:text-red-500">
                                     <x-heroicon-o-trash class="h-4 w-4" />
                                 </button>

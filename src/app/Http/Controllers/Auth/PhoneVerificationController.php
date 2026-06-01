@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Domain\Auth\PhoneVerification\PhoneVerificationService;
+use App\Services\PhoneVerificationService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 

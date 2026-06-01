@@ -40,9 +40,9 @@
             <tbody class="divide-y divide-gray-100">
                 @forelse($subscribers as $subscriber)
                 <tr class="hover:bg-gray-50">
-                    <td class="px-4 py-3 text-gray-900" data-label="@lang('Email')">{{ $subscriber->email }}</td>
-                    <td class="px-4 py-3 text-gray-500" data-label="@lang('Name')">{{ $subscriber->name ?? '—' }}</td>
-                    <td class="px-4 py-3" data-label="@lang('Status')">
+                    <td class="px-4 py-3 text-gray-900" :data-label="__('Email')">{{ $subscriber->email }}</td>
+                    <td class="px-4 py-3 text-gray-500" :data-label="__('Name')">{{ $subscriber->name ?? '—' }}</td>
+                    <td class="px-4 py-3" :data-label="__('Status')">
                         @if($subscriber->status === 'confirmed')
                             <span class="inline-flex items-center rounded-full border border-emerald-200 dark:border-emerald-900 bg-emerald-50 dark:bg-emerald-950 px-2.5 py-0.5 text-xs font-semibold text-emerald-700 dark:text-emerald-400">@lang('Confirmed')</span>
                         @elseif($subscriber->status === 'pending')
@@ -51,13 +51,13 @@
                             <span class="inline-flex items-center rounded-full border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 px-2.5 py-0.5 text-xs font-semibold text-slate-600 dark:text-slate-300">@lang('Unsubscribed')</span>
                         @endif
                     </td>
-                    <td class="px-4 py-3 text-xs text-gray-500" data-label="@lang('Confirmed')">
+                    <td class="px-4 py-3 text-xs text-gray-500" :data-label="__('Confirmed')">
                         {{ $subscriber->confirmed_at?->format('Y-m-d') ?? '—' }}
                     </td>
                     <td class="px-4 py-3 text-right" data-label="">
                         <form method="POST" action="{{ route('admin.cms.subscribers.destroy', $subscriber) }}" class="inline">
                             @csrf @method('DELETE')
-                            <button type="submit" data-confirm="@lang('Remove this subscriber?')"
+                            <button type="submit" :data-confirm="__('Remove this subscriber?')"
                                     class="inline-flex items-center gap-1 rounded-lg border border-red-200 bg-white px-3 py-1.5 text-xs font-medium text-red-600 shadow-sm hover:bg-red-50">
                                 <x-heroicon-o-trash class="h-3.5 w-3.5" />
                                 @lang('Remove')

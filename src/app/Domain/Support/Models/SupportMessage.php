@@ -2,7 +2,7 @@
 
 namespace App\Domain\Support\Models;
 
-use App\Domain\Cms\Sanitizer\HtmlPurifier;
+use App\Services\HtmlPurifier;
 use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;

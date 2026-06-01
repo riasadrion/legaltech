@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Domain\Blog\Models\BlogPost;
+use App\Models\BlogPost;
 use Illuminate\Console\Command;
 
 class PublishScheduledPosts extends Command

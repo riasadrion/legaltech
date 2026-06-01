@@ -1,6 +1,6 @@
 <?php
 
-use App\Domain\I18n\I18nServiceProvider;
+use App\Providers\I18nServiceProvider;
 use App\Providers\AppServiceProvider;
 use App\Providers\PaymentServiceProvider;
 use App\Providers\ThemeServiceProvider;

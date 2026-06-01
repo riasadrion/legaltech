@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use App\Domain\Auth\Concerns\HasRoles;
-use App\Domain\Settings\Concerns\LogsActivity;
+use App\Concerns\HasRoles;
+use App\Concerns\LogsActivity;
 use Database\Factories\AdminFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;

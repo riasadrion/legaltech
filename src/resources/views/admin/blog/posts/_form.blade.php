@@ -1,6 +1,6 @@
 @php
     $p = $post ?? null;
-    $languages = \App\Domain\I18n\Models\Language::where('is_active', true)->orderBy('sort')->get();
+    $languages = \App\Models\Language::where('is_active', true)->orderBy('sort')->get();
 @endphp
 
 <div class="grid grid-cols-1 gap-5 lg:grid-cols-3 lg:items-start">

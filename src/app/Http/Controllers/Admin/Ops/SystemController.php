@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Ops;
 
-use App\Domain\Settings\Facades\Settings;
+use App\Facades\Settings;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;

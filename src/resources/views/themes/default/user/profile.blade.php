@@ -41,7 +41,7 @@
                         </div>
                         <img src="" alt="" class="ud-avatar hidden" id="avatar-preview">
                     @endif
-                    <label for="avatar-input" class="ud-avatar-upload-btn" title="@lang('Change photo')">
+                    <label for="avatar-input" class="ud-avatar-upload-btn" :title="__('Change photo')">
                         <x-heroicon-o-camera class="h-3 w-3" />
                     </label>
                     <input type="file" id="avatar-input" name="avatar" accept="image/jpeg,image/png,image/webp" class="hidden">
@@ -91,7 +91,7 @@
             <div class="mt-4">
                 <label class="ud-label" for="address">@lang('Address')</label>
                 <input type="text" id="address" name="address" value="{{ old('address', $user->address) }}"
-                       class="ud-input @error('address') border-red-500/50 @enderror" placeholder="@lang('Street address')">
+                       class="ud-input @error('address') border-red-500/50 @enderror" :placeholder="__('Street address')">
                 @error('address') <div class="ud-field-err">{{ $message }}</div> @enderror
             </div>
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-3 mt-4">
@@ -212,7 +212,7 @@
                     <label class="ud-label" for="delete_password">@lang('Confirm your password to continue')</label>
                     <input type="password" id="delete_password" name="delete_password" autocomplete="current-password"
                            class="ud-input @error('delete_password') border-red-500/50 @enderror"
-                           placeholder="@lang('Enter your password')">
+                           :placeholder="__('Enter your password')">
                     @error('delete_password') <div class="ud-field-err">{{ $message }}</div> @enderror
                 </div>
             </div>

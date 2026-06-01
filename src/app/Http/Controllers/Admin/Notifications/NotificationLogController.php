@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Notifications;
 
-use App\Domain\Notifications\Models\NotificationLog;
+use App\Models\NotificationLog;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 

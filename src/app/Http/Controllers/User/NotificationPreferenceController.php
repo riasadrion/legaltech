@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Domain\Notifications\Models\NotificationPreference;
-use App\Domain\Notifications\Models\NotificationTemplate;
+use App\Models\NotificationPreference;
+use App\Models\NotificationTemplate;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;

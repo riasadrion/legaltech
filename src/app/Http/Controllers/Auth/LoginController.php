@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Domain\Auth\Actions\LoginUser;
+use App\Actions\LoginUser;
 use App\Http\Controllers\Controller;
 use App\Support\Turnstile;
 use Illuminate\Http\Request;

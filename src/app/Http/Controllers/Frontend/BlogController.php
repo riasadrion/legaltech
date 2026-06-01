@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Domain\Blog\Models\BlogCategory;
-use App\Domain\Blog\Models\BlogPost;
-use App\Domain\Blog\Models\Tag;
+use App\Models\BlogCategory;
+use App\Models\BlogPost;
+use App\Models\Tag;
 use App\Http\Controllers\Controller;
 
 class BlogController extends Controller
@@ -14,7 +14,7 @@ class BlogController extends Controller
         $posts = BlogPost::published()
             ->with(['category', 'author', 'tags'])
             ->latest('published_at')
-            ->paginate(12);
+            ->paginate(13);
 
         $categories = BlogCategory::withCount(['posts' => fn ($q) => $q->published()])->orderBy('sort')->get();
 

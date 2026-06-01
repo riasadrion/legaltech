@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Domain\Cms\Models\Subscriber;
+use App\Models\Subscriber;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 

@@ -30,7 +30,7 @@
                 <option value="{{ $cat->id }}" {{ request('category') == $cat->id ? 'selected' : '' }}>{{ $cat->name }}</option>
             @endforeach
         </select>
-        <input type="text" name="q" value="{{ request('q') }}" placeholder="@lang('Search templates…')"
+        <input type="text" name="q" value="{{ request('q') }}" :placeholder="__('Search templates…')"
                class="h-9 w-52 rounded-lg border border-gray-300 px-3 text-sm shadow-sm focus:border-brand-500 focus:outline-none" />
         <button type="submit" class="rounded-lg bg-brand-600 px-3 py-2 text-sm font-medium text-white hover:bg-brand-700">@lang('Search')</button>
         @if(request()->hasAny(['q', 'category']))

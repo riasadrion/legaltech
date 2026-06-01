@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Domain\Settings\Facades\Settings;
+use App\Facades\Settings;
 use App\Domain\Subscription\Models\Plan;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;

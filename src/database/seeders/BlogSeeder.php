@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Domain\Blog\Models\BlogCategory;
-use App\Domain\Blog\Models\BlogPost;
-use App\Domain\Blog\Models\Tag;
-use App\Domain\Cms\Sanitizer\HtmlPurifier;
+use App\Models\BlogCategory;
+use App\Models\BlogPost;
+use App\Models\Tag;
+use App\Services\HtmlPurifier;
 use Illuminate\Database\Seeder;
 
 class BlogSeeder extends Seeder

@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Domain\Cms\Models\Menu;
-use App\Domain\Cms\Models\MenuItem;
-use App\Domain\Cms\Models\Page;
-use App\Domain\Cms\Models\PageSection;
+use App\Models\Menu;
+use App\Models\MenuItem;
+use App\Models\Page;
+use App\Models\PageSection;
 use Illuminate\Database\Seeder;
 
 class CmsSeeder extends Seeder
@@ -118,6 +118,14 @@ class CmsSeeder extends Seeder
                 'enabled' => true,
                 'sort'    => 0,
                 'data'    => '[]',
+            ],
+            // Contact page FAQ section
+            [
+                'id'      => 29,
+                'type'    => 'faq',
+                'enabled' => true,
+                'sort'    => 2,
+                'data'    => '{"items":[{"answer":"We aim to respond to every message within one business day. Priority support customers receive a response within 4 hours during business hours.","question":"How quickly will I hear back?"},{"answer":"Yes. You can book a 20-minute live demo with our team directly from the link in your reply, or request one in your message and we\'ll send available slots.","question":"Can I book a demo instead?"},{"answer":"Absolutely. Reach out with a short description of your use case and team size, and we\'ll put together a custom plan and quote for you.","question":"Do you offer custom or enterprise plans?"},{"answer":"Existing customers get the fastest help by signing in and opening a support ticket from the dashboard — it routes straight to our support team with your account context attached.","question":"I\'m already a customer — where do I get support?"},{"answer":"Yes. For security disclosures, partnership enquiries, or press, mention the topic in your message and it will be routed to the right team.","question":"Can I reach a specific team?"}],"eyebrow":"Common questions","heading":"Before you <span class=\"italic-display\">reach out.<\/span>"}',
             ],
             // About page sections
             [

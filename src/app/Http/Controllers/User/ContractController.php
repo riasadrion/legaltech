@@ -10,8 +10,8 @@ use App\Domain\Contract\Models\ContractTemplate;
 use App\Domain\Contract\Models\ContractTemplateCategory;
 use App\Domain\Contract\Services\ContractAiService;
 use App\Domain\Contract\Services\ContractPdfExporter;
-use App\Domain\Notifications\Models\NotificationTemplate;
-use App\Domain\Settings\Facades\Settings;
+use App\Models\NotificationTemplate;
+use App\Facades\Settings;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Mail\Message;
@@ -192,6 +192,10 @@ class ContractController extends Controller
                 ->withErrors(['ai' => 'Your current plan does not include AI contract generation.']);
         }
 
+        if (config('app.demo')) {
+            return back()->withInput()->withErrors(['ai' => __('AI contract generation is disabled in demo mode.')]);
+        }
+
         $data = $request->validate([
             'brief'           => ['required', 'string', 'min:20', 'max:4000'],
             'parties'         => ['required', 'array', 'min:1'],
@@ -246,6 +250,10 @@ class ContractController extends Controller
 
         if (!$contract->isEditable()) {
             return back()->withErrors(['ai' => 'Only contracts in editing state can be regenerated.']);
+        }
+
+        if (config('app.demo')) {
+            return back()->withErrors(['ai' => __('AI contract generation is disabled in demo mode.')]);
         }
 
         $brief = $contract->field_data['brief'] ?? null;

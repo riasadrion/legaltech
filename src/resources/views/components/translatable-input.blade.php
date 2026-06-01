@@ -1,7 +1,7 @@
 @props(['name', 'label' => '', 'type' => 'input', 'rows' => 4, 'values' => []])
 
 @php
-    $languages = \App\Domain\I18n\Models\Language::where('is_active', true)->orderBy('sort')->get();
+    $languages = \App\Models\Language::where('is_active', true)->orderBy('sort')->get();
     $firstCode = $languages->first()?->code ?? 'en';
 @endphp
 

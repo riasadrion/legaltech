@@ -44,7 +44,7 @@
             <div class="px-5 py-5 space-y-3">
                 <textarea name="brief" rows="6"
                           required minlength="20"
-                          placeholder="@lang('e.g. Mutual NDA between Acme Inc (Delaware) and BetaCorp (UK), covering trade secrets and product designs, 3-year term, governed by California law.')"
+                          :placeholder="__('e.g. Mutual NDA between Acme Inc (Delaware) and BetaCorp (UK), covering trade secrets and product designs, 3-year term, governed by California law.')"
                           class="ud-input">{{ old('brief', request('brief')) }}</textarea>
 
                 <div class="flex flex-wrap gap-1.5">
@@ -85,8 +85,8 @@
                             @endif
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                            <input type="text" name="parties[{{ $i }}][name]" placeholder="@lang('Full name')" required class="ud-input" value="{{ $p['name'] ?? '' }}" />
-                            <input type="email" name="parties[{{ $i }}][email]" placeholder="@lang('Email address')" required class="ud-input" value="{{ $p['email'] ?? '' }}" />
+                            <input type="text" name="parties[{{ $i }}][name]" :placeholder="__('Full name')" required class="ud-input" value="{{ $p['name'] ?? '' }}" />
+                            <input type="email" name="parties[{{ $i }}][email]" :placeholder="__('Email address')" required class="ud-input" value="{{ $p['email'] ?? '' }}" />
                         </div>
                         <select name="parties[{{ $i }}][role]" class="ud-input">
                             <option value="signer" {{ ($p['role'] ?? 'signer') !== 'viewer' ? 'selected' : '' }}>@lang('Signer')</option>
@@ -152,8 +152,8 @@
             + '<button type="button" class="remove-party text-red-400 hover:text-red-300 text-[11px]">@lang('Remove')</button>'
             + '</div>'
             + '<div class="grid grid-cols-1 md:grid-cols-2 gap-3">'
-            + '<input type="text" name="parties[' + idx + '][name]" placeholder="@lang('Full name')" required class="ud-input" />'
-            + '<input type="email" name="parties[' + idx + '][email]" placeholder="@lang('Email address')" required class="ud-input" />'
+            + '<input type="text" name="parties[' + idx + '][name]" :placeholder="__('Full name')" required class="ud-input" />'
+            + '<input type="email" name="parties[' + idx + '][email]" :placeholder="__('Email address')" required class="ud-input" />'
             + '</div>'
             + '<select name="parties[' + idx + '][role]" class="ud-input">'
             + '<option value="signer">@lang('Signer')</option>'

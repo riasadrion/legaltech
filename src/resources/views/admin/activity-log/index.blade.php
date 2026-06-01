@@ -21,7 +21,7 @@
             </div>
             <div>
                 <label class="mb-1.5 block text-xs font-medium text-gray-600">@lang('Admin')</label>
-                <input type="text" name="causer" value="{{ request('causer') }}" placeholder="@lang('Filter by email…')"
+                <input type="text" name="causer" value="{{ request('causer') }}" :placeholder="__('Filter by email…')"
                        class="h-9 w-52 rounded-lg border border-gray-300 px-3 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500">
             </div>
             <button type="submit" class="inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700">
@@ -48,14 +48,14 @@
             <tbody class="divide-y divide-gray-100">
                 @forelse($logs as $log)
                 <tr class="hover:bg-gray-50">
-                    <td class="px-4 py-3 text-xs text-gray-500 whitespace-nowrap" data-label="@lang('When')">{{ formatDate($log->created_at) }}</td>
-                    <td class="px-4 py-3 text-gray-700" data-label="@lang('Admin')">{{ $log->causer?->email ?? '—' }}</td>
-                    <td class="px-4 py-3" data-label="@lang('Action')">
+                    <td class="px-4 py-3 text-xs text-gray-500 whitespace-nowrap" :data-label="__('When')">{{ formatDate($log->created_at) }}</td>
+                    <td class="px-4 py-3 text-gray-700" :data-label="__('Admin')">{{ $log->causer?->email ?? '—' }}</td>
+                    <td class="px-4 py-3" :data-label="__('Action')">
                         <span class="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-semibold text-gray-700">
                             {{ $log->action }}
                         </span>
                     </td>
-                    <td class="px-4 py-3 text-xs text-gray-500" data-label="@lang('Subject')">
+                    <td class="px-4 py-3 text-xs text-gray-500" :data-label="__('Subject')">
                         {{ $log->subject_type ? class_basename($log->subject_type) . ' #' . $log->subject_id : '—' }}
                     </td>
                     <td class="px-4 py-3 text-right" data-label="">

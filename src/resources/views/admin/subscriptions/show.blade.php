@@ -12,7 +12,7 @@
             <p class="text-sm text-gray-400">{{ formatDate($subscription->created_at) }}</p>
         </div>
         @if(!$subscription->isExpired())
-        <form method="POST" action="{{ route('admin.subscriptions.cancel', $subscription) }}" data-confirm="@lang('Cancel this subscription?')">
+        <form method="POST" action="{{ route('admin.subscriptions.cancel', $subscription) }}" :data-confirm="__('Cancel this subscription?')">
             @csrf
             <button type="submit" class="inline-flex items-center gap-1.5 rounded-lg border border-rose-200 bg-white px-3 py-1.5 text-sm font-medium text-rose-600 hover:bg-rose-50">
                 <x-heroicon-o-x-circle class="h-4 w-4" />

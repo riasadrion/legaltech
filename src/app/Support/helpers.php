@@ -1,7 +1,7 @@
 <?php
 
-use App\Domain\Cms\Sanitizer\HtmlPurifier;
-use App\Domain\Settings\Facades\Settings;
+use App\Services\HtmlPurifier;
+use App\Facades\Settings;
 
 if (! function_exists('setting')) {
     function setting(string $key, string $default = ''): string

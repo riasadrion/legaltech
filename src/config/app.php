@@ -17,6 +17,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Demo Mode
+    |--------------------------------------------------------------------------
+    |
+    | When enabled, the admin panel becomes read-only: all write requests
+    | (create/update/delete) are blocked and a toast explains that the
+    | action is restricted in demo mode. Toggle with DEMO in your .env.
+    |
+    */
+
+    'demo' => env('DEMO', false),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Environment
     |--------------------------------------------------------------------------
     |

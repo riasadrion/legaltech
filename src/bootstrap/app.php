@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\CheckMaintenance;
+use App\Http\Middleware\DemoMode;
 use App\Http\Middleware\EnsureAccountIsActive;
 use App\Http\Middleware\ExpireSubscriptions;
 use App\Http\Middleware\ForceHttps;
@@ -44,6 +45,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'account.active' => EnsureAccountIsActive::class,
             'subscription.expire' => ExpireSubscriptions::class,
             'maintenance' => CheckMaintenance::class,
+            'demo' => DemoMode::class,
             'verified.email' => RequireVerifiedEmail::class,
             'verified.phone' => RequireVerifiedPhone::class,
             'kyc' => RequireKyc::class,

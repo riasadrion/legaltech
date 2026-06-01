@@ -38,10 +38,10 @@
                         <form method="POST" action="{{ route('user.2fa.disable') }}">
                             @csrf
                             <div class="flex gap-3">
-                                <input name="password" type="password" placeholder="@lang('Current password')"
+                                <input name="password" type="password" :placeholder="__('Current password')"
                                        class="ud-input flex-1" />
                                 <button type="submit" class="ud-btn-danger inline-flex shrink-0"
-                                        data-confirm="@lang('Are you sure you want to disable two-factor authentication?')">
+                                        :data-confirm="__('Are you sure you want to disable two-factor authentication?')">
                                     @lang('Disable 2FA')
                                 </button>
                             </div>

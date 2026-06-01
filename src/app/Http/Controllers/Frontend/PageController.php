@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Domain\Cms\Models\Page;
+use App\Models\Page;
 use App\Http\Controllers\Controller;
 
 class PageController extends Controller

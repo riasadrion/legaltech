@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Domain\Auth\Actions\RegisterUser;
-use App\Domain\Auth\Registration\RegistrationFields;
-use App\Domain\Settings\Facades\Settings;
+use App\Actions\RegisterUser;
+use App\Support\RegistrationFields;
+use App\Facades\Settings;
 use App\Http\Controllers\Controller;
 use App\Notifications\Auth\VerifyEmail;
 use App\Support\Turnstile;

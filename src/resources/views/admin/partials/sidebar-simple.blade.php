@@ -20,7 +20,7 @@
 
         <nav class="px-3 py-5 space-y-4">
             @php
-                $navItems = \App\Domain\Admin\Navigation\AdminNavigation::forUser(auth('admin')->user());
+                $navItems = \App\Support\AdminNavigation::forUser(auth('admin')->user());
                 $currentRoute = request()->route()?->getName();
             @endphp
 

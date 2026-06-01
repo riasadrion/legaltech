@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin\Cms;
 
-use App\Domain\Cms\Models\Menu;
-use App\Domain\Cms\Models\MenuItem;
-use App\Domain\Cms\Models\Page;
+use App\Models\Menu;
+use App\Models\MenuItem;
+use App\Models\Page;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 

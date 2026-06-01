@@ -1,7 +1,7 @@
 @php
     $d = $section->getLocaleData();
     $body = (string) ($d['content'] ?? $d['body'] ?? '');
-    $clean = \App\Domain\Cms\Sanitizer\HtmlPurifier::purify($body);
+    $clean = \App\Services\HtmlPurifier::purify($body);
 @endphp
 @if($clean !== '')
 <section class="relative py-28">

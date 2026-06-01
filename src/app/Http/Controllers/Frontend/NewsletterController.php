@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Domain\Cms\Models\Subscriber;
+use App\Models\Subscriber;
 use App\Http\Controllers\Controller;
 use App\Mail\NewsletterConfirm;
 use Illuminate\Http\Request;

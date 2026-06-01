@@ -60,7 +60,7 @@
         </a>
 
         <div class="sidebar-nav">
-            @php $navItems = \App\Domain\Admin\Navigation\AdminNavigation::forUser(auth('admin')->user()); @endphp
+            @php $navItems = \App\Support\AdminNavigation::forUser(auth('admin')->user()); @endphp
             @foreach ($navItems as $item)
                 @if (empty($item['children']))
                     @php
@@ -146,7 +146,7 @@
             <div class="relative flex-1 max-w-md" id="search-container">
                 <div class="header-search">
                     <x-heroicon-o-magnifying-glass class="h-4 w-4 text-gray-400 flex-shrink-0" />
-                    <input type="text" id="menu-search" placeholder="@lang('Search pages...')">
+                    <input type="text" id="menu-search" :placeholder="__('Search pages...')">
                 </div>
                 <div id="search-results" class="hidden absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-64 overflow-y-auto"></div>
             </div>

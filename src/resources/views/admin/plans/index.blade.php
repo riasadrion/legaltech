@@ -20,7 +20,7 @@
             </a>
         </div>
         <form method="GET" class="flex items-center gap-2">
-            <input type="text" name="q" value="{{ request('q') }}" placeholder="@lang('Plan name…')"
+            <input type="text" name="q" value="{{ request('q') }}" :placeholder="__('Plan name…')"
                    class="h-9 w-52 rounded-lg border border-gray-300 px-3 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500" />
             <button type="submit" class="inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700">@lang('Search')</button>
             @if(request()->hasAny(['q']))
@@ -46,11 +46,11 @@
             <tbody class="divide-y divide-gray-100">
                 @forelse($plans as $plan)
                 <tr class="hover:bg-gray-50">
-                    <td class="px-4 py-3 font-medium text-gray-900" data-label="@lang('Name')">{{ $plan->name }}</td>
-                    <td class="px-4 py-3 text-gray-600" data-label="@lang('Price')">{{ $plan->formattedPrice() }}</td>
-                    <td class="px-4 py-3 text-gray-600" data-label="@lang('Cycle')">{{ ucfirst($plan->billing_cycle) }}</td>
-                    <td class="px-4 py-3 text-gray-600" data-label="@lang('Credits')">{{ $plan->credits ?: '—' }}</td>
-                    <td class="px-4 py-3" data-label="@lang('Status')">
+                    <td class="px-4 py-3 font-medium text-gray-900" :data-label="__('Name')">{{ $plan->name }}</td>
+                    <td class="px-4 py-3 text-gray-600" :data-label="__('Price')">{{ $plan->formattedPrice() }}</td>
+                    <td class="px-4 py-3 text-gray-600" :data-label="__('Cycle')">{{ ucfirst($plan->billing_cycle) }}</td>
+                    <td class="px-4 py-3 text-gray-600" :data-label="__('Credits')">{{ $plan->credits ?: '—' }}</td>
+                    <td class="px-4 py-3" :data-label="__('Status')">
                         @php
                             $sc = $plan->is_active ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500';
                         @endphp
@@ -70,7 +70,7 @@
                                 {{ $plan->is_active ? __('Disable') : __('Enable') }}
                             </button>
                         </form>
-                        <form method="POST" action="{{ route('admin.plans.destroy', $plan) }}" class="inline" data-confirm="@lang('Delete this plan?')">
+                        <form method="POST" action="{{ route('admin.plans.destroy', $plan) }}" class="inline" :data-confirm="__('Delete this plan?')">
                             @csrf @method('DELETE')
                             <button type="submit"
                                     class="inline-flex items-center gap-1 rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-red-600 shadow-sm hover:bg-red-50">
