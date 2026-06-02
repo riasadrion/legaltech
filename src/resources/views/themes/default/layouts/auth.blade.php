@@ -132,6 +132,18 @@
     <x-confirm-modal />
 
     <script src="{{ asset('assets/static/js/phone-input.js') }}"></script>
+    <script>
+        document.querySelectorAll('[data-pwd-toggle]').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var wrap  = btn.closest('[data-pwd-wrap]');
+                var input = wrap.querySelector('input');
+                var show  = input.type === 'password';
+                input.type = show ? 'text' : 'password';
+                wrap.querySelector('[data-eye]').classList.toggle('hidden', show);
+                wrap.querySelector('[data-eye-off]').classList.toggle('hidden', !show);
+            });
+        });
+    </script>
     @stack('scripts')
     <x-integrations.tawk />
 </body>

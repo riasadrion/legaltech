@@ -30,16 +30,30 @@
 
     <div class="auth-field-wrap">
         <label class="auth-label" for="password">@lang('Password')</label>
-        <input id="password" name="password" type="password"
-               :placeholder="__('Min 8 characters')" autocomplete="new-password" required
-               class="auth-input {{ $errors->has('password') ? 'auth-input-err' : '' }}">
+        <div class="relative" data-pwd-wrap>
+            <input id="password" name="password" type="password"
+                   placeholder="{{ __('Min 8 characters') }}" autocomplete="new-password" required
+                   class="auth-input pe-11 {{ $errors->has('password') ? 'auth-input-err' : '' }}">
+            <button type="button" data-pwd-toggle tabindex="-1"
+                    class="absolute inset-y-0 end-0 flex items-center pe-3 text-white/40 hover:text-white/70">
+                <x-heroicon-o-eye class="h-5 w-5" data-eye />
+                <x-heroicon-o-eye-slash class="h-5 w-5 hidden" data-eye-off />
+            </button>
+        </div>
     </div>
 
     <div class="auth-field-wrap">
         <label class="auth-label" for="password_confirmation">@lang('Confirm password')</label>
-        <input id="password_confirmation" name="password_confirmation" type="password"
-               :placeholder="__('Repeat password')" autocomplete="new-password" required
-               class="auth-input">
+        <div class="relative" data-pwd-wrap>
+            <input id="password_confirmation" name="password_confirmation" type="password"
+                   placeholder="{{ __('Repeat password') }}" autocomplete="new-password" required
+                   class="auth-input pe-11">
+            <button type="button" data-pwd-toggle tabindex="-1"
+                    class="absolute inset-y-0 end-0 flex items-center pe-3 text-white/40 hover:text-white/70">
+                <x-heroicon-o-eye class="h-5 w-5" data-eye />
+                <x-heroicon-o-eye-slash class="h-5 w-5 hidden" data-eye-off />
+            </button>
+        </div>
     </div>
 
     @foreach($extraFields as $field)
