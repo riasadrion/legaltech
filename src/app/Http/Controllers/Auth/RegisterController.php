@@ -57,8 +57,6 @@ class RegisterController extends Controller
         try {
             $user->notify(new VerifyEmail);
         } catch (\Throwable $e) {
-            // A mail failure must never break account creation — the user can
-            // resend the verification email from the notice page.
             Log::error('Verification email failed to send on registration', [
                 'user_id' => $user->id,
                 'error'   => $e->getMessage(),

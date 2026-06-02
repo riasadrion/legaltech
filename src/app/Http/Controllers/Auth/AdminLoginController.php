@@ -43,9 +43,6 @@ class AdminLoginController extends Controller
 
     public function destroy(Request $request)
     {
-        // Log out only the admin guard. Calling session()->invalidate() here would
-        // destroy the whole session and forcibly log out the user guard too,
-        // breaking simultaneous admin + user sessions in the same browser.
         Auth::guard('admin')->logout();
         $request->session()->forget('admin_impersonating_user_id');
         $request->session()->regenerateToken();

@@ -16,6 +16,13 @@ class ThemeServiceProvider extends ServiceProvider
 
         $this->loadViewsFrom(resource_path("views/themes/{$theme}"), 'theme');
 
+        // Prepend the theme root to view.paths so the framework's error-view
+        // resolver (which builds the "errors::" namespace from config('view.paths')
+        // + '/errors') finds the themed pages in views/themes/{theme}/errors/.
+        $themePath = resource_path("views/themes/{$theme}");
+        config(['view.paths' => array_merge([$themePath], config('view.paths', []))]);
+        view()->addLocation($themePath);
+
         Blade::anonymousComponentNamespace("themes.{$theme}.components", 'theme');
         Blade::anonymousComponentPath(resource_path("views/themes/{$theme}/components"));
 

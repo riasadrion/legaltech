@@ -23,6 +23,18 @@ class AppServiceProvider extends ServiceProvider
         $this->registerAdminNavigation();
         $this->registerRegistrationFields();
         $this->registerActivityObserver();
+        $this->configureGuestRedirect();
+    }
+
+    private function configureGuestRedirect(): void
+    {
+        \Illuminate\Auth\Middleware\RedirectIfAuthenticated::redirectUsing(function ($request) {
+            if ($request->is('admin/*') && auth('admin')->check()) {
+                return route('admin.dashboard');
+            }
+
+            return route('user.dashboard');
+        });
     }
 
     private function configureVite(): void
