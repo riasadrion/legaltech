@@ -206,9 +206,16 @@ class UserController extends Controller
 
     public function impersonate(Request $request, User $user)
     {
-        $request->session()->put('admin_impersonating_user_id', auth('admin')->id());
-        auth('user')->login($user);
+        $adminId = auth('admin')->id();
+
+        // Rotate the session ID first (prevents fixation), then log in the user
+        // guard. Doing this in the reverse order wipes the freshly-set user-guard
+        // auth state, which makes auth('user')->id() return null afterwards and
+        // breaks every user-side authorization check (403s).
         $request->session()->regenerate();
+        $request->session()->put('admin_impersonating_user_id', $adminId);
+
+        auth('user')->login($user);
 
         return redirect()->route('user.dashboard');
     }

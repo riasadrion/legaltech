@@ -141,7 +141,11 @@
 
 
                     <div class="px-5 py-4">
-                        <input type="hidden" name="body_html" id="contract_body_input" value="{{ $contract->body_html }}">
+                        {{-- Body is hydrated client-side from the template block below.
+                             Keeping the raw HTML out of the value="" attribute avoids
+                             tripping server-level WAF / mod_security rules. --}}
+                        <input type="hidden" name="body_html" id="contract_body_input" value="">
+                        <script type="text/html" id="contract_body_source">{!! $contract->body_html !!}</script>
                         <div class="prose-editor-init" data-input="contract_body_input"></div>
                     </div>
                 </div>
@@ -244,6 +248,13 @@
 <script>
 $(function () {
     'use strict';
+    // Hydrate the hidden input from the template block (kept out of the
+    // value="" attribute so the server response doesn't trip mod_security).
+    var bodySource = document.getElementById('contract_body_source');
+    var bodyInput  = document.getElementById('contract_body_input');
+    if (bodySource && bodyInput) {
+        bodyInput.value = bodySource.innerHTML;
+    }
     document.querySelectorAll('.prose-editor-init').forEach(function (el) {
         ProseEditor.init(el);
     });

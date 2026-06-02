@@ -10,6 +10,7 @@ use App\Notifications\Auth\VerifyEmail;
 use App\Support\Turnstile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 
 class RegisterController extends Controller
@@ -53,7 +54,16 @@ class RegisterController extends Controller
 
         $request->session()->regenerate();
 
-        $user->notify(new VerifyEmail);
+        try {
+            $user->notify(new VerifyEmail);
+        } catch (\Throwable $e) {
+            // A mail failure must never break account creation — the user can
+            // resend the verification email from the notice page.
+            Log::error('Verification email failed to send on registration', [
+                'user_id' => $user->id,
+                'error'   => $e->getMessage(),
+            ]);
+        }
 
         return redirect()->route('user.dashboard');
     }

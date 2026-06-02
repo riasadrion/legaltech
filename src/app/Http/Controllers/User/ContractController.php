@@ -428,7 +428,7 @@ class ContractController extends Controller
 
     private function authorizeContract(Contract $contract): void
     {
-        if ($contract->user_id !== auth('user')->id()) {
+        if ((int) $contract->user_id !== (int) auth('user')->id()) {
             abort(403);
         }
     }
