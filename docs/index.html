@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>LegalTech — Documentation</title>
+<title>LegalTech Documentation</title>
 <link rel="icon" type="image/png" href="assets/img/favicon.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -271,7 +271,7 @@
     <p class="page-desc">Welcome to the LegalTech documentation. This guide covers everything you need to deploy and configure your installation.</p>
 </div>
 
-<p>LegalTech is a self-hosted SaaS platform that lets users create, sign, and manage legal contracts — powered by AI. It is built on <strong>Laravel 13</strong> with a domain-driven architecture and ships as a pre-built, deployment-ready package.</p>
+<p>LegalTech is a self-hosted SaaS platform that lets users create, sign, and manage legal contracts, powered by AI. It is built on <strong>Laravel 13</strong> with a domain-driven architecture and ships as a pre-built, deployment-ready package.</p>
 
 <h3 class="sub-heading">What's included</h3>
 <div class="card-grid">
@@ -289,7 +289,7 @@
     </div>
     <div class="card-sm">
         <div class="label">Subscriptions</div>
-        <div class="value">Flexible plan billing — monthly, yearly, or pay-as-you-go</div>
+        <div class="value">Flexible plan billing: monthly, yearly, or pay-as-you-go</div>
     </div>
     <div class="card-sm">
         <div class="label">12 Payment Gateways</div>
@@ -306,7 +306,7 @@
     <li>Server requirements and PHP extensions</li>
     <li>Installation on cPanel and Hostinger shared hosting</li>
     <li>Environment file configuration (<code>.env</code>)</li>
-    <li>Admin setup — first login, general settings, email, OpenAI</li>
+    <li>Admin setup: first login, general settings, email, OpenAI</li>
     <li>Payment gateway configuration for all 12 supported gateways</li>
     <li>Subscription plan management</li>
     <li>File storage, queue workers, and cron jobs</li>
@@ -315,7 +315,7 @@
 
 <div class="callout callout-info">
     <span class="callout-icon">ℹ</span>
-    <div>No Composer or npm is required on the server. LegalTech ships as a fully compiled package — just upload, configure <code>.env</code>, and run migrations.</div>
+    <div>No Composer or npm is required on the server. LegalTech ships as a fully compiled package: just upload, configure <code>.env</code>, and run migrations.</div>
 </div>
 </section>
 
@@ -387,45 +387,48 @@
 <h2 class="section-heading">cPanel Installation</h2>
 <p>LegalTech ships as a pre-built package. No Composer or npm needed on the server.</p>
 
-<h3 class="sub-heading">1 — Extract files</h3>
+<h3 class="sub-heading">1. Open the download package</h3>
+<p>The file you download from CodeCanyon (e.g. <code>codecanyon-XXXXXX.zip</code>) extracts on your computer into three folders:</p>
+<div class="card">
+<pre class="code-block language-bash">codecanyon-XXXXXX/
+├── Files/            ← The actual application (upload this to your server)
+├── Database/         ← database.sql, the database to import
+└── Documentation/    ← This guide</pre>
+</div>
+
+<h3 class="sub-heading">2. Upload the application files</h3>
 <ol class="steps">
     <li>
         <div class="step-body">
-            <div class="step-title">Upload the archive</div>
-            <div class="step-desc">Upload <code>legaltech.zip</code> to your hosting via cPanel File Manager or FTP. Place it in the root of your domain (e.g. <code>public_html/</code>) or a subfolder (e.g. <code>public_html/legaltech/</code>).</div>
+            <div class="step-title">Upload the contents of <code>Files/</code></div>
+            <div class="step-desc">Upload everything <em>inside</em> the <code>Files/</code> folder to your deployment root, i.e. the root of your domain (e.g. <code>public_html/</code>) or a subfolder (e.g. <code>public_html/app/</code>). Use cPanel File Manager's <strong>Upload</strong>, or FTP for the full folder.</div>
         </div>
     </li>
     <li>
         <div class="step-body">
-            <div class="step-title">Extract</div>
-            <div class="step-desc">Right-click → Extract in File Manager. You will see two top-level items: a <strong><code>Files/</code></strong> folder and a <code>README</code>.</div>
-        </div>
-    </li>
-    <li>
-        <div class="step-body">
-            <div class="step-title">Move contents of <code>Files/</code> up</div>
-            <div class="step-desc">Move everything <em>inside</em> <code>Files/</code> to your deployment root. The result should be: <code>public_html/assets/</code>, <code>public_html/index.php</code>, <code>public_html/src/</code>.</div>
+            <div class="step-title">Verify the result</div>
+            <div class="step-desc">Your deployment root should now contain: <code>public_html/.htaccess</code>, <code>public_html/index.php</code>, <code>public_html/assets/</code>, <code>public_html/src/</code>.</div>
         </div>
     </li>
 </ol>
 
 <h3 class="sub-heading" id="folder-structure">Root folder brief</h3>
 <div class="card">
-<pre class="code-block language-bash">public_html/          ← (or subfolder like public_html/legaltech/)
+<pre class="code-block language-bash">public_html/          ← (or subfolder like public_html/app/)
 ├── .htaccess         ← URL rewriting, security headers, blocks .env/.log access
-├── index.php         ← Entry point — routes all requests into src/
+├── index.php         ← Entry point, routes all requests into src/
 ├── assets/           ← Public assets served directly by the web server
-│   ├── vite/         ← Compiled JS + CSS bundles
 │   ├── static/       ← Theme CSS, images, icons
-│   └── uploads/      ← User-uploaded files (logos, KYC docs, etc.)
+│   ├── uploads/      ← User-uploaded files (logos, KYC docs, etc.)
+│   └── vite/         ← Compiled JS + CSS bundles
 └── src/              ← Laravel application (NOT publicly accessible)
+    ├── .env          ← ⬅ Your environment file goes here
     ├── app/          ← Domain logic, controllers, models
     ├── config/       ← Laravel config files
     ├── database/     ← Migrations and seeders
     ├── resources/    ← Blade views, language files
     ├── routes/       ← Web and API routes
-    ├── storage/      ← Logs, cache, queued jobs
-    └── .env          ← ⬅ Your environment file goes here</pre>
+    └── storage/      ← Logs, cache, queued jobs</pre>
 </div>
 
 <div class="callout callout-warn">
@@ -433,7 +436,7 @@
     <div>The <code>src/</code> directory must <strong>not</strong> be publicly accessible. Only <code>index.php</code> and the <code>assets/</code> folder should be web-accessible. cPanel's <code>public_html</code> layout already satisfies this when you deploy to the domain root. For subdirectory deploys, see the <a href="#subdirectory">Subdirectory Deploy</a> section.</div>
 </div>
 
-<h3 class="sub-heading">2 — Create a MySQL database</h3>
+<h3 class="sub-heading">3. Create a MySQL database</h3>
 <ol class="steps">
     <li>
         <div class="step-body">
@@ -449,7 +452,7 @@
     </li>
 </ol>
 
-<h3 class="sub-heading">3 — Import the database</h3>
+<h3 class="sub-heading">4. Import the database</h3>
 <ol class="steps">
     <li>
         <div class="step-body">
@@ -460,17 +463,17 @@
     <li>
         <div class="step-body">
             <div class="step-title">Import via phpMyAdmin</div>
-            <div class="step-desc">Open <strong>cPanel → phpMyAdmin</strong>, select your database, click <strong>Import</strong>, choose the <code>database.sql</code> file included in the package, and click <strong>Go</strong>.</div>
+            <div class="step-desc">Open <strong>cPanel → phpMyAdmin</strong>, select your database, click <strong>Import</strong>, choose <code>database.sql</code> from the <strong><code>Database/</code></strong> folder of the download package, and click <strong>Go</strong>.</div>
         </div>
     </li>
 </ol>
 
 <div class="callout callout-tip">
     <span class="callout-icon">💡</span>
-    <div>The SQL file includes all tables and default data. No command line needed.</div>
+    <div>The SQL file includes all tables and default data (default admin account, settings, languages, roles). No command line needed.</div>
 </div>
 
-<h3 class="sub-heading">4 — Storage &amp; permissions</h3>
+<h3 class="sub-heading">5. Storage &amp; permissions</h3>
 <pre class="code-block language-bash">chmod -R 775 src/storage src/bootstrap/cache</pre>
 <p>Ensure the web server user can write to <code>src/storage/</code> and <code>assets/uploads/</code>.</p>
 </section>
@@ -484,7 +487,12 @@
 <h2 class="section-heading">Hostinger Installation</h2>
 <p>Hostinger uses <strong>hPanel</strong> instead of cPanel. The steps below map to hPanel's interface. The file structure and <code>.env</code> setup are identical to cPanel.</p>
 
-<h3 class="sub-heading">1 — Upload and extract files</h3>
+<div class="callout callout-tip">
+    <span class="callout-icon">💡</span>
+    <div>The CodeCanyon download extracts into three folders on your computer: <code>Files/</code> (the app), <code>Database/</code> (the SQL to import), and <code>Documentation/</code> (this guide). You upload the contents of <code>Files/</code> and import <code>Database/database.sql</code>.</div>
+</div>
+
+<h3 class="sub-heading">1. Upload the application files</h3>
 <ol class="steps">
     <li>
         <div class="step-body">
@@ -494,25 +502,19 @@
     </li>
     <li>
         <div class="step-body">
-            <div class="step-title">Upload the archive</div>
-            <div class="step-desc">Click <strong>Upload Files</strong> and select <code>legaltech.zip</code>. Wait for the upload to finish.</div>
+            <div class="step-title">Upload the contents of <code>Files/</code></div>
+            <div class="step-desc">Click <strong>Upload</strong> and select everything <em>inside</em> the <code>Files/</code> folder. Tip: to speed up the upload you can compress the <code>Files/</code> contents into a zip on your computer first, upload that single zip, then right-click → <strong>Extract</strong> in File Manager.</div>
         </div>
     </li>
     <li>
         <div class="step-body">
-            <div class="step-title">Extract</div>
-            <div class="step-desc">Right-click <code>legaltech.zip</code> → <strong>Extract</strong>. You will see a <code>Files/</code> folder appear.</div>
-        </div>
-    </li>
-    <li>
-        <div class="step-body">
-            <div class="step-title">Move contents up</div>
-            <div class="step-desc">Select all items inside <code>Files/</code>, then move them to your deployment root (<code>public_html/</code>). The result should be: <code>public_html/.htaccess</code>, <code>public_html/index.php</code>, <code>public_html/assets/</code>, <code>public_html/src/</code>.</div>
+            <div class="step-title">Verify the result</div>
+            <div class="step-desc">Your deployment root should now contain: <code>public_html/.htaccess</code>, <code>public_html/index.php</code>, <code>public_html/assets/</code>, <code>public_html/src/</code>.</div>
         </div>
     </li>
 </ol>
 
-<h3 class="sub-heading">2 — Create a MySQL database</h3>
+<h3 class="sub-heading">2. Create a MySQL database</h3>
 <ol class="steps">
     <li>
         <div class="step-body">
@@ -528,18 +530,18 @@
     </li>
 </ol>
 
-<h3 class="sub-heading">3 — Configure <code>.env</code> and import database</h3>
+<h3 class="sub-heading">3. Configure <code>.env</code> and import database</h3>
 <ol class="steps">
     <li>
         <div class="step-body">
             <div class="step-title">Edit <code>src/.env</code> via File Manager</div>
-            <div class="step-desc">In hPanel File Manager navigate to <code>public_html/src/</code>, right-click <code>.env.example</code> → <strong>Copy</strong>, rename the copy to <code>.env</code>, then right-click → <strong>Edit</strong> to fill in your database credentials. See the <a href="#env">Environment</a> section for the full list.</div>
+            <div class="step-desc">In hPanel File Manager navigate to <code>public_html/src/</code>, right-click the included <code>.env</code> → <strong>Edit</strong>, and fill in your database credentials. See the <a href="#env">Environment</a> section for the full list.</div>
         </div>
     </li>
     <li>
         <div class="step-body">
             <div class="step-title">Import via phpMyAdmin</div>
-            <div class="step-desc">Go to <strong>hPanel → Databases → phpMyAdmin</strong>, select your database, click <strong>Import</strong>, choose the <code>database.sql</code> file included in the package, and click <strong>Go</strong>.</div>
+            <div class="step-desc">Go to <strong>hPanel → Databases → phpMyAdmin</strong>, select your database, click <strong>Import</strong>, choose <code>database.sql</code> from the <strong><code>Database/</code></strong> folder of the download package, and click <strong>Go</strong>.</div>
         </div>
     </li>
 </ol>
@@ -549,7 +551,7 @@
     <div>The SQL file includes all tables and default data. No command line needed.</div>
 </div>
 
-<h3 class="sub-heading">4 — Storage &amp; permissions</h3>
+<h3 class="sub-heading">4. Storage &amp; permissions</h3>
 <pre class="code-block language-bash">chmod -R 775 storage bootstrap/cache</pre>
 <p>Run this inside the <code>src/</code> directory. Hostinger's web server user typically already has write access, but running this command ensures it regardless.</p>
 
@@ -566,17 +568,17 @@
 ════════════════════════════════════════ -->
 <section id="env">
 <h2 class="section-heading">Environment File (<code>.env</code>)</h2>
-<p>The <code>.env</code> file lives at <code>src/.env</code>. Copy <code>src/.env.example</code> to <code>src/.env</code> and fill in the values below. Only infrastructure-level values go here — all service keys (OpenAI, mail, payment gateways, social login) are configured through <strong>Admin → Settings</strong> after installation.</p>
+<p>A ready-to-use <code>.env</code> file ships at <code>src/.env</code> with the <code>APP_KEY</code> already generated. Just edit it and fill in the database values below. Only infrastructure-level values go here. All service keys (OpenAI, mail, payment gateways, social login) are configured through <strong>Admin → Settings</strong> after installation.</p>
 
 <h3 class="sub-heading">Core application</h3>
 <pre class="code-block language-bash">APP_NAME="LegalTech"
 APP_ENV=production
-APP_KEY=                    # already set in the distributed .env.example
+APP_KEY=                    # already set in the included .env
 APP_DEBUG=false</pre>
 
 <div class="callout callout-warn">
     <span class="callout-icon">⚠</span>
-    <div>The <code>APP_KEY</code> is pre-generated in the distributed package. Do not change it unless you know what you're doing — it is used to encrypt sessions and stored data.</div>
+    <div>The <code>APP_KEY</code> is pre-generated in the distributed package. Do not change it unless you know what you are doing; it is used to encrypt sessions and stored data.</div>
 </div>
 
 <h3 class="sub-heading">Database</h3>
@@ -589,7 +591,7 @@ DB_PASSWORD=your_password</pre>
 
 <div class="callout callout-info">
     <span class="callout-icon">ℹ</span>
-    <div>That's all that goes in <code>.env</code>. OpenAI API keys, mail credentials, payment gateway keys, and social login secrets are all configured through <strong>Admin → Settings</strong> after installation — not in the environment file.</div>
+    <div><code>DB_HOST</code> can be <code>localhost</code>, <code>127.0.0.1</code>, or a server IP address. It varies by host. Most cPanel/shared hosts use <code>localhost</code>; some require <code>127.0.0.1</code> or a dedicated database server IP. If the connection fails, try the alternative value.</div>
 </div>
 </section>
 
@@ -661,7 +663,7 @@ DB_PASSWORD=your_password</pre>
 <table>
 <thead><tr><th>Control</th><th>Default</th><th>Description</th></tr></thead>
 <tbody>
-<tr><td>User Registration</td><td>On</td><td>Allow new users to sign up. Disable to make the platform invite-only — the register page is blocked.</td></tr>
+<tr><td>User Registration</td><td>On</td><td>Allow new users to sign up. Disable to make the platform invite-only; the register page is blocked.</td></tr>
 <tr><td>Email Verification</td><td>Off</td><td>Require new users to verify their email before accessing the dashboard.</td></tr>
 <tr><td>SMS Verification</td><td>Off</td><td>Require phone verification via SMS code. Configure the SMS driver under the SMS tab first.</td></tr>
 <tr><td>KYC Verification</td><td>Off</td><td>Require identity document upload before users can access platform features.</td></tr>
@@ -688,11 +690,11 @@ DB_PASSWORD=your_password</pre>
 <thead><tr><th>Field</th><th>Description</th></tr></thead>
 <tbody>
 <tr><td>Site Font</td><td>Choose from System font (no Google Fonts load) or 12 Google Fonts: Inter, Roboto, Lato, Open Sans, Poppins, Nunito, Source Sans 3, Work Sans, DM Sans, Manrope, Montserrat, Plus Jakarta Sans. A live preview shows the selected font before saving.</td></tr>
-<tr><td>Logo</td><td>Used on dark backgrounds (e.g. admin sidebar, dark nav). PNG with transparent background recommended — max 500 px wide, 2 MB.</td></tr>
+<tr><td>Logo</td><td>Used on dark backgrounds (e.g. admin sidebar, dark nav). PNG with transparent background recommended (max 500 px wide, 2 MB).</td></tr>
 <tr><td>Logo (Light Mode)</td><td>Used on light backgrounds. Same format and size as Logo.</td></tr>
-<tr><td>Favicon</td><td>Browser tab icon. Square PNG or ICO — max 512 KB.</td></tr>
-<tr><td>Default OG / Social Share Image</td><td>Fallback image for social sharing previews. Recommended 1200 × 630 px — max 2 MB.</td></tr>
-<tr><td>Custom CSS</td><td>Raw CSS injected into every frontend page. Changes take effect immediately on save — no build step needed.</td></tr>
+<tr><td>Favicon</td><td>Browser tab icon. Square PNG or ICO (max 512 KB).</td></tr>
+<tr><td>Default OG / Social Share Image</td><td>Fallback image for social sharing previews. Recommended 1200 × 630 px (max 2 MB).</td></tr>
+<tr><td>Custom CSS</td><td>Raw CSS injected into every frontend page. Changes take effect immediately on save, no build step needed.</td></tr>
 </tbody>
 </table>
 </div>
@@ -712,7 +714,7 @@ DB_PASSWORD=your_password</pre>
 <thead><tr><th>Field</th><th>Description</th></tr></thead>
 <tbody>
 <tr><td>Default Meta Description</td><td>Fallback <code>&lt;meta name="description"&gt;</code> used on pages that don't have their own. Max 300 characters.</td></tr>
-<tr><td>Footer Text</td><td>Plain text shown in the site footer — typically a copyright line. Max 500 characters.</td></tr>
+<tr><td>Footer Text</td><td>Plain text shown in the site footer, typically a copyright line. Max 500 characters.</td></tr>
 </tbody>
 </table>
 </div>
@@ -744,9 +746,9 @@ DB_PASSWORD=your_password</pre>
 <table>
 <thead><tr><th>Driver</th><th>Fields required</th><th>Notes</th></tr></thead>
 <tbody>
-<tr><td><span class="badge badge-gray">Log</span></td><td>None</td><td>Dev only — emails go to <code>src/storage/logs/laravel.log</code>, not sent.</td></tr>
+<tr><td><span class="badge badge-gray">Log</span></td><td>None</td><td>Dev only: emails go to <code>src/storage/logs/laravel.log</code>, not sent.</td></tr>
 <tr><td><span class="badge badge-blue">SMTP</span></td><td>Host, Port, Username, Password, Encryption (TLS / SSL / None)</td><td>Works with Gmail, Zoho, cPanel Mail, any SMTP provider.</td></tr>
-<tr><td><span class="badge badge-blue">Sendmail</span></td><td>None</td><td>Uses server <code>mail()</code>. Poor deliverability — avoid in production.</td></tr>
+<tr><td><span class="badge badge-blue">Sendmail</span></td><td>None</td><td>Uses server <code>mail()</code>. Poor deliverability, avoid in production.</td></tr>
 <tr><td><span class="badge badge-blue">Mailgun</span></td><td>Domain, API Key, Endpoint (US or EU)</td><td>Get keys from mailgun.com → Sending → Domains.</td></tr>
 <tr><td><span class="badge badge-blue">Amazon SES</span></td><td>Access Key, Secret Key, Region</td><td>Create an IAM user with SES send permissions.</td></tr>
 <tr><td><span class="badge badge-blue">Postmark</span></td><td>Server Token</td><td>Find in Postmark → Servers → your server → API Tokens.</td></tr>
@@ -755,7 +757,7 @@ DB_PASSWORD=your_password</pre>
 </table>
 </div>
 
-<h3 class="sub-heading">SMTP example — Gmail / Google Workspace</h3>
+<h3 class="sub-heading">SMTP example: Gmail / Google Workspace</h3>
 <pre class="code-block language-bash">Host:       smtp.gmail.com
 Port:       587
 Username:   your@gmail.com
@@ -776,7 +778,7 @@ Encryption: TLS</pre>
 <table>
 <thead><tr><th>Driver</th><th>Fields required</th></tr></thead>
 <tbody>
-<tr><td><span class="badge badge-gray">Log</span></td><td>None — SMS messages are logged, not sent. Use for development.</td></tr>
+<tr><td><span class="badge badge-gray">Log</span></td><td>None: SMS messages are logged, not sent. Use for development.</td></tr>
 <tr><td><span class="badge badge-blue">Twilio</span></td><td>Account SID, Auth Token, From Number</td></tr>
 <tr><td><span class="badge badge-blue">Vonage</span></td><td>API Key, API Secret, From Name</td></tr>
 <tr><td><span class="badge badge-blue">MessageBird</span></td><td>API Key, From</td></tr>
@@ -809,7 +811,7 @@ Encryption: TLS</pre>
 
 <div class="callout callout-tip">
     <span class="callout-icon">💡</span>
-    <div>Control which plans can use AI under <strong>Admin → Plans</strong>. Each plan has an <em>AI Contract Generation</em> toggle and an <em>AI Drafts</em> field — set to <code>0</code> for unlimited drafts, or a positive integer for a monthly cap.</div>
+    <div>Control which plans can use AI under <strong>Admin → Plans</strong>. Each plan has an <em>AI Contract Generation</em> toggle and an <em>AI Drafts</em> field: set to <code>0</code> for unlimited drafts, or a positive integer for a monthly cap.</div>
 </div>
 
 <div class="callout callout-info">
@@ -973,7 +975,7 @@ Encryption: TLS</pre>
     <div class="gateway-card">
         <div class="gw-name">Manual</div>
         <div class="gw-fields">
-            No credentials — admin approves payments manually.
+            No credentials: admin approves payments manually.
         </div>
     </div>
 </div>
@@ -982,7 +984,7 @@ Encryption: TLS</pre>
 <p>In your Stripe dashboard, create a webhook pointing to:</p>
 <pre class="code-block language-bash">https://yourdomain.com/payment/webhook/stripe
 # or for subfolder installs:
-https://yourdomain.com/legaltech/payment/webhook/stripe</pre>
+https://yourdomain.com/app/payment/webhook/stripe</pre>
 <p>Listen for these events: <code>checkout.session.completed</code>, <code>payment_intent.payment_failed</code>. Copy the webhook signing secret (<code>whsec_…</code>) into the <em>webhook_secret</em> field in the gateway settings.</p>
 
 <h3 class="sub-heading">Currency settings</h3>
@@ -1012,9 +1014,9 @@ https://yourdomain.com/legaltech/payment/webhook/stripe</pre>
 <tr><td>Billing Period</td><td><code>monthly</code> or <code>yearly</code>.</td></tr>
 <tr><td>Contract Credits</td><td>How many contracts the user can generate per period. <code>0</code> = unlimited.</td></tr>
 <tr><td>AI Drafts</td><td>AI-assisted drafts allowed per period. <code>0</code> = unlimited. Requires <em>AI Contract Generation</em> toggle to be on.</td></tr>
-<tr><td>AI Contract Generation</td><td>Toggle — enables/disables the AI drafting feature for subscribers on this plan.</td></tr>
-<tr><td>E-Signature</td><td>Toggle — enables digital signature collection for contracts.</td></tr>
-<tr><td>Custom Templates</td><td>Toggle — allows users to upload and use their own contract templates.</td></tr>
+<tr><td>AI Contract Generation</td><td>Toggle: enables/disables the AI drafting feature for subscribers on this plan.</td></tr>
+<tr><td>E-Signature</td><td>Toggle: enables digital signature collection for contracts.</td></tr>
+<tr><td>Custom Templates</td><td>Toggle: allows users to upload and use their own contract templates.</td></tr>
 <tr><td>CTA Text</td><td>Button label on the public plans page, e.g. "Subscribe now".</td></tr>
 <tr><td>Is Featured</td><td>Highlights this plan with a visual badge on the pricing page.</td></tr>
 <tr><td>Is Active</td><td>Inactive plans are hidden from the public plans page but existing subscriptions continue.</td></tr>
@@ -1029,7 +1031,7 @@ https://yourdomain.com/legaltech/payment/webhook/stripe</pre>
     <div class="card-sm"><div class="label">cancelled</div><div class="value"><span class="badge badge-gray">Cancelled</span></div></div>
     <div class="card-sm"><div class="label">expired</div><div class="value"><span class="badge badge-red">Expired</span></div></div>
 </div>
-<p>Subscriptions expire automatically when <code>current_period_end</code> passes — no cron required.</p>
+<p>Subscriptions expire automatically when <code>current_period_end</code> passes, no cron required.</p>
 </section>
 
 <div class="divider"></div>
@@ -1039,16 +1041,16 @@ https://yourdomain.com/legaltech/payment/webhook/stripe</pre>
 ════════════════════════════════════════ -->
 <section id="storage">
 <h2 class="section-heading">Storage <span style="color:var(--text-faint);font-size:.75em;font-weight:400;">Settings → Storage</span></h2>
-<p>Go to <strong>Admin → Settings → Storage</strong>. Choose a driver by clicking its tile — the credential fields for that driver appear below. All user uploads (logos, KYC docs, contract attachments) go through the selected driver.</p>
+<p>Go to <strong>Admin → Settings → Storage</strong>. Choose a driver by clicking its tile, and the credential fields for that driver appear below. All user uploads (logos, KYC docs, contract attachments) go through the selected driver.</p>
 
 <div class="table-wrap">
 <table>
 <thead><tr><th>Driver</th><th>Fields required</th><th>Notes</th></tr></thead>
 <tbody>
 <tr><td><span class="badge badge-gray">Local Disk</span></td><td>None</td><td>Files stored at <code>assets/uploads/</code> in the project root, served directly by the web server. Default for shared hosting.</td></tr>
-<tr><td><span class="badge badge-blue">Amazon S3</span></td><td>Access Key, Secret Key, Region, Bucket, Endpoint (optional)</td><td>Use for scalable cloud storage. Endpoint field is optional — leave blank for standard S3.</td></tr>
+<tr><td><span class="badge badge-blue">Amazon S3</span></td><td>Access Key, Secret Key, Region, Bucket, Endpoint (optional)</td><td>Use for scalable cloud storage. Endpoint field is optional, leave blank for standard S3.</td></tr>
 <tr><td><span class="badge badge-blue">Cloudflare R2</span></td><td>Access Key ID, Secret Access Key, Bucket Name, R2 Endpoint URL</td><td>S3-compatible with zero egress fees. Endpoint URL format: <code>https://&lt;account-id&gt;.r2.cloudflarestorage.com</code></td></tr>
-<tr><td><span class="badge badge-blue">Wasabi</span></td><td>Access Key, Secret Key, Region, Bucket</td><td>Hot cloud storage — S3-compatible, no egress fees.</td></tr>
+<tr><td><span class="badge badge-blue">Wasabi</span></td><td>Access Key, Secret Key, Region, Bucket</td><td>Hot cloud storage, S3-compatible, no egress fees.</td></tr>
 <tr><td><span class="badge badge-blue">DO Spaces</span></td><td>Spaces Key, Spaces Secret, Region, Space Name, Endpoint URL</td><td>Endpoint format: <code>https://&lt;region&gt;.digitaloceanspaces.com</code></td></tr>
 </tbody>
 </table>
@@ -1067,14 +1069,14 @@ https://yourdomain.com/legaltech/payment/webhook/stripe</pre>
 ════════════════════════════════════════ -->
 <section id="queue">
 <h2 class="section-heading">Queue <span style="color:var(--text-faint);font-size:.75em;font-weight:400;">Settings → Queue</span></h2>
-<p>Go to <strong>Admin → Settings → Queue</strong>. When the <strong>Queue Heavy Operations</strong> toggle is enabled, bulk actions like newsletter broadcasts and mass notifications are dispatched to the database queue instead of running synchronously — keeping the admin panel responsive.</p>
+<p>Go to <strong>Admin → Settings → Queue</strong>. When the <strong>Queue Heavy Operations</strong> toggle is enabled, bulk actions like newsletter broadcasts and mass notifications are dispatched to the database queue instead of running synchronously, keeping the admin panel responsive.</p>
 
 <div class="table-wrap">
 <table>
 <thead><tr><th>State</th><th>Behaviour</th></tr></thead>
 <tbody>
 <tr><td>Off (default)</td><td>Operations run synchronously in the same request. Fine for small volumes.</td></tr>
-<tr><td>On</td><td>Jobs are queued in the <code>jobs</code> database table. Requires the Laravel scheduler to process them — set up the <a href="#cron">cron job</a>.</td></tr>
+<tr><td>On</td><td>Jobs are queued in the <code>jobs</code> database table. Requires the Laravel scheduler to process them; set up the <a href="#cron">cron job</a>.</td></tr>
 </tbody>
 </table>
 </div>
@@ -1117,15 +1119,11 @@ https://yourdomain.com/legaltech/payment/webhook/stripe</pre>
 ════════════════════════════════════════ -->
 <section id="subdirectory">
 <h2 class="section-heading">Subdirectory Deploy</h2>
-<p>If the app is installed in a subfolder (e.g. <code>https://yourdomain.com/legaltech/</code>), set <code>APP_URL</code> to the full subfolder URL:</p>
+<p>The app works in a subfolder (e.g. <code>https://yourdomain.com/app/</code>) with no extra configuration. The subfolder is detected automatically from the request, and all links, assets, and uploads adjust accordingly. No <code>.htaccess</code> changes are needed beyond what ships with the package.</p>
 
-<pre class="code-block language-bash">APP_URL=https://yourdomain.com/legaltech</pre>
-
-<p>The root <code>index.php</code> auto-detects the subfolder and adjusts all asset paths accordingly via the <code>upload_url()</code> helper. No extra <code>.htaccess</code> changes are needed beyond what ships with the package.</p>
-
-<div class="callout callout-warn">
-    <span class="callout-icon">⚠</span>
-    <div>Do not add a trailing slash to <code>APP_URL</code>. Run <code>php artisan config:clear</code> after updating <code>.env</code>.</div>
+<div class="callout callout-tip">
+    <span class="callout-icon">💡</span>
+    <div>Just extract the files into the subfolder and complete the normal setup. Nothing to set manually.</div>
 </div>
 </section>
 
@@ -1152,7 +1150,7 @@ https://yourdomain.com/legaltech/payment/webhook/stripe</pre>
 <!-- Footer -->
 <footer style="text-align:center; padding-top: 2rem; font-size: 12px; color: var(--text-faint);">
     <img src="assets/img/logo.png" style="height: 22px; opacity: 0.4; margin-bottom: 0.5rem; display: block; margin-inline: auto;" />
-    LegalTech Documentation — for support contact your developer.
+    LegalTech Documentation. For support, contact your developer.
 </footer>
 
 </main>

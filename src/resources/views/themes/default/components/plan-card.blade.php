@@ -27,6 +27,9 @@
 
     $ctaText = $plan->cta_text ?: ($isEnterprise ? __('Talk to sales') : ($isFree ? __('Start free') : __('Subscribe now')));
     $ctaClassResolved = $ctaClass ?? ($featured ? 'btn-lime' : 'btn-ghost');
+
+    $linkUrl = link_url($action['url'] ?? $plan->cta_url, '/register');
+    $formUrl = isset($action['url']) ? link_url($action['url']) : null;
 @endphp
 
 <div class="{{ $featured ? 'relative rounded-3xl p-[1px] bg-gradient-to-b from-lime via-lime/40 to-transparent' : '' }} h-full">
@@ -95,7 +98,7 @@
 
 
         @if($action && ($action['type'] ?? 'link') === 'form')
-            <form method="{{ $action['method'] ?? 'POST' }}" action="{{ $action['url'] }}" class="mt-7 relative">
+            <form method="{{ $action['method'] ?? 'POST' }}" action="{{ $formUrl }}" class="mt-7 relative">
                 @csrf
                 <input type="hidden" name="plan_id" value="{{ $plan->id }}">
                 <button type="submit" class="rounded-full px-5 py-3 text-sm w-full inline-flex items-center justify-center gap-2 {{ $ctaClassResolved }}">
@@ -104,7 +107,7 @@
                 </button>
             </form>
         @else
-            <a href="{{ $action['url'] ?? ($plan->cta_url ?: '/register') }}"
+            <a href="{{ $linkUrl }}"
                class="mt-7 rounded-full px-5 py-3 text-sm w-full inline-flex items-center justify-center gap-2 relative {{ $ctaClassResolved }}">
                 {{ __($ctaText) }}
                 @if($featured)<x-heroicon-o-arrow-right class="h-4 w-4" />@endif

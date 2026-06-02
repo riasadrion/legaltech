@@ -52,6 +52,21 @@ if (! function_exists('upload_url')) {
     }
 }
 
+if (! function_exists('link_url')) {
+    function link_url(?string $raw, string $default = '#'): string
+    {
+        $raw = $raw ?: $default;
+
+        if ($raw === '#' || str_starts_with($raw, '#') || str_starts_with($raw, 'http://') || str_starts_with($raw, 'https://') || str_starts_with($raw, '//') || str_starts_with($raw, 'mailto:') || str_starts_with($raw, 'tel:')) {
+            return $raw;
+        }
+
+        $base = rtrim(request()->getSchemeAndHttpHost(), '') . rtrim(request()->getBasePath(), '/');
+
+        return $base . '/' . ltrim($raw, '/');
+    }
+}
+
 if (! function_exists('isCryptoCurrency')) {
     function isCryptoCurrency(string $currency): bool
     {

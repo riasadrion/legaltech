@@ -3,7 +3,7 @@
     $eyebrow  = $d['eyebrow']  ?? '';
     $heading  = $d['heading']  ?? '';
     $cta_text = $d['cta_text'] ?? '';
-    $cta_url  = $d['cta_url']  ?? '';
+    $cta_url  = ($d['cta_url'] ?? '') ? link_url($d['cta_url']) : '';
     $steps    = array_values(array_filter($d['steps'] ?? [], fn($s) => !empty($s['title'])));
 @endphp
 

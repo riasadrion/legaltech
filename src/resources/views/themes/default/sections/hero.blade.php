@@ -13,7 +13,7 @@
 
         @if(!empty($d['pill_text']))
             <div class="flex justify-center" data-reveal>
-                <a href="{{ $d['pill_url'] ?? '#' }}"
+                <a href="{{ link_url($d['pill_url'] ?? '#') }}"
                    class="group inline-flex items-center gap-3 rounded-full glass px-2 py-1.5 pr-4 text-sm text-white/80">
                     @if(!empty($d['pill_label']))
                         <span class="rounded-full bg-lime text-ink-900 font-semibold text-xs px-2.5 py-1">
@@ -57,14 +57,14 @@
         @if(!empty($d['primary_text']) || !empty($d['secondary_text']))
             <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
                 @if(!empty($d['primary_text']))
-                    <a href="{{ $d['primary_url'] ?? '#' }}"
+                    <a href="{{ link_url($d['primary_url'] ?? '#') }}"
                        class="btn-lime rounded-full px-6 py-3.5 text-[15px] flex items-center gap-2">
                         {{ __($d['primary_text']) }}
                         <x-heroicon-s-sparkles class="h-4 w-4" />
                     </a>
                 @endif
                 @if(!empty($d['secondary_text']))
-                    <a href="{{ $d['secondary_url'] ?? '#' }}"
+                    <a href="{{ link_url($d['secondary_url'] ?? '#') }}"
                        class="btn-ghost rounded-full px-6 py-3.5 text-[15px] flex items-center gap-2">
                         <x-heroicon-o-play-circle class="h-5 w-5" />
                         {{ __($d['secondary_text']) }}

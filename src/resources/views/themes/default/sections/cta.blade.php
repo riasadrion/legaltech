@@ -5,9 +5,9 @@
     $line2    = $d['heading_line_2'] ?? '';
     $subhead  = $d['subheading']     ?? '';
     $pText    = $d['primary_text']   ?? '';
-    $pUrl     = $d['primary_url']    ?? '#';
+    $pUrl     = link_url($d['primary_url'] ?? '#');
     $sText    = $d['secondary_text'] ?? '';
-    $sUrl     = $d['secondary_url']  ?? '#';
+    $sUrl     = link_url($d['secondary_url'] ?? '#');
 @endphp
 
 <section class="relative pt-28 pb-40 overflow-hidden">
