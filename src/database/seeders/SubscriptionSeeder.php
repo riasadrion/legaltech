@@ -108,12 +108,12 @@ class SubscriptionSeeder extends Seeder
                 'current_period_end'   => now()->addDays(2),
             ],
 
-            // Active · Enterprise Yearly · Test user (demo account)
+            // Active · Pro · Test user (demo account)
             'testuser@example.com' => [
-                'plan'                 => $enterprise,
+                'plan'                 => $pro,
                 'status'               => UserSubscription::STATUS_ACTIVE,
-                'credits_remaining'    => 0,
-                'ai_drafts_remaining'  => 0,
+                'credits_remaining'    => 50,
+                'ai_drafts_remaining'  => 10,
                 'current_period_start' => now()->subDays(8),
                 'current_period_end'   => now()->addDays(22),
             ],
