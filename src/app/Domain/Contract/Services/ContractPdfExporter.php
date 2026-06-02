@@ -45,6 +45,9 @@ class ContractPdfExporter
         $today    = now()->format('F j, Y');
         $body     = $contract->body_html ?? '';
 
+        // Strip a leading <h1> that just repeats the contract title (header already shows it).
+        $body = preg_replace('/^\s*<h1[^>]*>.*?<\/h1>\s*/is', '', $body, 1);
+
         $parties = $contract->parties->map(function ($p) {
             $signed = $p->signed_at
                 ? '<span style="color:#2d7a22;">✓ Signed ' . $p->signed_at->format('M j, Y H:i') . ' UTC</span>'
@@ -70,9 +73,12 @@ class ContractPdfExporter
     line-height: 1.7;
     color: #1a1a1a;
     background: #fff;
+    /* Dompdf 3.x honors body margin per physical page (it ignores @page top margin
+       on continuation pages); footer is drawn inside the bottom margin via page_script. */
+    margin: 60px 72px 64px 72px;
   }
   .page {
-    padding: 60px 72px;
+    padding: 0;
   }
   .header {
     border-bottom: 2px solid #1a1a1a;
@@ -140,7 +146,7 @@ class ContractPdfExporter
 </style>
 </head>
 <body>
-<div class="page" style="padding-bottom:60px;">
+<div class="page">
   <div class="header">
     <div class="header-site">{$siteName}</div>
     <div class="header-title">{$contract->title}</div>
