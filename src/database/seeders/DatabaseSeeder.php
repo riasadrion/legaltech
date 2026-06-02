@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             SubscriptionSeeder::class,
             PaymentSeeder::class,
             ContractCategorySeeder::class,
+            ContractTemplateSeeder::class,
             ContractSeeder::class,
             TicketSeeder::class,
             BlogPostSeeder::class,

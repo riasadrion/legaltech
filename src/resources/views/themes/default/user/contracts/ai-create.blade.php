@@ -42,9 +42,9 @@
                 <span class="text-[12px] font-mono uppercase tracking-widest text-white/50">@lang('Your Brief')</span>
             </div>
             <div class="px-5 py-5 space-y-3">
-                <textarea name="brief" rows="6"
+                <textarea id="brief-input" name="brief" rows="6"
                           required minlength="20"
-                          :placeholder="__('e.g. Mutual NDA between Acme Inc (Delaware) and BetaCorp (UK), covering trade secrets and product designs, 3-year term, governed by California law.')"
+                          placeholder="{{ __('e.g. Mutual NDA between Acme Inc (Delaware) and BetaCorp (UK), covering trade secrets and product designs, 3-year term, governed by California law.') }}"
                           class="ud-input">{{ old('brief', request('brief')) }}</textarea>
 
                 <div class="flex flex-wrap gap-1.5">
@@ -135,10 +135,11 @@
 (function () {
     'use strict';
     var idx = {{ count($existingParties) }};
-    var briefInput = document.querySelector('textarea[name="brief"]');
+    var briefInput = document.getElementById('brief-input');
 
     document.querySelectorAll('.sample-btn').forEach(function (btn) {
         btn.addEventListener('click', function () {
+            if (!briefInput) return;
             briefInput.value = btn.getAttribute('data-sample');
             briefInput.focus();
         });
@@ -148,16 +149,16 @@
         var list = document.getElementById('parties-list');
         var html = '<div class="party-row space-y-3 pt-4 border-t border-white/8">'
             + '<div class="flex items-center justify-between">'
-            + '<div class="text-[11px] font-mono text-white/35 uppercase tracking-widest">@lang('Party') ' + (idx + 1) + '</div>'
-            + '<button type="button" class="remove-party text-red-400 hover:text-red-300 text-[11px]">@lang('Remove')</button>'
+            + '<div class="text-[11px] font-mono text-white/35 uppercase tracking-widest">{{ __("Party") }} ' + (idx + 1) + '</div>'
+            + '<button type="button" class="remove-party text-red-400 hover:text-red-300 text-[11px]">{{ __("Remove") }}</button>'
             + '</div>'
             + '<div class="grid grid-cols-1 md:grid-cols-2 gap-3">'
-            + '<input type="text" name="parties[' + idx + '][name]" :placeholder="__('Full name')" required class="ud-input" />'
-            + '<input type="email" name="parties[' + idx + '][email]" :placeholder="__('Email address')" required class="ud-input" />'
+            + '<input type="text" name="parties[' + idx + '][name]" placeholder="{{ __("Full name") }}" required class="ud-input" />'
+            + '<input type="email" name="parties[' + idx + '][email]" placeholder="{{ __("Email address") }}" required class="ud-input" />'
             + '</div>'
             + '<select name="parties[' + idx + '][role]" class="ud-input">'
-            + '<option value="signer">@lang('Signer')</option>'
-            + '<option value="viewer">@lang('Viewer only')</option>'
+            + '<option value="signer">{{ __("Signer") }}</option>'
+            + '<option value="viewer">{{ __("Viewer only") }}</option>'
             + '</select>'
             + '</div>';
         list.insertAdjacentHTML('beforeend', html);
