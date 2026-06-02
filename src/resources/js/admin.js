@@ -8,57 +8,50 @@ window.Sortable = Sortable;
 window.confirmModal = confirmModal;
 window.toast = toast;
 
-// Page loader
+// Page loader (top progress bar)
 (function () {
-    const overlay  = document.getElementById('page-loader');
-    const ring     = document.getElementById('loader-ring');
-    const countEl  = document.getElementById('loader-count');
-    if (!overlay || !ring || !countEl) return;
+    const overlay = document.getElementById('page-loader');
+    const bar     = document.getElementById('loader-bar');
+    if (!overlay || !bar) return;
 
-    const CIRCUMFERENCE = 238.8;
-    let raf, current = 0, target = 0, navigating = false;
+    let timer, current = 0, navigating = false;
 
     function setProgress(pct) {
-        const offset = CIRCUMFERENCE - (pct / 100) * CIRCUMFERENCE;
-        ring.style.strokeDashoffset = offset;
-        countEl.textContent = Math.round(pct) + '%';
+        current = pct;
+        bar.style.width = pct + '%';
     }
 
-    function animate() {
-        if (current < target) {
-            current = Math.min(current + 1.2, target);
-            setProgress(current);
+    function trickle() {
+        // Ease toward 90% while waiting for the page to load
+        if (current < 90) {
+            const step = current < 50 ? 8 : (current < 75 ? 3 : 1);
+            setProgress(Math.min(current + step, 90));
         }
-        if (current < 100) {
-            raf = requestAnimationFrame(animate);
-        } else {
-            setTimeout(hide, 200);
-        }
+        timer = setTimeout(trickle, 300);
     }
 
     function show() {
-        current = 0;
-        target = 85;
+        clearTimeout(timer);
+        overlay.style.display = 'block';
         setProgress(0);
-        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-        const loaderCircle = overlay.querySelector('div');
-        if (loaderCircle) {
-            loaderCircle.style.background = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.55)';
-        }
-        overlay.style.display = 'flex';
-        cancelAnimationFrame(raf);
-        raf = requestAnimationFrame(animate);
+        // Force reflow so the transition from 0 animates
+        bar.offsetWidth;
+        setProgress(15);
+        timer = setTimeout(trickle, 300);
     }
 
     function finish() {
-        target = 100;
-        if (!raf) raf = requestAnimationFrame(animate);
+        clearTimeout(timer);
+        setProgress(100);
+        setTimeout(hide, 250);
     }
 
     function hide() {
         overlay.style.display = 'none';
-        current = 0;
-        target = 0;
+        bar.style.transition = 'none';
+        setProgress(0);
+        bar.offsetWidth;
+        bar.style.transition = '';
         navigating = false;
     }
 

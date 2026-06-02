@@ -724,39 +724,24 @@
 /* ─── Spark chart containers ─── */
 .spark-chart { height: 36px; }
 
-/* ─── Page loader ─── */
+/* ─── Page loader (top progress bar) ─── */
 #page-loader {
     display: none;
     position: fixed;
-    inset: 0;
+    top: 0;
+    left: 0;
+    right: 0;
     z-index: 9999;
-    align-items: center;
-    justify-content: center;
+    height: 3px;
+    pointer-events: none;
 }
-.page-loader-inner {
-    position: relative;
-    width: 90px;
-    height: 90px;
-    background: rgba(0,0,0,0.55);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.page-loader-svg {
-    position: absolute;
-    inset: 0;
-    transform: rotate(-90deg);
-}
-#loader-ring { transition: stroke-dashoffset 0.1s linear; }
-#loader-count {
-    position: relative;
-    z-index: 1;
-    font-size: 14px;
-    font-weight: 700;
-    color: #fff;
-    font-family: 'Outfit', sans-serif;
-    line-height: 1;
+#loader-bar {
+    height: 100%;
+    width: 0;
+    background: #6366f1;
+    box-shadow: 0 0 8px rgba(99,102,241,0.6), 0 0 4px rgba(99,102,241,0.4);
+    border-radius: 0 2px 2px 0;
+    transition: width 0.2s ease;
 }
 
 /* ─── Settings tabs data (hidden data holder) ─── */

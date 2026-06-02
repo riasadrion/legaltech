@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             TicketSeeder::class,
             BlogPostSeeder::class,
             NewsletterSubscriberSeeder::class,
+            ActivityLogSeeder::class,
         ]);
     }
 }

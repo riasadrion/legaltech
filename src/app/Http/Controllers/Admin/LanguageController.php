@@ -202,11 +202,12 @@ class LanguageController extends Controller
 
         $v = trim($value);
 
-        if ($v === '' || strlen($v) < 2 || strlen($v) > 300) return;
+        if ($v === '' || strlen($v) < 2 || strlen($v) > 600) return;
         if (preg_match('/^https?:\/\//', $v)) return;
         if (preg_match('/^[\/\#]/', $v)) return;
         if (is_numeric($v)) return;
-        if (str_contains($v, '<') && str_contains($v, '>')) return;
+        if (strip_tags($v) === '') return;
+        if (preg_match('/^<[a-z][a-z0-9]*[\s>]/i', $v)) return;
         if (preg_match('/^ri-[a-z]/', $v)) return;
         if (preg_match('/\.(png|jpg|jpeg|webp|svg|gif)$/i', $v)) return;
 

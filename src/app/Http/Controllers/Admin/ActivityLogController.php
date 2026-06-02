@@ -10,7 +10,7 @@ class ActivityLogController extends Controller
 {
     public function index(Request $request)
     {
-        $query = ActivityLog::with('causer')->latest();
+        $query = ActivityLog::with(['causer', 'subject'])->latest();
 
         if ($request->filled('action')) {
             $query->where('action', $request->action);

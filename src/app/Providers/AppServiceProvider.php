@@ -22,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
         $this->configureSocialite();
         $this->registerAdminNavigation();
         $this->registerRegistrationFields();
+        $this->registerActivityObserver();
     }
 
     private function configureVite(): void
@@ -269,6 +270,30 @@ class AppServiceProvider extends ServiceProvider
                 ],
             ],
         ]);
+    }
+
+    private function registerActivityObserver(): void
+    {
+        $models = [
+            \App\Models\User::class,
+            \App\Models\Admin::class,
+            \App\Models\Role::class,
+            \App\Models\Page::class,
+            \App\Models\PageSection::class,
+            \App\Models\BlogPost::class,
+            \App\Models\BlogCategory::class,
+            \App\Models\SupportTicket::class,
+            \App\Models\Language::class,
+            \App\Domain\Payment\Models\Payment::class,
+            \App\Domain\Payment\Models\KycSubmission::class,
+            \App\Domain\Payment\Models\Gateway::class,
+            \App\Domain\Subscription\Models\Plan::class,
+            \App\Domain\Subscription\Models\UserSubscription::class,
+        ];
+
+        foreach ($models as $model) {
+            $model::observe(\App\Observers\ActivityObserver::class);
+        }
     }
 
     private function registerRegistrationFields(): void

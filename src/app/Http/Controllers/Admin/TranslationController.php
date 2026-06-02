@@ -268,11 +268,12 @@ class TranslationController extends Controller
 
         $v = trim($value);
 
-        if ($v === '' || strlen($v) < 2 || strlen($v) > 300) return;
+        if ($v === '' || strlen($v) < 2 || strlen($v) > 600) return;
         if (preg_match('/^https?:\/\//', $v)) return;         // absolute URLs
         if (preg_match('/^[\/\#]/', $v)) return;              // paths and anchors
         if (is_numeric($v)) return;
-        if (str_contains($v, '<') && str_contains($v, '>')) return; // HTML
+        if (strip_tags($v) === '') return;                    // pure HTML with no text
+        if (preg_match('/^<[a-z][a-z0-9]*[\s>]/i', $v)) return; // starts with HTML tag (full HTML body)
         if (preg_match('/^ri-[a-z]/', $v)) return;            // Remix icon class names
         if (preg_match('/\.(png|jpg|jpeg|webp|svg|gif)$/i', $v)) return; // image filenames
 

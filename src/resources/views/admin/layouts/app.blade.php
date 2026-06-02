@@ -19,16 +19,7 @@
 
 
 <div id="page-loader">
-    <div class="page-loader-inner">
-        <svg width="90" height="90" class="page-loader-svg">
-            <circle cx="45" cy="45" r="38" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="6"/>
-            <circle id="loader-ring" cx="45" cy="45" r="38" fill="none" stroke="#6366f1" stroke-width="6"
-                    stroke-linecap="round"
-                    stroke-dasharray="238.8"
-                    stroke-dashoffset="238.8"/>
-        </svg>
-        <div id="loader-count">0%</div>
-    </div>
+    <div id="loader-bar"></div>
 </div>
 
 <div class="sidebar-overlay" id="sidebarOverlay" onclick="document.getElementById('adminSidebar').classList.remove('open');this.classList.remove('show')"></div>
