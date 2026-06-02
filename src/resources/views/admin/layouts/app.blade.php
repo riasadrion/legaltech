@@ -221,6 +221,36 @@
                     <x-heroicon-o-arrow-top-right-on-square class="h-5 w-5" />
                 </a>
 
+                @php
+                    $adminNavLanguages = \App\Models\Language::where('is_active', true)->orderBy('name')->get();
+                    $adminCurrentLocale = app()->getLocale();
+                    $adminCurrentLang = $currentLanguage ?? $adminNavLanguages->firstWhere('code', $adminCurrentLocale);
+                @endphp
+                @if($adminNavLanguages->count() > 1)
+                <div class="relative" id="admin-lang-menu">
+                    <button type="button" id="admin-lang-btn" title="Language" class="header-profile">
+                        <x-heroicon-o-language class="h-4 w-4 header-profile-chevron" />
+                        <span class="header-profile-name">{{ strtoupper($adminCurrentLang?->code ?? $adminCurrentLocale) }}</span>
+                        <x-heroicon-o-chevron-down class="h-3 w-3 header-profile-chevron" />
+                    </button>
+                    <div id="admin-lang-dropdown" class="dropdown-panel">
+                        @foreach($adminNavLanguages as $lang)
+                        <form method="POST" action="{{ route('locale.set', $lang->code) }}">
+                            @csrf
+                            <button type="submit" class="w-full text-left dd-item">
+                                @if($lang->code === $adminCurrentLocale)
+                                    <x-heroicon-s-check class="h-3.5 w-3.5 text-brand-600 shrink-0" />
+                                @else
+                                    <span class="h-3.5 w-3.5 shrink-0"></span>
+                                @endif
+                                {{ $lang->name }}
+                            </button>
+                        </form>
+                        @endforeach
+                    </div>
+                </div>
+                @endif
+
                 <div class="header-sep"></div>
 
 
@@ -329,6 +359,19 @@ document.addEventListener('DOMContentLoaded', function () {
         });
         document.addEventListener('click', function (e) {
             if (!e.target.closest('#admin-user-menu')) { userDropdown.classList.remove('open'); userChevron.style.transform = 'rotate(0)'; }
+        });
+    }
+
+    // Language switcher dropdown
+    const langBtn = document.getElementById('admin-lang-btn');
+    const langDropdown = document.getElementById('admin-lang-dropdown');
+    if (langBtn && langDropdown) {
+        langBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            langDropdown.classList.toggle('open');
+        });
+        document.addEventListener('click', function (e) {
+            if (!e.target.closest('#admin-lang-menu')) langDropdown.classList.remove('open');
         });
     }
 
@@ -491,7 +534,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 
-<x-confirm-modal />
+<x-confirm-modal :admin="true" />
 
 @stack('scripts')
 </body>

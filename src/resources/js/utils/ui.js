@@ -11,6 +11,7 @@ export const confirmModal = {
             }
             return;
         }
+
         document.getElementById('confirm-title').textContent = title;
         document.getElementById('confirm-message').textContent = message;
         this.onConfirm = onConfirm;
@@ -71,7 +72,9 @@ export function toast(message, type = 'info') {
     const el = document.createElement('div');
     const isDark = document.body.classList.contains('theme-default') ||
                    document.documentElement.classList.contains('theme-default') ||
-                   document.documentElement.classList.contains('dark');
+                   document.documentElement.classList.contains('dark') ||
+                   document.documentElement.getAttribute('data-theme') === 'dark' ||
+                   document.body.getAttribute('data-theme') === 'dark';
 
     el.className = [
         'pointer-events-auto relative flex items-center gap-3 w-80 max-w-[calc(100vw-2rem)]',

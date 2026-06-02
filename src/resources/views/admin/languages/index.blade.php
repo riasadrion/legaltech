@@ -60,7 +60,7 @@
                         <div class="flex items-center justify-end gap-2">
                             @if(!$language->is_default)
                             <a href="{{ route('admin.translations.index', ['locale' => $language->code]) }}"
-                               class="inline-flex items-center gap-1 rounded-lg border border-brand-200 bg-brand-50 px-3 py-1.5 text-xs font-medium text-brand-700 shadow-sm hover:bg-brand-100">
+                               class="inline-flex items-center gap-1 rounded-lg border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 px-3 py-1.5 text-xs font-medium text-gray-600 dark:text-slate-200 shadow-sm hover:bg-gray-50 dark:hover:bg-slate-600 transition-colors">
                                 <x-heroicon-o-language class="h-3.5 w-3.5" />
                                 @lang('Translate')
                             </a>

@@ -161,7 +161,7 @@
             dateFormat: 'Y-m-d',
             altInput: true,
             altFormat: 'd M Y',
-            allowInput: true,
+            allowInput: false,
         });
     }
 
@@ -171,16 +171,16 @@
         var list = document.getElementById('parties-list');
         var html = '<div class="party-row space-y-3 pt-4 border-t border-white/8">'
             + '<div class="flex items-center justify-between">'
-            + '<div class="text-[11px] font-mono text-white/35 uppercase tracking-widest">@lang('Party') ' + (idx + 1) + '</div>'
-            + '<button type="button" class="remove-party text-red-400 hover:text-red-300 text-[11px]">@lang('Remove')</button>'
+            + '<div class="text-[11px] font-mono text-white/35 uppercase tracking-widest">{{ __("Party") }} ' + (idx + 1) + '</div>'
+            + '<button type="button" class="remove-party text-red-400 hover:text-red-300 text-[11px]">{{ __("Remove") }}</button>'
             + '</div>'
             + '<div class="grid grid-cols-1 md:grid-cols-2 gap-3">'
-            + '<input type="text" name="parties[' + idx + '][name]" :placeholder="__('Full name')" required class="ud-input" />'
-            + '<input type="email" name="parties[' + idx + '][email]" :placeholder="__('Email address')" required class="ud-input" />'
+            + '<input type="text" name="parties[' + idx + '][name]" placeholder="{{ __("Full name") }}" required class="ud-input" />'
+            + '<input type="email" name="parties[' + idx + '][email]" placeholder="{{ __("Email address") }}" required class="ud-input" />'
             + '</div>'
             + '<select name="parties[' + idx + '][role]" class="ud-input">'
-            + '<option value="signer">@lang('Signer')</option>'
-            + '<option value="viewer">@lang('Viewer only')</option>'
+            + '<option value="signer">{{ __("Signer") }}</option>'
+            + '<option value="viewer">{{ __("Viewer only") }}</option>'
             + '</select>'
             + '</div>';
         list.insertAdjacentHTML('beforeend', html);

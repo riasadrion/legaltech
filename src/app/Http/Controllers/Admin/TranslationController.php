@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Language;
+use App\Models\PageSection;
 use App\Http\Controllers\Controller;
 use App\Support\GoogleTranslate;
 use Illuminate\Http\Request;
@@ -148,7 +149,10 @@ class TranslationController extends Controller
             $defaultLocale = Language::default()?->code ?? 'en';
             $languages = Language::pluck('code')->toArray();
 
-            $scanned = $this->scanTranslationKeys();
+            $scanned = array_unique(array_merge(
+                $this->scanTranslationKeys(),
+                $this->scanCmsKeys(),
+            ));
 
             $defaultTranslations = $this->readJsonTranslations($defaultLocale);
             $newKeys = [];
@@ -173,8 +177,9 @@ class TranslationController extends Controller
             }
 
             return response()->json([
-                'found' => count($scanned),
-                'added' => count($newKeys),
+                'found'   => count($defaultTranslations),
+                'scanned' => count($scanned),
+                'added'   => count($newKeys),
                 'new_keys' => $newKeys,
             ]);
         } catch (\Throwable $e) {
@@ -232,6 +237,46 @@ class TranslationController extends Controller
         }
 
         return array_keys($keys);
+    }
+
+    /**
+     * Extract human-readable strings from all CMS page sections (page_sections.data).
+     * These are output via __() in section Blade templates but are dynamic DB values,
+     * so the file scanner cannot detect them.
+     */
+    private function scanCmsKeys(): array
+    {
+        $keys = [];
+
+        PageSection::all()->each(function (PageSection $section) use (&$keys) {
+            $this->extractStringsFromValue($section->data ?? [], $keys);
+        });
+
+        return array_keys($keys);
+    }
+
+    private function extractStringsFromValue(mixed $value, array &$keys): void
+    {
+        if (is_array($value)) {
+            foreach ($value as $v) {
+                $this->extractStringsFromValue($v, $keys);
+            }
+            return;
+        }
+
+        if (! is_string($value)) return;
+
+        $v = trim($value);
+
+        if ($v === '' || strlen($v) < 2 || strlen($v) > 300) return;
+        if (preg_match('/^https?:\/\//', $v)) return;         // absolute URLs
+        if (preg_match('/^[\/\#]/', $v)) return;              // paths and anchors
+        if (is_numeric($v)) return;
+        if (str_contains($v, '<') && str_contains($v, '>')) return; // HTML
+        if (preg_match('/^ri-[a-z]/', $v)) return;            // Remix icon class names
+        if (preg_match('/\.(png|jpg|jpeg|webp|svg|gif)$/i', $v)) return; // image filenames
+
+        $keys[$v] = true;
     }
 
     public function autoTranslateBatch(Request $request)

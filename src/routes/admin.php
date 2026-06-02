@@ -38,7 +38,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')
     ->name('admin.')
-    ->middleware(['auth:admin', 'account.active', 'demo'])
+    ->middleware(['language', 'auth:admin', 'account.active', 'demo'])
     ->group(function () {
         Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('profile', fn () => view('admin.dashboard.index'))->name('profile');

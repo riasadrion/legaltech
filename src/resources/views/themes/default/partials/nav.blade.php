@@ -67,7 +67,38 @@
             @endif
 
 
+            @php
+                $navLanguages = \App\Models\Language::where('is_active', true)->orderBy('name')->get();
+                $currentLocale = app()->getLocale();
+                $currentLang = $navLanguages->firstWhere('code', $currentLocale) ?? $navLanguages->first();
+            @endphp
+
             <div class="flex items-center gap-2">
+
+                @if($navLanguages->count() > 1)
+                <div class="relative group">
+                    <button type="button" class="flex items-center gap-1.5 text-sm text-white/70 hover:text-white transition px-2 py-1.5">
+                        <x-heroicon-o-language class="h-4 w-4" />
+                        <span class="hidden sm:inline uppercase text-[11px] font-mono tracking-wider">{{ $currentLang?->code ?? $currentLocale }}</span>
+                        <x-heroicon-o-chevron-down class="h-3 w-3 transition group-hover:rotate-180" />
+                    </button>
+                    <ul class="absolute top-full right-0 mt-2 min-w-36 rounded-2xl glass py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-20">
+                        @foreach($navLanguages as $lang)
+                        <li>
+                            <form method="POST" action="{{ route('locale.set', $lang->code) }}">
+                                @csrf
+                                <button type="submit"
+                                        class="w-full text-left px-4 py-2 text-sm transition
+                                               {{ $lang->code === $currentLocale ? 'text-lime font-medium' : 'text-white/70 hover:text-white hover:bg-white/5' }}">
+                                    {{ $lang->name }}
+                                </button>
+                            </form>
+                        </li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+
                 @guest('user')
                     <a href="{{ route('login') }}"
                        class="hidden sm:inline text-sm px-4 py-2 text-white/80 hover:text-white">
@@ -135,6 +166,21 @@
                     @endif
                 @endforeach
             </ul>
+            @endif
+
+            @if($navLanguages->count() > 1)
+            <div class="mt-3 flex flex-wrap gap-1.5">
+                @foreach($navLanguages as $lang)
+                <form method="POST" action="{{ route('locale.set', $lang->code) }}">
+                    @csrf
+                    <button type="submit"
+                            class="px-3 py-1.5 rounded-full text-[11px] font-mono uppercase tracking-wider transition
+                                   {{ $lang->code === $currentLocale ? 'bg-lime text-ink-900 font-semibold' : 'glass text-white/60 hover:text-white' }}">
+                        {{ $lang->code }}
+                    </button>
+                </form>
+                @endforeach
+            </div>
             @endif
 
             <div class="mt-4 pt-4 border-t border-white/10 flex flex-col gap-2">

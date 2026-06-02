@@ -1,10 +1,10 @@
 {
-  "_ui-B7ks_8aj.js": {
-    "file": "ui-B7ks_8aj.js",
+  "_ui-DcosczZb.js": {
+    "file": "ui-DcosczZb.js",
     "name": "ui"
   },
   "resources/css/app.css": {
-    "file": "app-CsQYSQYi.css",
+    "file": "app-DcfBclGc.css",
     "name": "app",
     "names": [
       "app.css"
@@ -13,21 +13,21 @@
     "isEntry": true
   },
   "resources/js/admin.js": {
-    "file": "admin-BgIU8Z1W.js",
+    "file": "admin-CJxskkq5.js",
     "name": "admin",
     "src": "resources/js/admin.js",
     "isEntry": true,
     "imports": [
-      "_ui-B7ks_8aj.js"
+      "_ui-DcosczZb.js"
     ]
   },
   "resources/js/app.js": {
-    "file": "app-C3nQZrdU.js",
+    "file": "app-DcQnMgFV.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "imports": [
-      "_ui-B7ks_8aj.js"
+      "_ui-DcosczZb.js"
     ]
   }
 }
