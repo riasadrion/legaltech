@@ -34,7 +34,7 @@
         </form>
     </div>
 
-    <div class="rounded-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm overflow-hidden">
+    <div class="rounded-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm overflow-x-auto">
         <table class="min-w-full divide-y divide-gray-200 dark:divide-slate-700 text-sm">
             <thead class="bg-gray-50 dark:bg-slate-800/60">
                 <tr>
@@ -55,12 +55,17 @@
                         'deleted' => 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400',
                         default   => 'bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-slate-300',
                     };
-                    $changedFields = $log->properties['old'] ?? null
-                        ? array_keys($log->properties['old'])
-                        : ($log->properties['changed'] ?? []);
-                    $subjectLabel = $log->subject
-                        ? ($log->subject->name ?? $log->subject->email ?? $log->subject->title ?? null)
-                        : null;
+                    $props = $log->properties ?? [];
+                    $changedFields = array_filter(array_map('strval',
+                        is_array($props['old'] ?? null)
+                            ? array_keys($props['old'])
+                            : (is_array($props['changed'] ?? null) ? $props['changed'] : [])
+                    ));
+                    $subjectLabel = null;
+                    if ($log->subject) {
+                        $raw = $log->subject->name ?? $log->subject->email ?? $log->subject->title ?? null;
+                        $subjectLabel = is_string($raw) ? $raw : null;
+                    }
                 @endphp
                 <tr class="hover:bg-gray-50 dark:hover:bg-slate-700/40">
                     <td class="px-4 py-3 text-xs text-gray-500 dark:text-slate-400 whitespace-nowrap">{{ formatDate($log->created_at) }}</td>
@@ -101,7 +106,7 @@
         @if($logs->hasPages())
         <div class="flex items-center justify-between border-t border-gray-100 dark:border-slate-700 bg-gray-50/50 dark:bg-slate-800/40 px-5 py-3 text-xs text-gray-500 dark:text-slate-400">
             <span>{{ __('Showing :first–:last of :total', ['first' => $logs->firstItem(), 'last' => $logs->lastItem(), 'total' => $logs->total()]) }}</span>
-            <x-pagination :paginator="$logs" />
+            <x-pagination :show-total="false" :paginator="$logs" />
         </div>
         @endif
     </div>

@@ -97,7 +97,7 @@
                     @lang('No placeholders detected. Add') <code class="bg-gray-100 px-1 rounded">&#123;&#123;placeholder&#125;&#125;</code> @lang('tokens in the body above.')
                 </p>
             @else
-                <div class="overflow-hidden rounded-lg border border-gray-200">
+                <div class="overflow-x-auto rounded-lg border border-gray-200">
                     <table class="min-w-full divide-y divide-gray-200 text-sm">
                         <thead class="bg-gray-50 text-xs uppercase text-gray-500">
                             <tr>

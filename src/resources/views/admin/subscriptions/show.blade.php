@@ -25,7 +25,7 @@
     <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
 
 
-        <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
+        <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-x-auto">
             <div class="border-b border-gray-100 px-5 py-3.5">
                 <h3 class="text-sm font-semibold text-gray-900">@lang('Details')</h3>
             </div>
@@ -59,7 +59,7 @@
         </div>
 
 
-        <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
+        <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-x-auto">
             <div class="border-b border-gray-100 px-5 py-3.5">
                 <h3 class="text-sm font-semibold text-gray-900">@lang('User')</h3>
             </div>
@@ -92,7 +92,7 @@
 
 
     @if($subscription->creditLogs->count() > 0)
-    <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
+    <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-x-auto">
         <div class="border-b border-gray-100 px-5 py-3.5">
             <h3 class="text-sm font-semibold text-gray-900">@lang('Credit history')</h3>
             <p class="mt-0.5 text-xs text-gray-500">@lang('Recent credit transactions for this subscription.')</p>

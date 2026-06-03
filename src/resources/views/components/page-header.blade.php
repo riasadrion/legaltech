@@ -1,6 +1,6 @@
 @props(['title', 'description' => ''])
 
-<div class="flex items-center justify-between mb-6">
+<div class="flex flex-wrap items-center justify-between gap-3 mb-6">
     <div>
         <h1 class="text-xl font-semibold text-gray-900">{{ $title }}</h1>
         @if ($description)
@@ -8,6 +8,6 @@
         @endif
     </div>
     @if (isset($actions))
-        <div class="flex items-center gap-3">{{ $actions }}</div>
+        <div class="flex flex-wrap items-center gap-2">{{ $actions }}</div>
     @endif
 </div>

@@ -61,11 +61,11 @@
     </form>
 
 
-    <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
+    <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-x-auto">
         @if($data->isEmpty())
         <div class="px-4 py-14 text-center text-sm text-gray-400">@lang('No records found. Try adjusting the filters.')</div>
         @else
-        <table class="min-w-full divide-y divide-gray-200 text-sm responsive-table">
+        <table class="min-w-full divide-y divide-gray-200 text-sm">
             <thead class="bg-gray-50">
                 <tr>
                     @if($type === 'transactions')
@@ -148,7 +148,7 @@
         @if($data->hasPages())
         <div class="flex items-center justify-between border-t border-gray-100 bg-gray-50/50 px-5 py-3 text-xs text-gray-500">
             <span>{{ __('Showing :first–:last of :total', ['first' => $data->firstItem(), 'last' => $data->lastItem(), 'total' => $data->total()]) }}</span>
-            <x-pagination :paginator="$data" />
+            <x-pagination :show-total="false" :paginator="$data" />
         </div>
         @endif
         @endif

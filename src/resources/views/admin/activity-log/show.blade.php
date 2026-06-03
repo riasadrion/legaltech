@@ -101,7 +101,7 @@
         $isBeforeAfter = $old !== null || $new !== null;
         $allKeys = array_unique(array_merge(array_keys($old ?? []), array_keys($new ?? [])));
     @endphp
-    <div class="rounded-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm overflow-hidden">
+    <div class="rounded-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm overflow-x-auto">
         <div class="border-b border-gray-100 dark:border-slate-700 px-5 py-3.5">
             <h3 class="text-sm font-semibold text-gray-900 dark:text-white">@lang('Changes')</h3>
         </div>

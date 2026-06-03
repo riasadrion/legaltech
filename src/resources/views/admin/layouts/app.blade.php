@@ -527,6 +527,38 @@ document.addEventListener('DOMContentLoaded', function () {
 
 <x-confirm-modal :admin="true" />
 
+<script>
+(function () {
+    'use strict';
+    var active = document.querySelector('.sidebar-nav .sidebar-link.active');
+    if (active) {
+        active.scrollIntoView({ block: 'center', behavior: 'instant' });
+    }
+})();
+</script>
+
+<script>
+if (window.innerWidth < 640) {
+    document.querySelectorAll('.admin-content .overflow-x-auto').forEach(function (wrap) {
+        var inner = wrap.querySelector('table');
+        if (!inner) return;
+
+        var top = document.createElement('div');
+        top.className = 'table-top-scroll';
+        top.style.cssText = 'overflow-x:auto;height:6px;margin-bottom:8px;border-radius:4px;';
+        var spacer = document.createElement('div');
+        top.appendChild(spacer);
+        wrap.parentNode.insertBefore(top, wrap);
+
+        function syncWidth() { spacer.style.width = inner.scrollWidth + 'px'; }
+        syncWidth();
+
+        top.addEventListener('scroll', function () { wrap.scrollLeft = top.scrollLeft; });
+        wrap.addEventListener('scroll', function () { top.scrollLeft = wrap.scrollLeft; });
+    });
+}
+</script>
+
 @stack('scripts')
 </body>
 </html>

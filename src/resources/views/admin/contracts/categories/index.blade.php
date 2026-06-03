@@ -15,7 +15,7 @@
         </a>
     </div>
 
-    <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
+    <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-x-auto">
         <table class="min-w-full divide-y divide-gray-200 text-sm">
             <thead class="bg-gray-50">
                 <tr>
@@ -33,10 +33,10 @@
                     <td class="px-4 py-3 text-gray-500 font-mono text-xs">{{ $category->slug }}</td>
                     <td class="px-4 py-3 text-gray-600">{{ $category->templates_count }}</td>
                     <td class="px-4 py-3 text-gray-500">{{ $category->sort }}</td>
-                    <td class="px-4 py-3 text-right">
+                    <td class="px-4 py-3 text-right whitespace-nowrap">
                         <div class="flex items-center justify-end gap-2">
                             <a href="{{ route('admin.contracts.categories.edit', $category) }}"
-                               class="text-brand-600 hover:underline text-xs font-medium">@lang('Edit')</a>
+                               class="inline-flex items-center rounded-lg border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 px-3 py-1.5 text-xs font-medium text-gray-600 dark:text-slate-300 shadow-sm hover:bg-gray-50 dark:hover:bg-slate-600">@lang('Edit')</a>
                             <form method="POST" action="{{ route('admin.contracts.categories.destroy', $category) }}"
                                   onsubmit="return confirm('@lang('Delete this category?')')">
                                 @csrf @method('DELETE')

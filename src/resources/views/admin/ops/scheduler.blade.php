@@ -8,8 +8,8 @@
 
 
 <div class="space-y-6">
-    <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
-        <table class="min-w-full divide-y divide-gray-200 text-sm responsive-table">
+    <div class="bg-white rounded-xl border border-gray-200 overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200 text-sm">
             <thead class="bg-gray-50">
                 <tr>
                     <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">Command</th>

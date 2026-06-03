@@ -55,30 +55,30 @@
         </div>
 
 
-        <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
-            <table class="min-w-full divide-y divide-gray-200 text-sm responsive-table">
+        <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200 text-sm">
                 <thead class="bg-gray-50">
                     <tr>
-                        <th class="hide-mobile w-10 px-4 py-3 text-center text-xs font-semibold uppercase tracking-wide text-gray-500">
+                        <th class="w-10 px-4 py-3 text-center text-xs font-semibold uppercase tracking-wide text-gray-500">
                             <input type="checkbox" id="select-all"
                                    class="h-4 w-4 rounded border-gray-300 text-brand-600 focus:ring-brand-500">
                         </th>
                         <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">@lang('User')</th>
                         <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">@lang('Status')</th>
-                        <th class="hide-mobile px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">@lang('KYC')</th>
-                        <th class="hide-mobile px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">@lang('Email')</th>
-                        <th class="hide-mobile px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">@lang('Joined')</th>
+                        <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">@lang('KYC')</th>
+                        <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">@lang('Email')</th>
+                        <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">@lang('Joined')</th>
                         <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500"></th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-100">
                     @forelse ($users as $user)
                     <tr class="hover:bg-gray-50">
-                        <td class="hide-mobile px-4 py-3 text-center" data-label="">
+                        <td class="px-4 py-3 text-center" data-label="">
                             <input type="checkbox" name="user_ids[]" value="{{ $user->id }}"
                                    class="row-check h-4 w-4 rounded border-gray-300 text-brand-600 focus:ring-brand-500">
                         </td>
-                        <td class="px-4 py-3" :data-label="__('User')">
+                        <td class="px-4 py-3" data-label="">
                             <div class="flex items-center gap-3">
                                 <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-600 text-xs font-bold text-white">
                                     {{ strtoupper(substr($user->name ?: $user->email, 0, 1)) }}
@@ -89,7 +89,7 @@
                                 </div>
                             </div>
                         </td>
-                        <td class="px-4 py-3" :data-label="__('Status')">
+                        <td class="px-4 py-3" data-label="{{ __('Status') }}">
                             @php
                                 $sc = match($user->status) {
                                     'active' => 'bg-green-100 text-green-700',
@@ -101,7 +101,7 @@
                                 {{ ucfirst(__($user->status)) }}
                             </span>
                         </td>
-                        <td class="hide-mobile px-4 py-3" :data-label="__('KYC')">
+                        <td class="px-4 py-3" data-label="{{ __('KYC') }}">
                             @php
                                 $kc = match($user->kyc_status ?? 'none') {
                                     'approved' => 'bg-emerald-100 text-emerald-700',
@@ -114,7 +114,7 @@
                                 {{ ucfirst(__($user->kyc_status ?? 'none')) }}
                             </span>
                         </td>
-                        <td class="hide-mobile px-4 py-3" :data-label="__('Email')">
+                        <td class="px-4 py-3" data-label="{{ __('Email') }}">
                             @if($user->email_verified_at)
                                 <span class="inline-flex items-center gap-1 text-xs font-medium text-green-600">
                                     <x-heroicon-s-check-circle class="h-3.5 w-3.5" /> @lang('Verified')
@@ -125,7 +125,7 @@
                                 </span>
                             @endif
                         </td>
-                        <td class="hide-mobile px-4 py-3 text-xs text-gray-500 whitespace-nowrap" :data-label="__('Joined')">
+                        <td class="px-4 py-3 text-xs text-gray-500" data-label="{{ __('Joined') }}">
                             {{ formatDate($user->created_at, false) }}
                         </td>
                         <td class="px-4 py-3 text-right" data-label="">
@@ -162,7 +162,7 @@
             @if($users->hasPages())
             <div class="flex items-center justify-between border-t border-gray-100 bg-gray-50/50 px-5 py-3 text-xs text-gray-500">
                 <span>{{ __('Showing :first–:last of :total', ['first' => $users->firstItem(), 'last' => $users->lastItem(), 'total' => number_format($users->total())]) }}</span>
-                <x-pagination :paginator="$users" />
+                <x-pagination :show-total="false" :paginator="$users" />
             </div>
             @endif
         </div>

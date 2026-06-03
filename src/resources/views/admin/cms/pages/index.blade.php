@@ -15,8 +15,8 @@
         </a>
     </div>
 
-    <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
-        <table class="min-w-full divide-y divide-gray-200 text-sm responsive-table">
+    <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200 text-sm">
             <thead class="bg-gray-50">
                 <tr>
                     <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">@lang('Title')</th>

@@ -18,8 +18,8 @@
 
     <x-status-pills :items="$statusPills" :current="request('status', '')" />
 
-    <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
-        <table class="min-w-full divide-y divide-gray-200 text-sm responsive-table">
+    <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200 text-sm">
             <thead class="bg-gray-50">
                 <tr>
                     <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">@lang('Title')</th>
@@ -72,7 +72,7 @@
         @if($posts->hasPages())
         <div class="flex items-center justify-between border-t border-gray-100 bg-gray-50/50 px-5 py-3 text-xs text-gray-500">
             <span>{{ __('Showing :first–:last of :total', ['first' => $posts->firstItem(), 'last' => $posts->lastItem(), 'total' => $posts->total()]) }}</span>
-            <x-pagination :paginator="$posts" />
+            <x-pagination :show-total="false" :paginator="$posts" />
         </div>
         @endif
     </div>

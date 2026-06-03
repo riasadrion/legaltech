@@ -38,6 +38,6 @@
         @endforelse
     </div>
 
-    <x-pagination :paginator="$notifications" />
+    <x-pagination :show-total="false" :paginator="$notifications" />
 </div>
 @endsection
