@@ -105,7 +105,7 @@
                         @lang('Sign in')
                     </a>
                     <a href="{{ route('register') }}"
-                       class="btn-lime rounded-full px-5 py-2.5 text-sm flex items-center gap-2">
+                       class="btn-lime rounded-full px-5 py-2.5 text-sm hidden sm:flex items-center gap-2">
                         @lang('Get started')
                         <x-heroicon-o-arrow-top-right-on-square class="h-4 w-4" />
                     </a>
@@ -114,7 +114,7 @@
                        class="hidden sm:inline text-sm px-4 py-2 text-white/80 hover:text-white">
                         @lang('Dashboard')
                     </a>
-                    <form method="POST" action="{{ route('logout') }}" class="inline">
+                    <form method="POST" action="{{ route('logout') }}" class="hidden sm:inline">
                         @csrf
                         <button type="submit" class="btn-lime rounded-full px-5 py-2.5 text-sm flex items-center gap-2">
                             @lang('Sign out')

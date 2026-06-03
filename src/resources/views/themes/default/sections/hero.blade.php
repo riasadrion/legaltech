@@ -64,9 +64,9 @@
                     </a>
                 @endif
                 @if(!empty($d['secondary_text']))
-                    <a href="{{ link_url($d['secondary_url'] ?? '#') }}"
+                    <a href="#workflow"
                        class="btn-ghost rounded-full px-6 py-3.5 text-[15px] flex items-center gap-2">
-                        <x-heroicon-o-play-circle class="h-5 w-5" />
+                        <x-heroicon-o-chevron-double-down class="h-5 w-5" />
                         {{ __($d['secondary_text']) }}
                     </a>
                 @endif

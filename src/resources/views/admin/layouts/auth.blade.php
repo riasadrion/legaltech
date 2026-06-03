@@ -119,10 +119,13 @@
         .al-back { display: inline-block; margin-top: 20px; font-size: 13px; color: #6366f1; text-decoration: none; font-weight: 500; }
         .al-back:hover { text-decoration: underline; }
 
+        .al-mobile-brand { display: none; text-decoration: none; margin-bottom: 24px; text-align: center; }
+
         @media (max-width: 900px) {
             .al-left { display: none; }
             .al-right { background: #f5f5f9; }
             .al-form-wrap { background: white; padding: 32px; border-radius: 20px; box-shadow: 0 4px 32px rgba(0,0,0,0.08); }
+            .al-mobile-brand { display: block; }
         }
     </style>
     @stack('head')
@@ -161,6 +164,13 @@
 </div>
 
 <div class="al-right">
+
+    @if($brandLogo)
+    <a href="{{ route('home') }}" class="al-mobile-brand">
+        <img src="{{ upload_url(setting('site.dark_logo') ?: setting('site.logo')) }}" alt="{{ setting('site.name', config('app.name')) }}" style="height:40px;width:auto;">
+    </a>
+    @endif
+
     <div class="al-form-wrap">
 
         <div class="al-form-head">

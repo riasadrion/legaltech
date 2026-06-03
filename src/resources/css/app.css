@@ -865,3 +865,61 @@
 .auth-glow-bottom {
     background: radial-gradient(ellipse 110% 65% at 70% 110%, color-mix(in srgb, var(--brand-color) 10%, transparent) 0%, transparent 60%);
 }
+
+/* ─── CMS page hero ─── */
+.page-hero-wrap {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(160deg, #1a0533 0%, #2d1060 40%, #1e0b4a 100%);
+}
+.page-hero {
+    position: relative;
+    padding: 5rem 0 4rem;
+}
+.page-hero-glow-bl {
+    position: absolute;
+    bottom: -80px; left: -80px;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(99,102,241,0.25) 0%, transparent 70%);
+    pointer-events: none;
+}
+.page-hero-glow-tr {
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 350px; height: 350px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(124,92,255,0.2) 0%, transparent 70%);
+    pointer-events: none;
+}
+.page-hero-orb-top {
+    position: absolute;
+    top: -120px; left: 50%;
+    transform: translateX(-50%);
+    width: 600px; height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(139,92,246,0.15) 0%, transparent 70%);
+    pointer-events: none;
+}
+.page-hero-orb-bl {
+    position: absolute;
+    bottom: -60px; left: -60px;
+    width: 280px; height: 280px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 70%);
+    pointer-events: none;
+}
+.page-hero-orb-tr {
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 240px; height: 240px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(167,139,250,0.1) 0%, transparent 70%);
+    pointer-events: none;
+}
+.page-hero-shimmer {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.015) 50%, transparent 100%);
+    pointer-events: none;
+}

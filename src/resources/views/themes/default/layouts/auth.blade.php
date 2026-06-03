@@ -90,12 +90,12 @@
                 <a href="{{ route('home') }}" class="flex items-center gap-2 lg:hidden">
                     @if($authLogo || $authDarkLogo)
                         @if($authLogo)
-                            <img src="{{ $authLogo }}" alt="{{ $authSiteName }}" class="nav-brand-logo nav-brand-logo-light h-8">
+                            <img src="{{ upload_url($authLogo) }}" alt="{{ $authSiteName }}" class="nav-brand-logo nav-brand-logo-light h-8">
                         @endif
                         @if($authDarkLogo)
-                            <img src="{{ $authDarkLogo }}" alt="{{ $authSiteName }}" class="nav-brand-logo nav-brand-logo-dark h-8">
+                            <img src="{{ upload_url($authDarkLogo) }}" alt="{{ $authSiteName }}" class="nav-brand-logo nav-brand-logo-dark h-8">
                         @elseif($authLogo)
-                            <img src="{{ $authLogo }}" alt="{{ $authSiteName }}" class="nav-brand-logo nav-brand-logo-dark h-8">
+                            <img src="{{ upload_url($authLogo) }}" alt="{{ $authSiteName }}" class="nav-brand-logo nav-brand-logo-dark h-8">
                         @endif
                     @else
                         <span class="grid place-items-center w-8 h-8 rounded-full bg-lime text-ink-900">
