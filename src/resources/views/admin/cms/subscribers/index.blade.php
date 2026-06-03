@@ -3,7 +3,7 @@
 @section('content')
 <div class="space-y-5">
 
-    <div class="flex items-center justify-between">
+    <div class="flex flex-wrap items-center justify-between gap-3">
         <div>
             <h1 class="text-xl font-bold text-gray-900">@lang('Subscribers')</h1>
             <p class="mt-0.5 text-sm text-gray-500">{{ __(':total total', ['total' => $subscribers->total()]) }}</p>
@@ -58,7 +58,7 @@
                         <form method="POST" action="{{ route('admin.cms.subscribers.destroy', $subscriber) }}" class="inline">
                             @csrf @method('DELETE')
                             <button type="submit" :data-confirm="__('Remove this subscriber?')"
-                                    class="inline-flex items-center gap-1 rounded-lg border border-red-200 bg-white px-3 py-1.5 text-xs font-medium text-red-600 shadow-sm hover:bg-red-50">
+                                    class="inline-flex items-center gap-1 rounded-lg border border-red-200 dark:border-red-900 bg-white dark:bg-slate-800 px-3 py-1.5 text-xs font-medium text-red-600 dark:text-red-400 shadow-sm hover:bg-red-50 dark:hover:bg-red-900/20">
                                 <x-heroicon-o-trash class="h-3.5 w-3.5" />
                                 @lang('Remove')
                             </button>

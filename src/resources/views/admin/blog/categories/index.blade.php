@@ -3,7 +3,7 @@
 @section('content')
 <div class="space-y-5">
 
-    <div class="flex items-center justify-between">
+    <div class="flex flex-wrap items-center justify-between gap-3">
         <h1 class="text-xl font-bold text-gray-900">@lang('Blog Categories')</h1>
         <a href="{{ route('admin.blog.categories.create') }}"
            class="inline-flex items-center gap-2 rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-brand-700">

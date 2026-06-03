@@ -19,7 +19,7 @@
                 @lang('New Plan')
             </a>
         </div>
-        <form method="GET" class="flex items-center gap-2">
+        <form method="GET" class="flex flex-wrap items-center gap-2">
             <input type="text" name="q" value="{{ request('q') }}" :placeholder="__('Plan name…')"
                    class="h-9 w-52 rounded-lg border border-gray-300 px-3 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500" />
             <button type="submit" class="inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700">@lang('Search')</button>
@@ -60,20 +60,20 @@
                     </td>
                     <td class="px-4 py-3 text-right" data-label="">
                         <a href="{{ route('admin.plans.edit', $plan) }}"
-                           class="inline-flex items-center gap-1 rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-600 shadow-sm hover:bg-gray-50 hover:text-gray-900 me-2">
+                           class="inline-flex items-center gap-1 rounded-lg border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-800 px-3 py-1.5 text-xs font-medium text-gray-600 dark:text-slate-300 shadow-sm hover:bg-gray-50 dark:hover:bg-slate-700 hover:text-gray-900 dark:hover:text-white me-2">
                             @lang('Edit')
                         </a>
                         <form method="POST" action="{{ route('admin.plans.toggle', $plan) }}" class="inline">
                             @csrf
                             <button type="submit"
-                                    class="inline-flex items-center gap-1 rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-600 shadow-sm hover:bg-gray-50 hover:text-gray-900 me-2">
+                                    class="inline-flex items-center gap-1 rounded-lg border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-800 px-3 py-1.5 text-xs font-medium text-gray-600 dark:text-slate-300 shadow-sm hover:bg-gray-50 dark:hover:bg-slate-700 hover:text-gray-900 dark:hover:text-white me-2">
                                 {{ $plan->is_active ? __('Disable') : __('Enable') }}
                             </button>
                         </form>
                         <form method="POST" action="{{ route('admin.plans.destroy', $plan) }}" class="inline" :data-confirm="__('Delete this plan?')">
                             @csrf @method('DELETE')
                             <button type="submit"
-                                    class="inline-flex items-center gap-1 rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-red-600 shadow-sm hover:bg-red-50">
+                                    class="inline-flex items-center gap-1 rounded-lg border border-gray-200 dark:border-red-900 bg-white dark:bg-slate-800 px-3 py-1.5 text-xs font-medium text-red-600 dark:text-red-400 shadow-sm hover:bg-red-50 dark:hover:bg-red-900/20">
                                 @lang('Delete')
                             </button>
                         </form>

@@ -12,7 +12,7 @@
 
     <div class="flex flex-wrap items-center justify-between gap-3">
         <x-status-pills :items="$statusPills" :current="request('status', '')" />
-        <form method="GET" class="flex items-center gap-2">
+        <form method="GET" class="flex flex-wrap items-center gap-2">
             @if(request('status'))
                 <input type="hidden" name="status" value="{{ request('status') }}">
             @endif
@@ -78,7 +78,7 @@
                     </td>
                     <td class="px-4 py-3 text-right" data-label="">
                         <a href="{{ route('admin.subscriptions.show', $sub) }}"
-                           class="inline-flex items-center gap-1 rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-600 shadow-sm hover:bg-gray-50">
+                           class="inline-flex items-center gap-1 rounded-lg border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-800 px-3 py-1.5 text-xs font-medium text-gray-600 dark:text-slate-300 shadow-sm hover:bg-gray-50 dark:hover:bg-slate-700">
                             <x-heroicon-o-eye class="h-3.5 w-3.5" />
                             @lang('View')
                         </a>

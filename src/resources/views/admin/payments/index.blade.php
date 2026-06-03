@@ -12,7 +12,7 @@
 
     <div class="flex flex-wrap items-center justify-between gap-3">
         <x-status-pills :items="$statusPills" :current="request('status', '')" />
-        <form method="GET" class="flex items-center gap-2">
+        <form method="GET" class="flex flex-wrap items-center gap-2">
             <input type="text" name="q" value="{{ request('q') }}" :placeholder="__('Name or email…')"
                    class="h-9 w-52 rounded-lg border border-gray-300 px-3 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500" />
             <button type="submit" class="inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700">@lang('Filter')</button>
@@ -60,7 +60,7 @@
                     <td class="px-4 py-3 text-xs text-gray-500 whitespace-nowrap" :data-label="__('Date')">{{ formatDate($payment->created_at) }}</td>
                     <td class="px-4 py-3 text-right" data-label="">
                         <a href="{{ route('admin.payments.show', $payment) }}"
-                           class="inline-flex items-center gap-1 rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-600 shadow-sm hover:bg-gray-50">
+                           class="inline-flex items-center gap-1 rounded-lg border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-800 px-3 py-1.5 text-xs font-medium text-gray-600 dark:text-slate-300 shadow-sm hover:bg-gray-50 dark:hover:bg-slate-700">
                             <x-heroicon-o-eye class="h-3.5 w-3.5" />
                             @lang('View')
                         </a>

@@ -3,7 +3,7 @@
 @section('content')
 <div class="space-y-5">
 
-    <div class="flex items-center justify-between">
+    <div class="flex flex-wrap items-center justify-between gap-3">
         <div>
             <h1 class="text-xl font-bold text-gray-900">@lang('Blog Posts')</h1>
             <p class="text-sm text-gray-500 mt-0.5">{{ $posts->total() }} @lang('posts')</p>

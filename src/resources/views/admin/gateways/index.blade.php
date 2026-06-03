@@ -64,7 +64,7 @@
                     </td>
                     <td class="px-4 py-3 text-right" data-label="">
                         <a href="{{ route('admin.gateways.edit', $driverKey) }}"
-                           class="inline-flex items-center gap-1 rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-600 shadow-sm hover:bg-gray-50">
+                           class="inline-flex items-center gap-1 rounded-lg border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-800 px-3 py-1.5 text-xs font-medium text-gray-600 dark:text-slate-300 shadow-sm hover:bg-gray-50 dark:hover:bg-slate-700">
                             @lang('Configure')
                         </a>
                     </td>

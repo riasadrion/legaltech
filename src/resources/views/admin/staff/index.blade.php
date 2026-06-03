@@ -51,14 +51,14 @@
                         @if(! $member->isSuperAdmin() && $member->id !== auth('admin')->id())
                         <div class="flex items-center justify-end gap-2">
                             <a href="{{ route('admin.staff.edit', $member) }}"
-                               class="inline-flex items-center gap-1 rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-600 shadow-sm hover:bg-gray-50">
+                               class="inline-flex items-center gap-1 rounded-lg border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-800 px-3 py-1.5 text-xs font-medium text-gray-600 dark:text-slate-300 shadow-sm hover:bg-gray-50 dark:hover:bg-slate-700">
                                 <x-heroicon-o-pencil class="h-3.5 w-3.5" />
                                 @lang('Edit')
                             </a>
                             <form method="POST" action="{{ route('admin.staff.destroy', $member) }}" class="inline">
                                 @csrf @method('DELETE')
                                 <button type="submit" :data-confirm="__('Delete this staff member?')"
-                                        class="inline-flex items-center gap-1 rounded-lg border border-red-200 bg-white px-3 py-1.5 text-xs font-medium text-red-600 shadow-sm hover:bg-red-50">
+                                        class="inline-flex items-center gap-1 rounded-lg border border-red-200 dark:border-red-900 bg-white dark:bg-slate-800 px-3 py-1.5 text-xs font-medium text-red-600 dark:text-red-400 shadow-sm hover:bg-red-50 dark:hover:bg-red-900/20">
                                     <x-heroicon-o-trash class="h-3.5 w-3.5" />
                                     @lang('Delete')
                                 </button>
