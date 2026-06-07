@@ -4,11 +4,6 @@
         <div id="fe-preloader-line"></div>
         <div id="fe-preloader-pen-wrap">
             <svg id="fe-preloader-pen" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <style>
-                    #fe-preloader-pen .pen-solid { fill: var(--brand-color); }
-                    #fe-preloader-pen .pen-dim   { fill: color-mix(in srgb, var(--brand-color) 30%, transparent); stroke: var(--brand-color); }
-                    #fe-preloader-pen .pen-mid   { fill: color-mix(in srgb, var(--brand-color) 18%, transparent); stroke: var(--brand-color); }
-                </style>
                 <g transform="rotate(-45 2 48)">
 
                     <path d="M2 48 L5 46.5 L11 47 L11 49 L5 49.5 Z"

@@ -3,7 +3,7 @@
 @section('title', 'Email Health')
 
 @section('content')
-<x-page-header title="Email Health" back="{{ route('admin.notifications.templates.index') }}" />
+<x-admin::page-header title="Email Health" back="{{ route('admin.notifications.templates.index') }}" />
 
 <div class="max-w-2xl space-y-5">
 
@@ -26,7 +26,7 @@
             @else
             <span class="w-3 h-3 rounded-full bg-red-500 flex-shrink-0"></span>
             @endif
-            <h3 class="font-semibold text-gray-900">{{ $label }}</h3>
+            <h2 class="font-semibold text-gray-900">{{ $label }}</h2>
             <span class="text-xs font-medium px-2 py-0.5 rounded-full
                 {{ $check['status'] === 'ok' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700' }}">
                 {{ $check['status'] === 'ok' ? 'Found' : 'Missing' }}

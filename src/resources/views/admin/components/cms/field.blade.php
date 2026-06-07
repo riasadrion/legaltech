@@ -17,7 +17,7 @@
 
     @case('text')
     @case('url')
-        <x-form.input :name="$name" :label="$label" :value="$value ?? ''" :hint="$hint" />
+        <x-admin::form.input :name="$name" :label="$label" :value="$value ?? ''" :hint="$hint" />
         @break
 
     @case('textarea')
@@ -85,7 +85,7 @@
             @if($label)
                 <legend class="px-2 text-sm font-medium text-gray-700">{{ $label }}</legend>
             @endif
-            <x-cms.schema :schema="$field['fields']" :data="$value ?? []" :name-prefix="$name" />
+            <x-admin::cms.schema :schema="$field['fields']" :data="$value ?? []" :name-prefix="$name" />
         </fieldset>
         @break
 
@@ -105,7 +105,7 @@
                     <div class="repeater-row rounded-lg border border-gray-200 bg-white p-4" data-index="{{ $i }}">
                         <div class="flex items-start justify-between gap-3">
                             <div class="flex-1 space-y-3">
-                                <x-cms.schema :schema="$itemFields" :data="$item" :name-prefix="$name . '[' . $i . ']'" />
+                                <x-admin::cms.schema :schema="$itemFields" :data="$item" :name-prefix="$name . '[' . $i . ']'" />
                             </div>
                             <button type="button" class="repeater-remove rounded-lg border border-red-200 bg-white px-2.5 py-2 text-red-600 hover:bg-red-50">
                                 <x-heroicon-o-trash class="h-4 w-4" />
@@ -120,7 +120,7 @@
                 <div class="repeater-row rounded-lg border border-gray-200 bg-white p-4">
                     <div class="flex items-start justify-between gap-3">
                         <div class="flex-1 space-y-3">
-                            <x-cms.schema :schema="$itemFields" :data="[]" :name-prefix="$name . '[__INDEX__]'" />
+                            <x-admin::cms.schema :schema="$itemFields" :data="[]" :name-prefix="$name . '[__INDEX__]'" />
                         </div>
                         <button type="button" class="repeater-remove rounded-lg border border-red-200 bg-white px-2.5 py-2 text-red-600 hover:bg-red-50">
                             <x-heroicon-o-trash class="h-4 w-4" />

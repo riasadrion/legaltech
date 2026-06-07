@@ -48,13 +48,9 @@
 
             <div class="px-6 py-6 border-t border-gray-100">
                 @auth('user')
-                    <form method="POST" action="{{ route('user.subscription.subscribe') }}">
-                        @csrf
-                        <input type="hidden" name="plan_id" value="{{ $plan->id }}">
-                        <button type="submit" class="w-full rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700">
-                            Subscribe now
-                        </button>
-                    </form>
+                    <a href="{{ route('user.subscription.checkout', $plan) }}" class="w-full block text-center rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700">
+                        Subscribe now
+                    </a>
                 @else
 
                     <a href="{{ route('register') }}" class="w-full block text-center rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700">

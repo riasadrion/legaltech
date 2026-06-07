@@ -14,9 +14,9 @@
         </div>
 
         <div class="rounded-xl border border-gray-200 bg-white p-6 space-y-5 mt-5">
-            <x-form.input name="name[en]" label="Name" :value="old('name.en')" required />
-            <x-form.input name="slug" label="Slug" :value="old('slug')" hint="Auto-generated if blank." />
-            <x-form.input name="sort" label="Sort order" type="number" :value="old('sort', 0)" />
+            <x-admin::form.input name="name[en]" label="Name" :value="old('name.en')" required />
+            <x-admin::form.input name="slug" label="Slug" :value="old('slug')" hint="Auto-generated if blank." />
+            <x-admin::form.input name="sort" label="Sort order" type="number" :value="old('sort', 0)" />
         </div>
 
         <div class="flex items-center gap-3 mt-4">

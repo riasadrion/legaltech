@@ -14,9 +14,9 @@
         </div>
 
         <div class="rounded-xl border border-gray-200 bg-white p-6 space-y-5 mt-5">
-            <x-form.input name="name[en]" label="Name" :value="old('name.en', $category->name['en'] ?? '')" required />
-            <x-form.input name="slug" label="Slug" :value="old('slug', $category->slug)" />
-            <x-form.input name="sort" label="Sort order" type="number" :value="old('sort', $category->sort)" />
+            <x-admin::form.input name="name[en]" label="Name" :value="old('name.en', $category->name['en'] ?? '')" required />
+            <x-admin::form.input name="slug" label="Slug" :value="old('slug', $category->slug)" />
+            <x-admin::form.input name="sort" label="Sort order" type="number" :value="old('sort', $category->sort)" />
         </div>
 
         <div class="flex items-center gap-3 mt-4">

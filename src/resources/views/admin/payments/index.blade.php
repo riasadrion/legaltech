@@ -11,9 +11,9 @@
 
 
     <div class="flex flex-wrap items-center justify-between gap-3">
-        <x-status-pills :items="$statusPills" :current="request('status', '')" />
+        <x-admin::status-pills :items="$statusPills" :current="request('status', '')" />
         <form method="GET" class="flex flex-wrap items-center gap-2">
-            <input type="text" name="q" value="{{ request('q') }}" :placeholder="__('Name or email…')"
+            <input type="text" name="q" value="{{ request('q') }}" placeholder="{{ __('Name or email…') }}"
                    class="h-9 w-52 rounded-lg border border-gray-300 px-3 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500" />
             <button type="submit" class="inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700">@lang('Filter')</button>
             @if(request()->hasAny(['q','gateway']))
@@ -74,7 +74,7 @@
         @if($payments->hasPages())
         <div class="flex items-center justify-between border-t border-gray-100 bg-gray-50/50 px-5 py-3 text-xs text-gray-500">
             <span>{{ __('Showing :first–:last of :total', ['first' => $payments->firstItem(), 'last' => $payments->lastItem(), 'total' => $payments->total()]) }}</span>
-            <x-pagination :show-total="false" :paginator="$payments" />
+            <x-admin::pagination :show-total="false" :paginator="$payments" />
         </div>
         @endif
     </div>

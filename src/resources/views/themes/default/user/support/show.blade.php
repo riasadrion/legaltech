@@ -86,7 +86,7 @@ function udShowFiles(input, listId) {
             @csrf
             <div>
                 <textarea name="body" rows="5" class="ud-input resize-none"
-                          :placeholder="__('Write your reply...')" required>{{ old('body') }}</textarea>
+                          placeholder="{{ __('Write your reply...') }}" required>{{ old('body') }}</textarea>
                 @error('body') <p class="mt-1 text-xs text-red-400">{{ $message }}</p> @enderror
             </div>
             <div>

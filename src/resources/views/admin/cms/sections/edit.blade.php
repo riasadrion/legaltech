@@ -38,10 +38,10 @@
             @endphp
 
             @if(is_array($schema))
-                <x-cms.schema :schema="$schema" :data="$d" name-prefix="data" />
+                <x-admin::cms.schema :schema="$schema" :data="$d" name-prefix="data" />
 
             @elseif($section->type === 'content')
-                <x-form.input name="data[heading]" label="Heading" :value="old('data.heading', $d['heading'] ?? '')" />
+                <x-admin::form.input name="data[heading]" label="Heading" :value="old('data.heading', $d['heading'] ?? '')" />
                 <div>
                     <label class="mb-1.5 block text-sm font-medium text-gray-700">Body</label>
                     <input type="hidden" name="data[body]" id="section_body" value="{{ old('data.body', $d['body'] ?? '') }}">
@@ -70,8 +70,8 @@
 @endsection
 
 @push('head')
-<link rel="stylesheet" href="{{ asset('assets/static/css/editor.css') }}">
-<script src="{{ asset('assets/static/js/editor.js') }}"></script>
+<link rel="stylesheet" href="{{ asset('assets/static/global/css/editor.css') }}">
+<script src="{{ asset('assets/static/global/js/editor.js') }}"></script>
 @endpush
 
 @push('scripts')

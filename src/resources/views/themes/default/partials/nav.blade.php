@@ -85,14 +85,13 @@
                     <ul class="absolute top-full right-0 mt-2 min-w-36 rounded-2xl glass py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-20">
                         @foreach($navLanguages as $lang)
                         <li>
-                            <form method="POST" action="{{ route('locale.set', $lang->code) }}">
-                                @csrf
-                                <button type="submit"
-                                        class="w-full text-left px-4 py-2 text-sm transition
-                                               {{ $lang->code === $currentLocale ? 'text-lime font-medium' : 'text-white/70 hover:text-white hover:bg-white/5' }}">
-                                    {{ $lang->name }}
-                                </button>
-                            </form>
+                            <button type="button"
+                                    data-locale-switch="{{ $lang->code }}"
+                                    data-locale-url="{{ route('locale.set', $lang->code) }}"
+                                    class="w-full text-left px-4 py-2 text-sm transition
+                                           {{ $lang->code === $currentLocale ? 'text-lime font-medium' : 'text-white/70 hover:text-white hover:bg-white/5' }}">
+                                {{ $lang->name }}
+                            </button>
                         </li>
                         @endforeach
                     </ul>
@@ -171,14 +170,13 @@
             @if($navLanguages->count() > 1)
             <div class="mt-3 flex flex-wrap gap-1.5">
                 @foreach($navLanguages as $lang)
-                <form method="POST" action="{{ route('locale.set', $lang->code) }}">
-                    @csrf
-                    <button type="submit"
-                            class="px-3 py-1.5 rounded-full text-[11px] font-mono uppercase tracking-wider transition
-                                   {{ $lang->code === $currentLocale ? 'bg-lime text-ink-900 font-semibold' : 'glass text-white/60 hover:text-white' }}">
-                        {{ $lang->code }}
-                    </button>
-                </form>
+                <button type="button"
+                        data-locale-switch="{{ $lang->code }}"
+                        data-locale-url="{{ route('locale.set', $lang->code) }}"
+                        class="px-3 py-1.5 rounded-full text-[11px] font-mono uppercase tracking-wider transition
+                               {{ $lang->code === $currentLocale ? 'bg-lime text-ink-900 font-semibold' : 'glass text-white/60 hover:text-white' }}">
+                    {{ $lang->code }}
+                </button>
                 @endforeach
             </div>
             @endif

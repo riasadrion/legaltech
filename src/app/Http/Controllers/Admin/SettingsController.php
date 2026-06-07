@@ -77,7 +77,7 @@ class SettingsController extends Controller
 
         $css = $this->sanitizeCss($data['custom_css'] ?? '');
         Settings::set('site.custom_css', $css, 'string', 'general');
-        file_put_contents(base_path('../assets/static/css/custom.css'), $css);
+        file_put_contents(base_path('../assets/static/global/css/custom.css'), $css);
 
         if ($request->hasFile('site_logo')) {
             try {

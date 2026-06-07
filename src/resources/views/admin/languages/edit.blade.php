@@ -2,14 +2,14 @@
 
 @section('content')
 <div class="max-w-xl">
-    <x-page-header title="Edit Language" subtitle="{{ $language->name }} ({{ $language->code }})" />
+    <x-admin::page-header title="Edit Language" subtitle="{{ $language->name }} ({{ $language->code }})" />
 
     <form method="POST" action="{{ route('admin.languages.update', $language) }}" class="space-y-5">
         @csrf @method('PUT')
 
         <div class="rounded-xl border border-gray-200 bg-white px-6 py-5 space-y-5">
-            <x-form.input name="name" label="Language Name (English)" :value="old('name', $language->name)" required />
-            <x-form.input name="native_name" label="Native Name" :value="old('native_name', $language->native_name)" required />
+            <x-admin::form.input name="name" label="Language Name (English)" :value="old('name', $language->name)" required />
+            <x-admin::form.input name="native_name" label="Native Name" :value="old('native_name', $language->native_name)" required />
 
             <div>
                 <label class="mb-1.5 block text-sm font-medium text-gray-500">Code</label>
@@ -25,7 +25,7 @@
                 </select>
             </div>
 
-            <x-form.input name="sort" label="Sort Order" type="number" :value="old('sort', $language->sort)" />
+            <x-admin::form.input name="sort" label="Sort Order" type="number" :value="old('sort', $language->sort)" />
 
             @if(!$language->is_default)
             <label class="flex items-center gap-2 text-sm text-gray-700">

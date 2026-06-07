@@ -9,7 +9,7 @@
         <p class="mt-0.5 text-sm text-gray-500">@lang('Review identity verification submissions.')</p>
     </div>
 
-    <x-status-pills :items="$statusPills" :current="$status" />
+    <x-admin::status-pills :items="$statusPills" :current="$status" />
 
     <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-x-auto">
         <table class="min-w-full divide-y divide-gray-200 text-sm">
@@ -50,7 +50,7 @@
         @if($submissions->hasPages())
         <div class="flex items-center justify-between border-t border-gray-100 bg-gray-50/50 px-5 py-3 text-xs text-gray-500">
             <span>{{ __('Showing :first–:last of :total', ['first' => $submissions->firstItem(), 'last' => $submissions->lastItem(), 'total' => $submissions->total()]) }}</span>
-            <x-pagination :show-total="false" :paginator="$submissions" />
+            <x-admin::pagination :show-total="false" :paginator="$submissions" />
         </div>
         @endif
     </div>

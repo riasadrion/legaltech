@@ -17,7 +17,7 @@
         </div>
 
         <div class="rounded-xl border border-gray-200 bg-white p-6 space-y-6 mt-5">
-            <x-form.input name="name" label="Role name" placeholder="e.g. moderator" :value="old('name')"
+            <x-admin::form.input name="name" label="Role name" placeholder="e.g. moderator" :value="old('name')"
                 hint="Lowercase letters and underscores only." required />
 
             <div>

@@ -8,7 +8,7 @@
 
     <div class="lg:col-span-2 space-y-5">
         <div class="rounded-xl border border-gray-200 bg-white p-6 space-y-5">
-            <x-translatable-input name="title" label="Title" :values="old('title', $p?->title ?? [])" required />
+            <x-admin::translatable-input name="title" label="Title" :values="old('title', $p?->title ?? [])" required />
 
             <div class="translatable-input space-y-2">
                 <span class="block text-sm font-medium text-gray-700">Body</span>
@@ -57,42 +57,42 @@
 
 
         <div class="rounded-xl border border-gray-200 bg-white p-6 space-y-4">
-            <h3 class="text-sm font-semibold text-gray-900">SEO</h3>
-            <x-translatable-input name="meta_title" label="Meta title" :values="old('meta_title', $p?->meta_title ?? [])" />
-            <x-translatable-input name="meta_description" label="Meta description" type="textarea" :values="old('meta_description', $p?->meta_description ?? [])" />
+            <h2 class="text-sm font-semibold text-gray-900">SEO</h2>
+            <x-admin::translatable-input name="meta_title" label="Meta title" :values="old('meta_title', $p?->meta_title ?? [])" />
+            <x-admin::translatable-input name="meta_description" label="Meta description" type="textarea" :values="old('meta_description', $p?->meta_description ?? [])" />
         </div>
     </div>
 
 
     <div class="space-y-5">
         <div class="rounded-xl border border-gray-200 bg-white p-5 space-y-4">
-            <h3 class="text-sm font-semibold text-gray-900">Settings</h3>
+            <h2 class="text-sm font-semibold text-gray-900">Settings</h2>
 
-            <x-form.select name="status" label="Status">
+            <x-admin::form.select name="status" label="Status">
                 <option value="draft"     @selected(old('status', $p?->status ?? 'draft') === 'draft')>Draft</option>
                 <option value="scheduled" @selected(old('status', $p?->status) === 'scheduled')>Scheduled</option>
                 <option value="published" @selected(old('status', $p?->status) === 'published')>Published</option>
-            </x-form.select>
+            </x-admin::form.select>
 
-            <x-form.input name="published_at" label="Publish date" type="datetime-local"
+            <x-admin::form.input name="published_at" label="Publish date" type="datetime-local"
                 :value="old('published_at', $p?->published_at?->format('Y-m-d\TH:i'))" />
 
-            <x-form.select name="blog_category_id" label="Category">
+            <x-admin::form.select name="blog_category_id" label="Category">
                 <option value="">— No category —</option>
                 @foreach($categories as $cat)
                 <option value="{{ $cat->id }}" @selected(old('blog_category_id', $p?->blog_category_id) == $cat->id)>
                     {{ $cat->getLocalName() }}
                 </option>
                 @endforeach
-            </x-form.select>
+            </x-admin::form.select>
 
-            <x-form.input name="slug" label="Slug" :value="old('slug', $p?->slug ?? '')"
+            <x-admin::form.input name="slug" label="Slug" :value="old('slug', $p?->slug ?? '')"
                 hint="Auto-generated from title if left blank." />
         </div>
 
 
         <div class="rounded-xl border border-gray-200 bg-white p-5 space-y-3">
-            <h3 class="text-sm font-semibold text-gray-900">Tags</h3>
+            <h2 class="text-sm font-semibold text-gray-900">Tags</h2>
             <div class="flex flex-wrap gap-2">
                 @foreach($tags as $tag)
                 <label class="inline-flex items-center gap-1.5 text-sm text-gray-700 cursor-pointer">
@@ -111,8 +111,8 @@
 </div>
 
 @push('head')
-<link rel="stylesheet" href="{{ asset('assets/static/css/editor.css') }}">
-<script src="{{ asset('assets/static/js/editor.js') }}"></script>
+<link rel="stylesheet" href="{{ asset('assets/static/global/css/editor.css') }}">
+<script src="{{ asset('assets/static/global/js/editor.js') }}"></script>
 @endpush
 
 @push('scripts')

@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('content')
-<x-page-header :title="__('Settings')" :subtitle="__('General site configuration.')" />
+<x-admin::page-header :title="__('Settings')" :subtitle="__('General site configuration.')" />
 
 <div class="rounded-xl border border-gray-200 bg-white overflow-hidden">
 
@@ -59,10 +59,10 @@
             <form method="POST" action="{{ route('admin.settings.update', 'general') }}" class="space-y-5">
                 @csrf @method('PUT')
                 <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                    <x-form.input name="site_name" :label="__('Site Name')" :value="old('site_name', setting('site.name', config('app.name')))" required />
-                    <x-form.input name="site_tagline" :label="__('Tagline')" :value="old('site_tagline', setting('site.tagline'))" :placeholder="__('Your short slogan')" />
-                    <x-form.input name="site_email" :label="__('Contact Email')" type="email" :value="old('site_email', setting('site.email'))" />
-                    <x-form.input name="site_phone" :label="__('Contact Phone')" :value="old('site_phone', setting('site.phone'))" />
+                    <x-admin::form.input name="site_name" :label="__('Site Name')" :value="old('site_name', setting('site.name', config('app.name')))" required />
+                    <x-admin::form.input name="site_tagline" :label="__('Tagline')" :value="old('site_tagline', setting('site.tagline'))" placeholder="{{ __('Your short slogan') }}" />
+                    <x-admin::form.input name="site_email" :label="__('Contact Email')" type="email" :value="old('site_email', setting('site.email'))" />
+                    <x-admin::form.input name="site_phone" :label="__('Contact Phone')" :value="old('site_phone', setting('site.phone'))" />
                     <div>
                         <label class="mb-1.5 block text-sm font-medium text-gray-700">@lang('Timezone')</label>
                         <select name="site_timezone" class="w-full h-9 rounded-lg border border-gray-300 px-3 text-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500">
@@ -72,8 +72,8 @@
                             @endforeach
                         </select>
                     </div>
-                    <x-form.input name="site_currency" :label="__('Default Currency (ISO 4217)')" :value="old('site_currency', setting('site.currency', 'USD'))" placeholder="USD" maxlength="3" />
-                    <x-form.input name="site_currency_symbol" :label="__('Currency Symbol')" :value="old('site_currency_symbol', setting('site.currency_symbol', '$'))" placeholder="$" maxlength="10" />
+                    <x-admin::form.input name="site_currency" :label="__('Default Currency (ISO 4217)')" :value="old('site_currency', setting('site.currency', 'USD'))" placeholder="USD" maxlength="3" />
+                    <x-admin::form.input name="site_currency_symbol" :label="__('Currency Symbol')" :value="old('site_currency_symbol', setting('site.currency_symbol', '$'))" placeholder="$" maxlength="10" />
                 </div>
                 <div class="flex items-center gap-3">
                     <button type="submit" class="inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-brand-700">
@@ -174,11 +174,11 @@
                                     <x-dynamic-component :component="$c['icon']" class="h-5 w-5" />
                                 </div>
                                 <div>
-                                    <h3 class="text-sm font-semibold text-gray-900">{{ $c['title'] }}</h3>
+                                    <h2 class="text-sm font-semibold text-gray-900">{{ $c['title'] }}</h2>
                                     <p class="mt-1 text-sm font-normal text-gray-500">{{ $c['desc'] }}</p>
                                 </div>
                             </div>
-                            <x-form.toggle :name="$c['name']" :checked="setting($c['key'], $c['default']) === '1'" />
+                            <x-admin::form.toggle :name="$c['name']" :checked="setting($c['key'], $c['default']) === '1'" />
                         </div>
                     @endforeach
                 </div>
@@ -363,9 +363,9 @@
                     @csrf @method('PUT')
 
                     <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                        <x-form.input name="mail_from_address" :label="__('From Address')" type="email"
+                        <x-admin::form.input name="mail_from_address" :label="__('From Address')" type="email"
                             :value="setting('mail.from_address', config('mail.from.address'))" required />
-                        <x-form.input name="mail_from_name" :label="__('From Name')"
+                        <x-admin::form.input name="mail_from_name" :label="__('From Name')"
                             :value="setting('mail.from_name', config('mail.from.name', config('app.name')))" required />
                     </div>
 
@@ -380,10 +380,10 @@
                     </div>
 
                     <div id="driver-smtp" class="driver-fields {{ $mailDriver !== 'smtp' ? 'hidden' : '' }} grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <x-form.input name="mail_smtp_host" :label="__('SMTP Host')" :value="setting('mail.smtp.host')" />
-                        <x-form.input name="mail_smtp_port" :label="__('SMTP Port')" :value="setting('mail.smtp.port', '587')" />
-                        <x-form.input name="mail_smtp_username" :label="__('Username')" :value="setting('mail.smtp.username')" />
-                        <x-form.input name="mail_smtp_password" :label="__('Password')" type="password" :value="null" :placeholder="setting('mail.smtp.password') ? __('Saved — leave blank to keep existing') : __('Enter password')" />
+                        <x-admin::form.input name="mail_smtp_host" :label="__('SMTP Host')" :value="setting('mail.smtp.host')" />
+                        <x-admin::form.input name="mail_smtp_port" :label="__('SMTP Port')" :value="setting('mail.smtp.port', '587')" />
+                        <x-admin::form.input name="mail_smtp_username" :label="__('Username')" :value="setting('mail.smtp.username')" />
+                        <x-admin::form.input name="mail_smtp_password" :label="__('Password')" type="password" :value="null" :placeholder="setting('mail.smtp.password') ? __('Saved — leave blank to keep existing') : __('Enter password')" />
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1.5">@lang('Encryption')</label>
                             <select name="mail_smtp_encryption" class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500">
@@ -395,8 +395,8 @@
                     </div>
 
                     <div id="driver-mailgun" class="driver-fields {{ $mailDriver !== 'mailgun' ? 'hidden' : '' }} grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <x-form.input name="mail_mailgun_domain" :label="__('Domain')" :value="setting('mail.mailgun.domain')" />
-                        <x-form.input name="mail_mailgun_secret" :label="__('API Key')" :value="setting('mail.mailgun.secret')" />
+                        <x-admin::form.input name="mail_mailgun_domain" :label="__('Domain')" :value="setting('mail.mailgun.domain')" />
+                        <x-admin::form.input name="mail_mailgun_secret" :label="__('API Key')" :value="setting('mail.mailgun.secret')" />
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1.5">@lang('Endpoint')</label>
                             <select name="mail_mailgun_endpoint" class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500">
@@ -407,17 +407,17 @@
                     </div>
 
                     <div id="driver-ses" class="driver-fields {{ $mailDriver !== 'ses' ? 'hidden' : '' }} grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <x-form.input name="mail_ses_key" :label="__('Access Key')" :value="setting('mail.ses.key')" />
-                        <x-form.input name="mail_ses_secret" :label="__('Secret Key')" type="password" :value="setting('mail.ses.secret')" />
-                        <x-form.input name="mail_ses_region" :label="__('Region')" :value="setting('mail.ses.region', 'us-east-1')" />
+                        <x-admin::form.input name="mail_ses_key" :label="__('Access Key')" :value="setting('mail.ses.key')" />
+                        <x-admin::form.input name="mail_ses_secret" :label="__('Secret Key')" type="password" :value="setting('mail.ses.secret')" />
+                        <x-admin::form.input name="mail_ses_region" :label="__('Region')" :value="setting('mail.ses.region', 'us-east-1')" />
                     </div>
 
                     <div id="driver-postmark" class="driver-fields {{ $mailDriver !== 'postmark' ? 'hidden' : '' }} grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <x-form.input name="mail_postmark_token" :label="__('Server Token')" :value="setting('mail.postmark.token')" />
+                        <x-admin::form.input name="mail_postmark_token" :label="__('Server Token')" :value="setting('mail.postmark.token')" />
                     </div>
 
                     <div id="driver-resend" class="driver-fields {{ $mailDriver !== 'resend' ? 'hidden' : '' }} grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <x-form.input name="mail_resend_key" :label="__('API Key')" :value="setting('mail.resend.key')" />
+                        <x-admin::form.input name="mail_resend_key" :label="__('API Key')" :value="setting('mail.resend.key')" />
                     </div>
 
                     <div class="flex items-center gap-3 pt-2">
@@ -436,7 +436,7 @@
                                 <x-heroicon-o-paper-airplane class="h-5 w-5" />
                             </div>
                             <div>
-                                <h3 class="text-sm font-semibold text-gray-900">@lang('Send Test Email')</h3>
+                                <h2 class="text-sm font-semibold text-gray-900">@lang('Send Test Email')</h2>
                                 <p class="text-xs text-gray-500">@lang('Verify your mail driver is working correctly.')</p>
                             </div>
                         </div>
@@ -488,25 +488,25 @@
                 </div>
 
                 <div id="sms-twilio" class="sms-fields {{ $smsDriver !== 'twilio' ? 'hidden' : '' }} grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <x-form.input name="sms_twilio_sid" :label="__('Account SID')" :value="setting('sms.twilio.sid')" />
-                    <x-form.input name="sms_twilio_token" :label="__('Auth Token')" type="password" :value="setting('sms.twilio.token')" />
-                    <x-form.input name="sms_twilio_from" :label="__('From Number')" :value="setting('sms.twilio.from')" />
+                    <x-admin::form.input name="sms_twilio_sid" :label="__('Account SID')" :value="setting('sms.twilio.sid')" />
+                    <x-admin::form.input name="sms_twilio_token" :label="__('Auth Token')" type="password" :value="setting('sms.twilio.token')" />
+                    <x-admin::form.input name="sms_twilio_from" :label="__('From Number')" :value="setting('sms.twilio.from')" />
                 </div>
 
                 <div id="sms-vonage" class="sms-fields {{ $smsDriver !== 'vonage' ? 'hidden' : '' }} grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <x-form.input name="sms_vonage_api_key" :label="__('API Key')" :value="setting('sms.vonage.api_key')" />
-                    <x-form.input name="sms_vonage_api_secret" :label="__('API Secret')" type="password" :value="setting('sms.vonage.api_secret')" />
-                    <x-form.input name="sms_vonage_from" :label="__('From Name')" :value="setting('sms.vonage.from', 'DocsAI')" />
+                    <x-admin::form.input name="sms_vonage_api_key" :label="__('API Key')" :value="setting('sms.vonage.api_key')" />
+                    <x-admin::form.input name="sms_vonage_api_secret" :label="__('API Secret')" type="password" :value="setting('sms.vonage.api_secret')" />
+                    <x-admin::form.input name="sms_vonage_from" :label="__('From Name')" :value="setting('sms.vonage.from', 'DocsAI')" />
                 </div>
 
                 <div id="sms-messagebird" class="sms-fields {{ $smsDriver !== 'messagebird' ? 'hidden' : '' }} grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <x-form.input name="sms_messagebird_api_key" :label="__('API Key')" :value="setting('sms.messagebird.api_key')" />
-                    <x-form.input name="sms_messagebird_from" :label="__('From')" :value="setting('sms.messagebird.from', 'DocsAI')" />
+                    <x-admin::form.input name="sms_messagebird_api_key" :label="__('API Key')" :value="setting('sms.messagebird.api_key')" />
+                    <x-admin::form.input name="sms_messagebird_from" :label="__('From')" :value="setting('sms.messagebird.from', 'DocsAI')" />
                 </div>
 
                 <div id="sms-textmagic" class="sms-fields {{ $smsDriver !== 'textmagic' ? 'hidden' : '' }} grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <x-form.input name="sms_textmagic_username" :label="__('Username')" :value="setting('sms.textmagic.username')" />
-                    <x-form.input name="sms_textmagic_api_key" :label="__('API Key')" :value="setting('sms.textmagic.api_key')" />
+                    <x-admin::form.input name="sms_textmagic_username" :label="__('Username')" :value="setting('sms.textmagic.username')" />
+                    <x-admin::form.input name="sms_textmagic_api_key" :label="__('API Key')" :value="setting('sms.textmagic.api_key')" />
                 </div>
 
                 <div class="flex items-center gap-3">
@@ -556,7 +556,7 @@
 
                 <div class="storage-fields-s3 {{ $storageDriver !== 's3' ? 'hidden' : '' }} grid grid-cols-1 sm:grid-cols-2 gap-4">
                     @foreach(['key' => 'Access Key', 'secret' => 'Secret Key', 'region' => 'Region', 'bucket' => 'Bucket', 'endpoint' => 'Endpoint (optional)'] as $field => $label)
-                    <x-form.input name="storage_s3_{{ $field }}" label="{{ $label }}"
+                    <x-admin::form.input name="storage_s3_{{ $field }}" label="{{ $label }}"
                         type="{{ $field === 'secret' ? 'password' : 'text' }}"
                         :value="setting('storage.s3.' . $field)" />
                     @endforeach
@@ -564,7 +564,7 @@
 
                 <div class="storage-fields-r2 {{ $storageDriver !== 'r2' ? 'hidden' : '' }} grid grid-cols-1 sm:grid-cols-2 gap-4">
                     @foreach(['key' => 'Access Key ID', 'secret' => 'Secret Access Key', 'bucket' => 'Bucket Name', 'endpoint' => 'R2 Endpoint URL'] as $field => $label)
-                    <x-form.input name="storage_r2_{{ $field }}" label="{{ $label }}"
+                    <x-admin::form.input name="storage_r2_{{ $field }}" label="{{ $label }}"
                         type="{{ $field === 'secret' ? 'password' : 'text' }}"
                         :value="setting('storage.r2.' . $field)" />
                     @endforeach
@@ -572,7 +572,7 @@
 
                 <div class="storage-fields-wasabi {{ $storageDriver !== 'wasabi' ? 'hidden' : '' }} grid grid-cols-1 sm:grid-cols-2 gap-4">
                     @foreach(['key' => 'Access Key', 'secret' => 'Secret Key', 'region' => 'Region (e.g. us-east-1)', 'bucket' => 'Bucket'] as $field => $label)
-                    <x-form.input name="storage_wasabi_{{ $field }}" label="{{ $label }}"
+                    <x-admin::form.input name="storage_wasabi_{{ $field }}" label="{{ $label }}"
                         type="{{ $field === 'secret' ? 'password' : 'text' }}"
                         :value="setting('storage.wasabi.' . $field)" />
                     @endforeach
@@ -580,7 +580,7 @@
 
                 <div class="storage-fields-do_spaces {{ $storageDriver !== 'do_spaces' ? 'hidden' : '' }} grid grid-cols-1 sm:grid-cols-2 gap-4">
                     @foreach(['key' => 'Spaces Key', 'secret' => 'Spaces Secret', 'region' => 'Region (e.g. nyc3)', 'bucket' => 'Space Name', 'endpoint' => 'Endpoint URL'] as $field => $label)
-                    <x-form.input name="storage_do_spaces_{{ $field }}" label="{{ $label }}"
+                    <x-admin::form.input name="storage_do_spaces_{{ $field }}" label="{{ $label }}"
                         type="{{ $field === 'secret' ? 'password' : 'text' }}"
                         :value="setting('storage.do_spaces.' . $field)" />
                     @endforeach
@@ -636,7 +636,7 @@
                                 </div>
                                 <span class="text-sm font-semibold text-gray-900 dark:text-slate-100">{{ $provider['label'] }}</span>
                             </div>
-                            <x-form.toggle name="social_{{ $key }}_enabled" :checked="setting('social.'.$key.'.enabled') === '1'" />
+                            <x-admin::form.toggle name="social_{{ $key }}_enabled" :checked="setting('social.'.$key.'.enabled') === '1'" />
                         </div>
 
                         <div class="px-5 py-4 space-y-4">
@@ -680,7 +680,7 @@
                     @csrf @method('PUT')
                     <div class="flex items-start justify-between">
                         <div>
-                            <h3 class="text-sm font-semibold text-gray-900">@lang('Queue Heavy Operations')</h3>
+                            <h2 class="text-sm font-semibold text-gray-900">@lang('Queue Heavy Operations')</h2>
                             <p class="text-sm font-normal text-gray-500 mt-1">
                                 @lang('When enabled, broadcast newsletters and bulk notifications are dispatched to the database queue.')
                             </p>
@@ -690,7 +690,7 @@
                             <p class="text-sm font-normal text-green-700 mt-2">@lang('Currently') <strong>@lang('on')</strong> — @lang('jobs are queued in the database.')</p>
                             @endif
                         </div>
-                        <x-form.toggle name="queue_enabled" :checked="$queueEnabled" />
+                        <x-admin::form.toggle name="queue_enabled" :checked="$queueEnabled" />
                     </div>
 
                     @if($queueEnabled)
@@ -726,16 +726,16 @@
                                 </svg>
                             </div>
                             <div>
-                                <h3 class="text-sm font-semibold text-gray-900">@lang('Cloudflare Turnstile (Captcha)')</h3>
+                                <h2 class="text-sm font-semibold text-gray-900">@lang('Cloudflare Turnstile (Captcha)')</h2>
                                 <p class="mt-1 text-sm font-normal text-gray-500">@lang('Protects login, registration, and contact forms from bots.') <a href="https://dash.cloudflare.com/?to=/:account/turnstile" target="_blank" class="text-brand-600 hover:text-brand-700">@lang('Get keys →')</a></p>
                             </div>
                         </div>
-                        <x-form.toggle name="turnstile_enabled" :checked="setting('integrations.turnstile.enabled') === '1'" />
+                        <x-admin::form.toggle name="turnstile_enabled" :checked="setting('integrations.turnstile.enabled') === '1'" />
                     </div>
                     <div class="p-5">
                         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                            <x-form.input name="turnstile_site_key" :label="__('Site Key')" :value="old('turnstile_site_key', setting('integrations.turnstile.site_key'))" placeholder="0x4AAAAAAA..." />
-                            <x-form.input name="turnstile_secret_key" :label="__('Secret Key')" type="password" :value="old('turnstile_secret_key', setting('integrations.turnstile.secret_key'))" placeholder="0x4AAAAAAA..." />
+                            <x-admin::form.input name="turnstile_site_key" :label="__('Site Key')" :value="old('turnstile_site_key', setting('integrations.turnstile.site_key'))" placeholder="0x4AAAAAAA..." />
+                            <x-admin::form.input name="turnstile_secret_key" :label="__('Secret Key')" type="password" :value="old('turnstile_secret_key', setting('integrations.turnstile.secret_key'))" placeholder="0x4AAAAAAA..." />
                         </div>
                     </div>
                 </section>
@@ -752,14 +752,14 @@
                                 </svg>
                             </div>
                             <div>
-                                <h3 class="text-sm font-semibold text-gray-900">@lang('Google Analytics 4')</h3>
+                                <h2 class="text-sm font-semibold text-gray-900">@lang('Google Analytics 4')</h2>
                                 <p class="mt-1 text-sm font-normal text-gray-500">@lang('Adds the GA4 tracking snippet to all public pages.') <a href="https://analytics.google.com/" target="_blank" class="text-brand-600 hover:text-brand-700">@lang('Get Measurement ID →')</a></p>
                             </div>
                         </div>
-                        <x-form.toggle name="ga_enabled" :checked="setting('integrations.ga.enabled') === '1'" />
+                        <x-admin::form.toggle name="ga_enabled" :checked="setting('integrations.ga.enabled') === '1'" />
                     </div>
                     <div class="p-5">
-                        <x-form.input name="ga_measurement_id" :label="__('Measurement ID')" :value="old('ga_measurement_id', setting('integrations.ga.measurement_id'))" placeholder="G-XXXXXXXXXX" />
+                        <x-admin::form.input name="ga_measurement_id" :label="__('Measurement ID')" :value="old('ga_measurement_id', setting('integrations.ga.measurement_id'))" placeholder="G-XXXXXXXXXX" />
                     </div>
                 </section>
 
@@ -776,16 +776,16 @@
                                 </svg>
                             </div>
                             <div>
-                                <h3 class="text-sm font-semibold text-gray-900">@lang('Tawk.to Live Chat')</h3>
+                                <h2 class="text-sm font-semibold text-gray-900">@lang('Tawk.to Live Chat')</h2>
                                 <p class="mt-1 text-sm font-normal text-gray-500">@lang('Embeds the Tawk.to chat widget on all public pages.') <a href="https://dashboard.tawk.to/" target="_blank" class="text-brand-600 hover:text-brand-700">@lang('Get widget IDs →')</a></p>
                             </div>
                         </div>
-                        <x-form.toggle name="tawk_enabled" :checked="setting('integrations.tawk.enabled') === '1'" />
+                        <x-admin::form.toggle name="tawk_enabled" :checked="setting('integrations.tawk.enabled') === '1'" />
                     </div>
                     <div class="p-5 space-y-3">
                         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                            <x-form.input name="tawk_property_id" :label="__('Property ID')" :value="old('tawk_property_id', setting('integrations.tawk.property_id'))" placeholder="65...abc" />
-                            <x-form.input name="tawk_widget_id" :label="__('Widget ID')" :value="old('tawk_widget_id', setting('integrations.tawk.widget_id'))" placeholder="default" />
+                            <x-admin::form.input name="tawk_property_id" :label="__('Property ID')" :value="old('tawk_property_id', setting('integrations.tawk.property_id'))" placeholder="65...abc" />
+                            <x-admin::form.input name="tawk_widget_id" :label="__('Widget ID')" :value="old('tawk_widget_id', setting('integrations.tawk.widget_id'))" placeholder="default" />
                         </div>
                         <p class="text-sm font-normal text-gray-500">@lang('Find these in Tawk.to → Administration → Chat Widget. The embed URL is') <code class="rounded bg-gray-100 px-1 text-xs">embed.tawk.to/<strong>PROPERTY_ID</strong>/<strong>WIDGET_ID</strong></code></p>
                     </div>
@@ -805,7 +805,7 @@
                 <input type="hidden" name="_tab" value="ai">
 
                 <div>
-                    <h3 class="text-sm font-semibold text-gray-900">@lang('OpenAI API')</h3>
+                    <h2 class="text-sm font-semibold text-gray-900">@lang('OpenAI API')</h2>
                     <p class="text-sm text-gray-500 mt-0.5">@lang('Used for AI-powered contract generation.')</p>
                 </div>
 

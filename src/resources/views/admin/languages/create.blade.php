@@ -2,15 +2,15 @@
 
 @section('content')
 <div class="max-w-xl">
-    <x-page-header title="Add Language" subtitle="Add a new language to your site." />
+    <x-admin::page-header title="Add Language" subtitle="Add a new language to your site." />
 
     <form method="POST" action="{{ route('admin.languages.store') }}" class="space-y-5">
         @csrf
 
         <div class="rounded-xl border border-gray-200 bg-white px-6 py-5 space-y-5">
-            <x-form.input name="name" label="Language Name (English)" placeholder="Arabic" required />
-            <x-form.input name="native_name" label="Native Name" placeholder="العربية" required />
-            <x-form.input name="code" label="ISO 639-1 Code" placeholder="ar" maxlength="2" required />
+            <x-admin::form.input name="name" label="Language Name (English)" placeholder="Arabic" required />
+            <x-admin::form.input name="native_name" label="Native Name" placeholder="العربية" required />
+            <x-admin::form.input name="code" label="ISO 639-1 Code" placeholder="ar" maxlength="2" required />
 
             <div>
                 <label class="mb-1.5 block text-sm font-medium text-gray-700">Text Direction</label>
@@ -20,7 +20,7 @@
                 </select>
             </div>
 
-            <x-form.input name="sort" label="Sort Order" type="number" :value="old('sort', 0)" />
+            <x-admin::form.input name="sort" label="Sort Order" type="number" :value="old('sort', 0)" />
 
             <label class="flex items-center gap-2 text-sm text-gray-700">
                 <input type="checkbox" name="is_active" value="1" @checked(old('is_active', true)) class="rounded border-gray-300 text-brand-600">

@@ -3,7 +3,7 @@
 @section('title', 'System Health')
 
 @section('content')
-<x-page-header title="System Health" subtitle="Monitor system status and manage application caches." />
+<x-admin::page-header title="System Health" subtitle="Monitor system status and manage application caches." />
 
 <div class="space-y-6">
 

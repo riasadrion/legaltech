@@ -21,9 +21,18 @@ class AppServiceProvider extends ServiceProvider
         $this->configureMail();
         $this->configureSocialite();
         $this->registerAdminNavigation();
+        $this->registerAdminComponents();
         $this->registerRegistrationFields();
         $this->registerActivityObserver();
         $this->configureGuestRedirect();
+    }
+
+    private function registerAdminComponents(): void
+    {
+        \Illuminate\Support\Facades\Blade::anonymousComponentPath(
+            resource_path('views/admin/components'),
+            'admin'
+        );
     }
 
     private function configureGuestRedirect(): void

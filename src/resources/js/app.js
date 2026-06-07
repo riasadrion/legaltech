@@ -146,6 +146,32 @@ $(document).ready(function () {
             $dropdown.find('.notification-panel').addClass('hidden');
         }
     });
+
+    // -------------------------------------------------------------------------
+    // Usage bars: apply width from data-pct attribute
+    // -------------------------------------------------------------------------
+    $('.usage-bar-fill[data-pct]').each(function () {
+        $(this).css('width', $(this).data('pct') + '%');
+    });
+
+    // -------------------------------------------------------------------------
+    // Locale switcher: AJAX POST then reload to apply the new translations
+    // -------------------------------------------------------------------------
+    $(document).on('click', '[data-locale-switch]', function () {
+        const $btn = $(this);
+        if ($btn.prop('disabled')) return;
+
+        $btn.prop('disabled', true);
+
+        App.ajax({
+            method: 'POST',
+            url: $btn.data('locale-url'),
+        }).done(function () {
+            window.location.reload();
+        }).fail(function () {
+            $btn.prop('disabled', false);
+        });
+    });
 });
 
 // -------------------------------------------------------------------------

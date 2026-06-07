@@ -14,7 +14,7 @@
 
     <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
         <div class="border-b border-gray-100 px-5 py-3.5 flex items-center justify-between">
-            <h3 class="text-sm font-semibold text-gray-900">Items</h3>
+            <h2 class="text-sm font-semibold text-gray-900">Items</h2>
             <span class="text-xs text-gray-400">Drag to reorder</span>
         </div>
 
@@ -45,11 +45,11 @@
 
     <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
         <div class="border-b border-gray-100 px-5 py-3.5">
-            <h3 class="text-sm font-semibold text-gray-900">Add item</h3>
+            <h2 class="text-sm font-semibold text-gray-900">Add item</h2>
         </div>
         <form method="POST" action="{{ route('admin.cms.menus.items.store', $menu) }}" class="px-5 py-5 space-y-4">
             @csrf
-            <x-form.input name="label[en]" label="Label" :value="old('label.en')" required />
+            <x-admin::form.input name="label[en]" label="Label" :value="old('label.en')" required />
 
             <div class="grid grid-cols-2 gap-4">
                 <div>
@@ -65,7 +65,7 @@
                     </select>
                 </div>
                 <div id="custom-url-field">
-                    <x-form.input name="url" label="Custom URL" placeholder="/contact" :value="old('url')" />
+                    <x-admin::form.input name="url" label="Custom URL" placeholder="/contact" :value="old('url')" />
                 </div>
             </div>
 

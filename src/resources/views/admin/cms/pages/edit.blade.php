@@ -23,7 +23,7 @@
 
             <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
                 <div class="border-b border-gray-100 px-5 py-3.5 flex items-center justify-between">
-                    <h3 class="text-sm font-semibold text-gray-900">@lang('Sections')</h3>
+                    <h2 class="text-sm font-semibold text-gray-900">@lang('Sections')</h2>
                     <span class="text-xs text-gray-400">@lang('Drag to reorder')</span>
                 </div>
 
@@ -83,7 +83,7 @@
             @if($availableTypes->isNotEmpty() || $reusableSections->isNotEmpty())
             <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
                 <div class="border-b border-gray-100 px-5 py-3.5">
-                    <h3 class="text-sm font-semibold text-gray-900">@lang('Add section')</h3>
+                    <h2 class="text-sm font-semibold text-gray-900">@lang('Add section')</h2>
                 </div>
                 <div class="px-5 py-4">
                     <form method="POST" action="{{ route('admin.cms.sections.store', $page) }}" class="flex items-center gap-3">
@@ -130,16 +130,16 @@
 
                 <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
                     <div class="border-b border-gray-100 px-5 py-3.5">
-                        <h3 class="text-sm font-semibold text-gray-900">@lang('Page settings')</h3>
+                        <h2 class="text-sm font-semibold text-gray-900">@lang('Page settings')</h2>
                     </div>
                     <div class="px-5 py-5 space-y-4">
-                        <x-form.input name="slug" :label="__('Slug')" :value="old('slug', $page->slug)"
+                        <x-admin::form.input name="slug" :label="__('Slug')" :value="old('slug', $page->slug)"
                             :required="true" :readonly="$page->is_system" />
 
-                        <x-form.input name="title[en]" :label="__('Title')"
+                        <x-admin::form.input name="title[en]" :label="__('Title')"
                             :value="old('title.en', $page->title['en'] ?? '')" required />
 
-                        <x-form.input name="meta_title[en]" :label="__('Meta title')"
+                        <x-admin::form.input name="meta_title[en]" :label="__('Meta title')"
                             :value="old('meta_title.en', $page->meta_title['en'] ?? '')" />
 
                         <div>
@@ -148,10 +148,10 @@
                                       class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500">{{ old('meta_description.en', $page->meta_description['en'] ?? '') }}</textarea>
                         </div>
 
-                        <x-form.select name="status" :label="__('Status')">
+                        <x-admin::form.select name="status" :label="__('Status')">
                             <option value="draft" @selected(old('status', $page->status) === 'draft')>@lang('Draft')</option>
                             <option value="published" @selected(old('status', $page->status) === 'published')>@lang('Published')</option>
-                        </x-form.select>
+                        </x-admin::form.select>
                     </div>
                     <div class="border-t border-gray-100 px-5 py-4 flex items-center gap-3">
                         <button type="submit"

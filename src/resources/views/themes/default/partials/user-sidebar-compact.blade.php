@@ -107,7 +107,7 @@
         @if($subActive && $sub->plan->credits > 0)
         <div class="mt-2 h-1.5 rounded-full bg-white/8 overflow-hidden">
             @php $pct = min(100, round(($sub->credits_remaining / $sub->plan->credits) * 100)); @endphp
-            <div class="h-full bg-lime rounded-full" style="width:{{ $pct }}%"></div>
+            <div class="h-full bg-lime rounded-full usage-bar-fill" data-pct="{{ $pct }}"></div>
         </div>
         <div class="mt-1 text-[11px] text-white/40">{{ number_format($sub->credits_remaining) }} / {{ number_format($sub->plan->credits) }} @lang('credits')</div>
         @endif

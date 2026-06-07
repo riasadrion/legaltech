@@ -3,7 +3,7 @@
 @section('title', 'Ticket #' . $ticket->reference)
 
 @section('content')
-<x-page-header :title="'Ticket #' . $ticket->reference . ' — ' . $ticket->subject" back="{{ route('admin.support.tickets.index') }}" />
+<x-admin::page-header :title="'Ticket #' . $ticket->reference . ' — ' . $ticket->subject" back="{{ route('admin.support.tickets.index') }}" />
 
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
@@ -39,7 +39,7 @@
                 <span class="text-xs text-gray-400 dark:text-slate-500">{{ formatDate($msg->created_at) }}</span>
             </div>
             <div class="prose prose-sm max-w-none {{ $textClass }}">
-                <x-safe-html :content="$msg->body" />
+                <x-admin::safe-html :content="$msg->body" />
             </div>
             @if($msg->attachments->isNotEmpty())
             <div class="mt-3 pt-3 border-t {{ $borderClass }} flex flex-wrap gap-2">
@@ -58,7 +58,7 @@
 
         @if($ticket->isOpen())
         <div class="bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 p-5">
-            <h3 class="text-sm font-semibold text-gray-900 dark:text-slate-100 mb-3">Reply</h3>
+            <h2 class="text-sm font-semibold text-gray-900 dark:text-slate-100 mb-3">Reply</h2>
             <form method="POST" action="{{ route('admin.support.tickets.reply', $ticket) }}" enctype="multipart/form-data">
                 @csrf
                 <textarea name="body" rows="6" required placeholder="Type your reply…"
@@ -87,7 +87,7 @@
     <div class="space-y-4">
 
         <div class="bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 p-5 space-y-3 text-sm">
-            <h3 class="font-semibold text-gray-900 dark:text-slate-100">Details</h3>
+            <h2 class="font-semibold text-gray-900 dark:text-slate-100">Details</h2>
             <div><span class="text-gray-500 dark:text-slate-400">From</span><div class="font-medium dark:text-slate-200">{{ $ticket->getAuthorName() }}</div><div class="text-gray-400 dark:text-slate-500 text-xs">{{ $ticket->getAuthorEmail() }}</div></div>
             <div><span class="text-gray-500 dark:text-slate-400">Category</span><div class="font-medium dark:text-slate-200">{{ ucfirst($ticket->category) }}</div></div>
             <div><span class="text-gray-500 dark:text-slate-400">Priority</span><div class="font-medium dark:text-slate-200">{{ ucfirst($ticket->priority) }}</div></div>
@@ -99,7 +99,7 @@
 
 
         <div class="bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 p-5">
-            <h3 class="font-semibold text-gray-900 dark:text-slate-100 mb-3 text-sm">Change Status</h3>
+            <h2 class="font-semibold text-gray-900 dark:text-slate-100 mb-3 text-sm">Change Status</h2>
             <form method="POST" action="{{ route('admin.support.tickets.status', $ticket) }}">
                 @csrf @method('PATCH')
                 <select name="status" class="w-full border border-gray-300 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100 rounded-lg px-3 py-2 text-sm mb-3">
@@ -113,7 +113,7 @@
 
 
         <div class="bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 p-5">
-            <h3 class="font-semibold text-gray-900 dark:text-slate-100 mb-3 text-sm">Assign To</h3>
+            <h2 class="font-semibold text-gray-900 dark:text-slate-100 mb-3 text-sm">Assign To</h2>
             <form method="POST" action="{{ route('admin.support.tickets.assign', $ticket) }}">
                 @csrf @method('PATCH')
                 <select name="assigned_to" class="w-full border border-gray-300 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100 rounded-lg px-3 py-2 text-sm mb-3">

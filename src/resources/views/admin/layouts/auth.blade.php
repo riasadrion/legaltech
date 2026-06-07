@@ -141,7 +141,7 @@
     @endphp
     <a href="{{ route('home') }}" class="al-brand">
         @if($brandLogo)
-            <img src="{{ upload_url($brandLogo) }}" alt="{{ $siteName }}" style="height:32px;width:auto;position:relative;z-index:1;">
+            <img src="{{ upload_url($brandLogo) }}" alt="{{ $siteName }}" class="al-brand-logo">
         @else
             <div class="al-brand-icon">
                 <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -154,7 +154,7 @@
     </a>
 
     <div class="al-illo">
-        <img src="{{ asset('assets/static/images/admin-login-illustration.svg') }}" alt="Dashboard preview">
+        <img src="{{ asset('assets/static/admin/images/admin-login-illustration.svg') }}" alt="Dashboard preview">
     </div>
 
     <div class="al-tagline">
@@ -167,7 +167,7 @@
 
     @if($brandLogo)
     <a href="{{ route('home') }}" class="al-mobile-brand">
-        <img src="{{ upload_url(setting('site.dark_logo') ?: setting('site.logo')) }}" alt="{{ setting('site.name', config('app.name')) }}" style="height:40px;width:auto;">
+        <img src="{{ upload_url(setting('site.dark_logo') ?: setting('site.logo')) }}" alt="{{ setting('site.name', config('app.name')) }}" class="al-mobile-brand-logo">
     </a>
     @endif
 

@@ -78,7 +78,7 @@
         @if($staff->hasPages())
         <div class="flex items-center justify-between border-t border-gray-100 bg-gray-50/50 px-5 py-3 text-xs text-gray-500">
             <span>{{ __('Showing :first–:last of :total', ['first' => $staff->firstItem(), 'last' => $staff->lastItem(), 'total' => $staff->total()]) }}</span>
-            <x-pagination :show-total="false" :paginator="$staff" />
+            <x-admin::pagination :show-total="false" :paginator="$staff" />
         </div>
         @endif
     </div>

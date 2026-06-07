@@ -20,7 +20,7 @@
         {{-- Payment details --}}
         <div class="rounded-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm overflow-hidden">
             <div class="border-b border-gray-100 dark:border-slate-700 px-5 py-3.5">
-                <h3 class="text-sm font-semibold text-gray-900 dark:text-white">Payment details</h3>
+                <h2 class="text-sm font-semibold text-gray-900 dark:text-white">Payment details</h2>
             </div>
             <dl class="divide-y divide-gray-100 dark:divide-slate-700 text-sm">
                 <div class="flex justify-between px-5 py-3"><dt class="text-xs text-gray-500 dark:text-slate-400">User</dt><dd class="font-medium text-gray-900 dark:text-white">{{ $payment->user->email }}</dd></div>
@@ -64,7 +64,7 @@
             @if($payment->receipt_path)
             <div class="rounded-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm overflow-hidden">
                 <div class="border-b border-gray-100 dark:border-slate-700 px-5 py-3.5">
-                    <h3 class="text-sm font-semibold text-gray-900 dark:text-white">Receipt</h3>
+                    <h2 class="text-sm font-semibold text-gray-900 dark:text-white">Receipt</h2>
                 </div>
                 <div class="px-5 py-4">
                     <a href="{{ route('admin.payments.receipt', $payment) }}" target="_blank"
@@ -80,7 +80,7 @@
             @if($payment->isAwaitingApproval())
             <div class="rounded-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm overflow-hidden">
                 <div class="border-b border-gray-100 dark:border-slate-700 px-5 py-3.5">
-                    <h3 class="text-sm font-semibold text-gray-900 dark:text-white">Review</h3>
+                    <h2 class="text-sm font-semibold text-gray-900 dark:text-white">Review</h2>
                 </div>
                 <div class="px-5 py-4 space-y-3" x-data="{ showReject: false }">
 
@@ -128,7 +128,7 @@
             @if($payment->reviewed_by)
             <div class="rounded-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm overflow-hidden">
                 <div class="border-b border-gray-100 dark:border-slate-700 px-5 py-3.5">
-                    <h3 class="text-sm font-semibold text-gray-900 dark:text-white">Review record</h3>
+                    <h2 class="text-sm font-semibold text-gray-900 dark:text-white">Review record</h2>
                 </div>
                 <dl class="divide-y divide-gray-100 dark:divide-slate-700 text-sm">
                     <div class="flex justify-between px-5 py-3"><dt class="text-xs text-gray-500 dark:text-slate-400">Reviewed by</dt><dd class="text-gray-700 dark:text-slate-300">{{ $payment->reviewer->email }}</dd></div>

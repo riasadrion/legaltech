@@ -4,7 +4,7 @@
     "name": "ui"
   },
   "resources/css/app.css": {
-    "file": "app-BnhZv5VK.css",
+    "file": "app-B1XYKg4M.css",
     "name": "app",
     "names": [
       "app.css"
@@ -13,7 +13,7 @@
     "isEntry": true
   },
   "resources/js/admin.js": {
-    "file": "admin-BsH3te0K.js",
+    "file": "admin-DbWyO-U1.js",
     "name": "admin",
     "src": "resources/js/admin.js",
     "isEntry": true,

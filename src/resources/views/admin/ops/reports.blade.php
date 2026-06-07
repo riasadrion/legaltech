@@ -3,7 +3,7 @@
 @section('title', __('Reports'))
 
 @push('head')
-<link rel="stylesheet" href="{{ asset('assets/static/css/flatpickr.min.css') }}" id="flatpickr-css">
+<link rel="stylesheet" href="{{ asset('assets/static/global/css/flatpickr.min.css') }}" id="flatpickr-css">
 @endpush
 
 @section('content')
@@ -148,7 +148,7 @@
         @if($data->hasPages())
         <div class="flex items-center justify-between border-t border-gray-100 bg-gray-50/50 px-5 py-3 text-xs text-gray-500">
             <span>{{ __('Showing :first–:last of :total', ['first' => $data->firstItem(), 'last' => $data->lastItem(), 'total' => $data->total()]) }}</span>
-            <x-pagination :show-total="false" :paginator="$data" />
+            <x-admin::pagination :show-total="false" :paginator="$data" />
         </div>
         @endif
         @endif
@@ -157,13 +157,13 @@
 </div>
 
 @push('scripts')
-<script src="{{ asset('assets/static/js/flatpickr.min.js') }}"></script>
+<script src="{{ asset('assets/static/global/js/flatpickr.min.js') }}"></script>
 <script>
 onAdminReady(function () {
     'use strict';
 
     if (document.documentElement.getAttribute('data-theme') === 'dark') {
-        $('#flatpickr-css').attr('href', '{{ asset('assets/static/css/flatpickr.dark.css') }}');
+        $('#flatpickr-css').attr('href', '{{ asset('assets/static/global/css/flatpickr.dark.css') }}');
     }
 
     flatpickr('#filter-daterange', {

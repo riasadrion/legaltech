@@ -6,9 +6,11 @@
 <section class="relative py-14 border-y border-white/8 bg-ink-900/70 overflow-hidden">
     <div class="mx-auto max-w-7xl px-6">
         @if($heading)
-            <p class="text-center text-sm font-mono uppercase tracking-[.25em] text-white/55">
+            <h2 class="text-center text-sm font-mono uppercase tracking-[.25em] text-white/55 font-normal">
                 {{ __($heading) }}
-            </p>
+            </h2>
+        @else
+            <h2 class="sr-only">@lang('Trusted by')</h2>
         @endif
     </div>
 
@@ -21,14 +23,14 @@
                 @foreach($logos as $logo)
                     <img src="{{ upload_url($logo['url']) }}"
                          alt="{{ $logo['alt'] ?? '' }}"
-                         class="h-7 w-auto opacity-70 hover:opacity-100 transition" />
+                         class="h-7 w-auto opacity-70 hover:opacity-100 transition">
                 @endforeach
             </div>
             <div class="flex gap-16 items-center shrink-0" aria-hidden="true">
                 @foreach($logos as $logo)
                     <img src="{{ upload_url($logo['url']) }}"
                          alt=""
-                         class="h-7 w-auto opacity-70" />
+                         class="h-7 w-auto opacity-70">
                 @endforeach
             </div>
         </div>

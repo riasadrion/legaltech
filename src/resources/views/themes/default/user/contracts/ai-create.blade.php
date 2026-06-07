@@ -85,8 +85,8 @@
                             @endif
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                            <input type="text" name="parties[{{ $i }}][name]" :placeholder="__('Full name')" required class="ud-input" value="{{ $p['name'] ?? '' }}" />
-                            <input type="email" name="parties[{{ $i }}][email]" :placeholder="__('Email address')" required class="ud-input" value="{{ $p['email'] ?? '' }}" />
+                            <input type="text" name="parties[{{ $i }}][name]" placeholder="{{ __('Full name') }}" required class="ud-input" value="{{ $p['name'] ?? '' }}" />
+                            <input type="email" name="parties[{{ $i }}][email]" placeholder="{{ __('Email address') }}" required class="ud-input" value="{{ $p['email'] ?? '' }}" />
                         </div>
                         <select name="parties[{{ $i }}][role]" class="ud-input">
                             <option value="signer" {{ ($p['role'] ?? 'signer') !== 'viewer' ? 'selected' : '' }}>@lang('Signer')</option>

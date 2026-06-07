@@ -12,7 +12,7 @@
 
     <div class="flex flex-wrap items-center justify-between gap-3">
         <div class="flex items-center gap-3">
-            <x-status-pills :items="$statusPills" :current="request('status', '')" />
+            <x-admin::status-pills :items="$statusPills" :current="request('status', '')" />
             <a href="{{ route('admin.plans.create') }}"
                class="inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-brand-700">
                 <x-heroicon-o-plus class="h-4 w-4" />
@@ -20,7 +20,7 @@
             </a>
         </div>
         <form method="GET" class="flex flex-wrap items-center gap-2">
-            <input type="text" name="q" value="{{ request('q') }}" :placeholder="__('Plan name…')"
+            <input type="text" name="q" value="{{ request('q') }}" placeholder="{{ __('Plan name…') }}"
                    class="h-9 w-52 rounded-lg border border-gray-300 px-3 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500" />
             <button type="submit" class="inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700">@lang('Search')</button>
             @if(request()->hasAny(['q']))
@@ -89,7 +89,7 @@
         @if($plans->hasPages())
         <div class="flex items-center justify-between border-t border-gray-100 bg-gray-50/50 px-5 py-3 text-xs text-gray-500">
             <span>{{ __('Showing :first–:last of :total', ['first' => $plans->firstItem(), 'last' => $plans->lastItem(), 'total' => $plans->total()]) }}</span>
-            <x-pagination :show-total="false" :paginator="$plans" />
+            <x-admin::pagination :show-total="false" :paginator="$plans" />
         </div>
         @endif
     </div>

@@ -27,7 +27,7 @@
 
         <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-x-auto">
             <div class="border-b border-gray-100 px-5 py-3.5">
-                <h3 class="text-sm font-semibold text-gray-900">@lang('Details')</h3>
+                <h2 class="text-sm font-semibold text-gray-900">@lang('Details')</h2>
             </div>
             <dl class="divide-y divide-gray-100 text-sm">
                 <div class="flex justify-between px-5 py-3">
@@ -61,7 +61,7 @@
 
         <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-x-auto">
             <div class="border-b border-gray-100 px-5 py-3.5">
-                <h3 class="text-sm font-semibold text-gray-900">@lang('User')</h3>
+                <h2 class="text-sm font-semibold text-gray-900">@lang('User')</h2>
             </div>
             <div class="px-5 py-4 space-y-1">
                 <div class="font-medium text-gray-900">{{ $subscription->user->name ?? '—' }}</div>
@@ -73,7 +73,7 @@
 
             @if($subscription->payment)
             <div class="border-t border-gray-100 px-5 py-3.5">
-                <h3 class="text-sm font-semibold text-gray-900">@lang('Initial payment')</h3>
+                <h2 class="text-sm font-semibold text-gray-900">@lang('Initial payment')</h2>
             </div>
             <dl class="divide-y divide-gray-100 text-sm">
                 <div class="flex justify-between px-5 py-3"><dt class="text-xs text-gray-500">@lang('Amount')</dt><dd class="font-semibold text-gray-900">{{ $subscription->payment->formattedAmount() }}</dd></div>
@@ -94,7 +94,7 @@
     @if($subscription->creditLogs->count() > 0)
     <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-x-auto">
         <div class="border-b border-gray-100 px-5 py-3.5">
-            <h3 class="text-sm font-semibold text-gray-900">@lang('Credit history')</h3>
+            <h2 class="text-sm font-semibold text-gray-900">@lang('Credit history')</h2>
             <p class="mt-0.5 text-xs text-gray-500">@lang('Recent credit transactions for this subscription.')</p>
         </div>
         <table class="min-w-full divide-y divide-gray-200 text-sm">

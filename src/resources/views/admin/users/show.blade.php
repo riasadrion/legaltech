@@ -123,7 +123,7 @@
         <div class="space-y-5 lg:col-span-4">
             <div class="overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-sm">
                 <div class="border-b border-slate-100 dark:border-slate-800 px-4 py-3">
-                    <h3 class="text-sm font-semibold text-slate-900 dark:text-slate-50">Profile details</h3>
+                    <h2 class="text-sm font-semibold text-slate-900 dark:text-slate-50">Profile details</h2>
                 </div>
                 <dl class="divide-y divide-slate-100 dark:divide-slate-800">
                     <div class="flex items-center justify-between gap-4 px-4 py-3">
@@ -199,7 +199,7 @@
 
             <div class="overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-sm">
                 <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 px-4 py-3">
-                    <h3 class="text-sm font-semibold text-slate-900 dark:text-slate-50">Subscription</h3>
+                    <h2 class="text-sm font-semibold text-slate-900 dark:text-slate-50">Subscription</h2>
                     <span class="inline-flex rounded-full border px-2.5 py-0.5 text-xs font-medium {{ $subscriptionTone }}">
                         {{ $subscription && $subscription->isActive() ? 'Active' : 'None' }}
                     </span>
@@ -256,7 +256,7 @@
             @if(auth('admin')->user()->can('users.manage'))
             <div class="overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-sm">
                 <div class="border-b border-slate-100 dark:border-slate-800 px-4 py-3">
-                    <h3 class="text-sm font-semibold text-slate-900 dark:text-slate-50">Account controls</h3>
+                    <h2 class="text-sm font-semibold text-slate-900 dark:text-slate-50">Account controls</h2>
                 </div>
                 <div class="grid grid-cols-1 divide-y divide-slate-100 dark:divide-slate-800 lg:grid-cols-2 lg:divide-x lg:divide-y-0">
                     <form method="POST" action="{{ route('admin.users.update-status', $user) }}" class="space-y-3 p-4">
@@ -304,7 +304,7 @@
 
             <div class="overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-sm">
                 <div class="border-b border-slate-100 dark:border-slate-800 px-4 py-3">
-                    <h3 class="text-sm font-semibold text-slate-900 dark:text-slate-50">Financial and security</h3>
+                    <h2 class="text-sm font-semibold text-slate-900 dark:text-slate-50">Financial and security</h2>
                 </div>
                 <div class="grid grid-cols-1 divide-y divide-slate-100 dark:divide-slate-800 lg:grid-cols-2 lg:divide-x lg:divide-y-0">
                     <form method="POST" action="{{ route('admin.users.adjust-balance', $user) }}" class="space-y-3 p-4">
@@ -359,7 +359,7 @@
 
             <div class="overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-sm">
                 <div class="border-b border-slate-100 dark:border-slate-800 px-4 py-3">
-                    <h3 class="text-sm font-semibold text-slate-900 dark:text-slate-50">Recent logins</h3>
+                    <h2 class="text-sm font-semibold text-slate-900 dark:text-slate-50">Recent logins</h2>
                 </div>
 
                 @if($logins->isEmpty())

@@ -8,7 +8,7 @@
 @endphp
 
 @section('content')
-<x-page-header title="Bug Reports" subtitle="Report an issue to the support team." />
+<x-admin::page-header title="Bug Reports" subtitle="Report an issue to the support team." />
 
 <div class="space-y-5">
 

@@ -7,9 +7,9 @@
 ─────────────────────────────────────────────────────── --}}
 
 
-<div id="cookie-banner" class="cc-banner" role="dialog" aria-live="polite" :aria-label="__('Cookie consent')">
+<div id="cookie-banner" class="cc-banner" role="dialog" aria-live="polite" aria-label="{{ __('Cookie consent') }}">
     <div class="cc-card">
-        <button type="button" id="cookie-reject" class="cc-banner-close" :aria-label="__('Reject non-essential cookies')">
+        <button type="button" id="cookie-reject" class="cc-banner-close" aria-label="{{ __('Reject non-essential cookies') }}">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
             </svg>
@@ -50,7 +50,7 @@
     <div class="cc-modal-panel">
         <div class="cc-modal-head">
             <h3 id="cc-prefs-title" class="cc-modal-title">@lang('Cookie preferences')</h3>
-            <button type="button" class="cc-modal-close" data-cc-close :aria-label="__('Close')">
+            <button type="button" class="cc-modal-close" data-cc-close aria-label="{{ __('Close') }}">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
                 </svg>
@@ -81,7 +81,7 @@
 </div>
 
 
-<button type="button" id="cookie-reopen" class="cc-reopen" :aria-label="__('Cookie settings')">
+<button type="button" id="cookie-reopen" class="cc-reopen" aria-label="{{ __('Cookie settings') }}">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M21.598 11.064a1.006 1.006 0 0 0-.854-.172A2.938 2.938 0 0 1 20 11a3 3 0 0 1-3-3 1 1 0 0 0-1-1 3 3 0 0 1-2.84-3.94 1 1 0 0 0-.21-1A10 10 0 1 0 22 12a1.06 1.06 0 0 0-.402-.936z"/>
     </svg>

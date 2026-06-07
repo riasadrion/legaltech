@@ -17,7 +17,7 @@
     <div class="auth-field-wrap">
         <label class="auth-label" for="name">@lang('Name')</label>
         <input id="name" name="name" type="text" value="{{ old('name') }}"
-               :placeholder="__('Your name')" autocomplete="name"
+               placeholder="{{ __('Your name') }}" autocomplete="name"
                class="auth-input {{ $errors->has('name') ? 'auth-input-err' : '' }}">
     </div>
 

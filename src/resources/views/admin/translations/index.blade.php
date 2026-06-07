@@ -58,7 +58,7 @@
 
         <form method="GET" class="flex items-center gap-2">
             <input type="hidden" name="locale" value="{{ $locale }}">
-            <input type="text" name="q" value="{{ request('q') }}" :placeholder="__('Search English key or value...')"
+            <input type="text" name="q" value="{{ request('q') }}" placeholder="{{ __('Search English key or value...') }}"
                    class="h-9 w-64 rounded-lg border border-gray-300 px-3 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500">
             <button type="submit" class="inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700">@lang('Search')</button>
             @if(request('q'))
@@ -76,7 +76,7 @@
             <div class="space-y-4">
                 <div>
                     <label class="mb-1 block text-sm font-medium text-gray-700">@lang('English Text')</label>
-                    <input type="text" name="key" :placeholder="__('Welcome to our site')" required
+                    <input type="text" name="key" placeholder="{{ __('Welcome to our site') }}" required
                            class="w-full h-9 rounded-lg border border-gray-300 px-3 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500">
                 </div>
                 <div>
@@ -97,7 +97,7 @@
                 </button>
             </div>
         </form>
-    </x-modal>
+    </x-admin::modal>
 
 
     <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-x-auto">
@@ -135,7 +135,7 @@
                                    dir="{{ $langDirection ?? 'ltr' }}"
                                    class="flex-1 rounded border px-2 py-1 text-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500
                                           {{ !($existingTranslations[$t->key] ?? null) ? 'border-amber-300 bg-amber-50 placeholder-amber-400' : 'border-gray-200' }}"
-                                   :placeholder="__('Enter translation...')">
+                                   placeholder="{{ __('Enter translation...') }}">
                             <button type="submit" class="flex-shrink-0 rounded-lg bg-brand-600 px-2.5 py-1 text-xs font-medium text-white hover:bg-brand-700">@lang('Save')</button>
                         </form>
                     </td>
@@ -157,7 +157,7 @@
 
         @if($translations->hasPages())
         <div class="border-t border-gray-100 bg-gray-50/50 px-5 py-3">
-            <x-pagination :show-total="false" :paginator="$translations" />
+            <x-admin::pagination :show-total="false" :paginator="$translations" />
         </div>
         @endif
     </div>

@@ -61,7 +61,6 @@ Route::middleware(['auth:user', 'account.active', 'verified.email', 'verified.ph
         // Subscription
         Route::get('subscription', [SubscriptionController::class, 'index'])->name('subscription.index');
         Route::get('subscription/plans', [SubscriptionController::class, 'plans'])->name('subscription.plans');
-        Route::post('subscription/subscribe', [SubscriptionController::class, 'subscribe'])->name('subscription.subscribe');
         Route::get('subscription/{plan}/checkout', [SubscriptionController::class, 'checkout'])->name('subscription.checkout');
 
 

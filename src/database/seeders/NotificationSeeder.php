@@ -34,7 +34,7 @@ class NotificationSeeder extends Seeder
                     ['key' => 'verification.url', 'description' => 'Email verification link'],
                 ],
                 'subject' => ['en' => 'Verify your email address'],
-                'email_body' => ['en' => '<p>Hi {{user.name}},</p><p>Please click the button below to verify your email address.</p><p><a href="{{verification.url}}" style="display:inline-block;background:#1e40af;color:#fff;padding:10px 20px;border-radius:6px;text-decoration:none;">Verify Email</a></p><p>If you did not create an account, no further action is required.</p>'],
+                'email_body' => ['en' => '<p>Hi {{user.name}},</p><p>Please click the button below to verify your email address.</p><p><a href="{{verification.url}}" class="email-cta">Verify Email</a></p><p>If you did not create an account, no further action is required.</p>'],
                 'sms_body' => ['en' => ''],
             ],
             [
@@ -48,7 +48,7 @@ class NotificationSeeder extends Seeder
                     ['key' => 'reset.expires', 'description' => 'Minutes until link expires'],
                 ],
                 'subject' => ['en' => 'Reset your password'],
-                'email_body' => ['en' => '<p>Hi {{user.name}},</p><p>You requested a password reset. Click below to set a new password.</p><p><a href="{{reset.url}}" style="display:inline-block;background:#1e40af;color:#fff;padding:10px 20px;border-radius:6px;text-decoration:none;">Reset Password</a></p><p>This link expires in {{reset.expires}} minutes. If you did not request a reset, ignore this email.</p>'],
+                'email_body' => ['en' => '<p>Hi {{user.name}},</p><p>You requested a password reset. Click below to set a new password.</p><p><a href="{{reset.url}}" class="email-cta">Reset Password</a></p><p>This link expires in {{reset.expires}} minutes. If you did not request a reset, ignore this email.</p>'],
                 'sms_body' => ['en' => ''],
             ],
             [
@@ -177,7 +177,22 @@ class NotificationSeeder extends Seeder
                     ['key' => 'app.url',       'description' => 'Application URL'],
                 ],
                 'subject' => ['en' => 'Signature required: {{contract.title}}'],
-                'email_body' => ['en' => '<p>Hi {{party.name}},</p><p>You have been requested to sign a contract: <strong>{{contract.title}}</strong>.</p><p>Please click the button below to review and sign the document.</p><p><a href="{{sign.url}}" style="display:inline-block;background:#9acd32;color:#0f0f0f;padding:14px 32px;border-radius:8px;text-decoration:none;font-weight:700;">Review &amp; Sign</a></p><p>If you cannot click the button, copy and paste this link into your browser:<br>{{sign.url}}</p><p>This link is unique to you. Do not share it.</p>'],
+                'email_body' => ['en' => '<p>Hi {{party.name}},</p><p>You have been requested to sign a contract: <strong>{{contract.title}}</strong>.</p><p>Please click the button below to review and sign the document.</p><p><a href="{{sign.url}}" class="email-cta-accent">Review &amp; Sign</a></p><p>If you cannot click the button, copy and paste this link into your browser:<br>{{sign.url}}</p><p>This link is unique to you. Do not share it.</p>'],
+                'sms_body' => ['en' => ''],
+            ],
+            [
+                'key' => 'email_layout',
+                'name' => 'Email Layout',
+                'description' => 'Global wrapper used to render every outgoing notification email (header, content area, footer with unsubscribe link).',
+                'channels' => ['email'],
+                'variables' => [
+                    ['key' => 'app.name',          'description' => 'Application name'],
+                    ['key' => 'app.url',           'description' => 'Application URL'],
+                    ['key' => 'content',           'description' => 'Rendered notification body'],
+                    ['key' => 'unsubscribe.url',   'description' => 'Unsubscribe link'],
+                ],
+                'subject' => ['en' => ''],
+                'email_body' => ['en' => '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>{{app.name}}</title><link rel="stylesheet" href="{{app.url}}/assets/static/global/css/email.css"></head><body class="email-body"><table width="100%" cellpadding="0" cellspacing="0" class="email-wrapper"><tr><td align="center"><table width="600" cellpadding="0" cellspacing="0" class="email-card"><tr><td class="email-header"><a href="{{app.url}}" class="email-brand">{{app.name}}</a></td></tr><tr><td class="email-content">{{content}}</td></tr><tr><td class="email-footer"><p class="email-copyright">&copy; {{app.name}} &mdash; <a href="{{app.url}}">{{app.url}}</a></p><p><a href="{{unsubscribe.url}}">Unsubscribe</a></p></td></tr></table></td></tr></table></body></html>'],
                 'sms_body' => ['en' => ''],
             ],
         ];

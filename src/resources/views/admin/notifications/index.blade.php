@@ -2,14 +2,14 @@
 
 @section('content')
 <div class="max-w-3xl space-y-6">
-    <x-page-header title="Notifications">
+    <x-admin::page-header title="Notifications">
         <x-slot name="actions">
             <form method="POST" action="{{ route('admin.notifications.read-all') }}">
                 @csrf
                 <button type="submit" class="text-sm text-brand-600 hover:underline">Mark all as read</button>
             </form>
         </x-slot>
-    </x-page-header>
+    </x-admin::page-header>
 
     <div class="rounded-xl border border-gray-200 bg-white divide-y divide-gray-100">
         @forelse($notifications as $notification)
@@ -38,6 +38,6 @@
         @endforelse
     </div>
 
-    <x-pagination :show-total="false" :paginator="$notifications" />
+    <x-admin::pagination :show-total="false" :paginator="$notifications" />
 </div>
 @endsection

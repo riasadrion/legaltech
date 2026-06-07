@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @push('head')
-<link rel="stylesheet" href="{{ asset('assets/static/css/apexcharts.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/static/global/css/apexcharts.css') }}">
 @endpush
 
 @section('content')
@@ -93,7 +93,7 @@
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
         <div class="lg:col-span-2 card-table">
             <div class="chart-card-header">
-                    <h3 class="text-sm font-semibold">@lang('Revenue Analytics')</h3>
+                    <h2 class="text-sm font-semibold">@lang('Revenue Analytics')</h2>
                     <p class="chart-card-sub">@lang('Monthly performance breakdown')</p>
             </div>
             <div class="chart-card-body">
@@ -104,7 +104,7 @@
         @if(!empty($chartData['revenueByPlan']))
         <div class="card-table">
             <div class="chart-card-header">
-                <h3 class="text-sm font-semibold">@lang('Revenue Mix')</h3>
+                <h2 class="text-sm font-semibold">@lang('Revenue Mix')</h2>
                 <p class="chart-card-sub">@lang('By subscription tier')</p>
             </div>
             <div class="chart-card-body">
@@ -115,7 +115,7 @@
         @else
         <div class="card-table">
             <div class="chart-card-header">
-                <h3 class="text-sm font-semibold">@lang('Payment Methods')</h3>
+                <h2 class="text-sm font-semibold">@lang('Payment Methods')</h2>
                 <p class="chart-card-sub">@lang('Revenue by gateway')</p>
             </div>
             <div class="chart-card-body">
@@ -132,7 +132,7 @@
         <div class="lg:col-span-2 card-table">
             <div class="chart-card-header flex items-center justify-between">
                 <div>
-                    <h3 class="text-sm font-semibold">@lang('Recent Transactions')</h3>
+                    <h2 class="text-sm font-semibold">@lang('Recent Transactions')</h2>
                     <p class="chart-card-sub">@lang('Latest wallet activity')</p>
                 </div>
                 <a href="{{ route('admin.reports.index') }}" class="text-xs text-brand-600 hover:text-brand-700 font-medium">View All →</a>
@@ -182,7 +182,7 @@
         <div class="card-table">
             <div class="chart-card-header flex items-center justify-between">
                 <div>
-                    <h3 class="text-sm font-semibold">@lang('Recent Users')</h3>
+                    <h2 class="text-sm font-semibold">@lang('Recent Users')</h2>
                     <p class="chart-card-sub">@lang('Latest signups')</p>
                 </div>
                 <a href="{{ route('admin.users.index') }}" class="text-xs text-brand-600 hover:text-brand-700 font-medium">View All →</a>
@@ -213,7 +213,7 @@
 </div>
 
 @push('scripts')
-<script src="{{ asset('assets/static/js/apexcharts.min.js') }}"></script>
+<script src="{{ asset('assets/static/global/js/apexcharts.min.js') }}"></script>
 <script>
 (function () {
     'use strict';
@@ -307,9 +307,12 @@
     var legendHtml = '';
     donutData.forEach(function(d, i) {
         var pct = ((d.value / donutTotal) * 100).toFixed(0);
-        legendHtml += '<div class="flex items-center gap-2"><span class="legend-color-dot" style="background:' + colors[i] + '"></span><span class="text-xs flex-1 legend-label">' + d.label + '</span><span class="text-xs legend-value">$' + (d.value / 1000).toFixed(1) + 'K</span><span class="text-xs legend-pct">' + pct + '%</span></div>';
+        legendHtml += '<div class="flex items-center gap-2"><span class="legend-color-dot" data-color="' + colors[i] + '"></span><span class="text-xs flex-1 legend-label">' + d.label + '</span><span class="text-xs legend-value">$' + (d.value / 1000).toFixed(1) + 'K</span><span class="text-xs legend-pct">' + pct + '%</span></div>';
     });
     document.getElementById('donutLegend').innerHTML = legendHtml;
+    document.querySelectorAll('#donutLegend .legend-color-dot[data-color]').forEach(function (dot) {
+        dot.style.background = dot.getAttribute('data-color');
+    });
     @else
     // Gateway Revenue Bar Chart
     var gatewayData = @json($chartData['revenueByGateway']);

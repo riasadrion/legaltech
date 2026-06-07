@@ -26,7 +26,7 @@
         @if($line1 || $line2)
             <h2 class="font-display text-5xl md:text-6xl lg:text-8xl leading-[0.95] mt-6">
                 @if($line1)
-                    {{ __($line1) }}<br />
+                    {{ __($line1) }}<br>
                 @endif
                 @if($line2)
                     <span class="italic-display lime-grad">{{ __($line2) }}</span>

@@ -3,7 +3,7 @@
 @section('title', 'Scheduler')
 
 @section('content')
-<x-page-header title="Scheduler" subtitle="View and manually trigger registered scheduled commands." />
+<x-admin::page-header title="Scheduler" subtitle="View and manually trigger registered scheduled commands." />
 
 
 

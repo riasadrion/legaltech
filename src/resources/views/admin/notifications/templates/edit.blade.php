@@ -3,7 +3,7 @@
 @section('title', __('Edit Template: :name', ['name' => $template->name]))
 
 @section('content')
-<x-page-header :title="__('Edit: :name', ['name' => $template->name])" back="{{ route('admin.notifications.templates.index') }}" />
+<x-admin::page-header :title="__('Edit: :name', ['name' => $template->name])" back="{{ route('admin.notifications.templates.index') }}" />
 
 @php $languages = \App\Models\Language::all(); @endphp
 
@@ -41,7 +41,7 @@
 
                 <div class="mb-5">
                     <label class="block text-sm font-medium text-gray-700 mb-1">@lang('Subject')</label>
-                    <x-translatable-input name="subject" :value="$template->subject ?? []" />
+                    <x-admin::translatable-input name="subject" :value="$template->subject ?? []" />
                 </div>
 
 
@@ -103,7 +103,7 @@
 
 
         <div class="bg-white rounded-xl border border-gray-200 p-6">
-            <h3 class="text-sm font-semibold text-gray-900 mb-3">@lang('Send Test Email')</h3>
+            <h2 class="text-sm font-semibold text-gray-900 mb-3">@lang('Send Test Email')</h2>
             <form method="POST" action="{{ route('admin.notifications.templates.test', $template) }}" class="flex gap-3">
                 @csrf
                 <input type="email" name="test_email" placeholder="you@example.com" required
@@ -116,7 +116,7 @@
 
     <div class="space-y-6">
         <div class="bg-white rounded-xl border border-gray-200 p-6">
-            <h3 class="text-sm font-semibold text-gray-900 mb-3">@lang('Available Variables')</h3>
+            <h2 class="text-sm font-semibold text-gray-900 mb-3">@lang('Available Variables')</h2>
             <ul class="space-y-1.5">
                 @foreach($template->variables ?? [] as $var)
                 <li>
@@ -136,7 +136,7 @@
 
         @if($versions->isNotEmpty())
         <div class="bg-white rounded-xl border border-gray-200 p-6">
-            <h3 class="text-sm font-semibold text-gray-900 mb-3">@lang('Version History')</h3>
+            <h2 class="text-sm font-semibold text-gray-900 mb-3">@lang('Version History')</h2>
             <ul class="space-y-2">
                 @foreach($versions as $version)
                 <li class="flex items-center justify-between text-sm">
@@ -157,8 +157,8 @@
 @endsection
 
 @push('head')
-<link rel="stylesheet" href="{{ asset('assets/static/css/editor.css') }}">
-<script src="{{ asset('assets/static/js/editor.js') }}"></script>
+<link rel="stylesheet" href="{{ asset('assets/static/global/css/editor.css') }}">
+<script src="{{ asset('assets/static/global/js/editor.js') }}"></script>
 @endpush
 
 @push('scripts')

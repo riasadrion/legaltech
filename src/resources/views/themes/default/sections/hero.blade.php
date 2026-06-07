@@ -34,7 +34,7 @@
             @if(!empty($d['heading_italic_1']))
                 <span class="italic-display lime-grad">{{ __($d['heading_italic_1']) }}</span>
             @endif
-            <br class="hidden sm:block" />
+            <br class="hidden sm:block">
             @if(!empty($d['heading_line_2']))
                 <span class="grad-text">{{ __($d['heading_line_2']) }} </span>
             @endif
@@ -131,12 +131,12 @@
                         </aside>
 
 
-                        <main class="col-span-12 md:col-span-9 p-5 md:p-6">
+                        <div class="col-span-12 md:col-span-9 p-5 md:p-6">
 
                             <div class="flex items-start justify-between mb-4">
                                 <div>
                                     <div class="text-[10px] font-mono text-white/40 uppercase tracking-widest">MSA · v3.draft</div>
-                                    <h3 class="font-display text-xl mt-0.5">Master Services Agreement — Acme Co.</h3>
+                                    <p class="font-display text-xl mt-0.5">Master Services Agreement — Acme Co.</p>
                                 </div>
                                 <div class="flex items-center gap-2 shrink-0 ml-4">
                                     <span class="text-[10px] rounded-full bg-lime/15 text-lime px-2.5 py-1 border border-lime/25">AI · drafting</span>
@@ -229,7 +229,7 @@
                                 </div>
 
                             </div>
-                        </main>
+                        </div>
                     </div>
                 </div>
             </div>

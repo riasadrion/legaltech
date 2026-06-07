@@ -106,7 +106,7 @@
         @if($logs->hasPages())
         <div class="flex items-center justify-between border-t border-gray-100 dark:border-slate-700 bg-gray-50/50 dark:bg-slate-800/40 px-5 py-3 text-xs text-gray-500 dark:text-slate-400">
             <span>{{ __('Showing :first–:last of :total', ['first' => $logs->firstItem(), 'last' => $logs->lastItem(), 'total' => $logs->total()]) }}</span>
-            <x-pagination :show-total="false" :paginator="$logs" />
+            <x-admin::pagination :show-total="false" :paginator="$logs" />
         </div>
         @endif
     </div>

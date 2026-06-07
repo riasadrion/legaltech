@@ -57,7 +57,7 @@
         <x-theme::plan-card
             :plan="$plan"
             :featured="$isRecommended"
-            :action="['type' => 'form', 'url' => route('user.subscription.subscribe'), 'method' => 'POST']"
+            :action="['type' => 'link', 'url' => route('user.subscription.checkout', $plan)]"
         />
 
         @endforeach

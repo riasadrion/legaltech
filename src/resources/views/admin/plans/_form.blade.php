@@ -2,7 +2,7 @@
 
     <div class="col-span-2 space-y-5">
         <div class="rounded-xl border border-gray-200 bg-white p-6">
-            <x-form.input name="name" :label="__('Plan name')" value="{{ old('name', $plan?->name) }}" required />
+            <x-admin::form.input name="name" :label="__('Plan name')" value="{{ old('name', $plan?->name) }}" required />
 
             <div class="mt-5">
                 <label class="block text-sm font-medium text-gray-700 mb-2">@lang('Description')</label>
@@ -16,7 +16,7 @@
                 <div id="features-list" class="space-y-2">
                     @foreach(old('features', $plan?->features ?? []) as $feat)
                     <div class="feature-row flex gap-2">
-                        <input type="text" name="features[]" value="{{ $feat }}" :placeholder="__('Feature text…')"
+                        <input type="text" name="features[]" value="{{ $feat }}" placeholder="{{ __('Feature text…') }}"
                                class="flex-1 h-9 rounded-lg border border-gray-300 px-3 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500">
                         <button type="button" class="remove-feature inline-flex items-center justify-center h-9 w-9 rounded-lg border border-gray-200 bg-white text-gray-400 hover:bg-red-50 hover:text-red-600 text-lg">×</button>
                     </div>
@@ -30,11 +30,11 @@
 
 
         <div class="rounded-xl border border-gray-200 bg-white p-6 space-y-5">
-            <h3 class="text-sm font-semibold text-gray-900">@lang('Call to action')</h3>
-            <x-form.input name="cta_text" :label="__('Button text')"
+            <h2 class="text-sm font-semibold text-gray-900">@lang('Call to action')</h2>
+            <x-admin::form.input name="cta_text" :label="__('Button text')"
                           value="{{ old('cta_text', $plan?->cta_text) }}"
                           :hint="__('e.g. Subscribe now')" />
-            <x-form.input name="cta_url" :label="__('Button URL')"
+            <x-admin::form.input name="cta_url" :label="__('Button URL')"
                           value="{{ old('cta_url', $plan?->cta_url) }}"
                           :hint="__('e.g. /register')" />
         </div>
@@ -43,7 +43,7 @@
 
     <div class="col-span-1 space-y-5">
         <div class="rounded-xl border border-gray-200 bg-white p-6 space-y-5">
-            <x-form.select name="billing_cycle" :label="__('Billing cycle')"
+            <x-admin::form.select name="billing_cycle" :label="__('Billing cycle')"
                            :options="[
                                'per_contract' => __('Per contract'),
                                'monthly'      => __('Monthly'),
@@ -52,28 +52,28 @@
                            ]"
                            :selected="old('billing_cycle', $plan?->billing_cycle)" required />
 
-            <x-form.input name="price" type="number" step="0.01" :label="__('Price')"
+            <x-admin::form.input name="price" type="number" step="0.01" :label="__('Price')"
                          value="{{ old('price', $plan?->price ?? 0) }}"
                          :hint="__('0 = custom / contact sales')" required />
 
-            <x-form.input name="credits" type="number" :label="__('Credits per period')"
+            <x-admin::form.input name="credits" type="number" :label="__('Credits per period')"
                          value="{{ old('credits', $plan?->credits ?? 0) }}"
                          :hint="__('0 = unlimited')" required />
 
-            <x-form.input name="sort" type="number" :label="__('Sort order')"
+            <x-admin::form.input name="sort" type="number" :label="__('Sort order')"
                          value="{{ old('sort', $plan?->sort ?? 0) }}" required />
 
-            <x-form.checkbox name="is_featured" :label="__('Featured (highlighted card)')"
+            <x-admin::form.checkbox name="is_featured" :label="__('Featured (highlighted card)')"
                             :checked="old('is_featured', $plan?->is_featured ?? false)" />
 
-            <x-form.checkbox name="is_active" :label="__('Active')"
+            <x-admin::form.checkbox name="is_active" :label="__('Active')"
                             :checked="old('is_active', $plan?->is_active ?? true)" />
 
             <div class="pt-3 mt-3 border-t border-gray-200 space-y-3">
-                <x-form.checkbox name="ai_contract_generation" :label="__('Allow free-form AI contract drafting')"
+                <x-admin::form.checkbox name="ai_contract_generation" :label="__('Allow free-form AI contract drafting')"
                                 :checked="old('ai_contract_generation', $plan?->ai_contract_generation ?? false)" />
 
-                <x-form.input name="ai_drafts" type="number" :label="__('AI drafts per period')"
+                <x-admin::form.input name="ai_drafts" type="number" :label="__('AI drafts per period')"
                              value="{{ old('ai_drafts', $plan?->ai_drafts ?? 0) }}"
                              :hint="__('Number of AI contract drafts included in this plan per billing cycle (or one-time for per-contract / lifetime). Set 0 if AI is disabled.')" />
             </div>
@@ -87,7 +87,7 @@
         'use strict';
 
         var template = '<div class="feature-row flex gap-2">'
-            + '<input type="text" name="features[]" :placeholder="__('Feature text…')" class="flex-1 h-9 rounded-lg border border-gray-300 px-3 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500">'
+            + '<input type="text" name="features[]" placeholder="{{ __('Feature text…') }}" class="flex-1 h-9 rounded-lg border border-gray-300 px-3 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500">'
             + '<button type="button" class="remove-feature inline-flex items-center justify-center h-9 w-9 rounded-lg border border-gray-200 bg-white text-gray-400 hover:bg-red-50 hover:text-red-600 text-lg">×</button>'
             + '</div>';
 

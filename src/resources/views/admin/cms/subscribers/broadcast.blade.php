@@ -24,7 +24,7 @@
         <input type="hidden" name="offset" value="0">
 
         <div class="rounded-xl border border-gray-200 bg-white p-6 space-y-5">
-            <x-form.input name="subject" label="Subject" :value="old('subject')" required />
+            <x-admin::form.input name="subject" label="Subject" :value="old('subject')" required />
 
             <div>
                 <label class="mb-1.5 block text-sm font-medium text-gray-700">Body <span class="text-red-500">*</span></label>

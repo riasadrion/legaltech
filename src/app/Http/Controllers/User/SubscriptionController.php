@@ -7,12 +7,18 @@ use App\Domain\Subscription\Models\CreditLog;
 use App\Domain\Subscription\Models\Plan;
 use App\Domain\Subscription\SubscriptionService;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 
 class SubscriptionController extends Controller
 {
-    public function checkout(Plan $plan)
+    public function checkout(Plan $plan, SubscriptionService $subscriptionService)
     {
+        // Free plan — subscribe immediately, no gateway selection needed
+        if ((float) $plan->price === 0.0) {
+            $subscriptionService->subscribe(auth('user')->user(), $plan);
+
+            return redirect()->route('user.subscription.index')->with('success', __('Subscription activated!'));
+        }
+
         $gateways = Gateway::enabled()->orderBy('sort')->get();
 
         return view('theme::user.subscription.checkout', compact('plan', 'gateways'));
@@ -34,23 +40,4 @@ class SubscriptionController extends Controller
         return view('theme::user.subscription.plans', compact('plans'));
     }
 
-    public function subscribe(Request $request, SubscriptionService $subscriptionService)
-    {
-        $data = $request->validate([
-            'plan_id' => ['required', 'integer', 'exists:plans,id'],
-        ]);
-
-        $user = auth('user')->user();
-        $plan = Plan::findOrFail($data['plan_id']);
-
-        // Free plan — subscribe immediately
-        if ((float) $plan->price === 0.0) {
-            $subscriptionService->subscribe($user, $plan);
-
-            return redirect()->route('user.subscription.index')->with('success', __('Subscription activated!'));
-        }
-
-        // Paid plan — go to gateway selection with plan context
-        return redirect()->route('user.subscription.checkout', $plan);
-    }
 }

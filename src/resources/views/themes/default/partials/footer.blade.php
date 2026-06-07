@@ -50,7 +50,7 @@
                     @csrf
                     <x-heroicon-o-envelope class="h-4 w-4 text-white/40 shrink-0" />
                     <input type="email" name="email" required
-                           :placeholder="__('you@company.com')"
+                           placeholder="{{ __('you@company.com') }}"
                            class="flex-1 min-w-0 bg-transparent outline-none text-sm placeholder:text-white/35 text-white py-2">
 
                     <input type="text" name="website" tabindex="-1" autocomplete="off"

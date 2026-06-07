@@ -78,12 +78,6 @@ window.toast = toast;
 $(document).ready(function () {
     'use strict';
 
-    // Sidebar toggle (mobile)
-    $(document).on('click', '#sidebar-toggle, #sidebar-overlay', function () {
-        $('#admin-sidebar').toggleClass('hidden flex flex-col fixed inset-y-0 start-0 z-30 w-64');
-        $('#sidebar-overlay').toggleClass('hidden');
-    });
-
     // Active nav highlight
     const currentPath = window.location.pathname;
     $('#admin-sidebar a[data-route]').each(function () {

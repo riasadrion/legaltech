@@ -3,7 +3,7 @@
 @section('title', __('Notification Templates'))
 
 @section('content')
-<x-page-header :title="__('Notification Templates')">
+<x-admin::page-header :title="__('Notification Templates')">
     <x-slot name="actions">
         <a href="{{ route('admin.settings.index') }}" class="inline-flex items-center gap-1.5 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-2 text-sm font-medium text-gray-700 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-700">
             <x-heroicon-o-cog-6-tooth class="h-4 w-4" />@lang('Settings')
@@ -15,7 +15,7 @@
             <x-heroicon-o-heart class="h-4 w-4" />@lang('Email Health')
         </a>
     </x-slot>
-</x-page-header>
+</x-admin::page-header>
 
 <x-table>
     <x-slot name="head">
@@ -60,7 +60,7 @@
         </td>
     </tr>
     @empty
-    <tr><td colspan="5"><x-empty-state :title="__('No templates yet')" /></td></tr>
+    <tr><td colspan="5"><x-admin::empty-state :title="__('No templates yet')" /></td></tr>
     @endforelse
-</x-table>
+</x-admin::table>
 @endsection

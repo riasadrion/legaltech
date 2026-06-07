@@ -106,7 +106,7 @@
                             <button type="button"
                                     class="w-9 h-9 grid place-items-center rounded-lg bg-white/4 border border-white/10 text-white/70 relative hover:bg-white/8 transition"
                                     data-notification-trigger
-                                    :aria-label="__('Notifications')">
+                                    aria-label="{{ __('Notifications') }}">
                                 <x-heroicon-o-bell class="h-5 w-5" />
                                 @if($unreadCount > 0)
                                 <span class="absolute -top-1 -right-1 w-4 h-4 grid place-items-center text-[9px] font-bold rounded-full bg-lime text-ink-900">{{ $unreadCount > 9 ? '9+' : $unreadCount }}</span>

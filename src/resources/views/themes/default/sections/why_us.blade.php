@@ -44,7 +44,7 @@
                         @if(!empty($card['icon']))
                             <i class="{{ $card['icon'] }} text-2xl {{ $dark ? 'text-lime' : 'text-ink-900' }}"></i>
                         @endif
-                        <h4 class="font-display text-xl mt-3">{{ __($card['title']) }}</h4>
+                        <h3 class="font-display text-xl mt-3">{{ __($card['title']) }}</h3>
                         <p class="text-sm mt-1 {{ $dark ? 'text-white/65' : 'text-ink-500' }}">
                             {{ __($card['body'] ?? '') }}
                         </p>

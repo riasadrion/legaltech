@@ -142,7 +142,7 @@
             <x-heroicon-o-information-circle class="ud-nudge-icon h-4 w-4 shrink-0" />
             <span class="flex-1 min-w-0 truncate ud-nudge-title">{{ $nudge['title'] }}</span>
             <a href="{{ $nudge['action'] }}" class="ud-nudge-action shrink-0">{{ $nudge['label'] }} →</a>
-            <button type="button" class="ud-nudge-dismiss" data-dismiss-nudge="{{ $nudge['key'] }}" :aria-label="__('Dismiss')">
+            <button type="button" class="ud-nudge-dismiss" data-dismiss-nudge="{{ $nudge['key'] }}" aria-label="{{ __('Dismiss') }}">
                 <x-heroicon-o-x-mark class="h-4 w-4" />
             </button>
         </div>

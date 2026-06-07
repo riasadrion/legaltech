@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @push('head')
-<link rel="stylesheet" href="{{ asset('assets/static/css/flatpickr.min.css') }}" id="flatpickr-css">
+<link rel="stylesheet" href="{{ asset('assets/static/global/css/flatpickr.min.css') }}" id="flatpickr-css">
 @endpush
 
 @section('content')
@@ -46,7 +46,7 @@
 
 
     <form method="GET" class="flex flex-wrap items-center gap-2">
-        <input type="text" name="q" value="{{ request('q') }}" :placeholder="__('User name or email…')"
+        <input type="text" name="q" value="{{ request('q') }}" placeholder="{{ __('User name or email…') }}"
                class="h-9 w-56 rounded-lg border border-gray-300 px-3 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"/>
 
         <select name="type" data-auto-submit
@@ -159,7 +159,7 @@
         @if($transactions->hasPages())
         <div class="flex items-center justify-between border-t border-gray-100 bg-gray-50/50 px-5 py-3 text-xs text-gray-500">
             <span>{{ __('Showing :first–:last of :total', ['first' => $transactions->firstItem(), 'last' => $transactions->lastItem(), 'total' => $transactions->total()]) }}</span>
-            <x-pagination :show-total="false" :paginator="$transactions" />
+            <x-admin::pagination :show-total="false" :paginator="$transactions" />
         </div>
         @endif
     </div>
@@ -167,13 +167,13 @@
 </div>
 
 @push('scripts')
-<script src="{{ asset('assets/static/js/flatpickr.min.js') }}"></script>
+<script src="{{ asset('assets/static/global/js/flatpickr.min.js') }}"></script>
 <script>
 onAdminReady(function () {
     'use strict';
 
     if (document.documentElement.getAttribute('data-theme') === 'dark') {
-        $('#flatpickr-css').attr('href', '{{ asset('assets/static/css/flatpickr.dark.css') }}');
+        $('#flatpickr-css').attr('href', '{{ asset('assets/static/global/css/flatpickr.dark.css') }}');
     }
 
     flatpickr('#filter-daterange', {

@@ -18,21 +18,21 @@
         </div>
 
         <div class="rounded-xl border border-gray-200 bg-white p-6 space-y-5 mt-5">
-            <x-form.input name="name" label="Name" :value="old('name', $user->name)" />
-            <x-form.input name="email" label="Email" type="email" :value="old('email', $user->email)" required />
+            <x-admin::form.input name="name" label="Name" :value="old('name', $user->name)" />
+            <x-admin::form.input name="email" label="Email" type="email" :value="old('email', $user->email)" required />
 
-            <x-form.select name="status" label="Status">
+            <x-admin::form.select name="status" label="Status">
                 <option value="active" @selected(old('status', $user->status) === 'active')>Active</option>
                 <option value="inactive" @selected(old('status', $user->status) === 'inactive')>Inactive</option>
                 <option value="banned" @selected(old('status', $user->status) === 'banned')>Banned</option>
-            </x-form.select>
+            </x-admin::form.select>
 
-            <x-form.select name="kyc_status" label="KYC Status">
+            <x-admin::form.select name="kyc_status" label="KYC Status">
                 <option value="none" @selected(old('kyc_status', $user->kyc_status) === 'none')>None</option>
                 <option value="pending" @selected(old('kyc_status', $user->kyc_status) === 'pending')>Pending</option>
                 <option value="approved" @selected(old('kyc_status', $user->kyc_status) === 'approved')>Approved</option>
                 <option value="rejected" @selected(old('kyc_status', $user->kyc_status) === 'rejected')>Rejected</option>
-            </x-form.select>
+            </x-admin::form.select>
         </div>
 
         <div class="flex items-center gap-3 mt-4">

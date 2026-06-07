@@ -16,7 +16,7 @@
     </div>
 
 
-    <x-status-pills :items="$statusPills" :current="request('status', '')" />
+    <x-admin::status-pills :items="$statusPills" :current="request('status', '')" />
 
     <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-x-auto">
         <table class="min-w-full divide-y divide-gray-200 text-sm">
@@ -72,7 +72,7 @@
         @if($posts->hasPages())
         <div class="flex items-center justify-between border-t border-gray-100 bg-gray-50/50 px-5 py-3 text-xs text-gray-500">
             <span>{{ __('Showing :first–:last of :total', ['first' => $posts->firstItem(), 'last' => $posts->lastItem(), 'total' => $posts->total()]) }}</span>
-            <x-pagination :show-total="false" :paginator="$posts" />
+            <x-admin::pagination :show-total="false" :paginator="$posts" />
         </div>
         @endif
     </div>

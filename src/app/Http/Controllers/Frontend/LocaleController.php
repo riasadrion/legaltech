@@ -13,6 +13,10 @@ class LocaleController extends Controller
         $language = Language::where('code', $code)->where('is_active', true)->first();
 
         if (! $language) {
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json(['message' => 'Language not available.'], 422);
+            }
+
             return back()->with('error', 'Language not available.');
         }
 
@@ -24,6 +28,10 @@ class LocaleController extends Controller
                 $user->locale = $code;
                 $user->save();
             }
+        }
+
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json(['code' => $code]);
         }
 
         return back();

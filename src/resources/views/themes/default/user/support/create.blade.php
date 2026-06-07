@@ -32,7 +32,7 @@ function udShowFiles(input, listId) {
             <div>
                 <label class="ud-label">@lang('Subject')</label>
                 <input type="text" name="subject" value="{{ old('subject') }}"
-                       class="ud-input mt-1" :placeholder="__('Brief description of your issue')" required />
+                       class="ud-input mt-1" placeholder="{{ __('Brief description of your issue') }}" required />
                 @error('subject') <p class="mt-1 text-xs text-red-400">{{ $message }}</p> @enderror
             </div>
 
@@ -53,7 +53,7 @@ function udShowFiles(input, listId) {
                 <label class="ud-label">@lang('Message')</label>
                 <textarea name="body" rows="6"
                           class="ud-input mt-1 resize-none"
-                          :placeholder="__('Describe your issue in detail...')" required>{{ old('body') }}</textarea>
+                          placeholder="{{ __('Describe your issue in detail...') }}" required>{{ old('body') }}</textarea>
                 @error('body') <p class="mt-1 text-xs text-red-400">{{ $message }}</p> @enderror
             </div>
 

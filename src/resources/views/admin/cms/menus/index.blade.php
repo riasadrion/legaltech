@@ -11,7 +11,7 @@
     <div class="grid grid-cols-1 gap-5 sm:grid-cols-3">
         @foreach($menus as $menu)
         <div class="rounded-xl border border-gray-200 bg-white shadow-sm p-5">
-            <h3 class="font-semibold text-gray-900">{{ $menu->getLocalName() }}</h3>
+            <h2 class="font-semibold text-gray-900">{{ $menu->getLocalName() }}</h2>
             <p class="text-xs text-gray-400 font-mono mb-3">{{ $menu->handle }}</p>
             <p class="text-sm text-gray-500 mb-4">{{ $menu->allItems()->count() }} @lang('items')</p>
             <a href="{{ route('admin.cms.menus.edit', $menu) }}"

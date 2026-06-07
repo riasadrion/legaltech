@@ -17,23 +17,23 @@
         </div>
 
         <div class="rounded-xl border border-gray-200 bg-white p-6 space-y-5 mt-5">
-            <x-form.input name="name" label="Name" :value="old('name')" required />
-            <x-form.input name="email" label="Email" type="email" :value="old('email')" required />
-            <x-form.input name="password" label="Password" type="password" hint="Min 8 characters" required />
+            <x-admin::form.input name="name" label="Name" :value="old('name')" required />
+            <x-admin::form.input name="email" label="Email" type="email" :value="old('email')" required />
+            <x-admin::form.input name="password" label="Password" type="password" hint="Min 8 characters" required />
 
-            <x-form.select name="role_id" label="Role" required>
+            <x-admin::form.select name="role_id" label="Role" required>
                 <option value="">Select role</option>
                 @foreach($roles as $role)
                     <option value="{{ $role->id }}" @selected(old('role_id') == $role->id)>
                         {{ ucfirst(str_replace('_', ' ', $role->name)) }}
                     </option>
                 @endforeach
-            </x-form.select>
+            </x-admin::form.select>
 
-            <x-form.select name="status" label="Status">
+            <x-admin::form.select name="status" label="Status">
                 <option value="active" @selected(old('status', 'active') === 'active')>Active</option>
                 <option value="inactive" @selected(old('status') === 'inactive')>Inactive</option>
-            </x-form.select>
+            </x-admin::form.select>
         </div>
 
         <div class="flex items-center gap-3 mt-4">

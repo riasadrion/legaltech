@@ -1896,3 +1896,7 @@ body.theme-default {
 .theme-default .contract-editor-body p {
     margin: 0.75rem 0;
 }
+
+#fe-preloader-pen .pen-solid { fill: var(--brand-color); }
+#fe-preloader-pen .pen-dim   { fill: color-mix(in srgb, var(--brand-color) 30%, transparent); stroke: var(--brand-color); }
+#fe-preloader-pen .pen-mid   { fill: color-mix(in srgb, var(--brand-color) 18%, transparent); stroke: var(--brand-color); }

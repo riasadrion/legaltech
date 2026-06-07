@@ -12,7 +12,7 @@
 
     <div class="flex flex-wrap items-center justify-between gap-3">
         <div class="flex items-center gap-3">
-            <x-status-pills :items="$statusPills" :current="request('status', '')" />
+            <x-admin::status-pills :items="$statusPills" :current="request('status', '')" />
             <select name="priority" onchange="this.form.submit()" class="h-9 rounded-lg border border-gray-300 px-3 text-sm shadow-sm">
                 <option value="">@lang('All priority')</option>
                 @foreach(\App\Models\SupportTicket::priorities() as $p)
@@ -27,7 +27,7 @@
             </select>
         </div>
         <form method="GET" class="flex items-center gap-2">
-            <input type="text" name="search" value="{{ request('search') }}" :placeholder="__('Reference or subject…')"
+            <input type="text" name="search" value="{{ request('search') }}" placeholder="{{ __('Reference or subject…') }}"
                    class="h-9 w-52 rounded-lg border border-gray-300 px-3 text-sm shadow-sm">
             <button type="submit" class="inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700">@lang('Search')</button>
             @if(request()->hasAny(['search', 'status', 'priority', 'category']))
@@ -100,7 +100,7 @@
         @if($tickets->hasPages())
         <div class="flex items-center justify-between border-t border-gray-100 bg-gray-50/50 px-5 py-3 text-xs text-gray-500">
             <span>{{ __('Showing :first–:last of :total', ['first' => $tickets->firstItem(), 'last' => $tickets->lastItem(), 'total' => $tickets->total()]) }}</span>
-            <x-pagination :show-total="false" :paginator="$tickets" />
+            <x-admin::pagination :show-total="false" :paginator="$tickets" />
         </div>
         @endif
     </div>

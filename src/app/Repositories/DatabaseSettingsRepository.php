@@ -11,6 +11,10 @@ class DatabaseSettingsRepository
 
     private const CACHE_TTL = 3600;
 
+    private ?array $memo = null;
+
+    private array $resolved = [];
+
     public function get(string $key, mixed $default = null): mixed
     {
         try {
@@ -20,9 +24,12 @@ class DatabaseSettingsRepository
                 return $settings[$key];
             }
 
-            $setting = Setting::find($key);
+            if (! array_key_exists($key, $this->resolved)) {
+                $setting = Setting::find($key);
+                $this->resolved[$key] = $setting ? $setting->value : null;
+            }
 
-            return $setting ? $setting->value : $default;
+            return $this->resolved[$key] ?? $default;
         } catch (\Exception $e) {
             // If settings table doesn't exist, return default
             return $default;
@@ -76,12 +83,18 @@ class DatabaseSettingsRepository
 
     public function flush(): void
     {
+        $this->memo = null;
+        $this->resolved = [];
         Cache::forget(self::CACHE_KEY);
     }
 
     private function autoloaded(): array
     {
-        return Cache::remember(self::CACHE_KEY, self::CACHE_TTL, function () {
+        if ($this->memo !== null) {
+            return $this->memo;
+        }
+
+        return $this->memo = Cache::remember(self::CACHE_KEY, self::CACHE_TTL, function () {
             try {
                 return Setting::where('autoload', true)
                     ->pluck('value', 'key')

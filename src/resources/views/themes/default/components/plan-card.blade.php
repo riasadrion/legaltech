@@ -1,7 +1,7 @@
 @props([
     'plan',
     'featured'   => null,           // override; defaults to $plan->is_featured
-    'action'     => null,           // ['type' => 'form'|'link', 'url' => '...', 'method' => 'POST']
+    'action'     => null,           // ['type' => 'link', 'url' => '...']
     'ctaClass'   => null,           // optional override for CTA button classes
 ])
 
@@ -29,7 +29,6 @@
     $ctaClassResolved = $ctaClass ?? ($featured ? 'btn-lime' : 'btn-ghost');
 
     $linkUrl = link_url($action['url'] ?? $plan->cta_url, '/register');
-    $formUrl = isset($action['url']) ? link_url($action['url']) : null;
 @endphp
 
 <div class="{{ $featured ? 'relative rounded-3xl p-[1px] bg-gradient-to-b from-lime via-lime/40 to-transparent' : '' }} h-full">
@@ -97,21 +96,10 @@
         </ul>
 
 
-        @if($action && ($action['type'] ?? 'link') === 'form')
-            <form method="{{ $action['method'] ?? 'POST' }}" action="{{ $formUrl }}" class="mt-7 relative">
-                @csrf
-                <input type="hidden" name="plan_id" value="{{ $plan->id }}">
-                <button type="submit" class="rounded-full px-5 py-3 text-sm w-full inline-flex items-center justify-center gap-2 {{ $ctaClassResolved }}">
-                    {{ __($ctaText) }}
-                    @if($featured)<x-heroicon-o-arrow-right class="h-4 w-4" />@endif
-                </button>
-            </form>
-        @else
-            <a href="{{ $linkUrl }}"
-               class="mt-7 rounded-full px-5 py-3 text-sm w-full inline-flex items-center justify-center gap-2 relative {{ $ctaClassResolved }}">
-                {{ __($ctaText) }}
-                @if($featured)<x-heroicon-o-arrow-right class="h-4 w-4" />@endif
-            </a>
-        @endif
+        <a href="{{ $linkUrl }}"
+           class="mt-7 rounded-full px-5 py-3 text-sm w-full inline-flex items-center justify-center gap-2 relative {{ $ctaClassResolved }}">
+            {{ __($ctaText) }}
+            @if($featured)<x-heroicon-o-arrow-right class="h-4 w-4" />@endif
+        </a>
     </div>
 </div>

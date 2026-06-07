@@ -10,7 +10,7 @@
 
         <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
             <div class="border-b border-gray-100 px-5 py-3.5">
-                <h3 class="text-sm font-semibold text-gray-900">@lang('All tags')</h3>
+                <h2 class="text-sm font-semibold text-gray-900">@lang('All tags')</h2>
             </div>
             @if($tags->isEmpty())
                 <p class="px-5 py-6 text-sm text-gray-400 text-center">@lang('No tags yet.')</p>
@@ -37,12 +37,12 @@
 
         <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
             <div class="border-b border-gray-100 px-5 py-3.5">
-                <h3 class="text-sm font-semibold text-gray-900">@lang('New tag')</h3>
+                <h2 class="text-sm font-semibold text-gray-900">@lang('New tag')</h2>
             </div>
             <form method="POST" action="{{ route('admin.blog.tags.store') }}" class="px-5 py-5 space-y-4">
                 @csrf
-                <x-form.input name="name[en]" :label="__('Name')" :value="old('name.en')" required />
-                <x-form.input name="slug" :label="__('Slug')" :value="old('slug')" :hint="__('Auto-generated if blank.')" />
+                <x-admin::form.input name="name[en]" :label="__('Name')" :value="old('name.en')" required />
+                <x-admin::form.input name="slug" :label="__('Slug')" :value="old('slug')" :hint="__('Auto-generated if blank.')" />
                 <button type="submit"
                         class="inline-flex items-center gap-2 rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-brand-700">
                     <x-heroicon-o-plus class="h-4 w-4" />

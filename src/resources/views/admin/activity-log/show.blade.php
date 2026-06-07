@@ -31,7 +31,7 @@
         {{-- Event --}}
         <div class="rounded-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm overflow-hidden">
             <div class="border-b border-gray-100 dark:border-slate-700 px-5 py-3.5">
-                <h3 class="text-sm font-semibold text-gray-900 dark:text-white">@lang('Event')</h3>
+                <h2 class="text-sm font-semibold text-gray-900 dark:text-white">@lang('Event')</h2>
             </div>
             <dl class="divide-y divide-gray-100 dark:divide-slate-700 text-sm">
                 <div class="flex justify-between px-5 py-3">
@@ -60,7 +60,7 @@
         {{-- Performed by / Subject --}}
         <div class="rounded-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm overflow-hidden">
             <div class="border-b border-gray-100 dark:border-slate-700 px-5 py-3.5">
-                <h3 class="text-sm font-semibold text-gray-900 dark:text-white">@lang('Performed by')</h3>
+                <h2 class="text-sm font-semibold text-gray-900 dark:text-white">@lang('Performed by')</h2>
             </div>
             <div class="px-5 py-4 space-y-0.5">
                 @if($log->causer)
@@ -74,7 +74,7 @@
 
             @if($log->subject_type)
             <div class="border-t border-gray-100 dark:border-slate-700 px-5 py-3.5">
-                <h3 class="text-sm font-semibold text-gray-900 dark:text-white">@lang('Subject')</h3>
+                <h2 class="text-sm font-semibold text-gray-900 dark:text-white">@lang('Subject')</h2>
             </div>
             <div class="px-5 py-4 space-y-0.5">
                 <div class="font-medium text-gray-900 dark:text-white">{{ class_basename($log->subject_type) }} #{{ $log->subject_id }}</div>
@@ -103,7 +103,7 @@
     @endphp
     <div class="rounded-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm overflow-x-auto">
         <div class="border-b border-gray-100 dark:border-slate-700 px-5 py-3.5">
-            <h3 class="text-sm font-semibold text-gray-900 dark:text-white">@lang('Changes')</h3>
+            <h2 class="text-sm font-semibold text-gray-900 dark:text-white">@lang('Changes')</h2>
         </div>
 
         @if($isBeforeAfter && !empty($allKeys))

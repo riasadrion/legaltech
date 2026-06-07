@@ -35,12 +35,12 @@
     @if($row['type'] === 'pair' && count($row['fields']) > 1)
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             @foreach($row['fields'] as $f)
-                <x-cms.field :field="$f" :value="$data[$f['key']] ?? null" :name-prefix="$namePrefix" />
+                <x-admin::cms.field :field="$f" :value="$data[$f['key']] ?? null" :name-prefix="$namePrefix" />
             @endforeach
         </div>
     @else
         @foreach($row['fields'] as $f)
-            <x-cms.field :field="$f" :value="$data[$f['key']] ?? null" :name-prefix="$namePrefix" />
+            <x-admin::cms.field :field="$f" :value="$data[$f['key']] ?? null" :name-prefix="$namePrefix" />
         @endforeach
     @endif
 @endforeach
