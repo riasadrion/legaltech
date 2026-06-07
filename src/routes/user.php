@@ -2,15 +2,14 @@
 
 use App\Http\Controllers\User\ContractController;
 use App\Http\Controllers\User\DashboardController;
-use App\Http\Controllers\User\ProfileController;
-use App\Http\Controllers\User\PaymentController;
 use App\Http\Controllers\User\KycController;
 use App\Http\Controllers\User\NotificationPreferenceController;
+use App\Http\Controllers\User\PaymentController;
+use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\SubscriptionController;
 use App\Http\Controllers\User\SupportTicketController;
 use App\Http\Controllers\User\TwoFactorSetupController;
 use App\Http\Controllers\User\UserNotificationController;
-
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth:user', 'account.active', 'verified.email', 'verified.phone', 'subscription.expire', 'demo'])
@@ -62,7 +61,6 @@ Route::middleware(['auth:user', 'account.active', 'verified.email', 'verified.ph
         Route::get('subscription', [SubscriptionController::class, 'index'])->name('subscription.index');
         Route::get('subscription/plans', [SubscriptionController::class, 'plans'])->name('subscription.plans');
         Route::get('subscription/{plan}/checkout', [SubscriptionController::class, 'checkout'])->name('subscription.checkout');
-
 
         // 2FA setup
         Route::get('security/2fa', [TwoFactorSetupController::class, 'index'])->name('2fa.index');

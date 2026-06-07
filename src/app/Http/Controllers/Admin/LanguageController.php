@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Language;
 use App\Models\PageSection;
-use App\Http\Controllers\Controller;
-use App\Support\GoogleTranslate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
@@ -77,12 +76,12 @@ class LanguageController extends Controller
         $t4 = microtime(true);
 
         \Log::info('Language creation timing', [
-            'validate' => round(($t1 - $t0) * 1000, 2) . 'ms',
-            'save_db' => round(($t1 - $t0) * 1000, 2) . 'ms',
-            'scan' => round(($t2 - $t1) * 1000, 2) . 'ms',
-            'read_write_en' => round(($t3 - $t2) * 1000, 2) . 'ms',
-            'write_new' => round(($t4 - $t3) * 1000, 2) . 'ms',
-            'total' => round(($t4 - $t0) * 1000, 2) . 'ms',
+            'validate' => round(($t1 - $t0) * 1000, 2).'ms',
+            'save_db' => round(($t1 - $t0) * 1000, 2).'ms',
+            'scan' => round(($t2 - $t1) * 1000, 2).'ms',
+            'read_write_en' => round(($t3 - $t2) * 1000, 2).'ms',
+            'write_new' => round(($t4 - $t3) * 1000, 2).'ms',
+            'total' => round(($t4 - $t0) * 1000, 2).'ms',
         ]);
 
         $count = count($defaultTranslations);
@@ -195,21 +194,40 @@ class LanguageController extends Controller
             foreach ($value as $v) {
                 $this->extractStringsFromValue($v, $keys);
             }
+
             return;
         }
 
-        if (! is_string($value)) return;
+        if (! is_string($value)) {
+            return;
+        }
 
         $v = trim($value);
 
-        if ($v === '' || strlen($v) < 2 || strlen($v) > 600) return;
-        if (preg_match('/^https?:\/\//', $v)) return;
-        if (preg_match('/^[\/\#]/', $v)) return;
-        if (is_numeric($v)) return;
-        if (strip_tags($v) === '') return;
-        if (preg_match('/^<[a-z][a-z0-9]*[\s>]/i', $v)) return;
-        if (preg_match('/^ri-[a-z]/', $v)) return;
-        if (preg_match('/\.(png|jpg|jpeg|webp|svg|gif)$/i', $v)) return;
+        if ($v === '' || strlen($v) < 2 || strlen($v) > 600) {
+            return;
+        }
+        if (preg_match('/^https?:\/\//', $v)) {
+            return;
+        }
+        if (preg_match('/^[\/\#]/', $v)) {
+            return;
+        }
+        if (is_numeric($v)) {
+            return;
+        }
+        if (strip_tags($v) === '') {
+            return;
+        }
+        if (preg_match('/^<[a-z][a-z0-9]*[\s>]/i', $v)) {
+            return;
+        }
+        if (preg_match('/^ri-[a-z]/', $v)) {
+            return;
+        }
+        if (preg_match('/\.(png|jpg|jpeg|webp|svg|gif)$/i', $v)) {
+            return;
+        }
 
         $keys[$v] = true;
     }
@@ -228,15 +246,21 @@ class LanguageController extends Controller
         ];
 
         foreach ($paths as $path) {
-            if (! is_dir($path)) continue;
+            if (! is_dir($path)) {
+                continue;
+            }
 
             $iterator = new \RecursiveIteratorIterator(
                 new \RecursiveDirectoryIterator($path, \RecursiveDirectoryIterator::SKIP_DOTS)
             );
 
             foreach ($iterator as $file) {
-                if (! in_array($file->getExtension(), ['php'])) continue;
-                if (str_contains($file->getPathname(), 'vendor')) continue;
+                if (! in_array($file->getExtension(), ['php'])) {
+                    continue;
+                }
+                if (str_contains($file->getPathname(), 'vendor')) {
+                    continue;
+                }
 
                 $content = file_get_contents($file->getPathname());
 

@@ -12,6 +12,7 @@ class TemplateCategoryController extends Controller
     public function index()
     {
         $categories = ContractTemplateCategory::withCount('templates')->orderBy('sort')->get();
+
         return view('admin.contracts.categories.index', compact('categories'));
     }
 
@@ -60,6 +61,7 @@ class TemplateCategoryController extends Controller
     public function destroy(ContractTemplateCategory $category)
     {
         $category->delete();
+
         return redirect()->route('admin.contracts.categories.index')
             ->with('success', 'Category deleted.');
     }

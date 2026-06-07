@@ -26,6 +26,7 @@ class DeductContractCredits
             // Use subscription credits first
             if ($sub && $sub->isActive() && $sub->credits_remaining >= $cost) {
                 $sub->decrement('credits_remaining', $cost);
+
                 return $cost;
             }
 

@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -110,7 +111,7 @@ class UserController extends Controller
         ]);
 
         $user->password = Hash::make($data['password']);
-        $user->setRememberToken(\Illuminate\Support\Str::random(60));
+        $user->setRememberToken(Str::random(60));
         $user->save();
 
         return back()->with('success', 'Password updated. User will be required to log in again.');

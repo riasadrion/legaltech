@@ -51,13 +51,13 @@ class NotificationController extends Controller
             ->latest()
             ->limit(8)
             ->get()
-            ->map(fn($n) => [
-                'id'       => $n->id,
-                'title'    => $n->title,
-                'body'     => $n->body,
-                'url'      => $n->url,
-                'unread'   => $n->isUnread(),
-                'time'     => $n->created_at->diffForHumans(),
+            ->map(fn ($n) => [
+                'id' => $n->id,
+                'title' => $n->title,
+                'body' => $n->body,
+                'url' => $n->url,
+                'unread' => $n->isUnread(),
+                'time' => $n->created_at->diffForHumans(),
             ]);
 
         $unread = AdminNotification::where('admin_id', auth('admin')->id())

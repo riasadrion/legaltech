@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Admin\Cms;
 
-use App\Models\Page;
 use App\Http\Controllers\Controller;
+use App\Models\Page;
+use App\Models\PageSection;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -50,7 +51,7 @@ class PageController extends Controller
         $allTypes = config('sections', []);
 
         // Fixed sections (everything except custom_html) not already attached to this page
-        $reusableSections = \App\Models\PageSection::whereNotIn('id', $page->section_ids ?? [])
+        $reusableSections = PageSection::whereNotIn('id', $page->section_ids ?? [])
             ->where('type', '!=', 'custom_html')
             ->orderBy('type')
             ->orderBy('id')
@@ -59,7 +60,7 @@ class PageController extends Controller
         // Available types to CREATE:
         //   - custom_html — always creatable
         //   - other types — only if no section of that type exists yet anywhere
-        $existingTypes = \App\Models\PageSection::pluck('type')->unique();
+        $existingTypes = PageSection::pluck('type')->unique();
 
         $availableTypes = collect($allTypes)->filter(fn ($_cfg, $type) => $type === 'custom_html' || ! $existingTypes->contains($type));
 

@@ -28,8 +28,8 @@ class RenewSubscriptions extends Command
 
                         $newEnd = match ($plan->billing_cycle) {
                             'monthly' => $sub->current_period_end->addMonth(),
-                            'yearly'  => $sub->current_period_end->addYear(),
-                            default   => null,
+                            'yearly' => $sub->current_period_end->addYear(),
+                            default => null,
                         };
 
                         if (! $newEnd) {
@@ -37,9 +37,9 @@ class RenewSubscriptions extends Command
                         }
 
                         $sub->current_period_start = $sub->current_period_end;
-                        $sub->current_period_end   = $newEnd;
-                        $sub->credits_remaining    = $plan->credits;
-                        $sub->ai_drafts_remaining  = $plan->ai_contract_generation ? (int) $plan->ai_drafts : 0;
+                        $sub->current_period_end = $newEnd;
+                        $sub->credits_remaining = $plan->credits;
+                        $sub->ai_drafts_remaining = $plan->ai_contract_generation ? (int) $plan->ai_drafts : 0;
                         $sub->save();
 
                         $renewed++;

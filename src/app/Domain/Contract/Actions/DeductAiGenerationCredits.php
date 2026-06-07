@@ -12,11 +12,11 @@ class DeductAiGenerationCredits
         return DB::transaction(function () use ($user) {
             $sub = $user->subscription;
 
-            if (!$sub || !$sub->isActive()) {
+            if (! $sub || ! $sub->isActive()) {
                 throw new \RuntimeException('Active subscription required for AI contract generation.');
             }
 
-            if (!$sub->plan?->ai_contract_generation) {
+            if (! $sub->plan?->ai_contract_generation) {
                 throw new \RuntimeException('Your current plan does not include AI contract generation.');
             }
 

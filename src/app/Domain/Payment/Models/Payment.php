@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Payment extends Model
 {
     protected $table = 'payments';
+
     protected $guarded = [];
 
     protected function casts(): array
@@ -63,9 +64,10 @@ class Payment extends Model
         if ($this->gateway) {
             return $this->gateway->formatAmount($this->amount);
         }
-        
+
         $symbol = setting('site.currency_symbol', '$');
-        return $symbol . number_format($this->amount, 2);
+
+        return $symbol.number_format($this->amount, 2);
     }
 
     public function formattedFee(): string
@@ -73,9 +75,10 @@ class Payment extends Model
         if ($this->gateway) {
             return $this->gateway->formatAmount($this->fee);
         }
-        
+
         $symbol = setting('site.currency_symbol', '$');
-        return $symbol . number_format($this->fee, 2);
+
+        return $symbol.number_format($this->fee, 2);
     }
 
     public function isPending(): bool

@@ -18,10 +18,12 @@ class TransactionController extends Controller
 
         if ($request->filled('q')) {
             $q = $request->q;
-            $query->whereHas('user', function ($sub) use ($q) {
-                $sub->where('name', 'like', "%{$q}%")
-                    ->orWhere('email', 'like', "%{$q}%");
-            })->orWhere('description', 'like', "%{$q}%");
+            $query->where(function ($outer) use ($q) {
+                $outer->whereHas('user', function ($sub) use ($q) {
+                    $sub->where('name', 'like', "%{$q}%")
+                        ->orWhere('email', 'like', "%{$q}%");
+                })->orWhere('description', 'like', "%{$q}%");
+            });
         }
 
         if ($request->filled('from')) {
@@ -36,8 +38,8 @@ class TransactionController extends Controller
 
         $summary = [
             'total_credit' => Transaction::where('type', Transaction::TYPE_CREDIT)->sum('amount'),
-            'total_debit'  => Transaction::where('type', Transaction::TYPE_DEBIT)->sum('amount'),
-            'count'        => Transaction::count(),
+            'total_debit' => Transaction::where('type', Transaction::TYPE_DEBIT)->sum('amount'),
+            'count' => Transaction::count(),
         ];
 
         return view('admin.transactions.index', compact('transactions', 'summary'));

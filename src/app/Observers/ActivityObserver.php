@@ -17,18 +17,24 @@ class ActivityObserver
         $dirty = $model->getDirty();
         unset($dirty['updated_at'], $dirty['last_seen_at'], $dirty['remember_token']);
 
-        if (empty($dirty)) return;
+        if (empty($dirty)) {
+            return;
+        }
 
         $original = array_intersect_key($model->getOriginal(), $dirty);
 
         // Mask sensitive fields
         foreach (['password', 'remember_token', 'two_factor_secret'] as $field) {
-            if (isset($dirty[$field])) $dirty[$field] = '***';
-            if (isset($original[$field])) $original[$field] = '***';
+            if (isset($dirty[$field])) {
+                $dirty[$field] = '***';
+            }
+            if (isset($original[$field])) {
+                $original[$field] = '***';
+            }
         }
 
         $this->record($model, 'updated', [
-            'old'        => $original,
+            'old' => $original,
             'attributes' => $dirty,
         ]);
     }
@@ -45,14 +51,14 @@ class ActivityObserver
 
             ActivityLog::create([
                 'causer_type' => $causer ? get_class($causer) : null,
-                'causer_id'   => $causer?->getKey(),
+                'causer_id' => $causer?->getKey(),
                 'subject_type' => get_class($model),
-                'subject_id'  => $model->getKey(),
-                'action'      => $action,
-                'properties'  => $properties,
-                'ip_address'  => request()?->ip(),
-                'user_agent'  => request()?->userAgent(),
-                'created_at'  => now(),
+                'subject_id' => $model->getKey(),
+                'action' => $action,
+                'properties' => $properties,
+                'ip_address' => request()?->ip(),
+                'user_agent' => request()?->userAgent(),
+                'created_at' => now(),
             ]);
         } catch (\Throwable) {
             // Never let logging break the app

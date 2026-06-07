@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin\Support;
 
 use App\Actions\Notify;
+use App\Models\Admin;
 use App\Models\SupportAttachment;
 use App\Models\SupportMessage;
 use App\Models\SupportTicket;
 use App\Services\FileUploader;
-use App\Models\Admin;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;

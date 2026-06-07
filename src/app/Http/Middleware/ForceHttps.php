@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use App\Facades\Settings;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 use Symfony\Component\HttpFoundation\Response;
 
 class ForceHttps
@@ -18,7 +19,7 @@ class ForceHttps
         }
 
         if ($force) {
-            \Illuminate\Support\Facades\URL::forceScheme('https');
+            URL::forceScheme('https');
 
             if (! $request->secure() && ! $request->isMethod('OPTIONS')) {
                 return redirect()->secure($request->getRequestUri(), 301);

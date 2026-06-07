@@ -3,9 +3,8 @@
 namespace App\Models;
 
 use App\Concerns\HasRoles;
-use App\Domain\Payment\Models\Payment;
-
 use App\Concerns\LogsActivity;
+use App\Domain\Payment\Models\Payment;
 use App\Domain\Subscription\Models\UserSubscription;
 use App\Notifications\Auth\VerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -95,6 +94,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public function canGenerateAiContract(): bool
     {
         $sub = $this->subscription;
+
         return $sub && $sub->isActive() && (bool) ($sub->plan->ai_contract_generation ?? false);
     }
 
@@ -102,5 +102,4 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Payment::class);
     }
-
 }

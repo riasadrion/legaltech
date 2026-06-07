@@ -2,10 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\SupportTicket;
-use App\Models\SupportMessage;
-use App\Models\User;
 use App\Models\Admin;
+use App\Models\SupportTicket;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class TicketSeeder extends Seeder

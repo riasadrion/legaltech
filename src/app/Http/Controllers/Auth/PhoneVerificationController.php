@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Services\PhoneVerificationService;
 use App\Http\Controllers\Controller;
+use App\Services\PhoneVerificationService;
 use Illuminate\Http\Request;
 
 class PhoneVerificationController extends Controller

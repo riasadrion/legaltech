@@ -33,6 +33,7 @@ class Gateway extends Model
         if (! $this->credentials) {
             return [];
         }
+
         return json_decode($this->credentials, true) ?? [];
     }
 
@@ -60,12 +61,12 @@ class Gateway extends Model
     public function formatAmount(float $amount): string
     {
         $formatted = number_format($amount, $this->decimal_places);
-        
+
         if ($this->symbol_position === 'before') {
-            return $this->currency_symbol . $formatted;
+            return $this->currency_symbol.$formatted;
         }
-        
-        return $formatted . $this->currency_symbol;
+
+        return $formatted.$this->currency_symbol;
     }
 
     /**
@@ -91,10 +92,11 @@ class Gateway extends Model
 
     public function logoUrl(): ?string
     {
-        $path = base_path('../assets/uploads/gateways/' . $this->driver . '.svg');
+        $path = base_path('../assets/uploads/gateways/'.$this->driver.'.svg');
         if (file_exists($path)) {
-            return url('assets/uploads/gateways/' . $this->driver . '.svg');
+            return url('assets/uploads/gateways/'.$this->driver.'.svg');
         }
+
         return null;
     }
 }

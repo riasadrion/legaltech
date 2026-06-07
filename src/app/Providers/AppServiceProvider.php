@@ -2,9 +2,28 @@
 
 namespace App\Providers;
 
-use App\Support\AdminNavigation;
+use App\Domain\Payment\Models\Gateway;
+use App\Domain\Payment\Models\KycSubmission;
+use App\Domain\Payment\Models\Payment;
+use App\Domain\Subscription\Models\Plan;
+use App\Domain\Subscription\Models\UserSubscription;
 use App\Facades\Settings;
+use App\Models\Admin;
+use App\Models\BlogCategory;
+use App\Models\BlogPost;
+use App\Models\Language;
+use App\Models\Page;
+use App\Models\PageSection;
+use App\Models\Role;
+use App\Models\SupportTicket;
+use App\Models\User;
+use App\Observers\ActivityObserver;
 use App\Repositories\DatabaseSettingsRepository;
+use App\Support\AdminNavigation;
+use App\Support\RegistrationFields;
+use Illuminate\Auth\Middleware\RedirectIfAuthenticated;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -29,7 +48,7 @@ class AppServiceProvider extends ServiceProvider
 
     private function registerAdminComponents(): void
     {
-        \Illuminate\Support\Facades\Blade::anonymousComponentPath(
+        Blade::anonymousComponentPath(
             resource_path('views/admin/components'),
             'admin'
         );
@@ -37,7 +56,7 @@ class AppServiceProvider extends ServiceProvider
 
     private function configureGuestRedirect(): void
     {
-        \Illuminate\Auth\Middleware\RedirectIfAuthenticated::redirectUsing(function ($request) {
+        RedirectIfAuthenticated::redirectUsing(function ($request) {
             if ($request->is('admin/*') && auth('admin')->check()) {
                 return route('admin.dashboard');
             }
@@ -48,7 +67,7 @@ class AppServiceProvider extends ServiceProvider
 
     private function configureVite(): void
     {
-        \Illuminate\Support\Facades\Vite::useBuildDirectory('../../assets/vite');
+        Vite::useBuildDirectory('../../assets/vite');
     }
 
     private function configureAssets(): void
@@ -59,7 +78,7 @@ class AppServiceProvider extends ServiceProvider
         $configPath = parse_url($configUrl, PHP_URL_PATH) ?: '';
 
         if ($configPath) {
-            $configUrl = $currentSchemeHost . $configPath;
+            $configUrl = $currentSchemeHost.$configPath;
         } else {
             $configUrl = $currentSchemeHost;
         }
@@ -74,16 +93,16 @@ class AppServiceProvider extends ServiceProvider
 
             config(['mail.default' => $driver]);
             config(['mail.from.address' => Settings::string('mail.from_address', config('mail.from.address'))]);
-            config(['mail.from.name'    => Settings::string('mail.from_name',    config('mail.from.name'))]);
+            config(['mail.from.name' => Settings::string('mail.from_name', config('mail.from.name'))]);
 
             match ($driver) {
-                'smtp'     => $this->configureSmtp(),
-                'mailgun'  => $this->configureMailgun(),
-                'ses'      => $this->configureSes(),
+                'smtp' => $this->configureSmtp(),
+                'mailgun' => $this->configureMailgun(),
+                'ses' => $this->configureSes(),
                 'postmark' => config(['mail.mailers.postmark.token' => Settings::string('mail.postmark.token', '')]),
-                'resend'   => config(['resend.api_key' => Settings::string('mail.resend.key', '')]),
+                'resend' => config(['resend.api_key' => Settings::string('mail.resend.key', '')]),
                 'sendmail' => config(['mail.mailers.sendmail.path' => '/usr/sbin/sendmail -bs -i']),
-                default    => null,
+                default => null,
             };
         } catch (\Throwable) {
             // DB not ready — skip
@@ -93,26 +112,26 @@ class AppServiceProvider extends ServiceProvider
     private function configureSmtp(): void
     {
         $encryption = Settings::string('mail.smtp.encryption', 'tls');
-        $port       = (int) Settings::string('mail.smtp.port', '587');
+        $port = (int) Settings::string('mail.smtp.port', '587');
 
         // Symfony Mailer schemes: "smtps" = implicit SSL (port 465), "smtp" = STARTTLS/plain
         $scheme = ($encryption === 'ssl' || $port === 465) ? 'smtps' : 'smtp';
 
         config([
-            'mail.mailers.smtp.host'       => Settings::string('mail.smtp.host', ''),
-            'mail.mailers.smtp.port'       => $port,
-            'mail.mailers.smtp.username'   => Settings::string('mail.smtp.username', ''),
-            'mail.mailers.smtp.password'   => Settings::string('mail.smtp.password', ''),
+            'mail.mailers.smtp.host' => Settings::string('mail.smtp.host', ''),
+            'mail.mailers.smtp.port' => $port,
+            'mail.mailers.smtp.username' => Settings::string('mail.smtp.username', ''),
+            'mail.mailers.smtp.password' => Settings::string('mail.smtp.password', ''),
             'mail.mailers.smtp.encryption' => $encryption ?: null,
-            'mail.mailers.smtp.scheme'     => $scheme,
+            'mail.mailers.smtp.scheme' => $scheme,
         ]);
     }
 
     private function configureMailgun(): void
     {
         config([
-            'services.mailgun.domain'   => Settings::string('mail.mailgun.domain', ''),
-            'services.mailgun.secret'   => Settings::string('mail.mailgun.secret', ''),
+            'services.mailgun.domain' => Settings::string('mail.mailgun.domain', ''),
+            'services.mailgun.secret' => Settings::string('mail.mailgun.secret', ''),
             'services.mailgun.endpoint' => Settings::string('mail.mailgun.endpoint', 'api.mailgun.net'),
         ]);
     }
@@ -120,7 +139,7 @@ class AppServiceProvider extends ServiceProvider
     private function configureSes(): void
     {
         config([
-            'services.ses.key'    => Settings::string('mail.ses.key', ''),
+            'services.ses.key' => Settings::string('mail.ses.key', ''),
             'services.ses.secret' => Settings::string('mail.ses.secret', ''),
             'services.ses.region' => Settings::string('mail.ses.region', 'us-east-1'),
         ]);
@@ -130,14 +149,14 @@ class AppServiceProvider extends ServiceProvider
     {
         try {
             $map = [
-                'google'          => 'google',
-                'facebook'        => 'facebook',
-                'twitter'         => 'twitter',
-                'linkedin'        => 'linkedin-openid',
+                'google' => 'google',
+                'facebook' => 'facebook',
+                'twitter' => 'twitter',
+                'linkedin' => 'linkedin-openid',
             ];
 
             foreach ($map as $settingKey => $configKey) {
-                $clientId     = Settings::string('social.'.$settingKey.'.client_id');
+                $clientId = Settings::string('social.'.$settingKey.'.client_id');
                 $clientSecret = Settings::string('social.'.$settingKey.'.client_secret');
 
                 if ($clientId) {
@@ -296,24 +315,24 @@ class AppServiceProvider extends ServiceProvider
     private function registerActivityObserver(): void
     {
         $models = [
-            \App\Models\User::class,
-            \App\Models\Admin::class,
-            \App\Models\Role::class,
-            \App\Models\Page::class,
-            \App\Models\PageSection::class,
-            \App\Models\BlogPost::class,
-            \App\Models\BlogCategory::class,
-            \App\Models\SupportTicket::class,
-            \App\Models\Language::class,
-            \App\Domain\Payment\Models\Payment::class,
-            \App\Domain\Payment\Models\KycSubmission::class,
-            \App\Domain\Payment\Models\Gateway::class,
-            \App\Domain\Subscription\Models\Plan::class,
-            \App\Domain\Subscription\Models\UserSubscription::class,
+            User::class,
+            Admin::class,
+            Role::class,
+            Page::class,
+            PageSection::class,
+            BlogPost::class,
+            BlogCategory::class,
+            SupportTicket::class,
+            Language::class,
+            Payment::class,
+            KycSubmission::class,
+            Gateway::class,
+            Plan::class,
+            UserSubscription::class,
         ];
 
         foreach ($models as $model) {
-            $model::observe(\App\Observers\ActivityObserver::class);
+            $model::observe(ActivityObserver::class);
         }
     }
 
@@ -321,19 +340,19 @@ class AppServiceProvider extends ServiceProvider
     {
         try {
             if (Settings::string('controls.sms_verification') === '1') {
-                \App\Support\RegistrationFields::add('mobile', [
-                    'label'    => __('Phone number'),
-                    'type'     => 'tel',
+                RegistrationFields::add('mobile', [
+                    'label' => __('Phone number'),
+                    'type' => 'tel',
                     'required' => true,
-                    'rules'    => ['required', 'string', 'max:20'],
-                    'sort'     => 10,
+                    'rules' => ['required', 'string', 'max:20'],
+                    'sort' => 10,
                 ]);
-                \App\Support\RegistrationFields::add('mobile_country_code', [
-                    'label'    => '',
-                    'type'     => 'hidden',
+                RegistrationFields::add('mobile_country_code', [
+                    'label' => '',
+                    'type' => 'hidden',
                     'required' => false,
-                    'rules'    => ['nullable', 'string', 'max:10'],
-                    'sort'     => 11,
+                    'rules' => ['nullable', 'string', 'max:10'],
+                    'sort' => 11,
                 ]);
             }
         } catch (\Throwable) {

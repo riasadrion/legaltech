@@ -13,7 +13,7 @@ class ContractPdfExporter
     {
         $html = $this->buildHtml($contract);
 
-        $options = new Options();
+        $options = new Options;
         $options->set('isHtml5ParserEnabled', true);
         $options->set('isPhpEnabled', false);
         $options->set('defaultFont', 'DejaVu Serif');
@@ -27,11 +27,11 @@ class ContractPdfExporter
 
         $canvas = $dompdf->getCanvas();
         $canvas->page_script(function ($pageNumber, $pageCount, $canvas, $fontMetrics) use ($contract) {
-            $font  = $fontMetrics->getFont('DejaVu Serif', 'normal');
-            $size  = 7.5;
+            $font = $fontMetrics->getFont('DejaVu Serif', 'normal');
+            $size = 7.5;
             $color = [0.7, 0.7, 0.7];
-            $w     = $canvas->get_width();
-            $h     = $canvas->get_height();
+            $w = $canvas->get_width();
+            $h = $canvas->get_height();
             $canvas->line(54, $h - 32, $w - 54, $h - 32, $color, 0.5);
             $canvas->text(54, $h - 24, config('app.name').' — '.e($contract->title), $font, $size, $color);
             $canvas->text($w - 90, $h - 24, "Page {$pageNumber} of {$pageCount}", $font, $size, $color);

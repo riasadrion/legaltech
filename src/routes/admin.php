@@ -8,9 +8,9 @@ use App\Http\Controllers\Admin\Cms\MenuController;
 use App\Http\Controllers\Admin\Cms\PageController;
 use App\Http\Controllers\Admin\Cms\PageSectionController;
 use App\Http\Controllers\Admin\Cms\SubscriberController;
+use App\Http\Controllers\Admin\Contract\TemplateCategoryController as ContractCategoryController;
+use App\Http\Controllers\Admin\Contract\TemplateController as ContractTemplateController;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\PaymentController;
-use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Admin\GatewayController;
 use App\Http\Controllers\Admin\KycController;
 use App\Http\Controllers\Admin\LanguageController;
@@ -21,20 +21,19 @@ use App\Http\Controllers\Admin\Notifications\TemplateController;
 use App\Http\Controllers\Admin\Ops\ReportController;
 use App\Http\Controllers\Admin\Ops\SchedulerController;
 use App\Http\Controllers\Admin\Ops\SystemController;
+use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\PlanController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\StaffController;
 use App\Http\Controllers\Admin\SubscriptionController;
-use App\Http\Controllers\Admin\Contract\TemplateCategoryController as ContractCategoryController;
-use App\Http\Controllers\Admin\Contract\TemplateController as ContractTemplateController;
 use App\Http\Controllers\Admin\Support\TicketController as SupportTicketController;
+use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Admin\TranslationController;
 use App\Http\Controllers\Admin\UserController;
-
 use Illuminate\Auth\SessionGuard;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
-
 
 Route::prefix('admin')
     ->name('admin.')
@@ -71,7 +70,6 @@ Route::prefix('admin')
         Route::post('payments/{payment}/approve', [PaymentController::class, 'approve'])->name('payments.approve')->middleware('permission:payments.manage');
         Route::post('payments/{payment}/reject', [PaymentController::class, 'reject'])->name('payments.reject')->middleware('permission:payments.manage');
         Route::get('payments/{payment}/receipt', [PaymentController::class, 'receipt'])->name('payments.receipt')->middleware('permission:payments.view');
-
 
         // KYC
         Route::get('kyc', [KycController::class, 'index'])->name('kyc.index')->middleware('permission:users.manage');
@@ -249,10 +247,10 @@ Route::prefix('admin')
 
         Route::post('cache/clear', function () {
             try {
-                \Illuminate\Support\Facades\Artisan::call('cache:clear');
-                \Illuminate\Support\Facades\Artisan::call('view:clear');
-                \Illuminate\Support\Facades\Artisan::call('config:clear');
-            } catch (\Throwable $e) {
+                Artisan::call('cache:clear');
+                Artisan::call('view:clear');
+                Artisan::call('config:clear');
+            } catch (Throwable $e) {
                 return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
             }
 

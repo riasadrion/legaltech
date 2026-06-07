@@ -10,9 +10,9 @@ use App\Domain\Contract\Models\ContractTemplate;
 use App\Domain\Contract\Models\ContractTemplateCategory;
 use App\Domain\Contract\Services\ContractAiService;
 use App\Domain\Contract\Services\ContractPdfExporter;
-use App\Models\NotificationTemplate;
 use App\Facades\Settings;
 use App\Http\Controllers\Controller;
+use App\Models\NotificationTemplate;
 use Illuminate\Http\Request;
 use Illuminate\Mail\Message;
 use Illuminate\Support\Facades\DB;
@@ -23,7 +23,7 @@ class ContractController extends Controller
 {
     public function index()
     {
-        $user      = auth('user')->user();
+        $user = auth('user')->user();
         $contracts = Contract::where('user_id', $user->id)
             ->with('template')
             ->latest()
@@ -34,10 +34,10 @@ class ContractController extends Controller
 
     public function create()
     {
-        $categories = ContractTemplateCategory::withCount(['templates' => fn($q) => $q->active()])
+        $categories = ContractTemplateCategory::withCount(['templates' => fn ($q) => $q->active()])
             ->orderBy('sort')
             ->get()
-            ->filter(fn($c) => $c->templates_count > 0);
+            ->filter(fn ($c) => $c->templates_count > 0);
 
         return view('theme::user.contracts.create', compact('categories'));
     }
@@ -51,12 +51,12 @@ class ContractController extends Controller
 
     public function wizard(ContractTemplate $template)
     {
-        if (!$template->active) {
+        if (! $template->active) {
             abort(404);
         }
 
         $template->load('fields');
-        $groups = $template->fields->groupBy(fn($f) => $f->group ?: 'Details');
+        $groups = $template->fields->groupBy(fn ($f) => $f->group ?: 'Details');
 
         return view('theme::user.contracts.wizard', compact('template', 'groups'));
     }
@@ -71,15 +71,15 @@ class ContractController extends Controller
         session([
             'contract.wizard' => [
                 'template_id' => $template->id,
-                'fields'      => $data['fields'] ?? [],
-                'parties'     => $data['parties'],
+                'fields' => $data['fields'] ?? [],
+                'parties' => $data['parties'],
             ],
         ]);
 
         return view('theme::user.contracts.preview', [
             'template' => $template,
-            'fields'   => $data['fields'] ?? [],
-            'parties'  => $data['parties'],
+            'fields' => $data['fields'] ?? [],
+            'parties' => $data['parties'],
         ]);
     }
 
@@ -87,12 +87,12 @@ class ContractController extends Controller
     {
         $payload = session('contract.wizard');
 
-        if (!$payload || (int) $payload['template_id'] !== (int) $request->template_id) {
+        if (! $payload || (int) $payload['template_id'] !== (int) $request->template_id) {
             return redirect()->route('user.contracts.create')
                 ->withErrors(['session' => 'Your wizard session expired. Please start again.']);
         }
 
-        $user     = auth('user')->user();
+        $user = auth('user')->user();
         $template = ContractTemplate::active()->findOrFail($payload['template_id']);
 
         try {
@@ -104,21 +104,21 @@ class ContractController extends Controller
 
         $contract = DB::transaction(function () use ($user, $template, $payload, $creditsUsed) {
             $contract = Contract::create([
-                'user_id'      => $user->id,
-                'template_id'  => $template->id,
-                'title'        => $template->name,
-                'field_data'   => $payload['fields'],
-                'status'       => Contract::STATUS_EDITING,
+                'user_id' => $user->id,
+                'template_id' => $template->id,
+                'title' => $template->name,
+                'field_data' => $payload['fields'],
+                'status' => Contract::STATUS_EDITING,
                 'credits_used' => $creditsUsed,
             ]);
 
             foreach ($payload['parties'] as $i => $party) {
                 ContractParty::create([
                     'contract_id' => $contract->id,
-                    'name'        => $party['name'],
-                    'email'       => $party['email'],
-                    'role'        => $party['role'],
-                    'sort'        => $i,
+                    'name' => $party['name'],
+                    'email' => $party['email'],
+                    'role' => $party['role'],
+                    'sort' => $i,
                 ]);
             }
 
@@ -161,10 +161,10 @@ class ContractController extends Controller
             $rules["fields.{$field->key}"] = $fieldRules;
         }
 
-        $rules['parties']         = ['required', 'array', 'min:1'];
-        $rules['parties.*.name']  = ['required', 'string', 'max:200'];
+        $rules['parties'] = ['required', 'array', 'min:1'];
+        $rules['parties.*.name'] = ['required', 'string', 'max:200'];
         $rules['parties.*.email'] = ['required', 'email'];
-        $rules['parties.*.role']  = ['required', 'in:signer,viewer'];
+        $rules['parties.*.role'] = ['required', 'in:signer,viewer'];
 
         return $request->validate($rules);
     }
@@ -174,7 +174,7 @@ class ContractController extends Controller
     {
         $user = auth('user')->user();
 
-        if (!$user->canGenerateAiContract()) {
+        if (! $user->canGenerateAiContract()) {
             return redirect()->route('user.subscription.plans')
                 ->with('upgrade_ai', 'Unlock AI contract drafting — upgrade to a Pro plan to draft custom agreements in plain English.');
         }
@@ -187,7 +187,7 @@ class ContractController extends Controller
     {
         $user = auth('user')->user();
 
-        if (!$user->canGenerateAiContract()) {
+        if (! $user->canGenerateAiContract()) {
             return redirect()->route('user.subscription.index')
                 ->withErrors(['ai' => 'Your current plan does not include AI contract generation.']);
         }
@@ -197,11 +197,11 @@ class ContractController extends Controller
         }
 
         $data = $request->validate([
-            'brief'           => ['required', 'string', 'min:20', 'max:4000'],
-            'parties'         => ['required', 'array', 'min:1'],
-            'parties.*.name'  => ['required', 'string', 'max:200'],
+            'brief' => ['required', 'string', 'min:20', 'max:4000'],
+            'parties' => ['required', 'array', 'min:1'],
+            'parties.*.name' => ['required', 'string', 'max:200'],
             'parties.*.email' => ['required', 'email'],
-            'parties.*.role'  => ['required', 'in:signer,viewer'],
+            'parties.*.role' => ['required', 'in:signer,viewer'],
         ]);
 
         try {
@@ -213,27 +213,27 @@ class ContractController extends Controller
         try {
             $draft = $ai->draftFromUserBrief($data['brief'], $data['parties']);
         } catch (\Throwable $e) {
-            return back()->withInput()->withErrors(['ai' => 'AI generation failed: ' . $e->getMessage()]);
+            return back()->withInput()->withErrors(['ai' => 'AI generation failed: '.$e->getMessage()]);
         }
 
         $contract = DB::transaction(function () use ($user, $data, $draft, $creditsUsed) {
             $contract = Contract::create([
-                'user_id'      => $user->id,
-                'template_id'  => null,
-                'title'        => $draft['title'],
-                'body_html'    => $draft['body'],
-                'field_data'   => ['brief' => $data['brief']],
-                'status'       => Contract::STATUS_EDITING,
+                'user_id' => $user->id,
+                'template_id' => null,
+                'title' => $draft['title'],
+                'body_html' => $draft['body'],
+                'field_data' => ['brief' => $data['brief']],
+                'status' => Contract::STATUS_EDITING,
                 'credits_used' => $creditsUsed,
             ]);
 
             foreach ($data['parties'] as $i => $party) {
                 ContractParty::create([
                     'contract_id' => $contract->id,
-                    'name'        => $party['name'],
-                    'email'       => $party['email'],
-                    'role'        => $party['role'],
-                    'sort'        => $i,
+                    'name' => $party['name'],
+                    'email' => $party['email'],
+                    'role' => $party['role'],
+                    'sort' => $i,
                 ]);
             }
 
@@ -248,7 +248,7 @@ class ContractController extends Controller
     {
         $this->authorizeContract($contract);
 
-        if (!$contract->isEditable()) {
+        if (! $contract->isEditable()) {
             return back()->withErrors(['ai' => 'Only contracts in editing state can be regenerated.']);
         }
 
@@ -258,7 +258,7 @@ class ContractController extends Controller
 
         $brief = $contract->field_data['brief'] ?? null;
 
-        if (!$brief) {
+        if (! $brief) {
             return back()->withErrors(['ai' => 'No brief found — this contract cannot be regenerated.']);
         }
 
@@ -272,18 +272,18 @@ class ContractController extends Controller
 
         $contract->load('parties');
         $parties = $contract->parties->map(fn ($p) => [
-            'name'  => $p->name,
+            'name' => $p->name,
             'email' => $p->email,
-            'role'  => $p->role,
+            'role' => $p->role,
         ])->toArray();
 
         try {
             $draft = $ai->draftFromUserBrief($brief, $parties);
         } catch (\Throwable $e) {
-            return back()->withErrors(['ai' => 'AI generation failed: ' . $e->getMessage()]);
+            return back()->withErrors(['ai' => 'AI generation failed: '.$e->getMessage()]);
         }
 
-        $contract->title    = $draft['title'];
+        $contract->title = $draft['title'];
         $contract->body_html = $draft['body'];
         $contract->save();
 
@@ -303,12 +303,12 @@ class ContractController extends Controller
     {
         $this->authorizeContract($contract);
 
-        if (!$contract->isEditable()) {
+        if (! $contract->isEditable()) {
             return back()->withErrors(['edit' => 'This contract can no longer be edited.']);
         }
 
         $data = $request->validate([
-            'title'    => ['required', 'string', 'max:200'],
+            'title' => ['required', 'string', 'max:200'],
             'body_html' => ['required', 'string'],
         ]);
 
@@ -321,7 +321,7 @@ class ContractController extends Controller
     {
         $this->authorizeContract($contract);
 
-        if (!$contract->isEditable()) {
+        if (! $contract->isEditable()) {
             return back()->withErrors(['finalize' => 'This contract cannot be finalized.']);
         }
 
@@ -340,7 +340,7 @@ class ContractController extends Controller
         }
 
         $contract->update([
-            'status'      => Contract::STATUS_EDITING,
+            'status' => Contract::STATUS_EDITING,
             'share_token' => null,
         ]);
 
@@ -365,17 +365,17 @@ class ContractController extends Controller
     {
         $this->authorizeContract($contract);
 
-        if (!$contract->isReady() && !$contract->isSigned() && $contract->status !== Contract::STATUS_EDITING) {
+        if (! $contract->isReady() && ! $contract->isSigned() && $contract->status !== Contract::STATUS_EDITING) {
             abort(403, 'Contract must be generated before downloading.');
         }
 
         $contract->load('parties');
         $pdfBytes = $exporter->stream($contract);
-        $filename = Str::slug($contract->title) . '.pdf';
+        $filename = Str::slug($contract->title).'.pdf';
 
         return response($pdfBytes, 200, [
-            'Content-Type'        => 'application/pdf',
-            'Content-Disposition' => 'inline; filename="' . $filename . '"',
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="'.$filename.'"',
         ]);
     }
 
@@ -383,7 +383,7 @@ class ContractController extends Controller
     {
         $this->authorizeContract($contract);
 
-        if (!$contract->isReady()) {
+        if (! $contract->isReady()) {
             return back()->withErrors(['sign' => 'Contract must be finalized before sending.']);
         }
 
@@ -401,22 +401,22 @@ class ContractController extends Controller
             $tpl = NotificationTemplate::where('key', 'contract_sign_request')->where('is_active', true)->first();
             if ($tpl) {
                 $vars = [
-                    'party.name'     => $party->name,
+                    'party.name' => $party->name,
                     'contract.title' => $contract->title,
-                    'sign.url'       => $signUrl,
-                    'app.name'       => config('app.name'),
-                    'app.url'        => config('app.url'),
+                    'sign.url' => $signUrl,
+                    'app.name' => config('app.name'),
+                    'app.url' => config('app.url'),
                 ];
-                $subject  = $tpl->renderSubject($vars, app()->getLocale());
+                $subject = $tpl->renderSubject($vars, app()->getLocale());
                 $htmlBody = $tpl->renderEmailBody($vars, app()->getLocale());
                 $fromEmail = Settings::get('mail.from_address', config('mail.from.address'));
-                $fromName  = Settings::get('mail.from_name', config('app.name'));
+                $fromName = Settings::get('mail.from_name', config('app.name'));
 
                 Mail::send([], [], function (Message $m) use ($party, $subject, $htmlBody, $fromEmail, $fromName) {
                     $m->to($party->email, $party->name)
-                      ->from($fromEmail, $fromName)
-                      ->subject($subject)
-                      ->html($htmlBody);
+                        ->from($fromEmail, $fromName)
+                        ->subject($subject)
+                        ->html($htmlBody);
                 });
             }
         }

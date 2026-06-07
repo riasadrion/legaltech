@@ -4,12 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Domain\Payment\Models\Gateway;
 use App\Domain\Payment\Models\Payment;
-use App\Models\SupportTicket;
 use App\Domain\Subscription\Models\Plan;
 use App\Domain\Wallet\Models\Transaction;
 use App\Domain\Wallet\ValueObjects\Money;
 use App\Http\Controllers\Controller;
+use App\Models\SupportTicket;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class DashboardController extends Controller
@@ -56,6 +57,14 @@ class DashboardController extends Controller
 
     private function getMonthlyRevenueData(): array
     {
+        $start = now()->subMonths(11)->startOfMonth();
+
+        $rows = Transaction::where('type', Transaction::TYPE_CREDIT)
+            ->where('created_at', '>=', $start)
+            ->selectRaw("DATE_FORMAT(created_at, '%Y-%m') as ym, SUM(amount) as total")
+            ->groupBy('ym')
+            ->pluck('total', 'ym');
+
         $months = [];
         $revenues = [];
         $expenses = [];
@@ -64,11 +73,7 @@ class DashboardController extends Controller
             $date = now()->subMonths($i);
             $months[] = $date->format('M');
 
-            $revenue = (float) Transaction::where('type', Transaction::TYPE_CREDIT)
-                ->whereYear('created_at', $date->year)
-                ->whereMonth('created_at', $date->month)
-                ->sum('amount');
-
+            $revenue = (float) ($rows[$date->format('Y-m')] ?? 0);
             $revenues[] = $revenue;
             $expenses[] = $revenue * 0.4; // Assume 40% expenses
         }
@@ -82,47 +87,51 @@ class DashboardController extends Controller
 
     private function getRevenueByPlan(): array
     {
-        $plans = Plan::get();
-        $data = [];
-        $total = 0;
+        $latestSubscriptionPerUser = DB::table('user_subscriptions')
+            ->selectRaw('user_id, MAX(id) as id')
+            ->groupBy('user_id');
 
-        foreach ($plans as $plan) {
-            $revenue = (float) Payment::where('status', 'completed')
-                ->whereHas('user.subscription', function ($q) use ($plan) {
-                    $q->where('plan_id', $plan->id);
-                })
-                ->sum('amount');
+        $revenueByPlanId = Payment::query()
+            ->joinSub($latestSubscriptionPerUser, 'latest_subs', 'latest_subs.user_id', '=', 'payments.user_id')
+            ->join('user_subscriptions', 'user_subscriptions.id', '=', 'latest_subs.id')
+            ->where('payments.status', 'completed')
+            ->groupBy('user_subscriptions.plan_id')
+            ->selectRaw('user_subscriptions.plan_id as plan_id, SUM(payments.amount) as total')
+            ->pluck('total', 'plan_id');
 
-            if ($revenue > 0) {
-                $data[] = [
-                    'label' => $plan->name,
-                    'value' => $revenue,
-                ];
-                $total += $revenue;
-            }
+        if ($revenueByPlanId->isEmpty()) {
+            return [];
         }
 
-        return $total > 0 ? $data : [];
+        return Plan::whereIn('id', $revenueByPlanId->keys())
+            ->get()
+            ->map(fn ($plan) => [
+                'label' => $plan->name,
+                'value' => (float) $revenueByPlanId[$plan->id],
+            ])
+            ->values()
+            ->all();
     }
 
     private function getRevenueByGateway(): array
     {
-        $gateways = Gateway::where('enabled', true)->get();
-        $data = [];
+        $revenueByGatewayId = Payment::where('status', 'completed')
+            ->groupBy('gateway_id')
+            ->selectRaw('gateway_id, SUM(amount) as total')
+            ->pluck('total', 'gateway_id');
 
-        foreach ($gateways as $gateway) {
-            $revenue = (float) Payment::where('status', 'completed')
-                ->where('gateway_id', $gateway->id)
-                ->sum('amount');
-
-            if ($revenue > 0) {
-                $data[] = [
-                    'label' => $gateway->name,
-                    'value' => $revenue,
-                ];
-            }
+        if ($revenueByGatewayId->isEmpty()) {
+            return [];
         }
 
-        return $data;
+        return Gateway::whereIn('id', $revenueByGatewayId->keys())
+            ->where('enabled', true)
+            ->get()
+            ->map(fn ($gateway) => [
+                'label' => $gateway->name,
+                'value' => (float) $revenueByGatewayId[$gateway->id],
+            ])
+            ->values()
+            ->all();
     }
 }

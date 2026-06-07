@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Webhooks;
 
+use App\Facades\Settings;
 use App\Models\EmailEvent;
 use App\Models\NotificationSuppression;
-use App\Facades\Settings;
 use App\Models\User;
 use App\Models\WebhookEvent;
 use Illuminate\Http\Request;

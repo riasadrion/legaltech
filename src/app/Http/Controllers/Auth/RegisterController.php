@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Actions\RegisterUser;
-use App\Support\RegistrationFields;
 use App\Facades\Settings;
 use App\Http\Controllers\Controller;
 use App\Notifications\Auth\VerifyEmail;
+use App\Support\RegistrationFields;
 use App\Support\Turnstile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -59,7 +59,7 @@ class RegisterController extends Controller
         } catch (\Throwable $e) {
             Log::error('Verification email failed to send on registration', [
                 'user_id' => $user->id,
-                'error'   => $e->getMessage(),
+                'error' => $e->getMessage(),
             ]);
         }
 

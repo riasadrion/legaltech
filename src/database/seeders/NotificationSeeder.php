@@ -171,7 +171,7 @@ class NotificationSeeder extends Seeder
                 'channels' => ['email'],
                 'variables' => [
                     ['key' => 'party.name',    'description' => 'Signer\'s name'],
-                    ['key' => 'contract.title','description' => 'Contract title'],
+                    ['key' => 'contract.title', 'description' => 'Contract title'],
                     ['key' => 'sign.url',      'description' => 'Link to sign the contract'],
                     ['key' => 'app.name',      'description' => 'Application name'],
                     ['key' => 'app.url',       'description' => 'Application URL'],

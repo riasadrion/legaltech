@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Subscriber;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
 
 class NewsletterSubscriberSeeder extends Seeder
 {
@@ -37,10 +36,10 @@ class NewsletterSubscriberSeeder extends Seeder
             Subscriber::firstOrCreate(
                 ['email' => $data['email']],
                 [
-                    'name'         => $data['name'],
-                    'status'       => $data['status'],
+                    'name' => $data['name'],
+                    'status' => $data['status'],
                     'confirmed_at' => $data['confirmed_at'],
-                    'token'        => Subscriber::generateToken(),
+                    'token' => Subscriber::generateToken(),
                 ]
             );
         }

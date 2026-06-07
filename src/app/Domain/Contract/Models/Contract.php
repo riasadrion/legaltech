@@ -21,13 +21,19 @@ class Contract extends Model
         'expires_at' => 'datetime',
     ];
 
-    const STATUS_DRAFT      = 'draft';
+    const STATUS_DRAFT = 'draft';
+
     const STATUS_GENERATING = 'generating';
-    const STATUS_EDITING    = 'editing';
-    const STATUS_READY      = 'ready';
-    const STATUS_SENT       = 'sent';
-    const STATUS_SIGNED     = 'signed';
-    const STATUS_EXPIRED    = 'expired';
+
+    const STATUS_EDITING = 'editing';
+
+    const STATUS_READY = 'ready';
+
+    const STATUS_SENT = 'sent';
+
+    const STATUS_SIGNED = 'signed';
+
+    const STATUS_EXPIRED = 'expired';
 
     public function user(): BelongsTo
     {
@@ -73,6 +79,7 @@ class Contract extends Model
     {
         $this->share_token = Str::random(48);
         $this->save();
+
         return $this->share_token;
     }
 }

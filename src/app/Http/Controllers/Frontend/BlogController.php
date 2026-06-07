@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Http\Controllers\Controller;
 use App\Models\BlogCategory;
 use App\Models\BlogPost;
 use App\Models\Tag;
-use App\Http\Controllers\Controller;
 
 class BlogController extends Controller
 {

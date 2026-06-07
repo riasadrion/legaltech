@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin\Cms;
 
+use App\Http\Controllers\Controller;
 use App\Models\Menu;
 use App\Models\MenuItem;
 use App\Models\Page;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class MenuController extends Controller

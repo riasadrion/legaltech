@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin\Blog;
 
+use App\Http\Controllers\Controller;
 use App\Models\BlogCategory;
 use App\Models\BlogPost;
 use App\Models\Tag;
 use App\Services\HtmlPurifier;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class PostController extends Controller

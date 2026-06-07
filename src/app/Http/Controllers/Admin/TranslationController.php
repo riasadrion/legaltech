@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Language;
 use App\Models\PageSection;
-use App\Http\Controllers\Controller;
 use App\Support\GoogleTranslate;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -165,7 +165,9 @@ class TranslationController extends Controller
             $this->writeJsonTranslations($defaultLocale, $defaultTranslations);
 
             foreach ($languages as $locale) {
-                if ($locale === $defaultLocale) continue;
+                if ($locale === $defaultLocale) {
+                    continue;
+                }
 
                 $localeTranslations = $this->readJsonTranslations($locale);
                 foreach ($newKeys as $key) {
@@ -177,14 +179,14 @@ class TranslationController extends Controller
             }
 
             return response()->json([
-                'found'   => count($defaultTranslations),
+                'found' => count($defaultTranslations),
                 'scanned' => count($scanned),
-                'added'   => count($newKeys),
+                'added' => count($newKeys),
                 'new_keys' => $newKeys,
             ]);
         } catch (\Throwable $e) {
             return response()->json([
-                'error' => 'Sync failed: ' . $e->getMessage(),
+                'error' => 'Sync failed: '.$e->getMessage(),
             ], 500);
         }
     }
@@ -203,15 +205,21 @@ class TranslationController extends Controller
         ];
 
         foreach ($paths as $path) {
-            if (! is_dir($path)) continue;
+            if (! is_dir($path)) {
+                continue;
+            }
 
             $iterator = new \RecursiveIteratorIterator(
                 new \RecursiveDirectoryIterator($path, \RecursiveDirectoryIterator::SKIP_DOTS)
             );
 
             foreach ($iterator as $file) {
-                if (! in_array($file->getExtension(), ['php'])) continue;
-                if (str_contains($file->getPathname(), 'vendor')) continue;
+                if (! in_array($file->getExtension(), ['php'])) {
+                    continue;
+                }
+                if (str_contains($file->getPathname(), 'vendor')) {
+                    continue;
+                }
 
                 $content = file_get_contents($file->getPathname());
 
@@ -261,21 +269,40 @@ class TranslationController extends Controller
             foreach ($value as $v) {
                 $this->extractStringsFromValue($v, $keys);
             }
+
             return;
         }
 
-        if (! is_string($value)) return;
+        if (! is_string($value)) {
+            return;
+        }
 
         $v = trim($value);
 
-        if ($v === '' || strlen($v) < 2 || strlen($v) > 600) return;
-        if (preg_match('/^https?:\/\//', $v)) return;         // absolute URLs
-        if (preg_match('/^[\/\#]/', $v)) return;              // paths and anchors
-        if (is_numeric($v)) return;
-        if (strip_tags($v) === '') return;                    // pure HTML with no text
-        if (preg_match('/^<[a-z][a-z0-9]*[\s>]/i', $v)) return; // starts with HTML tag (full HTML body)
-        if (preg_match('/^ri-[a-z]/', $v)) return;            // Remix icon class names
-        if (preg_match('/\.(png|jpg|jpeg|webp|svg|gif)$/i', $v)) return; // image filenames
+        if ($v === '' || strlen($v) < 2 || strlen($v) > 600) {
+            return;
+        }
+        if (preg_match('/^https?:\/\//', $v)) {
+            return;
+        }         // absolute URLs
+        if (preg_match('/^[\/\#]/', $v)) {
+            return;
+        }              // paths and anchors
+        if (is_numeric($v)) {
+            return;
+        }
+        if (strip_tags($v) === '') {
+            return;
+        }                    // pure HTML with no text
+        if (preg_match('/^<[a-z][a-z0-9]*[\s>]/i', $v)) {
+            return;
+        } // starts with HTML tag (full HTML body)
+        if (preg_match('/^ri-[a-z]/', $v)) {
+            return;
+        }            // Remix icon class names
+        if (preg_match('/\.(png|jpg|jpeg|webp|svg|gif)$/i', $v)) {
+            return;
+        } // image filenames
 
         $keys[$v] = true;
     }
@@ -298,8 +325,9 @@ class TranslationController extends Controller
         File::ensureDirectoryExists(dirname($lockFile));
 
         $lockHandle = fopen($lockFile, 'c');
-        if (!flock($lockHandle, LOCK_EX)) {
+        if (! flock($lockHandle, LOCK_EX)) {
             fclose($lockHandle);
+
             return response()->json(['error' => 'Could not acquire lock'], 500);
         }
 

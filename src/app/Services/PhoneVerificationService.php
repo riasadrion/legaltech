@@ -11,7 +11,9 @@ use Illuminate\Support\Facades\Log;
 class PhoneVerificationService
 {
     private const CODE_TTL_MINUTES = 10;
+
     private const MAX_ATTEMPTS = 5;
+
     private const RESEND_COOLDOWN_SECONDS = 60;
 
     public function isEnabled(): bool

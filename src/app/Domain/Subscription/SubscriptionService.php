@@ -24,10 +24,10 @@ class SubscriptionService
 
             $periodEnd = match ($plan->billing_cycle) {
                 Plan::CYCLE_PER_CONTRACT => now()->addYears(100),
-                Plan::CYCLE_MONTHLY      => now()->addMonth(),
-                Plan::CYCLE_YEARLY       => now()->addYear(),
-                Plan::CYCLE_LIFETIME     => now()->addYears(100),
-                default                  => now()->addMonth(),
+                Plan::CYCLE_MONTHLY => now()->addMonth(),
+                Plan::CYCLE_YEARLY => now()->addYear(),
+                Plan::CYCLE_LIFETIME => now()->addYears(100),
+                default => now()->addMonth(),
             };
 
             $sub = new UserSubscription;

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Models\Subscriber;
 use App\Http\Controllers\Controller;
 use App\Mail\NewsletterConfirm;
+use App\Models\Subscriber;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -22,6 +22,7 @@ class NewsletterController extends Controller
 
         if ($request->filled('website')) {
             $msg = __('Thank you for subscribing!');
+
             return $wantsJson ? response()->json(['status' => 'success', 'message' => $msg]) : back()->with('success', $msg);
         }
 
@@ -30,6 +31,7 @@ class NewsletterController extends Controller
         // Already a confirmed subscriber — nothing to do.
         if ($subscriber?->isConfirmed()) {
             $msg = __('You are already subscribed.');
+
             return $wantsJson ? response()->json(['status' => 'info', 'message' => $msg]) : back()->with('info', $msg);
         }
 
@@ -49,6 +51,7 @@ class NewsletterController extends Controller
         Mail::to($subscriber->email)->send(new NewsletterConfirm($subscriber));
 
         $msg = __('Check your email to confirm your subscription.');
+
         return $wantsJson ? response()->json(['status' => 'success', 'message' => $msg]) : back()->with('success', $msg);
     }
 

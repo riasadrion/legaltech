@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin\Blog;
 
-use App\Models\Tag;
 use App\Http\Controllers\Controller;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 

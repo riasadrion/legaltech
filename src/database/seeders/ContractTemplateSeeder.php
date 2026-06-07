@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Domain\Contract\Models\ContractTemplate;
 use App\Domain\Contract\Models\ContractTemplateCategory;
-use App\Domain\Contract\Models\ContractTemplateField;
 use Illuminate\Database\Seeder;
 
 class ContractTemplateSeeder extends Seeder
@@ -18,17 +17,17 @@ class ContractTemplateSeeder extends Seeder
             // ── NDA ──────────────────────────────────────────────────────────
             [
                 'category_slug' => 'non-disclosure-agreements',
-                'name'          => 'Mutual Non-Disclosure Agreement',
-                'description'   => 'Two-way NDA protecting confidential information shared between both parties.',
-                'credits_cost'  => 1,
-                'sort'          => 1,
-                'body'          => $this->mutualNdaBody(),
-                'fields'        => [
+                'name' => 'Mutual Non-Disclosure Agreement',
+                'description' => 'Two-way NDA protecting confidential information shared between both parties.',
+                'credits_cost' => 1,
+                'sort' => 1,
+                'body' => $this->mutualNdaBody(),
+                'fields' => [
                     ['label' => 'Party A Name',       'key' => 'party_a_name',    'type' => 'text',   'placeholder' => 'Acme Inc',            'required' => true,  'sort' => 1],
-                    ['label' => 'Party A Address',    'key' => 'party_a_address', 'type' => 'textarea','placeholder' => '123 Main St, City',   'required' => true,  'sort' => 2],
+                    ['label' => 'Party A Address',    'key' => 'party_a_address', 'type' => 'textarea', 'placeholder' => '123 Main St, City',   'required' => true,  'sort' => 2],
                     ['label' => 'Party B Name',       'key' => 'party_b_name',    'type' => 'text',   'placeholder' => 'Beta Corp',           'required' => true,  'sort' => 3],
-                    ['label' => 'Party B Address',    'key' => 'party_b_address', 'type' => 'textarea','placeholder' => '456 High St, City',  'required' => true,  'sort' => 4],
-                    ['label' => 'Purpose',            'key' => 'purpose',         'type' => 'textarea','placeholder' => 'Evaluating a potential business partnership', 'required' => true, 'sort' => 5],
+                    ['label' => 'Party B Address',    'key' => 'party_b_address', 'type' => 'textarea', 'placeholder' => '456 High St, City',  'required' => true,  'sort' => 4],
+                    ['label' => 'Purpose',            'key' => 'purpose',         'type' => 'textarea', 'placeholder' => 'Evaluating a potential business partnership', 'required' => true, 'sort' => 5],
                     ['label' => 'Term (years)',       'key' => 'term_years',      'type' => 'number', 'placeholder' => '2',                   'required' => true,  'sort' => 6],
                     ['label' => 'Governing Law',      'key' => 'governing_law',   'type' => 'text',   'placeholder' => 'England and Wales',   'required' => true,  'sort' => 7],
                     ['label' => 'Effective Date',     'key' => 'effective_date',  'type' => 'date',   'placeholder' => '',                    'required' => true,  'sort' => 8],
@@ -38,18 +37,18 @@ class ContractTemplateSeeder extends Seeder
             // ── Employment ───────────────────────────────────────────────────
             [
                 'category_slug' => 'employment-hr',
-                'name'          => 'Employment Offer Letter',
-                'description'   => 'Formal offer letter outlining role, compensation, start date, and key terms.',
-                'credits_cost'  => 1,
-                'sort'          => 1,
-                'body'          => $this->employmentOfferBody(),
-                'fields'        => [
+                'name' => 'Employment Offer Letter',
+                'description' => 'Formal offer letter outlining role, compensation, start date, and key terms.',
+                'credits_cost' => 1,
+                'sort' => 1,
+                'body' => $this->employmentOfferBody(),
+                'fields' => [
                     ['label' => 'Employer Name',      'key' => 'employer_name',   'type' => 'text',   'placeholder' => 'Acme Inc',            'required' => true,  'sort' => 1],
                     ['label' => 'Employee Name',      'key' => 'employee_name',   'type' => 'text',   'placeholder' => 'Jane Smith',          'required' => true,  'sort' => 2],
                     ['label' => 'Job Title',          'key' => 'job_title',       'type' => 'text',   'placeholder' => 'Senior Developer',    'required' => true,  'sort' => 3],
                     ['label' => 'Start Date',         'key' => 'start_date',      'type' => 'date',   'placeholder' => '',                    'required' => true,  'sort' => 4],
                     ['label' => 'Annual Salary',      'key' => 'annual_salary',   'type' => 'text',   'placeholder' => '$80,000',             'required' => true,  'sort' => 5],
-                    ['label' => 'Probation Period',   'key' => 'probation_period','type' => 'text',   'placeholder' => '90 days',             'required' => true,  'sort' => 6],
+                    ['label' => 'Probation Period',   'key' => 'probation_period', 'type' => 'text',   'placeholder' => '90 days',             'required' => true,  'sort' => 6],
                     ['label' => 'Work Location',      'key' => 'work_location',   'type' => 'text',   'placeholder' => 'Remote / New York',   'required' => true,  'sort' => 7],
                     ['label' => 'Governing Law',      'key' => 'governing_law',   'type' => 'text',   'placeholder' => 'New York',            'required' => true,  'sort' => 8],
                 ],
@@ -58,17 +57,17 @@ class ContractTemplateSeeder extends Seeder
             // ── Freelance ────────────────────────────────────────────────────
             [
                 'category_slug' => 'freelance-services',
-                'name'          => 'Freelance Service Agreement',
-                'description'   => 'Covers scope of work, payment terms, IP ownership, and termination for freelance engagements.',
-                'credits_cost'  => 1,
-                'sort'          => 1,
-                'body'          => $this->freelanceServiceBody(),
-                'fields'        => [
+                'name' => 'Freelance Service Agreement',
+                'description' => 'Covers scope of work, payment terms, IP ownership, and termination for freelance engagements.',
+                'credits_cost' => 1,
+                'sort' => 1,
+                'body' => $this->freelanceServiceBody(),
+                'fields' => [
                     ['label' => 'Client Name',        'key' => 'client_name',     'type' => 'text',   'placeholder' => 'Acme Inc',            'required' => true,  'sort' => 1],
                     ['label' => 'Freelancer Name',    'key' => 'freelancer_name', 'type' => 'text',   'placeholder' => 'John Doe',            'required' => true,  'sort' => 2],
-                    ['label' => 'Project Description','key' => 'project_desc',    'type' => 'textarea','placeholder' => 'Design and build a marketing website', 'required' => true, 'sort' => 3],
+                    ['label' => 'Project Description', 'key' => 'project_desc',    'type' => 'textarea', 'placeholder' => 'Design and build a marketing website', 'required' => true, 'sort' => 3],
                     ['label' => 'Total Fee',          'key' => 'total_fee',       'type' => 'text',   'placeholder' => '$5,000',              'required' => true,  'sort' => 4],
-                    ['label' => 'Payment Schedule',   'key' => 'payment_schedule','type' => 'textarea','placeholder' => '50% upfront, 50% on delivery', 'required' => true, 'sort' => 5],
+                    ['label' => 'Payment Schedule',   'key' => 'payment_schedule', 'type' => 'textarea', 'placeholder' => '50% upfront, 50% on delivery', 'required' => true, 'sort' => 5],
                     ['label' => 'Delivery Date',      'key' => 'delivery_date',   'type' => 'date',   'placeholder' => '',                    'required' => true,  'sort' => 6],
                     ['label' => 'Governing Law',      'key' => 'governing_law',   'type' => 'text',   'placeholder' => 'California',          'required' => true,  'sort' => 7],
                     ['label' => 'Effective Date',     'key' => 'effective_date',  'type' => 'date',   'placeholder' => '',                    'required' => true,  'sort' => 8],
@@ -78,16 +77,16 @@ class ContractTemplateSeeder extends Seeder
             // ── SaaS ─────────────────────────────────────────────────────────
             [
                 'category_slug' => 'saas-software',
-                'name'          => 'SaaS Subscription Agreement',
-                'description'   => 'End-user subscription terms for a software-as-a-service product.',
-                'credits_cost'  => 1,
-                'sort'          => 1,
-                'body'          => $this->saasBody(),
-                'fields'        => [
+                'name' => 'SaaS Subscription Agreement',
+                'description' => 'End-user subscription terms for a software-as-a-service product.',
+                'credits_cost' => 1,
+                'sort' => 1,
+                'body' => $this->saasBody(),
+                'fields' => [
                     ['label' => 'Provider Name',      'key' => 'provider_name',   'type' => 'text',   'placeholder' => 'Acme SaaS Ltd',       'required' => true,  'sort' => 1],
                     ['label' => 'Customer Name',      'key' => 'customer_name',   'type' => 'text',   'placeholder' => 'Beta Corp',           'required' => true,  'sort' => 2],
                     ['label' => 'Product Name',       'key' => 'product_name',    'type' => 'text',   'placeholder' => 'Acme Platform',       'required' => true,  'sort' => 3],
-                    ['label' => 'Subscription Fee',   'key' => 'subscription_fee','type' => 'text',   'placeholder' => '$99/month',           'required' => true,  'sort' => 4],
+                    ['label' => 'Subscription Fee',   'key' => 'subscription_fee', 'type' => 'text',   'placeholder' => '$99/month',           'required' => true,  'sort' => 4],
                     ['label' => 'Billing Cycle',      'key' => 'billing_cycle',   'type' => 'select', 'placeholder' => '',                    'required' => true,  'sort' => 5, 'options' => ['Monthly', 'Annual']],
                     ['label' => 'Start Date',         'key' => 'start_date',      'type' => 'date',   'placeholder' => '',                    'required' => true,  'sort' => 6],
                     ['label' => 'Governing Law',      'key' => 'governing_law',   'type' => 'text',   'placeholder' => 'England and Wales',   'required' => true,  'sort' => 7],
@@ -105,26 +104,26 @@ class ContractTemplateSeeder extends Seeder
             $template = ContractTemplate::firstOrCreate(
                 ['name' => $data['name']],
                 [
-                    'category_id'  => $categoryId,
-                    'description'  => $data['description'],
+                    'category_id' => $categoryId,
+                    'description' => $data['description'],
                     'credits_cost' => $data['credits_cost'],
-                    'sort'         => $data['sort'],
-                    'active'       => true,
-                    'body'         => $data['body'],
+                    'sort' => $data['sort'],
+                    'active' => true,
+                    'body' => $data['body'],
                 ]
             );
 
             if ($template->wasRecentlyCreated) {
                 foreach ($data['fields'] as $field) {
                     $template->fields()->create([
-                        'label'       => $field['label'],
-                        'key'         => $field['key'],
-                        'type'        => $field['type'],
+                        'label' => $field['label'],
+                        'key' => $field['key'],
+                        'type' => $field['type'],
                         'placeholder' => $field['placeholder'],
-                        'required'    => $field['required'],
-                        'sort'        => $field['sort'],
-                        'options'     => $field['options'] ?? null,
-                        'group'       => null,
+                        'required' => $field['required'],
+                        'sort' => $field['sort'],
+                        'options' => $field['options'] ?? null,
+                        'group' => null,
                     ]);
                 }
             }

@@ -2,8 +2,8 @@
 
 namespace App\Domain\Payment\Contracts;
 
-use App\Domain\Payment\Models\Payment;
 use App\Domain\Payment\Models\Gateway;
+use App\Domain\Payment\Models\Payment;
 use App\Models\User;
 
 interface PaymentGateway

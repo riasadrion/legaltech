@@ -125,7 +125,7 @@ class FileUploader
 
             return $driver === 'local' ? 'uploads' : $driver;
         } catch (\Throwable) {
-           return 'uploads';
+            return 'uploads';
         }
     }
 

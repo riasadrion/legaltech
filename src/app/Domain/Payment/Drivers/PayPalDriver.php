@@ -4,8 +4,8 @@ namespace App\Domain\Payment\Drivers;
 
 use App\Domain\Payment\Contracts\PaymentGateway;
 use App\Domain\Payment\Exceptions\WebhookSignatureException;
-use App\Domain\Payment\Models\Payment;
 use App\Domain\Payment\Models\Gateway;
+use App\Domain\Payment\Models\Payment;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
 

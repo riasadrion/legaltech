@@ -25,7 +25,7 @@ class PaymentWebhookController extends Controller
         $headers = array_map(fn ($v) => is_array($v) ? ($v[0] ?? '') : $v, $headers);
 
         Log::channel('single')->info("Webhook received: {$driver}", [
-            'ip'      => $request->ip(),
+            'ip' => $request->ip(),
             'payload' => substr($rawPayload, 0, 500),
         ]);
 
@@ -33,6 +33,7 @@ class PaymentWebhookController extends Controller
             $paymentDriver->verifyWebhookSignature($gateway, $rawPayload, $headers);
         } catch (WebhookSignatureException $e) {
             Log::channel('single')->warning("Webhook signature failed: {$driver}", ['error' => $e->getMessage()]);
+
             return response()->json(['error' => 'Invalid signature'], 401);
         }
 
@@ -49,6 +50,7 @@ class PaymentWebhookController extends Controller
 
         if ($existing) {
             Log::channel('single')->info("Webhook already processed: {$eventId}");
+
             return response()->json(['status' => 'already_processed']);
         }
 

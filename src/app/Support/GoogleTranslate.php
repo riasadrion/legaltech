@@ -2,6 +2,7 @@
 
 namespace App\Support;
 
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Http;
 
 class GoogleTranslate
@@ -32,10 +33,10 @@ class GoogleTranslate
                     ])
                     ->get(self::$endpoint, [
                         'client' => 'gtx',
-                        'sl'     => $source,
-                        'tl'     => $target,
-                        'dt'     => 't',
-                        'q'      => $text,
+                        'sl' => $source,
+                        'tl' => $target,
+                        'dt' => 't',
+                        'q' => $text,
                     ]);
 
                 \Log::debug('GoogleTranslate response', [
@@ -63,8 +64,9 @@ class GoogleTranslate
                         'translated' => $result,
                         'raw_response' => $data,
                     ]);
+
                     return $result;
-                } else if ($response->status() === 429) {
+                } elseif ($response->status() === 429) {
                     // Rate limited, retry with backoff
                     if ($attempt < $maxRetries) {
                         \Log::warning('GoogleTranslate rate limited (429), retrying...', [
@@ -73,6 +75,7 @@ class GoogleTranslate
                         ]);
                         usleep($retryDelay * 1000);
                         $retryDelay *= 2; // exponential backoff
+
                         continue;
                     }
                     \Log::warning('GoogleTranslate rate limited after retries', [
@@ -80,6 +83,7 @@ class GoogleTranslate
                         'text' => $text,
                         'body' => $response->body(),
                     ]);
+
                     return $text;
                 } else {
                     \Log::warning('GoogleTranslate API error', [
@@ -87,9 +91,10 @@ class GoogleTranslate
                         'body' => $response->body(),
                         'text' => $text,
                     ]);
+
                     return $text;
                 }
-            } catch (\Illuminate\Http\Client\ConnectionException $e) {
+            } catch (ConnectionException $e) {
                 if ($attempt < $maxRetries) {
                     \Log::warning('GoogleTranslate connection error, retrying...', [
                         'attempt' => $attempt + 1,
@@ -97,12 +102,14 @@ class GoogleTranslate
                     ]);
                     usleep($retryDelay * 1000);
                     $retryDelay *= 2;
+
                     continue;
                 }
                 \Log::error('GoogleTranslate connection failed after retries', [
                     'error' => $e->getMessage(),
                     'text' => $text,
                 ]);
+
                 return $text;
             } catch (\Exception $e) {
                 \Log::error('GoogleTranslate exception', [
@@ -114,8 +121,10 @@ class GoogleTranslate
                 if ($attempt < $maxRetries) {
                     usleep($retryDelay * 1000);
                     $retryDelay *= 2;
+
                     continue;
                 }
+
                 return $text;
             }
         }
@@ -132,6 +141,7 @@ class GoogleTranslate
                 usleep($delayMs * 1000);
             }
         }
+
         return $results;
     }
 }

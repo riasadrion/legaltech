@@ -39,5 +39,4 @@ class SubscriptionController extends Controller
 
         return view('theme::user.subscription.plans', compact('plans'));
     }
-
 }

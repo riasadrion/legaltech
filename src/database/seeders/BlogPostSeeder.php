@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\BlogPost;
-use App\Models\BlogCategory;
 use App\Models\Admin;
+use App\Models\BlogCategory;
+use App\Models\BlogPost;
 use Illuminate\Database\Seeder;
 
 class BlogPostSeeder extends Seeder
@@ -14,7 +14,7 @@ class BlogPostSeeder extends Seeder
         $categories = BlogCategory::all();
         $admin = Admin::first();
 
-        if ($categories->isEmpty() || !$admin) {
+        if ($categories->isEmpty() || ! $admin) {
             return;
         }
 

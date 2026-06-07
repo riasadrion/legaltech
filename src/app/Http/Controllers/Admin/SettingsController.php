@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Facades\Settings;
-use App\Services\FileUploader;
 use App\Http\Controllers\Controller;
+use App\Services\FileUploader;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -63,13 +63,13 @@ class SettingsController extends Controller
     private function updateBrand(Request $request, FileUploader $uploader): void
     {
         $data = $request->validate([
-            'site_font'      => ['nullable', 'string', 'max:100'],
-            'site_logo'      => ['nullable', 'file', 'image', 'max:2048'],
+            'site_font' => ['nullable', 'string', 'max:100'],
+            'site_logo' => ['nullable', 'file', 'image', 'max:2048'],
             'site_dark_logo' => ['nullable', 'file', 'image', 'max:2048'],
-            'site_favicon'   => ['nullable', 'file', 'image', 'max:512'],
-            'site_og_image'  => ['nullable', 'file', 'image', 'max:2048'],
-            'custom_css'     => ['nullable', 'string', 'max:65535'],
-            'primary_color'  => ['nullable', 'string', 'regex:/^#[0-9A-Fa-f]{6}$/'],
+            'site_favicon' => ['nullable', 'file', 'image', 'max:512'],
+            'site_og_image' => ['nullable', 'file', 'image', 'max:2048'],
+            'custom_css' => ['nullable', 'string', 'max:65535'],
+            'primary_color' => ['nullable', 'string', 'regex:/^#[0-9A-Fa-f]{6}$/'],
         ]);
 
         Settings::set('site.font', $data['site_font'] ?? 'system', 'string', 'general');
@@ -162,7 +162,7 @@ class SettingsController extends Controller
         Settings::set('mail.smtp.host', $data['mail_smtp_host'] ?? '', 'string', 'mail');
         Settings::set('mail.smtp.port', $data['mail_smtp_port'] ?? '', 'string', 'mail');
         Settings::set('mail.smtp.username', $data['mail_smtp_username'] ?? '', 'string', 'mail');
-        if (!empty($data['mail_smtp_password'])) {
+        if (! empty($data['mail_smtp_password'])) {
             Settings::set('mail.smtp.password', $data['mail_smtp_password'], 'string', 'mail');
         }
         Settings::set('mail.smtp.encryption', $data['mail_smtp_encryption'] ?? '', 'string', 'mail');
@@ -308,24 +308,24 @@ class SettingsController extends Controller
     private function updateSocial(Request $request): void
     {
         $data = $request->validate([
-            'social_google_enabled'          => ['nullable', 'in:0,1'],
-            'social_google_client_id'        => ['nullable', 'string', 'max:500'],
-            'social_google_client_secret'    => ['nullable', 'string', 'max:500'],
-            'social_facebook_enabled'        => ['nullable', 'in:0,1'],
-            'social_facebook_client_id'      => ['nullable', 'string', 'max:500'],
-            'social_facebook_client_secret'  => ['nullable', 'string', 'max:500'],
-            'social_twitter_enabled'         => ['nullable', 'in:0,1'],
-            'social_twitter_client_id'       => ['nullable', 'string', 'max:500'],
-            'social_twitter_client_secret'   => ['nullable', 'string', 'max:500'],
-            'social_linkedin_enabled'        => ['nullable', 'in:0,1'],
-            'social_linkedin_client_id'      => ['nullable', 'string', 'max:500'],
-            'social_linkedin_client_secret'  => ['nullable', 'string', 'max:500'],
+            'social_google_enabled' => ['nullable', 'in:0,1'],
+            'social_google_client_id' => ['nullable', 'string', 'max:500'],
+            'social_google_client_secret' => ['nullable', 'string', 'max:500'],
+            'social_facebook_enabled' => ['nullable', 'in:0,1'],
+            'social_facebook_client_id' => ['nullable', 'string', 'max:500'],
+            'social_facebook_client_secret' => ['nullable', 'string', 'max:500'],
+            'social_twitter_enabled' => ['nullable', 'in:0,1'],
+            'social_twitter_client_id' => ['nullable', 'string', 'max:500'],
+            'social_twitter_client_secret' => ['nullable', 'string', 'max:500'],
+            'social_linkedin_enabled' => ['nullable', 'in:0,1'],
+            'social_linkedin_client_id' => ['nullable', 'string', 'max:500'],
+            'social_linkedin_client_secret' => ['nullable', 'string', 'max:500'],
         ]);
 
         foreach (['google', 'facebook', 'twitter', 'linkedin'] as $provider) {
-            Settings::set('social.'.$provider.'.enabled',       $data['social_'.$provider.'_enabled']       ?? '0',  'string', 'social');
-            Settings::set('social.'.$provider.'.client_id',     $data['social_'.$provider.'_client_id']     ?? '',   'string', 'social');
-            Settings::set('social.'.$provider.'.client_secret', $data['social_'.$provider.'_client_secret'] ?? '',   'string', 'social');
+            Settings::set('social.'.$provider.'.enabled', $data['social_'.$provider.'_enabled'] ?? '0', 'string', 'social');
+            Settings::set('social.'.$provider.'.client_id', $data['social_'.$provider.'_client_id'] ?? '', 'string', 'social');
+            Settings::set('social.'.$provider.'.client_secret', $data['social_'.$provider.'_client_secret'] ?? '', 'string', 'social');
         }
     }
 
@@ -345,13 +345,13 @@ class SettingsController extends Controller
     private function updateAi(Request $request): void
     {
         $data = $request->validate([
-            'ai_openai_key'        => ['nullable', 'string', 'max:200'],
-            'ai_openai_model'      => ['required', 'string', 'max:60'],
+            'ai_openai_key' => ['nullable', 'string', 'max:200'],
+            'ai_openai_model' => ['required', 'string', 'max:60'],
             'ai_openai_max_tokens' => ['required', 'integer', 'min:100', 'max:4000'],
-            'ai_openai_temperature'=> ['required', 'numeric', 'min:0', 'max:2'],
+            'ai_openai_temperature' => ['required', 'numeric', 'min:0', 'max:2'],
         ]);
 
-        if (!empty($data['ai_openai_key'])) {
+        if (! empty($data['ai_openai_key'])) {
             Settings::set('ai.openai_key', $data['ai_openai_key'], 'string', 'ai');
         }
         Settings::set('ai.openai_model', $data['ai_openai_model'], 'string', 'ai');

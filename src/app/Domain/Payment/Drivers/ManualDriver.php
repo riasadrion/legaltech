@@ -3,8 +3,8 @@
 namespace App\Domain\Payment\Drivers;
 
 use App\Domain\Payment\Contracts\PaymentGateway;
-use App\Domain\Payment\Models\Payment;
 use App\Domain\Payment\Models\Gateway;
+use App\Domain\Payment\Models\Payment;
 
 class ManualDriver implements PaymentGateway
 {

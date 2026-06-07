@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Facades\Settings;
 use App\Domain\Subscription\Models\Plan;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -44,25 +43,25 @@ class PlanController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'name'          => ['required', 'string', 'max:120'],
-            'description'   => ['nullable', 'string'],
-            'price'         => ['required', 'numeric', 'min:0'],
+            'name' => ['required', 'string', 'max:120'],
+            'description' => ['nullable', 'string'],
+            'price' => ['required', 'numeric', 'min:0'],
             'billing_cycle' => ['required', 'in:per_contract,monthly,yearly,lifetime'],
-            'credits'       => ['required', 'integer', 'min:0'],
+            'credits' => ['required', 'integer', 'min:0'],
             'ai_contract_generation' => ['boolean'],
-            'ai_drafts'     => ['nullable', 'integer', 'min:0'],
-            'features'      => ['nullable', 'array'],
-            'features.*'    => ['string', 'max:200'],
-            'is_featured'   => ['boolean'],
-            'cta_text'      => ['nullable', 'string', 'max:100'],
-            'cta_url'       => ['nullable', 'string', 'max:500'],
-            'is_active'     => ['boolean'],
-            'sort'          => ['required', 'integer', 'min:0'],
+            'ai_drafts' => ['nullable', 'integer', 'min:0'],
+            'features' => ['nullable', 'array'],
+            'features.*' => ['string', 'max:200'],
+            'is_featured' => ['boolean'],
+            'cta_text' => ['nullable', 'string', 'max:100'],
+            'cta_url' => ['nullable', 'string', 'max:500'],
+            'is_active' => ['boolean'],
+            'sort' => ['required', 'integer', 'min:0'],
         ]);
 
-        $data['features']    = array_values(array_filter(array_map('trim', $data['features'] ?? []), fn ($f) => $f !== ''));
+        $data['features'] = array_values(array_filter(array_map('trim', $data['features'] ?? []), fn ($f) => $f !== ''));
         $data['is_featured'] = $request->boolean('is_featured');
-        $data['is_active']   = $request->boolean('is_active', true);
+        $data['is_active'] = $request->boolean('is_active', true);
         $data['ai_contract_generation'] = $request->boolean('ai_contract_generation');
         $data['ai_drafts'] = (int) ($data['ai_drafts'] ?? 0);
 
@@ -79,25 +78,25 @@ class PlanController extends Controller
     public function update(Request $request, Plan $plan)
     {
         $data = $request->validate([
-            'name'          => ['required', 'string', 'max:120'],
-            'description'   => ['nullable', 'string'],
-            'price'         => ['required', 'numeric', 'min:0'],
+            'name' => ['required', 'string', 'max:120'],
+            'description' => ['nullable', 'string'],
+            'price' => ['required', 'numeric', 'min:0'],
             'billing_cycle' => ['required', 'in:per_contract,monthly,yearly,lifetime'],
-            'credits'       => ['required', 'integer', 'min:0'],
+            'credits' => ['required', 'integer', 'min:0'],
             'ai_contract_generation' => ['boolean'],
-            'ai_drafts'     => ['nullable', 'integer', 'min:0'],
-            'features'      => ['nullable', 'array'],
-            'features.*'    => ['string', 'max:200'],
-            'is_featured'   => ['boolean'],
-            'cta_text'      => ['nullable', 'string', 'max:100'],
-            'cta_url'       => ['nullable', 'string', 'max:500'],
-            'is_active'     => ['boolean'],
-            'sort'          => ['required', 'integer', 'min:0'],
+            'ai_drafts' => ['nullable', 'integer', 'min:0'],
+            'features' => ['nullable', 'array'],
+            'features.*' => ['string', 'max:200'],
+            'is_featured' => ['boolean'],
+            'cta_text' => ['nullable', 'string', 'max:100'],
+            'cta_url' => ['nullable', 'string', 'max:500'],
+            'is_active' => ['boolean'],
+            'sort' => ['required', 'integer', 'min:0'],
         ]);
 
-        $data['features']    = array_values(array_filter(array_map('trim', $data['features'] ?? []), fn ($f) => $f !== ''));
+        $data['features'] = array_values(array_filter(array_map('trim', $data['features'] ?? []), fn ($f) => $f !== ''));
         $data['is_featured'] = $request->boolean('is_featured');
-        $data['is_active']   = $request->boolean('is_active', true);
+        $data['is_active'] = $request->boolean('is_active', true);
         $data['ai_contract_generation'] = $request->boolean('ai_contract_generation');
         $data['ai_drafts'] = (int) ($data['ai_drafts'] ?? 0);
 

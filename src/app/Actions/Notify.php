@@ -2,14 +2,14 @@
 
 namespace App\Actions;
 
-use App\Notifications\Channels\EmailChannel;
-use App\Notifications\Channels\InAppChannel;
-use App\Notifications\Channels\SmsChannel;
 use App\Models\NotificationLog;
 use App\Models\NotificationPreference;
 use App\Models\NotificationSuppression;
 use App\Models\NotificationTemplate;
 use App\Models\User;
+use App\Notifications\Channels\EmailChannel;
+use App\Notifications\Channels\InAppChannel;
+use App\Notifications\Channels\SmsChannel;
 
 class Notify
 {

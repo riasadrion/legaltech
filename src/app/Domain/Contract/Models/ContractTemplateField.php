@@ -13,7 +13,7 @@ class ContractTemplateField extends Model
     ];
 
     protected $casts = [
-        'options'  => 'array',
+        'options' => 'array',
         'required' => 'boolean',
     ];
 

@@ -2,10 +2,10 @@
 
 namespace App\Notifications\Channels;
 
-use App\Notifications\Contracts\NotificationChannel;
-use App\Models\NotificationTemplate;
 use App\Facades\Settings;
+use App\Models\NotificationTemplate;
 use App\Models\User;
+use App\Notifications\Contracts\NotificationChannel;
 use Illuminate\Support\Facades\Http;
 
 class SmsChannel implements NotificationChannel

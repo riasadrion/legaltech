@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\User;
 
 use App\Domain\Payment\Models\KycSubmission;
-use App\Services\FileUploader;
 use App\Http\Controllers\Controller;
+use App\Services\FileUploader;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 

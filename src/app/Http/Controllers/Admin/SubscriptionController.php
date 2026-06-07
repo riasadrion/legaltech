@@ -27,7 +27,7 @@ class SubscriptionController extends Controller
             $term = $request->q;
             $query->whereHas('user', function ($q) use ($term) {
                 $q->where('name', 'like', "%{$term}%")
-                  ->orWhere('email', 'like', "%{$term}%");
+                    ->orWhere('email', 'like', "%{$term}%");
             });
         }
 

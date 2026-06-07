@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\BlogPost;
-use App\Models\Page;
 use App\Http\Controllers\ContractSignatureController;
 use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\Frontend\ContactController;
@@ -11,6 +9,8 @@ use App\Http\Controllers\Frontend\NewsletterController;
 use App\Http\Controllers\Frontend\PageController;
 use App\Http\Controllers\Frontend\PlansController;
 use App\Http\Controllers\UnsubscribeController;
+use App\Models\BlogPost;
+use App\Models\Page;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['language', 'maintenance'])->group(function () {

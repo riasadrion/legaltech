@@ -3,9 +3,9 @@
 namespace Database\Seeders;
 
 use App\Domain\Payment\Models\Payment;
-use App\Models\SupportTicket;
 use App\Models\Admin;
 use App\Models\AdminNotification;
+use App\Models\SupportTicket;
 use Illuminate\Database\Seeder;
 
 class AdminNotificationSeeder extends Seeder
@@ -17,6 +17,7 @@ class AdminNotificationSeeder extends Seeder
         $admins = Admin::all();
         if ($admins->isEmpty()) {
             $this->command->warn('No admins found — skipping.');
+
             return;
         }
 
@@ -26,12 +27,12 @@ class AdminNotificationSeeder extends Seeder
             $name = $payment->user?->name ?? 'A user';
             foreach ($admins as $admin) {
                 $rows[] = [
-                    'admin_id'   => $admin->id,
-                    'type'       => 'payment',
-                    'title'      => 'New payment request',
-                    'body'       => $name.' submitted $'.number_format($payment->amount, 2).' via '.optional($payment->gateway)->name,
-                    'url'        => route('admin.payments.show', $payment),
-                    'read_at'    => null,
+                    'admin_id' => $admin->id,
+                    'type' => 'payment',
+                    'title' => 'New payment request',
+                    'body' => $name.' submitted $'.number_format($payment->amount, 2).' via '.optional($payment->gateway)->name,
+                    'url' => route('admin.payments.show', $payment),
+                    'read_at' => null,
                     'created_at' => $payment->created_at,
                     'updated_at' => $payment->updated_at,
                 ];
@@ -42,12 +43,12 @@ class AdminNotificationSeeder extends Seeder
             $name = $ticket->user?->name ?? 'A user';
             foreach ($admins as $admin) {
                 $rows[] = [
-                    'admin_id'   => $admin->id,
-                    'type'       => 'support',
-                    'title'      => 'New support ticket #'.$ticket->reference,
-                    'body'       => $name.': '.$ticket->subject,
-                    'url'        => route('admin.support.tickets.show', $ticket),
-                    'read_at'    => null,
+                    'admin_id' => $admin->id,
+                    'type' => 'support',
+                    'title' => 'New support ticket #'.$ticket->reference,
+                    'body' => $name.': '.$ticket->subject,
+                    'url' => route('admin.support.tickets.show', $ticket),
+                    'read_at' => null,
                     'created_at' => $ticket->created_at,
                     'updated_at' => $ticket->updated_at,
                 ];
@@ -55,7 +56,7 @@ class AdminNotificationSeeder extends Seeder
         });
 
         // Sort by created_at desc so newest appear first
-        usort($rows, fn($a, $b) => $b['created_at'] <=> $a['created_at']);
+        usort($rows, fn ($a, $b) => $b['created_at'] <=> $a['created_at']);
 
         AdminNotification::insert($rows);
 

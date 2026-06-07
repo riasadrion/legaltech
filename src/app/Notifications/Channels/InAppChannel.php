@@ -2,10 +2,10 @@
 
 namespace App\Notifications\Channels;
 
-use App\Notifications\Contracts\NotificationChannel;
 use App\Models\NotificationTemplate;
 use App\Models\User;
 use App\Models\UserNotification;
+use App\Notifications\Contracts\NotificationChannel;
 
 class InAppChannel implements NotificationChannel
 {

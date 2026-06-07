@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Services\FileUploader;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -16,11 +16,11 @@ class SectionDataProcessor
     public function __construct(private FileUploader $uploader) {}
 
     /**
-     * @param  array  $schema   The 'fields' array from config/sections.php
-     * @param  array  $input    request()->input('data.en', []) — scalar/array values
-     * @param  array  $files    request()->file('data.en', []) — uploaded file tree
-     * @param  array  $previous The previously saved data for this locale (for orphan cleanup)
-     * @return array  The cleaned, persisted-ready data
+     * @param  array  $schema  The 'fields' array from config/sections.php
+     * @param  array  $input  request()->input('data.en', []) — scalar/array values
+     * @param  array  $files  request()->file('data.en', []) — uploaded file tree
+     * @param  array  $previous  The previously saved data for this locale (for orphan cleanup)
+     * @return array The cleaned, persisted-ready data
      */
     public function process(array $schema, array $input, array $files, array $previous): array
     {
@@ -99,7 +99,7 @@ class SectionDataProcessor
         return $output;
     }
 
-    private function resolveImage(string $existingUrl, ?\Illuminate\Http\UploadedFile $file, string $module): string
+    private function resolveImage(string $existingUrl, ?UploadedFile $file, string $module): string
     {
         if ($file) {
             $meta = $this->uploader->store($file, $module);

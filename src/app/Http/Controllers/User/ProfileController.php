@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Services\FileUploader;
 use App\Http\Controllers\Controller;
+use App\Services\FileUploader;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 
@@ -26,17 +27,17 @@ class ProfileController extends Controller
         $user = $request->user('user');
 
         $data = $request->validate([
-            'name'               => ['required', 'string', 'max:100'],
-            'username'           => ['nullable', 'string', 'max:50', 'alpha_dash', Rule::unique('users')->ignore($user->id)],
+            'name' => ['required', 'string', 'max:100'],
+            'username' => ['nullable', 'string', 'max:50', 'alpha_dash', Rule::unique('users')->ignore($user->id)],
             'mobile_country_code' => ['nullable', 'string', 'max:10'],
-            'mobile'             => ['nullable', 'string', 'max:20'],
-            'country_code'       => ['nullable', 'string', 'size:2'],
-            'address'            => ['nullable', 'string', 'max:255'],
-            'city'               => ['nullable', 'string', 'max:100'],
-            'state'              => ['nullable', 'string', 'max:100'],
-            'zip'                => ['nullable', 'string', 'max:20'],
-            'timezone'           => ['nullable', 'timezone'],
-            'avatar'             => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+            'mobile' => ['nullable', 'string', 'max:20'],
+            'country_code' => ['nullable', 'string', 'size:2'],
+            'address' => ['nullable', 'string', 'max:255'],
+            'city' => ['nullable', 'string', 'max:100'],
+            'state' => ['nullable', 'string', 'max:100'],
+            'zip' => ['nullable', 'string', 'max:20'],
+            'timezone' => ['nullable', 'timezone'],
+            'avatar' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
         ]);
 
         if ($request->hasFile('avatar')) {
@@ -68,7 +69,7 @@ class ProfileController extends Controller
         ]);
 
         $user->password = Hash::make($request->password);
-        $user->setRememberToken(\Illuminate\Support\Str::random(60));
+        $user->setRememberToken(Str::random(60));
         $user->save();
 
         // Re-login current session so this device stays authenticated

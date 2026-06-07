@@ -24,13 +24,14 @@ class ContractParty extends Model
 
     public function hasSigned(): bool
     {
-        return !is_null($this->signed_at);
+        return ! is_null($this->signed_at);
     }
 
     public function generateToken(): string
     {
         $this->token = Str::random(64);
         $this->save();
+
         return $this->token;
     }
 }

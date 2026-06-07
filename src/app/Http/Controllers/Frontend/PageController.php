@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Models\Page;
 use App\Http\Controllers\Controller;
+use App\Models\Page;
 
 class PageController extends Controller
 {

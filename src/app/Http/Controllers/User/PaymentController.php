@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Domain\Payment\Models\Payment;
 use App\Domain\Payment\Models\Gateway;
+use App\Domain\Payment\Models\Payment;
 use App\Domain\Payment\PaymentGatewayManager;
 use App\Domain\Subscription\Models\Plan;
 use App\Domain\Subscription\SubscriptionService;
-use App\Services\FileUploader;
 use App\Domain\Wallet\Services\WalletService;
 use App\Domain\Wallet\ValueObjects\Money;
 use App\Http\Controllers\Controller;
+use App\Services\FileUploader;
 use App\Support\AdminNotify;
 use Illuminate\Http\Request;
 
@@ -21,7 +21,7 @@ class PaymentController extends Controller
         $user = auth('user')->user();
         $gateways = Gateway::enabled()->orderBy('sort')->get();
         $payments = Payment::where('user_id', $user->id)->with('gateway')->latest()->paginate(10);
-        $balance  = $wallet->getBalance($user);
+        $balance = $wallet->getBalance($user);
 
         $gatewayTotals = Payment::where('user_id', $user->id)
             ->where('status', Payment::STATUS_COMPLETED)
@@ -34,8 +34,9 @@ class PaymentController extends Controller
 
     public function create(Request $request)
     {
-        if (!$request->gateway) {
+        if (! $request->gateway) {
             $gateways = Gateway::enabled()->orderBy('sort')->get();
+
             return view('theme::user.payment.select', compact('gateways'));
         }
 
@@ -109,6 +110,7 @@ class PaymentController extends Controller
                 $user->name.' initiated $'.number_format($payment->amount, 2).' via '.$gateway->name,
                 route('admin.payments.index')
             );
+
             return redirect()->away($redirectUrl);
         }
 

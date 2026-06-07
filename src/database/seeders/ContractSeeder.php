@@ -19,6 +19,7 @@ class ContractSeeder extends Seeder
 
         if (! $user) {
             $this->command->warn('testuser not found — run UserSeeder first.');
+
             return;
         }
 
@@ -28,12 +29,12 @@ class ContractSeeder extends Seeder
 
             // 1 — Fully signed NDA
             [
-                'title'       => 'Mutual Non-Disclosure Agreement',
-                'status'      => Contract::STATUS_SIGNED,
-                'credits_used'=> 1,
-                'created_at'  => now()->subDays(24),
-                'body_html'   => $this->ndaHtml('Test User', 'Tarreq Innovations Ltd'),
-                'parties'     => [
+                'title' => 'Mutual Non-Disclosure Agreement',
+                'status' => Contract::STATUS_SIGNED,
+                'credits_used' => 1,
+                'created_at' => now()->subDays(24),
+                'body_html' => $this->ndaHtml('Test User', 'Tarreq Innovations Ltd'),
+                'parties' => [
                     ['name' => 'Test User',              'email' => 'testuser@example.com', 'role' => 'signer', 'signed_at' => now()->subDays(22), 'sort' => 1],
                     ['name' => 'Tarreq Innovations Ltd', 'email' => 'tarreq@example.com',  'role' => 'signer', 'signed_at' => now()->subDays(20), 'sort' => 2],
                 ],
@@ -42,40 +43,40 @@ class ContractSeeder extends Seeder
 
             // 2 — Sent, one signer done, one pending
             [
-                'title'       => 'Freelance Development Services Agreement',
-                'status'      => Contract::STATUS_SENT,
-                'credits_used'=> 1,
-                'created_at'  => now()->subDays(10),
-                'body_html'   => $this->serviceAgreementHtml('Test User', 'Riasad Zaman'),
-                'parties'     => [
+                'title' => 'Freelance Development Services Agreement',
+                'status' => Contract::STATUS_SENT,
+                'credits_used' => 1,
+                'created_at' => now()->subDays(10),
+                'body_html' => $this->serviceAgreementHtml('Test User', 'Riasad Zaman'),
+                'parties' => [
                     ['name' => 'Test User',   'email' => 'testuser@example.com', 'role' => 'signer', 'signed_at' => now()->subDays(8), 'sort' => 1],
-                    ['name' => 'Riasad Zaman','email' => 'riasad@example.com',   'role' => 'signer', 'signed_at' => null,              'sort' => 2],
+                    ['name' => 'Riasad Zaman', 'email' => 'riasad@example.com',   'role' => 'signer', 'signed_at' => null,              'sort' => 2],
                 ],
                 'payment' => null,
             ],
 
             // 3 — Ready, not yet sent
             [
-                'title'       => 'SaaS Subscription & License Agreement',
-                'status'      => Contract::STATUS_READY,
-                'credits_used'=> 1,
-                'created_at'  => now()->subDays(5),
-                'body_html'   => $this->saasHtml('Test User', 'Cystall Pte. Ltd.'),
-                'parties'     => [
+                'title' => 'SaaS Subscription & License Agreement',
+                'status' => Contract::STATUS_READY,
+                'credits_used' => 1,
+                'created_at' => now()->subDays(5),
+                'body_html' => $this->saasHtml('Test User', 'Cystall Pte. Ltd.'),
+                'parties' => [
                     ['name' => 'Test User',       'email' => 'testuser@example.com', 'role' => 'signer', 'signed_at' => null, 'sort' => 1],
-                    ['name' => 'Cystall Pte. Ltd','email' => 'legal@cystall.com',    'role' => 'signer', 'signed_at' => null, 'sort' => 2],
+                    ['name' => 'Cystall Pte. Ltd', 'email' => 'legal@cystall.com',    'role' => 'signer', 'signed_at' => null, 'sort' => 2],
                 ],
                 'payment' => ['amount' => 89.00, 'offset_days' => 5],
             ],
 
             // 4 — Draft in progress
             [
-                'title'       => 'Content Creator Partnership Agreement',
-                'status'      => Contract::STATUS_EDITING,
-                'credits_used'=> 0,
-                'created_at'  => now()->subDays(2),
-                'body_html'   => '<p>Draft content being edited...</p>',
-                'parties'     => [
+                'title' => 'Content Creator Partnership Agreement',
+                'status' => Contract::STATUS_EDITING,
+                'credits_used' => 0,
+                'created_at' => now()->subDays(2),
+                'body_html' => '<p>Draft content being edited...</p>',
+                'parties' => [
                     ['name' => 'Test User', 'email' => 'testuser@example.com', 'role' => 'signer', 'signed_at' => null, 'sort' => 1],
                 ],
                 'payment' => null,
@@ -83,15 +84,15 @@ class ContractSeeder extends Seeder
 
             // 5 — Expired signed contract (older)
             [
-                'title'       => 'Consulting Retainer Agreement',
-                'status'      => Contract::STATUS_EXPIRED,
-                'credits_used'=> 1,
-                'created_at'  => now()->subMonths(3),
-                'expires_at'  => now()->subMonths(2),
-                'body_html'   => $this->retainerHtml('Test User', 'Alpha Ventures'),
-                'parties'     => [
+                'title' => 'Consulting Retainer Agreement',
+                'status' => Contract::STATUS_EXPIRED,
+                'credits_used' => 1,
+                'created_at' => now()->subMonths(3),
+                'expires_at' => now()->subMonths(2),
+                'body_html' => $this->retainerHtml('Test User', 'Alpha Ventures'),
+                'parties' => [
                     ['name' => 'Test User',    'email' => 'testuser@example.com', 'role' => 'signer', 'signed_at' => now()->subMonths(3)->addDays(2), 'sort' => 1],
-                    ['name' => 'Alpha Ventures','email' => 'legal@alpha.com',     'role' => 'signer', 'signed_at' => now()->subMonths(3)->addDays(3), 'sort' => 2],
+                    ['name' => 'Alpha Ventures', 'email' => 'legal@alpha.com',     'role' => 'signer', 'signed_at' => now()->subMonths(3)->addDays(3), 'sort' => 2],
                 ],
                 'payment' => ['amount' => 89.00, 'offset_days' => 90],
             ],
@@ -99,62 +100,62 @@ class ContractSeeder extends Seeder
 
         foreach ($contracts as $def) {
             $contract = Contract::create([
-                'user_id'      => $user->id,
-                'title'        => $def['title'],
-                'status'       => $def['status'],
+                'user_id' => $user->id,
+                'title' => $def['title'],
+                'status' => $def['status'],
                 'credits_used' => $def['credits_used'],
-                'body_html'    => $def['body_html'],
-                'share_token'  => Str::random(48),
-                'expires_at'   => $def['expires_at'] ?? null,
-                'created_at'   => $def['created_at'],
-                'updated_at'   => $def['created_at'],
+                'body_html' => $def['body_html'],
+                'share_token' => Str::random(48),
+                'expires_at' => $def['expires_at'] ?? null,
+                'created_at' => $def['created_at'],
+                'updated_at' => $def['created_at'],
             ]);
 
             foreach ($def['parties'] as $party) {
                 ContractParty::create([
                     'contract_id' => $contract->id,
-                    'name'        => $party['name'],
-                    'email'       => $party['email'],
-                    'role'        => $party['role'],
-                    'token'       => Str::random(64),
-                    'signed_at'   => $party['signed_at'],
-                    'sort'        => $party['sort'],
+                    'name' => $party['name'],
+                    'email' => $party['email'],
+                    'role' => $party['role'],
+                    'token' => Str::random(64),
+                    'signed_at' => $party['signed_at'],
+                    'sort' => $party['sort'],
                 ]);
             }
 
             // Seed a payment for this subscription period
             if ($def['payment'] && $gateway) {
-                $amount     = $def['payment']['amount'];
-                $createdAt  = now()->subDays($def['payment']['offset_days']);
-                $fee        = $gateway->calculateFee($amount);
-                $net        = $amount - $fee;
+                $amount = $def['payment']['amount'];
+                $createdAt = now()->subDays($def['payment']['offset_days']);
+                $fee = $gateway->calculateFee($amount);
+                $net = $amount - $fee;
 
                 $payment = Payment::create([
-                    'user_id'     => $user->id,
-                    'gateway_id'  => $gateway->id,
-                    'amount'      => $amount,
-                    'currency'    => 'USD',
-                    'fee'         => $fee,
-                    'status'      => Payment::STATUS_COMPLETED,
-                    'gateway_ref' => 'ref_demo_' . Str::random(8),
-                    'meta'        => ['demo' => true, 'plan' => 'Enterprise'],
-                    'created_at'  => $createdAt,
-                    'updated_at'  => $createdAt,
+                    'user_id' => $user->id,
+                    'gateway_id' => $gateway->id,
+                    'amount' => $amount,
+                    'currency' => 'USD',
+                    'fee' => $fee,
+                    'status' => Payment::STATUS_COMPLETED,
+                    'gateway_ref' => 'ref_demo_'.Str::random(8),
+                    'meta' => ['demo' => true, 'plan' => 'Enterprise'],
+                    'created_at' => $createdAt,
+                    'updated_at' => $createdAt,
                 ]);
 
                 $newBalance = (float) $user->fresh()->balance + $net;
 
                 Transaction::create([
-                    'user_id'       => $user->id,
-                    'type'          => Transaction::TYPE_CREDIT,
-                    'amount'        => $net,
-                    'currency'      => 'USD',
-                    'description'   => 'Studio Monthly subscription — ' . $createdAt->format('M Y'),
-                    'subject_type'  => Payment::class,
-                    'subject_id'    => $payment->id,
+                    'user_id' => $user->id,
+                    'type' => Transaction::TYPE_CREDIT,
+                    'amount' => $net,
+                    'currency' => 'USD',
+                    'description' => 'Studio Monthly subscription — '.$createdAt->format('M Y'),
+                    'subject_type' => Payment::class,
+                    'subject_id' => $payment->id,
                     'balance_after' => $newBalance,
-                    'meta'          => ['gateway' => $gateway->driver],
-                    'created_at'    => $createdAt,
+                    'meta' => ['gateway' => $gateway->driver],
+                    'created_at' => $createdAt,
                 ]);
 
                 $user->update(['balance' => $newBalance]);

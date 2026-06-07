@@ -9,7 +9,7 @@ class ContractSignatureController extends Controller
 {
     public function show(string $token)
     {
-        $party    = ContractParty::where('token', $token)->firstOrFail();
+        $party = ContractParty::where('token', $token)->firstOrFail();
         $contract = Contract::with('parties', 'template')->findOrFail($party->contract_id);
 
         if ($party->hasSigned()) {
@@ -21,14 +21,14 @@ class ContractSignatureController extends Controller
 
     public function confirm(string $token)
     {
-        $party    = ContractParty::where('token', $token)->firstOrFail();
+        $party = ContractParty::where('token', $token)->firstOrFail();
         $contract = Contract::with('parties', 'template')->findOrFail($party->contract_id);
 
         if ($party->hasSigned()) {
             return redirect()->route('contracts.sign', $token);
         }
 
-        $party->signed_at  = now();
+        $party->signed_at = now();
         $party->ip_address = request()->ip();
         $party->user_agent = request()->userAgent();
         $party->save();

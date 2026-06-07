@@ -16,7 +16,7 @@ class ContractCategorySeeder extends Seeder
             ['name' => 'Freelance & Services',       'icon' => 'heroicon-o-briefcase',             'sort' => 3],
             ['name' => 'SaaS & Software',            'icon' => 'heroicon-o-computer-desktop',      'sort' => 4],
             ['name' => 'Real Estate & Leases',       'icon' => 'heroicon-o-home',                  'sort' => 5],
-            ['name' => 'Partnerships & Joint Ventures','icon'=> 'heroicon-o-building-office-2',    'sort' => 6],
+            ['name' => 'Partnerships & Joint Ventures', 'icon' => 'heroicon-o-building-office-2',    'sort' => 6],
             ['name' => 'Sales & Purchase',           'icon' => 'heroicon-o-shopping-cart',         'sort' => 7],
             ['name' => 'Intellectual Property',      'icon' => 'heroicon-o-light-bulb',            'sort' => 8],
             ['name' => 'Finance & Loans',            'icon' => 'heroicon-o-banknotes',             'sort' => 9],

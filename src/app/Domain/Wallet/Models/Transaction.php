@@ -68,7 +68,8 @@ class Transaction extends Model
     public function formattedAmount(): string
     {
         $symbol = $this->amount >= 0 ? '+' : '';
-        return $symbol . formatAmount(abs($this->amount));
+
+        return $symbol.formatAmount(abs($this->amount));
     }
 
     public function formattedBalance(): string

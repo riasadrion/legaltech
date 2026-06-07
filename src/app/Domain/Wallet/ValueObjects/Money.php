@@ -32,12 +32,14 @@ final class Money
     public function add(Money $other): self
     {
         $this->assertSameCurrency($other);
+
         return new self($this->amount + $other->amount, $this->currency);
     }
 
     public function subtract(Money $other): self
     {
         $this->assertSameCurrency($other);
+
         return new self($this->amount - $other->amount, $this->currency);
     }
 
@@ -74,13 +76,14 @@ final class Money
     {
         $decimals = isCryptoCurrency($this->currency) ? 8 : 2;
         $formatted = number_format($this->amount, $decimals);
-        
+
         if (! $withSymbol) {
             return $formatted;
         }
-        
+
         $symbol = setting('site.currency_symbol', '$');
-        return $symbol . $formatted;
+
+        return $symbol.$formatted;
     }
 
     public function __toString(): string

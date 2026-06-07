@@ -48,7 +48,8 @@ class Plan extends Model
     public function formattedPrice(): string
     {
         $symbol = setting('site.currency_symbol', '$');
-        return $symbol . number_format($this->price, 2);
+
+        return $symbol.number_format($this->price, 2);
     }
 
     public function scopeActive($query)

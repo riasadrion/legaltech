@@ -64,8 +64,8 @@ class SystemController extends Controller
 
         try {
             $appName = config('app.name');
-            $domain  = parse_url(config('app.url'), PHP_URL_HOST);
-            Mail::raw("Your mail configuration is working correctly on {$domain}.\n\nThis is a test message sent from {$appName}.", function ($msg) use ($to, $appName, $domain) {
+            $domain = parse_url(config('app.url'), PHP_URL_HOST);
+            Mail::raw("Your mail configuration is working correctly on {$domain}.\n\nThis is a test message sent from {$appName}.", function ($msg) use ($to, $domain) {
                 $msg->to($to)->subject("Mail configuration success on {$domain}");
             });
 
