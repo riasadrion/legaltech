@@ -33,7 +33,7 @@ class SettingSeeder extends Seeder
             // ── Mail ─────────────────────────────────────────────────────
             ['key' => 'mail.driver',           'value' => 'smtp',             'type' => 'string', 'group' => 'mail'],
             ['key' => 'mail.from_address',     'value' => 'no-reply@cystall.com','type' => 'string', 'group' => 'mail'],
-            ['key' => 'mail.from_name',        'value' => 'LegalTech',        'type' => 'string', 'group' => 'mail'],
+            ['key' => 'mail.from_name',        'value' => 'LegalDocs',        'type' => 'string', 'group' => 'mail'],
             ['key' => 'mail.smtp.host',        'value' => 'cystall.com',      'type' => 'string', 'group' => 'mail'],
             ['key' => 'mail.smtp.port',        'value' => '25',               'type' => 'string', 'group' => 'mail'],
             ['key' => 'mail.smtp.username',    'value' => 'no-reply@cystall.com','type' => 'string', 'group' => 'mail'],

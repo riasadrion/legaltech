@@ -12,7 +12,7 @@
         <div class="inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-xs font-medium text-white/50 mb-6">
             <x-heroicon-o-document-text class="h-4 w-4 text-lime" />@lang('Articles & insights')
         </div>
-        <h1 class="font-display text-4xl sm:text-5xl md:text-6xl text-white mb-4">@lang('The LegalTech Blog')</h1>
+        <h1 class="font-display text-4xl sm:text-5xl md:text-6xl text-white mb-4">@lang('The LegalDocs Blog')</h1>
         <p class="text-lg text-white/40 max-w-xl mx-auto">
             @lang('Contract law, AI automation, and the future of legal work — written for teams who ship.')
         </p>
