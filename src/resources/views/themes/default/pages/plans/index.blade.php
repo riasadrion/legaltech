@@ -53,7 +53,7 @@
                     </a>
                 @else
 
-                    <a href="{{ route('register') }}" class="w-full block text-center rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700">
+                    <a href="{{ route('user.subscription.checkout', $plan) }}" class="w-full block text-center rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700">
                         Get started
                     </a>
                 @endauth

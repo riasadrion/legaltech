@@ -21,6 +21,8 @@ use App\Observers\ActivityObserver;
 use App\Repositories\DatabaseSettingsRepository;
 use App\Support\AdminNavigation;
 use App\Support\RegistrationFields;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Auth\Middleware\RedirectIfAuthenticated;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Vite;
@@ -44,6 +46,7 @@ class AppServiceProvider extends ServiceProvider
         $this->registerRegistrationFields();
         $this->registerActivityObserver();
         $this->configureGuestRedirect();
+        $this->configureAuthRedirect();
     }
 
     private function registerAdminComponents(): void
@@ -63,6 +66,25 @@ class AppServiceProvider extends ServiceProvider
 
             return route('user.dashboard');
         });
+    }
+
+    /**
+     * Send unauthenticated visitors to the correct guard's login page,
+     * preserving the page they were trying to reach via Laravel's
+     * intended-URL mechanism (redirect()->guest() stores it for us).
+     */
+    private function configureAuthRedirect(): void
+    {
+        $resolver = function ($request) {
+            if ($request->is('admin/*')) {
+                return route('admin.login');
+            }
+
+            return route('login');
+        };
+
+        Authenticate::redirectUsing($resolver);
+        AuthenticationException::redirectUsing($resolver);
     }
 
     private function configureVite(): void

@@ -16,76 +16,60 @@
 
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div class="stat-card stat-purple p-5 relative overflow-hidden">
-            <div class="stat-accent"></div>
-            <div class="flex items-start justify-between mb-4">
-                <div>
-                    <div class="stat-label">@lang('Total Users')</div>
-                    <div class="stat-value">{{ number_format($stats['totalUsers']) }}</div>
-                </div>
-                <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/25">
-                    <x-heroicon-o-users class="w-6 h-6" />
-                </div>
+        <div class="stat-card p-5 relative overflow-hidden">
+            <span class="stat-trend-pill up">
+                <x-heroicon-m-arrow-trending-up class="w-3.5 h-3.5" /> +12.5%
+            </span>
+            <div class="stat-icon-soft stat-icon-soft-indigo mb-4">
+                <x-heroicon-o-users class="w-5 h-5" />
             </div>
-            <div class="flex items-center gap-2 mb-2">
-                <span class="stat-change up">+12.5%</span>
-                <span class="stat-period">vs last month</span>
+            <div class="stat-label">@lang('Total Users')</div>
+            <div class="stat-value">{{ number_format($stats['totalUsers']) }}</div>
+            <div class="stat-caption">
+                <x-heroicon-o-clock /> @lang('Updated just now')
             </div>
-            <div id="spark1" class="spark-chart"></div>
         </div>
 
-        <div class="stat-card stat-green p-5 relative overflow-hidden">
-            <div class="stat-accent"></div>
-            <div class="flex items-start justify-between mb-4">
-                <div>
-                    <div class="stat-label">@lang('Revenue')</div>
-                    <div class="stat-value">{{ $stats['revenue']->format() }}</div>
-                </div>
-                <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-lg shadow-emerald-500/25">
-                    <x-heroicon-o-currency-dollar class="w-6 h-6" />
-                </div>
+        <div class="stat-card p-5 relative overflow-hidden">
+            <span class="stat-trend-pill up">
+                <x-heroicon-m-arrow-trending-up class="w-3.5 h-3.5" /> +18.4%
+            </span>
+            <div class="stat-icon-soft stat-icon-soft-emerald mb-4">
+                <x-heroicon-o-currency-dollar class="w-5 h-5" />
             </div>
-            <div class="flex items-center gap-2 mb-2">
-                <span class="stat-change up">+18.4%</span>
-                <span class="stat-period">vs last month</span>
+            <div class="stat-label">@lang('Revenue')</div>
+            <div class="stat-value">{{ $stats['revenue']->format() }}</div>
+            <div class="stat-caption">
+                <x-heroicon-o-calendar /> @lang('This month')
             </div>
-            <div id="spark2" class="spark-chart"></div>
         </div>
 
-        <div class="stat-card stat-amber p-5 relative overflow-hidden">
-            <div class="stat-accent"></div>
-            <div class="flex items-start justify-between mb-4">
-                <div>
-                    <div class="stat-label">@lang('Open Tickets')</div>
-                    <div class="stat-value">{{ number_format($stats['openTickets']) }}</div>
-                </div>
-                <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-amber-500 to-amber-600 text-white shadow-lg shadow-amber-500/25">
-                    <x-heroicon-o-chat-bubble-left-right class="w-6 h-6" />
-                </div>
+        <div class="stat-card p-5 relative overflow-hidden">
+            <span class="stat-trend-pill down">
+                <x-heroicon-m-arrow-trending-down class="w-3.5 h-3.5" /> -8.1%
+            </span>
+            <div class="stat-icon-soft stat-icon-soft-amber mb-4">
+                <x-heroicon-o-chat-bubble-left-right class="w-5 h-5" />
             </div>
-            <div class="flex items-center gap-2 mb-2">
-                <span class="stat-change down">-8.1%</span>
-                <span class="stat-period">vs last month</span>
-            </div>
-            <div id="spark3" class="spark-chart"></div>
+            <div class="stat-label">@lang('Open Tickets')</div>
+            <div class="stat-value">{{ number_format($stats['openTickets']) }}</div>
+            <a href="{{ route('admin.support.tickets.index') }}" class="stat-caption stat-caption-link">
+                <x-heroicon-o-arrow-top-right-on-square /> @lang('View support queue')
+            </a>
         </div>
 
-        <div class="stat-card stat-purple-dk p-5 relative overflow-hidden">
-            <div class="stat-accent"></div>
-            <div class="flex items-start justify-between mb-4">
-                <div>
-                    <div class="stat-label">@lang('Active Gateways')</div>
-                    <div class="stat-value">{{ number_format($stats['activeGateways']) }}</div>
-                </div>
-                <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-slate-600 to-slate-700 text-white shadow-lg shadow-slate-500/25">
-                    <x-heroicon-o-credit-card class="w-6 h-6" />
-                </div>
+        <div class="stat-card p-5 relative overflow-hidden">
+            <span class="stat-trend-pill up">
+                <x-heroicon-m-arrow-trending-up class="w-3.5 h-3.5" /> +2.1%
+            </span>
+            <div class="stat-icon-soft stat-icon-soft-violet mb-4">
+                <x-heroicon-o-credit-card class="w-5 h-5" />
             </div>
-            <div class="flex items-center gap-2 mb-2">
-                <span class="stat-change up">+2.1%</span>
-                <span class="stat-period">vs last month</span>
+            <div class="stat-label">@lang('Active Gateways')</div>
+            <div class="stat-value">{{ number_format($stats['activeGateways']) }}</div>
+            <div class="stat-caption">
+                <x-heroicon-o-shield-check /> @lang('All operational')
             </div>
-            <div id="spark4" class="spark-chart"></div>
         </div>
     </div>
 
@@ -94,7 +78,7 @@
         <div class="lg:col-span-2 card-table">
             <div class="chart-card-header">
                     <h2 class="text-sm font-semibold">@lang('Revenue Analytics')</h2>
-                    <p class="chart-card-sub">@lang('Monthly performance breakdown')</p>
+                    <p class="chart-card-sub">@lang('Monthly revenue for the past 12 months')</p>
             </div>
             <div class="chart-card-body">
                 <div id="revenueChart"></div>
@@ -105,7 +89,7 @@
         <div class="card-table">
             <div class="chart-card-header">
                 <h2 class="text-sm font-semibold">@lang('Revenue Mix')</h2>
-                <p class="chart-card-sub">@lang('By subscription tier')</p>
+                <p class="chart-card-sub">@lang('Where your revenue is coming from')</p>
             </div>
             <div class="chart-card-body">
                 <div id="revenueDonut"></div>
@@ -116,7 +100,7 @@
         <div class="card-table">
             <div class="chart-card-header">
                 <h2 class="text-sm font-semibold">@lang('Payment Methods')</h2>
-                <p class="chart-card-sub">@lang('Revenue by gateway')</p>
+                <p class="chart-card-sub">@lang('Completed payments by provider')</p>
             </div>
             <div class="chart-card-body">
                 <div id="gatewayChart"></div>
@@ -133,7 +117,7 @@
             <div class="chart-card-header flex items-center justify-between">
                 <div>
                     <h2 class="text-sm font-semibold">@lang('Recent Transactions')</h2>
-                    <p class="chart-card-sub">@lang('Latest wallet activity')</p>
+                    <p class="chart-card-sub">@lang('Newest credits and debits')</p>
                 </div>
                 <a href="{{ route('admin.reports.index') }}" class="text-xs text-brand-600 hover:text-brand-700 font-medium">View All →</a>
             </div>
@@ -183,7 +167,7 @@
             <div class="chart-card-header flex items-center justify-between">
                 <div>
                     <h2 class="text-sm font-semibold">@lang('Recent Users')</h2>
-                    <p class="chart-card-sub">@lang('Latest signups')</p>
+                    <p class="chart-card-sub">@lang('Newest accounts on the platform')</p>
                 </div>
                 <a href="{{ route('admin.users.index') }}" class="text-xs text-brand-600 hover:text-brand-700 font-medium">View All →</a>
             </div>
@@ -223,23 +207,6 @@
     var th = isDark ? 'dark' : 'light';
     var ff = 'DM Sans, sans-serif';
 
-    // Sparklines
-    function spark(id, data, color) {
-        new ApexCharts(document.getElementById(id), {
-            chart: { type: 'area', height: 32, sparkline: { enabled: true }, animations: { duration: 800 } },
-            series: [{ data: data }],
-            stroke: { curve: 'smooth', width: 2 },
-            fill: { type: 'gradient', gradient: { shadeIntensity: 1, opacityFrom: 0.3, opacityTo: 0 } },
-            colors: [color],
-            tooltip: { enabled: false },
-            grid: { padding: { top: 0, bottom: 0 } }
-        }).render();
-    }
-    spark('spark1', [30,45,28,60,52,72,65,80,75,95,88,110], '#6366f1');
-    spark('spark2', [40,38,50,45,60,55,70,72,68,80,85,92], '#10b981');
-    spark('spark3', [20,32,28,40,38,52,48,60,55,70,68,75], '#f59e0b');
-    spark('spark4', [5.2,5.0,4.9,5.1,5.3,5.0,4.8,4.9,5.1,4.8,4.9,4.87], '#8b5cf6');
-
     // Revenue Area Chart
     new ApexCharts(document.querySelector("#revenueChart"), {
         series: [
@@ -249,7 +216,7 @@
         chart: { type: 'area', height: 260, toolbar: { show: false }, background: 'transparent', animations: { easing: 'easeinout', speed: 800 } },
         colors: ['#6366f1', '#10b981'],
         stroke: { curve: 'smooth', width: 2 },
-        fill: { type: 'gradient', gradient: { shadeIntensity: 1, opacityFrom: 0.2, opacityTo: 0, stops: [0, 100] } },
+        fill: { type: 'gradient', gradient: { shadeIntensity: 1, opacityFrom: 0.45, opacityTo: 0.05, stops: [0, 100] } },
         xaxis: {
             categories: @json($chartData['monthlyRevenue']['months']),
             labels: { style: { colors: tc, fontSize: '11px', fontFamily: ff } },

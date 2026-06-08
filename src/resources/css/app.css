@@ -123,12 +123,22 @@
     padding: 9px 10px; margin: 2px 0; border-radius: 8px;
     color: rgba(255,255,255,0.72); text-decoration: none;
     font-size: 15px; font-weight: 500; transition: all 0.15s;
+    position: relative;
+}
+.sidebar-link::before {
+    content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+    width: 3px; height: 60%; border-radius: 3px; background: #818cf8;
+    opacity: 0; transition: opacity 0.15s;
 }
 .sidebar-link:hover { background: rgba(255,255,255,0.10); color: rgba(255,255,255,0.98); }
-.sidebar-link.active { background: #6366f1; color: #fff; }
+.sidebar-link.active {
+    background: linear-gradient(90deg, rgba(99,102,241,0.28) 0%, rgba(99,102,241,0.05) 100%);
+    color: #fff; font-weight: 600;
+}
+.sidebar-link.active::before { opacity: 1; }
 .sidebar-link-icon { width: 22px; font-size: 20px; flex-shrink: 0; text-align: center; color: rgba(255,255,255,0.8); font-weight: 600; }
 .sidebar-link:hover .sidebar-link-icon { color: rgba(255,255,255,0.8); }
-.sidebar-link.active .sidebar-link-icon { color: #fff; }
+.sidebar-link.active .sidebar-link-icon { color: #a5b4fc; }
 
 .sidebar-user { margin-top: auto; padding: 10px; border-top: 1px solid rgba(255,255,255,0.08); flex-shrink: 0; }
 .sidebar-user-inner {
@@ -260,7 +270,7 @@
 
 /* ─── Cards & Tables ─── */
 .card-table {
-    background: #fff; border-radius: 12px; border: 1px solid #e5e7eb;
+    background: #fff; border-radius: 18px; border: 1px solid #e5e7eb;
     overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.04);
 }
 .card-table table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
@@ -276,7 +286,7 @@
 .card-table tbody tr:hover td { background: #f9fafb; }
 
 .stat-card {
-    background: #fff; border-radius: 16px;
+    background: #fff; border-radius: 20px;
     border: 1px solid #e5e7eb; box-shadow: 0 1px 3px rgba(0,0,0,0.04);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
@@ -305,12 +315,45 @@
 .stat-icon-tickets { background: linear-gradient(135deg, #f59e0b, #fbbf24); box-shadow: 0 4px 14px rgba(245,158,11,0.35); }
 .stat-icon-gateways { background: linear-gradient(135deg, #8b5cf6, #a78bfa); box-shadow: 0 4px 14px rgba(139,92,246,0.35); }
 
-.stat-label { font-size: 13px; color: #6b7280; font-weight: 500; margin-bottom: 8px; }
-.stat-value { font-size: 34px; font-weight: 700; letter-spacing: -1px; color: #0f1015; line-height: 1.1; }
+.stat-label { font-size: 13.5px; color: #6b7280; font-weight: 600; margin-bottom: 8px; }
+.stat-value { font-size: 36px; font-weight: 800; letter-spacing: -1.2px; color: #0f1015; line-height: 1.1; }
 .stat-change { font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 3px; }
 .stat-change.up { color: #10b981; }
 .stat-change.down { color: #ef4444; }
 .stat-period { font-size: 12.5px; color: #9ca3af; }
+
+/* Soft-tinted rounded-square icon variant (lighter alternative to the gradient badge) */
+.stat-icon-soft {
+    width: 50px; height: 50px; border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+}
+.stat-icon-soft svg { width: 22px; height: 22px; }
+.stat-icon-soft-indigo { background: rgba(99,102,241,0.14); color: #6366f1; }
+.stat-icon-soft-emerald { background: rgba(16,185,129,0.14); color: #10b981; }
+.stat-icon-soft-amber { background: rgba(245,158,11,0.14); color: #f59e0b; }
+.stat-icon-soft-violet { background: rgba(139,92,246,0.14); color: #8b5cf6; }
+
+/* Trend pill pinned to the card's top-right corner */
+.stat-trend-pill {
+    position: absolute; top: 20px; right: 20px;
+    font-size: 12.5px; font-weight: 700; line-height: 1;
+    padding: 6px 12px; border-radius: 9999px;
+    display: inline-flex; align-items: center; gap: 4px;
+}
+.stat-trend-pill.up { color: #10b981; background: rgba(16,185,129,0.12); }
+.stat-trend-pill.down { color: #ef4444; background: rgba(239,68,68,0.12); }
+
+/* Caption line under the stat value, e.g. "Updated 2 min ago" */
+.stat-caption {
+    font-size: 13px; font-weight: 500; color: #6b7280;
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-top: 12px;
+}
+.stat-caption svg { width: 15px; height: 15px; flex-shrink: 0; color: #9ca3af; }
+.stat-caption-link { text-decoration: none; cursor: pointer; transition: color 0.15s; }
+.stat-caption-link:hover { color: #6366f1; }
+.stat-caption-link:hover svg { color: #6366f1; }
 
 .quick-action {
     display: flex; flex-direction: column; align-items: center; gap: 8px;
@@ -323,9 +366,10 @@
 .quick-action svg { color: #9ca3af; }
 .quick-action:hover svg { color: #6366f1; }
 
-.chart-card-header { padding: 20px 24px 14px; border-bottom: 1px solid #e5e7eb; }
-.chart-card-header h3 { font-size: 15px; }
-.chart-card-sub { font-size: 13px; color: #9ca3af; margin-top: 2px; }
+.chart-card-header { padding: 22px 24px 16px; border-bottom: 1px solid #e5e7eb; }
+.chart-card-header h3 { font-size: 15.5px; font-weight: 700; }
+.chart-card-header h2 { font-weight: 700; }
+.chart-card-sub { font-size: 13.5px; color: #6b7280; font-weight: 500; margin-top: 3px; }
 .chart-card-body { padding: 16px 12px 8px; }
 
 /* ─── Badges ─── */
@@ -509,6 +553,14 @@
 [data-theme="dark"] .stat-value { color: #f1f1f5; }
 [data-theme="dark"] .stat-period { color: #4b4e6b; }
 [data-theme="dark"] .stat-icon { box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+[data-theme="dark"] .stat-caption { color: #9396b3; }
+[data-theme="dark"] .stat-caption svg { color: #6b6f8f; }
+[data-theme="dark"] .stat-icon-soft-indigo { background: rgba(99,102,241,0.18); color: #a5b4fc; }
+[data-theme="dark"] .stat-icon-soft-emerald { background: rgba(16,185,129,0.18); color: #6ee7b7; }
+[data-theme="dark"] .stat-icon-soft-amber { background: rgba(245,158,11,0.18); color: #fcd34d; }
+[data-theme="dark"] .stat-icon-soft-violet { background: rgba(139,92,246,0.18); color: #c4b5fd; }
+[data-theme="dark"] .stat-trend-pill.up { color: #6ee7b7; background: rgba(16,185,129,0.16); }
+[data-theme="dark"] .stat-trend-pill.down { color: #fca5a5; background: rgba(239,68,68,0.16); }
 
 [data-theme="dark"] .quick-action {
     background: #16161d; border-color: rgba(255,255,255,0.06); color: #8b8ea8;
@@ -518,7 +570,7 @@
 [data-theme="dark"] .quick-action:hover svg { color: #818cf8; }
 
 [data-theme="dark"] .chart-card-header { border-color: rgba(255,255,255,0.06); }
-[data-theme="dark"] .chart-card-sub { color: #4b4e6b; }
+[data-theme="dark"] .chart-card-sub { color: #8b8ea8; }
 
 [data-theme="dark"] .page-title { color: #f1f1f5; }
 [data-theme="dark"] .page-subtitle { color: #8b8ea8; }
@@ -563,10 +615,14 @@
 [data-theme="light"] .sidebar-section-label { color: rgba(0,0,0,0.5); }
 [data-theme="light"] .sidebar-link { color: rgba(0,0,0,0.75); font-weight: 500; }
 [data-theme="light"] .sidebar-link:hover { background: #f8f8fb; color: rgba(0,0,0,0.9); }
-[data-theme="light"] .sidebar-link.active { background: #6366f1; color: #fff; }
+[data-theme="light"] .sidebar-link.active {
+    background: linear-gradient(90deg, rgba(99,102,241,0.14) 0%, rgba(99,102,241,0.02) 100%);
+    color: #4338ca; font-weight: 600;
+}
+[data-theme="light"] .sidebar-link.active::before { background: #6366f1; }
 [data-theme="light"] .sidebar-link-icon { color: rgba(0,0,0,0.65); font-weight: 600; }
 [data-theme="light"] .sidebar-link:hover .sidebar-link-icon { color: rgba(0,0,0,0.85); }
-[data-theme="light"] .sidebar-link.active .sidebar-link-icon { color: #fff; font-weight: 700; }
+[data-theme="light"] .sidebar-link.active .sidebar-link-icon { color: #6366f1; font-weight: 700; }
 [data-theme="light"] .sidebar-user { border-top-color: #f0f0f5; }
 [data-theme="light"] .sidebar-user-name { color: #1a1a1f; }
 [data-theme="light"] .sidebar-user-role { color: rgba(0,0,0,0.5); }
