@@ -96,8 +96,12 @@
 
                     @auth('user')
                     @php
+                        $notifications = collect();
                         $unreadCount = 0;
-                        try { $unreadCount = auth('user')->user()->notifications()->whereNull('read_at')->count(); } catch(\Throwable) {}
+                        try {
+                            $notifications = auth('user')->user()->notifications()->latest()->limit(10)->get();
+                            $unreadCount = $notifications->whereNull('read_at')->count();
+                        } catch(\Throwable) {}
                     @endphp
                     <div class="flex items-center gap-2 shrink-0">
 
@@ -120,14 +124,6 @@
 
 
                             <div class="notification-panel hidden absolute right-0 top-full mt-2 w-96 max-h-[500px] overflow-y-auto rounded-2xl glass border border-white/10 shadow-lg z-50">
-                                @php
-                                    try {
-                                        $notifications = auth('user')->user()->notifications()->latest()->limit(10)->get();
-                                    } catch(\Throwable) {
-                                        $notifications = collect();
-                                    }
-                                @endphp
-
                                 @if($notifications->isEmpty())
                                     <div class="p-6 text-center">
                                         <x-heroicon-o-bell-slash class="h-8 w-8 text-white/30 mx-auto mb-2" />

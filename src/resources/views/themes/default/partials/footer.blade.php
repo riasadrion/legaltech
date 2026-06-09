@@ -45,9 +45,8 @@
                 </p>
 
 
-                <form id="newsletter-form" method="POST" action="{{ route('newsletter.subscribe') }}"
+                <form id="newsletter-form"
                       class="relative mt-8 flex flex-col sm:flex-row sm:items-center gap-2 glass rounded-2xl sm:rounded-full p-1.5 sm:pl-4 max-w-sm">
-                    @csrf
                     <div class="flex items-center gap-2 px-2 sm:px-0 flex-1 min-w-0">
                         <x-heroicon-o-envelope class="h-4 w-4 text-white/40 shrink-0" />
                         <input type="email" name="email" required
@@ -174,11 +173,15 @@ $(function () {
         $label.text('@lang('Sending…')');
 
         $.ajax({
-            url: $form.attr('action'),
+            url: '{{ route('newsletter.subscribe') }}',
             method: 'POST',
-            data: $form.serialize(),
+            data: { email: $input.val(), website: $form.find('input[name="website"]').val() },
             dataType: 'json',
-            headers: { 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json' },
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                'X-Requested-With': 'XMLHttpRequest',
+                'Accept': 'application/json',
+            },
         }).done(function (res) {
             var color = res.status === 'info' ? idleClass : okClass;
             $msg.removeClass(classes).addClass(color).text(res.message || '@lang('Subscribed.')');

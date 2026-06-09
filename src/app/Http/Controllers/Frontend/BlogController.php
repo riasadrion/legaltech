@@ -12,7 +12,8 @@ class BlogController extends Controller
     public function index()
     {
         $posts = BlogPost::published()
-            ->with(['category', 'author', 'tags'])
+            ->select(['id', 'slug', 'title', 'excerpt', 'cover_image', 'published_at', 'blog_category_id'])
+            ->with('category:id,name,slug')
             ->latest('published_at')
             ->paginate(13);
 
@@ -23,11 +24,15 @@ class BlogController extends Controller
 
     public function show(string $slug)
     {
-        $post = BlogPost::published()->where('slug', $slug)->with(['category', 'author', 'tags'])->firstOrFail();
+        $post = BlogPost::published()
+            ->where('slug', $slug)
+            ->with(['category:id,name,slug', 'tags:id,name,slug'])
+            ->firstOrFail();
 
         $related = BlogPost::published()
+            ->select(['id', 'slug', 'title', 'excerpt', 'cover_image', 'published_at', 'blog_category_id'])
             ->where('id', '!=', $post->id)
-            ->with(['category', 'author'])
+            ->with('category:id,name,slug')
             ->latest('published_at')
             ->limit(3)
             ->get();
@@ -40,8 +45,8 @@ class BlogController extends Controller
         $category = BlogCategory::where('slug', $slug)->firstOrFail();
 
         $posts = BlogPost::published()
+            ->select(['id', 'slug', 'title', 'excerpt', 'cover_image', 'published_at', 'blog_category_id'])
             ->where('blog_category_id', $category->id)
-            ->with(['author', 'tags'])
             ->latest('published_at')
             ->paginate(12);
 
@@ -53,7 +58,8 @@ class BlogController extends Controller
         $tag = Tag::where('slug', $slug)->firstOrFail();
 
         $posts = $tag->posts()->published()
-            ->with(['category', 'author'])
+            ->select(['blog_posts.id', 'slug', 'title', 'excerpt', 'cover_image', 'published_at', 'blog_category_id'])
+            ->with('category:id,name,slug')
             ->latest('published_at')
             ->paginate(12);
 
@@ -62,7 +68,7 @@ class BlogController extends Controller
 
     public function rss()
     {
-        $posts = BlogPost::published()->with('author')->latest('published_at')->limit(20)->get();
+        $posts = BlogPost::published()->select(['id', 'slug', 'title', 'excerpt', 'body', 'published_at'])->latest('published_at')->limit(20)->get();
 
         return response()->view('theme::blog.rss', compact('posts'))
             ->header('Content-Type', 'application/rss+xml; charset=utf-8');

@@ -45,7 +45,7 @@ class TicketController
     public function show(SupportTicket $ticket): View
     {
         $ticket->load(['user', 'assignee', 'messages.author', 'messages.attachments']);
-        $admins = Admin::orderBy('name')->get();
+        $admins = Admin::orderBy('name')->get(['id', 'name', 'email']);
 
         return view('admin.support.tickets.show', compact('ticket', 'admins'));
     }

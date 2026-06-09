@@ -8,7 +8,8 @@
     $linkUrl  = $d['link_url']  ?? route('blog.index');
 
     $posts = BlogPost::published()
-        ->with('category')
+        ->select(['id', 'slug', 'title', 'excerpt', 'published_at', 'blog_category_id'])
+        ->with('category:id,name,slug')
         ->latest('published_at')
         ->limit(3)
         ->get();
