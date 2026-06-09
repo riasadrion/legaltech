@@ -15,6 +15,7 @@ class FileUploader
         ?int $ownerId = null,
         ?int $subResourceId = null,
         ?int $maxWidth = null,
+        ?string $prefix = null,
     ): UploadedFileMeta {
         $config = $this->moduleConfig($module);
 
@@ -24,7 +25,7 @@ class FileUploader
         $realMime = $this->sniffMime($file);
         $this->assertMimeAllowed($realMime, $config, $module);
 
-        $filename = $this->buildFilename($file, $realMime);
+        $filename = $this->buildFilename($file, $realMime, $prefix);
         $directory = $this->resolveDirectory($config, $module, $ownerId, $subResourceId);
         $path = rtrim($directory, '/').'/'.$filename;
 
@@ -129,12 +130,16 @@ class FileUploader
         }
     }
 
-    private function buildFilename(UploadedFile $file, string $mime): string
+    private function buildFilename(UploadedFile $file, string $mime, ?string $prefix = null): string
     {
-        $original = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-        $slug = Str::slug($original);
-        if ($slug === '') {
-            $slug = 'file';
+        if ($prefix !== null) {
+            $slug = Str::slug($prefix);
+        } else {
+            $original = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+            $slug = Str::slug($original);
+            if ($slug === '') {
+                $slug = 'file';
+            }
         }
         $suffix = Str::random(8);
         $ext = $this->extensionForMime($mime);

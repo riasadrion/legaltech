@@ -25,7 +25,7 @@ class CmsSeeder extends Seeder
                 'type' => 'hero',
                 'enabled' => true,
                 'sort' => 0,
-                'data' => '{"pill_url":"/user/dashboard","pill_text":"AI-powered legal document automation","pill_label":"New","subheading":"Generate contracts, NDAs, privacy policies and more. Reviewed by lawyers, customised for your business.","primary_url":"/register","primary_text":"Get Started Free","secondary_url":"/#how-it-works","heading_line_1":"Contracts,","heading_line_2":"and signed","secondary_text":"See How It Works","heading_italic_1":"drafted","heading_italic_2":"in minutes.","subheading_emphasis":"Trusted by 2,000+ businesses"}',
+                'data' => '{"pill_url":"/user/dashboard","pill_text":"AI-powered legal document automation","pill_label":"New","subheading":"Generate contracts, NDAs, privacy policies and more. Reviewed by lawyers, customised for your business.","primary_url":"/register","primary_text":"Get Started Free","secondary_url":"/#how-it-works","heading_line_1":"Documents,","heading_line_2":"to","secondary_text":"See How It Works","heading_italic_1":"built","heading_italic_2":"close deals.","subheading_emphasis":"Trusted by 2,000+ businesses"}',
             ],
             [
                 'id' => 2,
@@ -74,7 +74,7 @@ class CmsSeeder extends Seeder
                 'type' => 'cta',
                 'enabled' => true,
                 'sort' => 7,
-                'data' => '{"pill_text":"4,200+ teams already shipping faster with LegalDocs","subheading":"Start your 14-day free trial. No credit card. Generate, sign, and send your first contract before lunch.","primary_url":"\/register","primary_text":"Start free trial","secondary_url":"\/contact","heading_line_1":"Your next contract","heading_line_2":"is one sentence away.","secondary_text":"Book a 20-min demo"}',
+                'data' => '{"pill_text":"4,200+ teams already shipping faster with LegalDocs","subheading":"Start your 14-day free trial. No credit card. Generate, sign, and send your first contract before lunch.","primary_url":"\/register","primary_text":"Start free trial","secondary_url":"\/contact","heading_line_1":"One sentence.","heading_line_2":"One contract.","secondary_text":"Book a 20-min demo"}',
             ],
             [
                 'id' => 10,

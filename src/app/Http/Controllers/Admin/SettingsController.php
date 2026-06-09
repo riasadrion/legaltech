@@ -84,7 +84,7 @@ class SettingsController extends Controller
         if ($request->hasFile('site_logo')) {
             try {
                 $this->deleteUpload(Settings::string('site.logo'));
-                $meta = $uploader->store($request->file('site_logo'), 'brand');
+                $meta = $uploader->store($request->file('site_logo'), 'brand', prefix: 'logo-light');
                 Settings::set('site.logo', $meta->url, 'string', 'general');
             } catch (\Throwable $e) {
                 Log::error('Logo upload failed: '.$e->getMessage());
@@ -95,7 +95,7 @@ class SettingsController extends Controller
         if ($request->hasFile('site_dark_logo')) {
             try {
                 $this->deleteUpload(Settings::string('site.dark_logo'));
-                $meta = $uploader->store($request->file('site_dark_logo'), 'brand');
+                $meta = $uploader->store($request->file('site_dark_logo'), 'brand', prefix: 'logo-dark');
                 Settings::set('site.dark_logo', $meta->url, 'string', 'general');
             } catch (\Throwable $e) {
                 Log::error('Dark logo upload failed: '.$e->getMessage());
@@ -106,7 +106,7 @@ class SettingsController extends Controller
         if ($request->hasFile('site_favicon')) {
             try {
                 $this->deleteUpload(Settings::string('site.favicon'));
-                $meta = $uploader->store($request->file('site_favicon'), 'brand', maxWidth: 80);
+                $meta = $uploader->store($request->file('site_favicon'), 'brand', maxWidth: 80, prefix: 'favicon');
                 Settings::set('site.favicon', $meta->url, 'string', 'general');
             } catch (\Throwable $e) {
                 Log::error('Favicon upload failed: '.$e->getMessage());
@@ -117,7 +117,7 @@ class SettingsController extends Controller
         if ($request->hasFile('site_og_image')) {
             try {
                 $this->deleteUpload(Settings::string('site.og_image'));
-                $meta = $uploader->store($request->file('site_og_image'), 'brand');
+                $meta = $uploader->store($request->file('site_og_image'), 'brand', prefix: 'og-image');
                 Settings::set('site.og_image', $meta->url, 'string', 'general');
             } catch (\Throwable $e) {
                 Log::error('OG image upload failed: '.$e->getMessage());

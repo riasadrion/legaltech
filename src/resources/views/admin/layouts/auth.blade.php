@@ -11,7 +11,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     @viteAssets(['resources/css/app.css'])
-    <link rel="stylesheet" href="{{ asset('assets/static/admin/css/admin.css') }}">
     @stack('head')
 </head>
 <body class="admin-auth">

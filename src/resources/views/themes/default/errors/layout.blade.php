@@ -12,7 +12,6 @@
         --brand-color: {{ setting('site.primary_color') }};
         --color-cream-50: color-mix(in srgb, {{ setting('site.primary_color') }} 3%, #FBFAF6);
     }</style>
-    <link rel="stylesheet" href="{{ asset('assets/static/css/themes/default.css') }}">
 </head>
 <body class="theme-default-error">
 

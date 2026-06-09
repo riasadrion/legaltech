@@ -20,7 +20,6 @@
     <style>.theme-default { --font-frontend: '{{ $siteFont }}', ui-sans-serif, system-ui, sans-serif; }</style>
     @endif
     @viteAssets(['resources/css/app.css', 'resources/js/app.js'])
-    <link rel="stylesheet" href="{{ asset('assets/static/css/themes/default.css') }}">
     <style>body.theme-default {
         background: #0B0B0F;
         --brand-color: {{ setting('site.primary_color') }};

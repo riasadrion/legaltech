@@ -47,11 +47,17 @@ if (! function_exists('upload_url')) {
             $parsed = parse_url($path);
             $filePath = $parsed['path'] ?? $path;
             $filePath = preg_replace('#^.*?/assets/uploads/#', '', $filePath);
-
-            return $base.'/assets/uploads/'.ltrim($filePath, '/');
+            $relativePath = ltrim($filePath, '/');
+        } else {
+            $relativePath = ltrim($path, '/');
         }
 
-        return $base.'/assets/uploads/'.ltrim($path, '/');
+        $absolutePath = base_path('../assets/uploads/'.$relativePath);
+        if (! file_exists($absolutePath)) {
+            return $base.'/assets/static/img/placeholder.svg';
+        }
+
+        return $base.'/assets/uploads/'.$relativePath;
     }
 }
 

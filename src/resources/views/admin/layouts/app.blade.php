@@ -18,7 +18,6 @@
     window.onAdminReady = function (fn) { window._adminReady.push(fn); };
     </script>
     <script src="{{ asset('assets/static/admin/admin.js') }}" defer></script>
-    <link rel="stylesheet" href="{{ asset('assets/static/admin/css/admin.css') }}">
     @stack('head')
 </head>
 <body class="antialiased text-gray-900">

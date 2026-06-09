@@ -13,7 +13,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     @viteAssets(['resources/css/app.css', 'resources/js/app.js'])
-    <link rel="stylesheet" href="{{ asset('assets/static/css/themes/default.css') }}">
     <style>body.theme-default {
         --brand-color: {{ setting('site.primary_color') }};
         --brand-color-soft: color-mix(in srgb, {{ setting('site.primary_color') }} 70%, white);

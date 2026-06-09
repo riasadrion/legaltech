@@ -8,7 +8,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
     @viteAssets(['resources/css/app.css'])
-    <link rel="stylesheet" href="{{ asset('assets/static/css/themes/default.css') }}">
 </head>
 <body class="min-h-screen flex flex-col items-center justify-center px-4 theme-default">
 

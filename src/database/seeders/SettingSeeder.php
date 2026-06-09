@@ -13,9 +13,10 @@ class SettingSeeder extends Seeder
 
         $settings = [
             // ── General / Branding ────────────────────────────────────────
-            ['key' => 'site.logo',         'value' => 'brand/group-1000003780-EULsmmk0.png',    'type' => 'string', 'group' => 'general'],
-            ['key' => 'site.dark_logo',    'value' => 'brand/group-1000003780-1-P0dJof2i.png', 'type' => 'string', 'group' => 'general'],
-            ['key' => 'site.favicon',      'value' => 'brand/frame-1000003740-9rBLtRLP.png',   'type' => 'string', 'group' => 'general'],
+            ['key' => 'site.logo',         'value' => 'brand/logo-light.png', 'type' => 'string', 'group' => 'general'],
+            ['key' => 'site.dark_logo',    'value' => 'brand/logo-dark.png',  'type' => 'string', 'group' => 'general'],
+            ['key' => 'site.favicon',      'value' => 'brand/favicon.png',    'type' => 'string', 'group' => 'general'],
+            ['key' => 'site.og_image',     'value' => 'brand/og-image.png',   'type' => 'string', 'group' => 'general'],
             ['key' => 'site.font',          'value' => 'system',  'type' => 'string', 'group' => 'general'],
             ['key' => 'site.primary_color', 'value' => '#e57e38', 'type' => 'string', 'group' => 'general'],
             ['key' => 'site.custom_css',    'value' => '',        'type' => 'string', 'group' => 'general'],
