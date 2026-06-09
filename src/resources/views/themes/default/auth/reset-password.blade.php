@@ -50,7 +50,7 @@
         </div>
     </div>
 
-    <button type="submit" class="btn-primary w-full flex items-center justify-center rounded-xl px-5 py-3.5 text-[15px] font-semibold">
+    <button type="submit" class="btn-primary w-full flex items-center justify-center rounded-full px-5 py-3.5 text-[15px] font-semibold">
         @lang('Reset password')
     </button>
 </form>

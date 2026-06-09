@@ -48,7 +48,7 @@
                 <form id="newsletter-form" method="POST" action="{{ route('newsletter.subscribe') }}"
                       class="relative mt-8 flex flex-col sm:flex-row sm:items-center gap-2 glass rounded-2xl sm:rounded-full p-1.5 sm:pl-4 max-w-sm">
                     @csrf
-                    <div class="flex items-center gap-2 px-2 sm:px-0">
+                    <div class="flex items-center gap-2 px-2 sm:px-0 flex-1 min-w-0">
                         <x-heroicon-o-envelope class="h-4 w-4 text-white/40 shrink-0" />
                         <input type="email" name="email" required
                                placeholder="{{ __('you@company.com') }}"

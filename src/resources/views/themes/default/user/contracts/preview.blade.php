@@ -72,7 +72,7 @@
         <input type="hidden" name="template_id" value="{{ $template->id }}">
         <a href="{{ route('user.contracts.wizard', $template) }}"
            class="text-[13px] text-white/50 hover:text-white">@lang('Go back & edit')</a>
-        <button type="submit" class="btn-primary rounded-xl px-5 py-3 text-[13px] font-semibold flex items-center gap-2">
+        <button type="submit" class="btn-primary rounded-full px-5 py-3 text-[13px] font-semibold flex items-center gap-2">
             <x-heroicon-o-sparkles class="h-4 w-4" />
             @lang('Generate Contract')
         </button>

@@ -46,12 +46,12 @@
 
 
                 <form method="GET" action="{{ route('user.contracts.ai.create') }}" class="mt-7 max-w-xl">
-                    <div class="flex items-center gap-2 rounded-2xl bg-ink-900/70 border border-white/10 p-2 pl-4 focus-within:border-primary/40 transition">
+                    <div class="flex items-center gap-2 rounded-full bg-ink-900/70 border border-white/10 p-2 pl-4 focus-within:border-primary/40 transition">
                         <x-heroicon-o-sparkles class="h-4 w-4 text-primary shrink-0" />
                         <input name="brief" required minlength="20"
                                placeholder="{{ __('Generate a contract — e.g. \'NDA with Helix/Law, mutual, UK law\'') }}"
                                class="flex-1 bg-transparent outline-none text-[14px] placeholder:text-white/35 py-2 min-w-0 text-white">
-                        <button type="submit" class="btn-primary rounded-xl px-4 py-2 text-[13px] flex items-center gap-1.5 shrink-0">
+                        <button type="submit" class="btn-primary rounded-full px-4 py-2 text-[13px] flex items-center gap-1.5 shrink-0">
                             @lang('Continue')
                         </button>
                     </div>
@@ -115,7 +115,7 @@
 
                         <div class="mt-5 flex items-center gap-2">
                             <a href="{{ route('user.contracts.show', $recentContract) }}"
-                               class="btn-ghost rounded-lg px-3 py-2 text-[12px] flex items-center gap-1.5">
+                               class="btn-ghost rounded-full px-3 py-2 text-[12px] flex items-center gap-1.5">
                                 <x-heroicon-o-arrow-top-right-on-square class="h-4 w-4" />
                                 @lang('Open')
                             </a>
@@ -124,7 +124,7 @@
                         <div class="text-center py-8">
                             <div class="text-[11px] font-mono text-white/60 mb-3">@lang('NO CONTRACTS YET')</div>
                             <a href="{{ route('user.contracts.index') }}"
-                               class="btn-primary rounded-xl px-4 py-2 text-[13px] inline-flex items-center gap-1.5">
+                               class="btn-primary rounded-full px-4 py-2 text-[13px] inline-flex items-center gap-1.5">
                                 @lang('Create contract')
                             </a>
                         </div>

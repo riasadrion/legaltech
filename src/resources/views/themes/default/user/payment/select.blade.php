@@ -14,7 +14,7 @@
     <div class="rounded-2xl glass p-12 text-center text-white/40">
         <x-heroicon-o-credit-card class="h-10 w-10 mx-auto mb-3 opacity-30" />
         <div class="text-sm">@lang('No payment methods are currently available.')</div>
-        <a href="{{ route('user.payment.index') }}" class="btn-ghost rounded-lg px-4 py-2 text-[13px] inline-flex items-center gap-1.5 mt-4">
+        <a href="{{ route('user.payment.index') }}" class="btn-ghost rounded-full px-4 py-2 text-[13px] inline-flex items-center gap-1.5 mt-4">
             @lang('Back')
         </a>
     </div>

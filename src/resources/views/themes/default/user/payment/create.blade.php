@@ -103,7 +103,7 @@
 
             @error('error')<p class="text-[12px] text-red-400">{{ $message }}</p>@enderror
 
-            <button type="submit" class="btn-primary rounded-xl w-full py-2.5 text-[13px] font-semibold mt-1">
+            <button type="submit" class="btn-primary rounded-full w-full py-2.5 text-[13px] font-semibold mt-1">
                 @if($gateway->driver === 'manual')
                     @lang('Submit payment request')
                 @else

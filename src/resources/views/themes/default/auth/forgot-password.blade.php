@@ -25,7 +25,7 @@
                class="auth-input {{ $errors->has('email') ? 'auth-input-err' : '' }}">
     </div>
 
-    <button type="submit" class="btn-primary w-full flex items-center justify-center rounded-xl px-5 py-3.5 text-[15px] font-semibold">
+    <button type="submit" class="btn-primary w-full flex items-center justify-center rounded-full px-5 py-3.5 text-[15px] font-semibold">
         @lang('Send reset link')
     </button>
 </form>

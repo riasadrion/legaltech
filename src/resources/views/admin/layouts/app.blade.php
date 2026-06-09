@@ -12,6 +12,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
     @viteAssets(['resources/css/app.css', 'resources/js/admin.js'])
+    <script src="{{ asset('assets/static/global/js/jquery.min.js') }}"></script>
+    <script>
+    window._adminReady = window._adminReady || [];
+    window.onAdminReady = function (fn) { window._adminReady.push(fn); };
+    </script>
     <script src="{{ asset('assets/static/admin/admin.js') }}" defer></script>
     <link rel="stylesheet" href="{{ asset('assets/static/admin/css/admin.css') }}">
     @stack('head')
@@ -50,7 +55,6 @@
 
 <x-admin::confirm-modal :admin="true" />
 
-<script src="{{ asset('assets/static/global/js/jquery.min.js') }}"></script>
 <script>
 jQuery(function ($) {
     'use strict';

@@ -3,7 +3,7 @@
     $heading = $d['heading'] ?? '';
     $logos = array_values(array_filter($d['logos'] ?? [], fn($l) => !empty($l['url'])));
 @endphp
-<section class="relative py-14 border-y border-white/8 bg-ink-900/70 overflow-hidden">
+<section class="relative py-14 border-y border-white/8 bg-ink-950 overflow-hidden">
     <div class="mx-auto max-w-7xl px-6">
         @if($heading)
             <h2 class="text-center text-sm font-mono uppercase tracking-[.25em] text-white/55 font-normal">
@@ -16,8 +16,8 @@
 
     @if(!empty($logos))
     <div class="mt-8 relative">
-        <div class="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-ink-900 to-transparent z-10 pointer-events-none"></div>
-        <div class="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-ink-900 to-transparent z-10 pointer-events-none"></div>
+        <div class="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-ink-950 to-transparent z-10 pointer-events-none"></div>
+        <div class="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-ink-950 to-transparent z-10 pointer-events-none"></div>
         <div class="flex marquee gap-16 whitespace-nowrap text-white/55">
             <div class="flex gap-16 items-center shrink-0">
                 @foreach($logos as $logo)

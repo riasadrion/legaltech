@@ -137,7 +137,7 @@
         <div class="flex items-center justify-between gap-3">
             <a href="{{ route('user.contracts.templates', $template->category_id) }}"
                class="text-[13px] text-white/50 hover:text-white">@lang('Back')</a>
-            <button type="submit" class="btn-primary rounded-xl px-5 py-3 text-[13px] font-semibold flex items-center gap-2">
+            <button type="submit" class="btn-primary rounded-full px-5 py-3 text-[13px] font-semibold flex items-center gap-2">
                 @lang('Review & Preview')
                 <x-heroicon-o-arrow-right class="h-4 w-4" />
             </button>

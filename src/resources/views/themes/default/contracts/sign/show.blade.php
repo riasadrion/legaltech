@@ -54,7 +54,7 @@
         <form method="POST" action="{{ route('contracts.sign.confirm', $party->token) }}">
             @csrf
             <button type="submit"
-                    class="btn-primary rounded-xl w-full py-3 text-[13px] font-semibold flex items-center justify-center gap-2">
+                    class="btn-primary rounded-full w-full py-3 text-[13px] font-semibold flex items-center justify-center gap-2">
                 <x-heroicon-o-check-badge class="h-5 w-5" />
                 @lang('I Agree and Sign')
             </button>

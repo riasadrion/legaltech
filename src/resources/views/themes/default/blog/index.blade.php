@@ -5,44 +5,55 @@
 @section('content')
 
 
-<div class="relative bg-ink-950 pt-36 pb-20 overflow-hidden">
-    <div class="absolute inset-0 bg-grid opacity-[0.03] pointer-events-none"></div>
-    <div class="radial-fade pointer-events-none"></div>
-    <div class="relative mx-auto max-w-4xl px-6 text-center">
-        <div class="inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-xs font-medium text-white/50 mb-6">
-            <x-heroicon-o-document-text class="h-4 w-4 text-primary" />@lang('Articles & insights')
+<div class="page-hero-wrap">
+
+    <div class="page-hero-glow-bl"></div>
+    <div class="page-hero-glow-tr"></div>
+
+    <div class="page-hero">
+        <div class="absolute inset-0 bg-grid-cream radial-fade pointer-events-none"></div>
+        <div class="page-hero-orb-top"></div>
+        <div class="page-hero-orb-bl"></div>
+        <div class="page-hero-orb-tr"></div>
+        <div class="page-hero-shimmer"></div>
+
+        <div class="relative mx-auto max-w-4xl px-6 text-center">
+            <div class="inline-flex items-center gap-2 rounded-full bg-primary/10 border border-primary/20 px-4 py-1.5 text-xs font-medium text-primary mb-6">
+                <x-heroicon-o-document-text class="h-4 w-4" />@lang('Articles & insights')
+            </div>
+            <h1 class="font-display text-4xl sm:text-5xl md:text-6xl text-ink-900 leading-tight mb-4">@lang('The LegalDocs Blog')</h1>
+            <p class="text-lg text-ink-400 max-w-xl mx-auto">
+                @lang('Contract law, AI automation, and the future of legal work — written for teams who ship.')
+            </p>
         </div>
-        <h1 class="font-display text-4xl sm:text-5xl md:text-6xl text-white mb-4">@lang('The LegalDocs Blog')</h1>
-        <p class="text-lg text-white/40 max-w-xl mx-auto">
-            @lang('Contract law, AI automation, and the future of legal work — written for teams who ship.')
-        </p>
     </div>
+
 </div>
 
-<div class="bg-ink-950 pb-4">
+
+<div class="bg-white border-b border-ink-900/8">
     <div class="mx-auto max-w-6xl px-6">
 
-
         @if($categories->isNotEmpty())
-        <div class="flex flex-wrap items-center gap-2 py-6 border-b border-white/8">
+        <div class="flex flex-wrap items-center gap-2 py-5">
             <a href="{{ route('blog.index') }}"
                class="rounded-full px-4 py-1.5 text-sm font-medium transition
                       {{ !request()->routeIs('blog.category') && !request()->routeIs('blog.tag')
-                         ? 'bg-primary text-ink-900' : 'glass text-white/60 hover:text-white' }}">
+                         ? 'bg-primary text-white' : 'bg-ink-100 text-ink-500 hover:text-ink-900 hover:bg-ink-200' }}">
                 @lang('All')
             </a>
             @foreach($categories as $cat)
             @if($cat->posts_count > 0)
             <a href="{{ route('blog.category', $cat->slug) }}"
-               class="inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-sm font-medium transition glass text-white/60 hover:text-white">
+               class="inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-sm font-medium transition bg-ink-100 text-ink-500 hover:text-ink-900 hover:bg-ink-200">
                 {{ $cat->getLocalName() }}
-                <span class="text-xs text-white/35 font-normal">{{ $cat->posts_count }}</span>
+                <span class="text-xs text-ink-400 font-normal">{{ $cat->posts_count }}</span>
             </a>
             @endif
             @endforeach
 
             <a href="{{ route('blog.rss') }}"
-               class="ml-auto flex items-center gap-1.5 text-sm text-white/30 hover:text-white/60 transition">
+               class="ml-auto flex items-center gap-1.5 text-sm text-ink-400 hover:text-ink-700 transition">
                 <x-heroicon-o-rss class="h-4 w-4" />RSS
             </a>
         </div>
@@ -52,24 +63,23 @@
 </div>
 
 
-<div class="bg-ink-950 py-16">
+<div class="bg-cream py-16">
     <div class="mx-auto max-w-6xl px-6">
 
         @if($posts->isEmpty())
-        <div class="py-24 text-center text-white/30">
-            <x-heroicon-o-document-text class="h-12 w-12 mb-4 mx-auto block text-white/10" />
+        <div class="py-24 text-center text-ink-400">
+            <x-heroicon-o-document-text class="h-12 w-12 mb-4 mx-auto block text-ink-200" />
             @lang('No posts yet.')
         </div>
         @else
 
         @php
-            // Featured hero only on page 1; the rest fill the grid evenly.
             $heroPost  = $posts->onFirstPage() ? $posts->first() : null;
             $gridPosts = $heroPost ? $posts->slice(1) : $posts;
         @endphp
 
         @if($heroPost)
-        <article class="group relative glass rounded-3xl overflow-hidden mb-8 lift">
+        <article class="group relative bg-ink-950 rounded-3xl overflow-hidden mb-10 shadow-lg">
             <a href="{{ route('blog.show', $heroPost->slug) }}" class="flex flex-col md:flex-row">
                 @if($heroPost->cover_image)
                 <div class="md:w-1/2 aspect-video md:aspect-auto overflow-hidden">
@@ -87,9 +97,9 @@
                         {{ $heroPost->getLocalTitle() }}
                     </h2>
                     @if($heroPost->getLocalExcerpt())
-                    <p class="text-white/50 leading-relaxed mb-6 line-clamp-3">{{ $heroPost->getLocalExcerpt() }}</p>
+                    <p class="text-white/55 leading-relaxed mb-6 line-clamp-3">{{ $heroPost->getLocalExcerpt() }}</p>
                     @endif
-                    <div class="flex items-center gap-3 text-sm text-white/30">
+                    <div class="flex items-center gap-3 text-sm text-white/35">
                         <time>{{ $heroPost->published_at->format('M j, Y') }}</time>
                     </div>
                     <div class="mt-6 inline-flex items-center gap-2 text-sm font-medium text-primary">
@@ -103,7 +113,7 @@
         @if($gridPosts->isNotEmpty())
         <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             @foreach($gridPosts as $post)
-            <article class="group glass rounded-2xl overflow-hidden lift flex flex-col">
+            <article class="group bg-white rounded-2xl overflow-hidden shadow-sm ring-1 ring-ink-900/6 hover:shadow-md transition-shadow flex flex-col">
                 @if($post->cover_image)
                 <div class="aspect-video overflow-hidden">
                     <img src="{{ upload_url($post->cover_image) }}" alt="{{ $post->getLocalTitle() }}"
@@ -117,13 +127,13 @@
                         {{ $post->category->getLocalName() }}
                     </a>
                     @endif
-                    <h2 class="font-semibold text-white leading-snug group-hover:text-primary transition mb-3 flex-1">
+                    <h2 class="font-semibold text-ink-900 leading-snug group-hover:text-primary transition mb-3 flex-1">
                         <a href="{{ route('blog.show', $post->slug) }}">{{ $post->getLocalTitle() }}</a>
                     </h2>
                     @if($post->getLocalExcerpt())
-                    <p class="text-sm text-white/40 line-clamp-2 mb-4">{{ $post->getLocalExcerpt() }}</p>
+                    <p class="text-sm text-ink-400 line-clamp-2 mb-4">{{ $post->getLocalExcerpt() }}</p>
                     @endif
-                    <div class="text-xs text-white/30 mt-auto pt-4 border-t border-white/8">
+                    <div class="text-xs text-ink-400 mt-auto pt-4 border-t border-ink-900/8">
                         <time>{{ $post->published_at->format('M j, Y') }}</time>
                     </div>
                 </div>

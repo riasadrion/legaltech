@@ -103,7 +103,7 @@
             </div>
 
             <div class="pt-2">
-                <button type="submit" class="btn-primary rounded-xl px-5 py-3 text-[13px] font-semibold w-full">
+                <button type="submit" class="btn-primary rounded-full px-5 py-3 text-[13px] font-semibold w-full">
                     @lang('Submit for review')
                 </button>
             </div>

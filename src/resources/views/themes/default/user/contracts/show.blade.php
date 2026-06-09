@@ -39,25 +39,25 @@
                     @csrf
                     <button type="button"
                             onclick="confirmModal.show('@lang('Regenerate Contract')', '@lang('1 AI draft will be deducted. This will overwrite the current content.')', function(){ showRegenLoader(); document.getElementById('regenerate-form').submit(); })"
-                            class="btn-ghost rounded-lg px-3 py-2 text-[12px] flex items-center gap-1.5 text-primary/80 hover:text-primary">
+                            class="btn-ghost rounded-full px-3 py-2 text-[12px] flex items-center gap-1.5 text-primary/80 hover:text-primary">
                         <x-heroicon-o-sparkles class="h-4 w-4" />
                         @lang('Regenerate')
                     </button>
                 </form>
                 @endif
                 <a href="{{ route('user.contracts.pdf', $contract) }}" target="_blank"
-                   class="btn-ghost rounded-lg px-3 py-2 text-[12px] flex items-center gap-1.5">
+                   class="btn-ghost rounded-full px-3 py-2 text-[12px] flex items-center gap-1.5">
                     <x-heroicon-o-arrow-down-tray class="h-4 w-4" />
                     @lang('Download PDF')
                 </a>
                 <button type="button" id="save-contract-btn"
-                        class="btn-ghost rounded-lg px-3 py-2 text-[12px] flex items-center gap-1.5">
+                        class="btn-ghost rounded-full px-3 py-2 text-[12px] flex items-center gap-1.5">
                     <x-heroicon-o-check class="h-4 w-4" />
                     @lang('Save')
                 </button>
                 <form method="POST" action="{{ route('user.contracts.finalize', $contract) }}">
                     @csrf
-                    <button class="btn-primary rounded-lg px-3 py-2 text-[12px] flex items-center gap-1.5">
+                    <button class="btn-primary rounded-full px-3 py-2 text-[12px] flex items-center gap-1.5">
                         <x-heroicon-o-lock-closed class="h-4 w-4" />
                         @lang('Finalize')
                     </button>
@@ -66,20 +66,20 @@
 
             @if($contract->isReady())
                 <a href="{{ route('user.contracts.pdf', $contract) }}" target="_blank"
-                   class="btn-ghost rounded-lg px-3 py-2 text-[12px] flex items-center gap-1.5">
+                   class="btn-ghost rounded-full px-3 py-2 text-[12px] flex items-center gap-1.5">
                     <x-heroicon-o-arrow-down-tray class="h-4 w-4" />
                     @lang('Download PDF')
                 </a>
                 <form method="POST" action="{{ route('user.contracts.send-sign', $contract) }}">
                     @csrf
-                    <button class="btn-primary rounded-lg px-3 py-2 text-[12px] flex items-center gap-1.5">
+                    <button class="btn-primary rounded-full px-3 py-2 text-[12px] flex items-center gap-1.5">
                         <x-heroicon-o-paper-airplane class="h-4 w-4" />
                         @lang('Send for Signature')
                     </button>
                 </form>
                 <form method="POST" action="{{ route('user.contracts.revert', $contract) }}">
                     @csrf
-                    <button class="btn-ghost rounded-lg px-3 py-2 text-[12px] text-white/50 hover:text-white flex items-center gap-1.5">
+                    <button class="btn-ghost rounded-full px-3 py-2 text-[12px] text-white/50 hover:text-white flex items-center gap-1.5">
                         <x-heroicon-o-pencil class="h-4 w-4" />
                         @lang('Edit')
                     </button>
@@ -90,7 +90,7 @@
                 <form method="POST" action="{{ route('user.contracts.destroy', $contract) }}"
                       onsubmit="return confirm('@lang('Delete this contract? This cannot be undone.')')">
                     @csrf @method('DELETE')
-                    <button class="btn-ghost rounded-lg px-3 py-2 text-[12px] text-red-400 hover:text-red-300 flex items-center gap-1.5">
+                    <button class="btn-ghost rounded-full px-3 py-2 text-[12px] text-red-400 hover:text-red-300 flex items-center gap-1.5">
                         <x-heroicon-o-trash class="h-4 w-4" />
                         @lang('Delete')
                     </button>

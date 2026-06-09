@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="{{ asset('assets/static/admin/css/admin.css') }}">
     @stack('head')
 </head>
-<body>
+<body class="admin-auth">
 
 <div class="al-left">
     <div class="al-left-noise"></div>

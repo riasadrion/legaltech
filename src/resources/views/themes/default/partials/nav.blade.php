@@ -186,7 +186,7 @@
                     <a href="{{ route('login') }}" class="block text-center text-sm px-4 py-2.5 rounded-xl glass-cream text-ink-700 hover:text-ink-950">
                         @lang('Sign in')
                     </a>
-                    <a href="{{ route('register') }}" class="btn-primary no-shadow text-on-primary-white rounded-xl text-center px-4 py-2.5 text-sm">
+                    <a href="{{ route('register') }}" class="btn-primary no-shadow text-on-primary-white rounded-full text-center px-4 py-2.5 text-sm">
                         @lang('Get started')
                     </a>
                 @else
@@ -195,7 +195,7 @@
                     </a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <button type="submit" class="btn-primary no-shadow text-on-primary-white w-full rounded-xl text-center px-4 py-2.5 text-sm">
+                        <button type="submit" class="btn-primary no-shadow text-on-primary-white w-full rounded-full text-center px-4 py-2.5 text-sm">
                             @lang('Sign out')
                         </button>
                     </form>

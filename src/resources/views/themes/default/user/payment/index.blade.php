@@ -62,7 +62,7 @@
                 <h2 class="font-display text-2xl text-white">@lang('Recent payments')</h2>
                 <div class="text-[12px] text-white/50 mt-0.5">{{ $payments->total() }} @lang('transactions')</div>
             </div>
-            <a href="{{ route('user.payment.create') }}" class="btn-primary rounded-lg px-3 py-2 text-[12px] flex items-center gap-1.5">
+            <a href="{{ route('user.payment.create') }}" class="btn-primary rounded-full px-3 py-2 text-[12px] flex items-center gap-1.5">
                 <x-heroicon-o-plus class="h-4 w-4" />
                 @lang('Add funds')
             </a>
@@ -107,7 +107,7 @@
     <div class="rounded-2xl glass p-12 text-center text-white/40">
         <x-heroicon-o-credit-card class="h-10 w-10 mx-auto mb-3 opacity-30" />
         <div class="text-sm">@lang('No payments yet — add funds to get started.')</div>
-        <a href="{{ route('user.payment.create') }}" class="btn-primary rounded-lg px-4 py-2 text-[13px] inline-flex items-center gap-1.5 mt-4">
+        <a href="{{ route('user.payment.create') }}" class="btn-primary rounded-full px-4 py-2 text-[13px] inline-flex items-center gap-1.5 mt-4">
             <x-heroicon-o-plus class="h-4 w-4" />
             @lang('Add Funds')
         </a>

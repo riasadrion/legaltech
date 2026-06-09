@@ -22,7 +22,10 @@
     @if($siteFont !== 'system')
     <style>.theme-default { --font-frontend: '{{ $siteFont }}', ui-sans-serif, system-ui, sans-serif; }</style>
     @endif
+    @viteAssets(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="stylesheet" href="{{ asset('assets/static/css/themes/default.css') }}">
     <style>body.theme-default {
+        background: #0B0B0F;
         --brand-color: {{ setting('site.primary_color') }};
         --brand-color-soft: color-mix(in srgb, {{ setting('site.primary_color') }} 70%, white);
         --brand-color-deep: color-mix(in srgb, {{ setting('site.primary_color') }} 80%, black);
@@ -33,9 +36,6 @@
         --color-cream-200: color-mix(in srgb, {{ setting('site.primary_color') }} 7%, #EDE8DC);
         --color-cream-300: color-mix(in srgb, {{ setting('site.primary_color') }} 9%, #D9D2BF);
     }</style>
-
-    @viteAssets(['resources/css/app.css', 'resources/js/app.js'])
-    <link rel="stylesheet" href="{{ asset('assets/static/css/themes/default.css') }}">
     <x-integrations.ga4 />
     @stack('head')
 </head>
@@ -87,7 +87,7 @@
 
 
                     <div class="w-full max-w-xs md:max-w-sm hidden sm:block shrink-0">
-                        <div class="flex items-center gap-2 rounded-xl bg-white/4 border border-white/10 px-3 py-2">
+                        <div class="flex items-center gap-2 rounded-full bg-white/4 border border-white/10 px-3 py-2">
                             <x-heroicon-o-magnifying-glass class="h-4 w-4 text-white/40 shrink-0" />
                             <span class="flex-1 text-[13px] text-white/35 select-none">@lang('Search…')</span>
                             <kbd class="hidden md:inline text-[10px] font-mono text-white/35 border border-white/10 rounded px-1.5 py-0.5">⌘K</kbd>
@@ -104,7 +104,7 @@
                     @endphp
                     <div class="flex items-center gap-2 shrink-0">
 
-                        <a href="{{ route('user.contracts.create') }}" class="hidden sm:flex btn-primary rounded-lg px-3 py-2 text-sm items-center gap-1.5">
+                        <a href="{{ route('user.contracts.create') }}" class="hidden sm:flex btn-primary rounded-full px-3 py-2 text-sm items-center gap-1.5">
                             <x-heroicon-o-sparkles class="h-4 w-4" />
                             @lang('New contract')
                         </a>
@@ -112,7 +112,7 @@
 
                         <div class="relative" data-notification-dropdown>
                             <button type="button"
-                                    class="w-9 h-9 grid place-items-center rounded-lg bg-white/4 border border-white/10 text-white/70 relative hover:bg-white/8 transition"
+                                    class="w-9 h-9 grid place-items-center rounded-full bg-white/4 border border-white/10 text-white/70 relative hover:bg-white/8 transition"
                                     data-notification-trigger
                                     aria-label="{{ __('Notifications') }}">
                                 <x-heroicon-o-bell class="h-5 w-5" />
@@ -166,14 +166,14 @@
 
                         <div class="relative" data-ud-dropdown>
                             <button type="button"
-                                    class="flex items-center gap-2 rounded-lg pl-1 pr-2 py-1 bg-white/4 border border-white/10 hover:bg-white/8 transition"
+                                    class="flex items-center gap-2 rounded-full pl-1 pr-3 py-1 bg-white/4 border border-white/10 hover:bg-white/8 transition"
                                     data-ud-dropdown-trigger aria-haspopup="true" aria-expanded="false">
                                 @if(auth('user')->user()->avatar_path)
                                     <img src="{{ upload_url(auth('user')->user()->avatar_path) }}"
                                          alt="{{ auth('user')->user()->name }}"
-                                         class="w-7 h-7 rounded-md object-cover">
+                                         class="w-7 h-7 rounded-full object-cover">
                                 @else
-                                    <span class="w-7 h-7 rounded-md bg-gradient-to-br from-primary to-primary-deep grid place-items-center font-bold text-[11px] text-ink-900">
+                                    <span class="w-7 h-7 rounded-full bg-gradient-to-br from-primary to-primary-deep grid place-items-center font-bold text-[11px] text-ink-900">
                                         {{ mb_strtoupper(mb_substr(auth('user')->user()->name ?? auth('user')->user()->email, 0, 1)) }}
                                     </span>
                                 @endif

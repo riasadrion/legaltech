@@ -99,7 +99,7 @@
 
         <div class="flex items-center justify-between gap-3">
             <a href="{{ route('user.contracts.create') }}" class="text-[13px] text-white/50 hover:text-white">@lang('Cancel')</a>
-            <button type="submit" class="btn-primary rounded-xl px-5 py-3 text-[13px] font-semibold flex items-center gap-2">
+            <button type="submit" class="btn-primary rounded-full px-5 py-3 text-[13px] font-semibold flex items-center gap-2">
                 <x-heroicon-o-sparkles class="h-4 w-4" />
                 @lang('Generate Contract')
             </button>
