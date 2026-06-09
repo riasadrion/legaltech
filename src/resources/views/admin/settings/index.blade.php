@@ -911,6 +911,7 @@ $(function () {
 
     // Submit each tab's form with a hidden _tab so server can redirect back here
     $('.tab-content form').each(function () {
+    'use strict';
         var tabName = $(this).closest('.tab-content').attr('id');
         $(this).prepend('<input type="hidden" name="_tab" value="' + tabName + '">');
     });
@@ -994,6 +995,7 @@ $(function () {
         $('#storage_driver_input').val(val);
 
         $('.storage-tile').each(function () {
+    'use strict';
             var isActive = $(this).data('storage-driver') === val;
             $(this).attr('data-active', isActive ? '1' : '0');
             $(this).find('.storage-check').remove();

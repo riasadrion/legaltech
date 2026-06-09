@@ -43,6 +43,7 @@ $(function () {
     $('[data-copy-codes]').on('click', function () {
         var codes = [];
         $('.font-mono [class*="text-gray"]').each(function () {
+    'use strict';
             codes.push($(this).text().trim());
         });
         navigator.clipboard.writeText(codes.join('\n'));

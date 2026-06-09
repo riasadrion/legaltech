@@ -40,6 +40,7 @@
 
 <script>
 $(function () {
+    'use strict';
     $(document).on('click', '#confirm-btn', function () {
         if (window.confirmModal && window.confirmModal.onConfirm) {
             window.confirmModal.onConfirm();

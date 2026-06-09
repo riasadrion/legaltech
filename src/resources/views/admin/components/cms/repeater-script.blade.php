@@ -17,6 +17,7 @@ $(function () {
         // Initialize any rich text editors that were just inserted.
         if (window.ProseEditor) {
             $row.find('.prose-editor-init').each(function () {
+    'use strict';
                 ProseEditor.init(this);
             });
         }

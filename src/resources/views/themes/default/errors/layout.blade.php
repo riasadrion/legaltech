@@ -75,6 +75,7 @@
 
     <script>
     $(function () {
+    'use strict';
         $('#err-go-back').on('click', function () { history.back(); });
     });
     </script>

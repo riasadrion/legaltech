@@ -53,6 +53,7 @@
 <script src="{{ asset('assets/static/global/js/jquery.min.js') }}"></script>
 <script>
 jQuery(function ($) {
+    'use strict';
     $(document).on('click', '#sidebar-toggle-mobile', function () {
         $('#adminSidebar').toggleClass('open');
         $('#sidebarOverlay').toggleClass('show');

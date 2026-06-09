@@ -189,6 +189,7 @@
         if (btn) { btn.disabled = true; btn.style.opacity = '0.6'; }
         var i = 0;
         setInterval(function () {
+    'use strict';
             i = (i + 1) % steps.length;
             step.textContent = steps[i];
         }, 3500);

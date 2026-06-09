@@ -50,6 +50,7 @@
 $(function () {
     'use strict';
     $('.faq-item').each(function () {
+    'use strict';
         var $item    = $(this);
         var $trigger = $item.find('.faq-trigger');
         var $panel   = $item.find('.faq-panel');

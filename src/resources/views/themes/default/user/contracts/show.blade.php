@@ -268,6 +268,7 @@ function showRegenLoader() {
     ];
     var i = 0;
     setInterval(function () {
+    'use strict';
         i = (i + 1) % steps.length;
         if (step) step.textContent = steps[i];
     }, 3500);

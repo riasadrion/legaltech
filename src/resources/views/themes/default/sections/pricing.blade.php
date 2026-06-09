@@ -84,6 +84,7 @@ $(function () {
 
         // Hide cards that don't include the active cycle
         $cards.each(function () {
+    'use strict';
             var cycles = ($(this).data('tier-cycles') || '').toString().split(',');
             $(this).toggleClass('hidden', cycles.indexOf(cycle) === -1);
         });

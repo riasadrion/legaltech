@@ -1,11 +1,3 @@
-/*!
- * StarterKit Admin Panel — Global JS
- * Loaded on every admin page. All app-level admin logic lives here.
- * Page-specific scripts hook in via `onAdminReady(fn)` and `data-*` selectors.
- *
- * Dependencies: jQuery (loaded before this file).
- */
-
 /* global jQuery, toast */
 (function ($) {
     'use strict';
@@ -42,7 +34,7 @@
     // 3. DOM-ready: wire all the things
     // -----------------------------------------------------------------------
     $(function () {
-
+        'use strict';
         // --- Sidebar mobile overlay (replaces inline onclick) ---
         $('#sidebarOverlay').on('click', function () {
             $('#adminSidebar').removeClass('open');
