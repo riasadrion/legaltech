@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Facades\Settings;
 use App\Http\Controllers\Controller;
 use App\Services\FileUploader;
+use App\Traits\DeletesUploads;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
 
 class SettingsController extends Controller
 {
+    use DeletesUploads;
+
     public function index()
     {
         return view('admin.settings.index');
@@ -81,7 +83,7 @@ class SettingsController extends Controller
 
         if ($request->hasFile('site_logo')) {
             try {
-                $this->deleteOldUpload(Settings::string('site.logo'));
+                $this->deleteUpload(Settings::string('site.logo'));
                 $meta = $uploader->store($request->file('site_logo'), 'brand');
                 Settings::set('site.logo', $meta->url, 'string', 'general');
             } catch (\Throwable $e) {
@@ -92,7 +94,7 @@ class SettingsController extends Controller
 
         if ($request->hasFile('site_dark_logo')) {
             try {
-                $this->deleteOldUpload(Settings::string('site.dark_logo'));
+                $this->deleteUpload(Settings::string('site.dark_logo'));
                 $meta = $uploader->store($request->file('site_dark_logo'), 'brand');
                 Settings::set('site.dark_logo', $meta->url, 'string', 'general');
             } catch (\Throwable $e) {
@@ -103,7 +105,7 @@ class SettingsController extends Controller
 
         if ($request->hasFile('site_favicon')) {
             try {
-                $this->deleteOldUpload(Settings::string('site.favicon'));
+                $this->deleteUpload(Settings::string('site.favicon'));
                 $meta = $uploader->store($request->file('site_favicon'), 'brand', maxWidth: 80);
                 Settings::set('site.favicon', $meta->url, 'string', 'general');
             } catch (\Throwable $e) {
@@ -114,7 +116,7 @@ class SettingsController extends Controller
 
         if ($request->hasFile('site_og_image')) {
             try {
-                $this->deleteOldUpload(Settings::string('site.og_image'));
+                $this->deleteUpload(Settings::string('site.og_image'));
                 $meta = $uploader->store($request->file('site_og_image'), 'brand');
                 Settings::set('site.og_image', $meta->url, 'string', 'general');
             } catch (\Throwable $e) {
@@ -359,19 +361,4 @@ class SettingsController extends Controller
         Settings::set('ai.openai_temperature', (float) $data['ai_openai_temperature'], 'string', 'ai');
     }
 
-    private function deleteOldUpload(?string $url): void
-    {
-        if (! $url) {
-            return;
-        }
-
-        $needle = '/assets/uploads/';
-        $pos = strpos($url, $needle);
-        if ($pos === false) {
-            return;
-        }
-
-        $relativePath = substr($url, $pos + strlen($needle));
-        Storage::disk('uploads')->delete($relativePath);
-    }
 }

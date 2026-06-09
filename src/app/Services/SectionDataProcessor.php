@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
+use App\Traits\DeletesUploads;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
 
 /**
  * Walks a section's field schema and:
@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Storage;
  */
 class SectionDataProcessor
 {
+    use DeletesUploads;
+
     public function __construct(private FileUploader $uploader) {}
 
     /**
@@ -161,17 +163,5 @@ class SectionDataProcessor
         return $urls;
     }
 
-    private function deleteUpload(string $path): void
-    {
-        if ($path === '') {
-            return;
-        }
-        // Stored value is a relative path (e.g. "sections/file.png").
-        // Legacy values may still be full URLs — strip the prefix if present.
-        $needle = '/assets/uploads/';
-        if (($pos = strpos($path, $needle)) !== false) {
-            $path = substr($path, $pos + strlen($needle));
-        }
-        Storage::disk('uploads')->delete($path);
-    }
 }
+
