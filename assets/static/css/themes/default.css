@@ -828,7 +828,8 @@ body.theme-default {
     border-color: color-mix(in srgb, var(--brand-color) 50%, transparent);
     background: #fff;
 }
-.theme-default .auth-input-err { border-color: rgba(239,68,68,0.5) !important; }
+.theme-default .auth-input-err,
+.theme-default .auth-input-err:focus { border-color: rgba(239,68,68,0.5); }
 
 .theme-default .auth-field-wrap .phone-input-group {
     border-radius: 0.75rem;
@@ -1179,33 +1180,30 @@ body.theme-default {
     color: #f87171;
     margin-top: 0.25rem;
 }
-.theme-default select.ud-select,
-.theme-default .ud-select {
-    width: 100% !important;
-    border: 1px solid rgba(255,255,255,0.10) !important;
-    border-radius: 0.625rem !important;
-    padding: 0.625rem 2.5rem 0.625rem 0.875rem !important;
-    font-size: 0.875rem !important;
-    color: #fff !important;
-    outline: none !important;
-    font-family: inherit !important;
-    -webkit-appearance: none !important;
-    -moz-appearance: none !important;
-    appearance: none !important;
-    background-color: rgba(255,255,255,0.04) !important;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='rgba(255,255,255,0.35)' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E") !important;
-    background-repeat: no-repeat !important;
-    background-position: right 0.75rem center !important;
-    background-size: 1.25rem !important;
-    cursor: pointer !important;
+body.theme-default select.ud-select {
+    width: 100%;
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 0.625rem;
+    padding: 0.625rem 2.5rem 0.625rem 0.875rem;
+    font-size: 0.875rem;
+    color: #fff;
+    outline: none;
+    font-family: inherit;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: rgba(255,255,255,0.04);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='rgba(255,255,255,0.35)' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1.25rem;
+    cursor: pointer;
 }
-.theme-default select.ud-select:focus,
-.theme-default .ud-select:focus {
-    border-color: color-mix(in srgb, var(--brand-color) 50%, transparent) !important;
-    background-color: rgba(255,255,255,0.06) !important;
+body.theme-default select.ud-select:focus {
+    border-color: color-mix(in srgb, var(--brand-color) 50%, transparent);
+    background-color: rgba(255,255,255,0.06);
 }
-.theme-default select.ud-select option,
-.theme-default .ud-select option { background: #1a1a24; color: #fff; }
+body.theme-default select.ud-select option { background: #1a1a24; color: #fff; }
 
 .theme-default .phone-input-wrap {
     position: relative;

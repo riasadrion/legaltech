@@ -12,12 +12,9 @@
     <link rel="icon" href="{{ upload_url($favicon) }}" type="image/png">
     @endif
 
-    {{-- external-allowed: google-fonts --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    {{-- external-allowed: google-fonts --}}
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     @php $siteFont = setting('site.font', 'system'); @endphp
-    {{-- external-allowed: google-fonts --}}
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600{{ $siteFont !== 'system' ? '&family=' . urlencode($siteFont) . ':wght@300;400;500;600;700;800' : '' }}&display=swap" rel="stylesheet">
     @if($siteFont !== 'system')
     <style>.theme-default { --font-frontend: '{{ $siteFont }}', ui-sans-serif, system-ui, sans-serif; }</style>

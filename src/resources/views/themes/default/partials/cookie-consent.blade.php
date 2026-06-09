@@ -1,11 +1,4 @@
 @if(setting('controls.cookie_consent') === '1')
-{{-- ───────────────── GDPR Cookie Consent ─────────────────
-     - Banner: bottom-left dark glass card
-     - Stores consent in localStorage as JSON with version + timestamp
-     - Re-openable via floating "Cookie settings" pill
-     - All styles in default.css (no inline styles)
-─────────────────────────────────────────────────────── --}}
-
 
 <div id="cookie-banner" class="cc-banner" role="dialog" aria-live="polite" aria-label="{{ __('Cookie consent') }}">
     <div class="cc-card">

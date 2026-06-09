@@ -22,7 +22,6 @@ window.toast = toast;
     }
 
     function trickle() {
-        // Ease toward 90% while waiting for the page to load
         if (current < 90) {
             const step = current < 50 ? 8 : (current < 75 ? 3 : 1);
             setProgress(Math.min(current + step, 90));
@@ -34,8 +33,7 @@ window.toast = toast;
         clearTimeout(timer);
         overlay.style.display = 'block';
         setProgress(0);
-        // Force reflow so the transition from 0 animates
-        bar.offsetWidth;
+        bar.offsetWidth; // force reflow so transition animates from 0
         setProgress(15);
         timer = setTimeout(trickle, 300);
     }

@@ -16,9 +16,7 @@ window.toast = toast;
 $(document).ready(function () {
     'use strict';
 
-    // -------------------------------------------------------------------------
     // Flash message: auto-dismiss + close button
-    // -------------------------------------------------------------------------
     window.setTimeout(function () {
         $('.flash-message').fadeOut(600);
     }, 4000);
@@ -27,9 +25,7 @@ $(document).ready(function () {
         $(this).closest('.flash-message').fadeOut(300);
     });
 
-    // -------------------------------------------------------------------------
     // Modal: open / close
-    // -------------------------------------------------------------------------
     $(document).on('click', '[data-modal-open]', function () {
         const id = $(this).data('modal-open');
         $('#' + id).removeClass('hidden');
@@ -49,9 +45,7 @@ $(document).ready(function () {
         }
     });
 
-    // -------------------------------------------------------------------------
     // Tabs (data-tab-group + data-tab)
-    // -------------------------------------------------------------------------
     $(document).on('click', '[data-tab]', function () {
         const group  = $(this).data('tab-group');
         const target = $(this).data('tab');
@@ -66,9 +60,7 @@ $(document).ready(function () {
         $('[data-tab-panel="' + target + '"][data-tab-panel-group="' + group + '"]').removeClass('hidden');
     });
 
-    // -------------------------------------------------------------------------
     // Translatable input: locale tabs
-    // -------------------------------------------------------------------------
     $(document).on('click', '.locale-tab', function () {
         const locale = $(this).data('locale');
 
@@ -83,9 +75,7 @@ $(document).ready(function () {
                .find('.locale-panel[data-locale="' + locale + '"]').removeClass('hidden');
     });
 
-    // -------------------------------------------------------------------------
     // Sortable lists
-    // -------------------------------------------------------------------------
     $('.sortable-list').each(function () {
         const el     = this;
         const url    = $(el).data('sortable-url');
@@ -105,16 +95,12 @@ $(document).ready(function () {
         });
     });
 
-    // -------------------------------------------------------------------------
     // Auto-submit forms (data-auto-submit)
-    // -------------------------------------------------------------------------
     $(document).on('change', '[data-auto-submit]', function () {
         $(this).closest('form').trigger('submit');
     });
 
-    // -------------------------------------------------------------------------
     // Confirm dialogs (data-confirm)
-    // -------------------------------------------------------------------------
     $(document).on('click', '[data-confirm]', function (e) {
         e.preventDefault();
         const $el = $(this);
@@ -131,9 +117,7 @@ $(document).ready(function () {
         });
     });
 
-    // -------------------------------------------------------------------------
     // Notification dropdown
-    // -------------------------------------------------------------------------
     $(document).on('click', '[data-notification-trigger]', function () {
         const $dropdown = $(this).closest('[data-notification-dropdown]');
         const $panel = $dropdown.find('.notification-panel');
@@ -147,16 +131,12 @@ $(document).ready(function () {
         }
     });
 
-    // -------------------------------------------------------------------------
-    // Usage bars: apply width from data-pct attribute
-    // -------------------------------------------------------------------------
+    // Usage bars
     $('.usage-bar-fill[data-pct]').each(function () {
         $(this).css('width', $(this).data('pct') + '%');
     });
 
-    // -------------------------------------------------------------------------
-    // Locale switcher: AJAX POST then reload to apply the new translations
-    // -------------------------------------------------------------------------
+    // Locale switcher
     $(document).on('click', '[data-locale-switch]', function () {
         const $btn = $(this);
         if ($btn.prop('disabled')) return;
@@ -174,9 +154,7 @@ $(document).ready(function () {
     });
 });
 
-// -------------------------------------------------------------------------
 // Global AJAX helper — auto-injects CSRF + X-Requested-With
-// -------------------------------------------------------------------------
 window.App = window.App || {};
 
 window.App.ajax = function (options) {
