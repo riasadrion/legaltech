@@ -33,7 +33,7 @@ function udShowFiles(input, listId) {
         @php
             $sc = match($ticket->status) {
                 'open'        => 'ud-badge-green',
-                'in_progress' => 'ud-badge-lime',
+                'in_progress' => 'ud-badge-primary',
                 'waiting'     => 'ud-badge-amber',
                 'closed'      => 'ud-badge-gray',
                 default       => 'ud-badge-gray',
@@ -49,7 +49,7 @@ function udShowFiles(input, listId) {
         <div class="px-4 py-3 space-y-1.5 {{ $isUser ? '' : 'bg-white/2' }}">
             <div class="flex items-center justify-between gap-3">
                 <div class="flex items-center gap-2">
-                    <div class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full {{ $isUser ? 'bg-lime/15' : 'bg-violet/15' }} text-xs font-bold {{ $isUser ? 'text-lime' : 'text-violet-400' }}">
+                    <div class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full {{ $isUser ? 'bg-primary/15' : 'bg-violet/15' }} text-xs font-bold {{ $isUser ? 'text-primary' : 'text-violet-400' }}">
                         {{ strtoupper(substr($msg->author?->name ?? 'S', 0, 1)) }}
                     </div>
                     <span class="text-sm font-medium text-white">

@@ -26,7 +26,7 @@
             @if($post->category)
                 <span>/</span>
                 <a href="{{ route('blog.category', $post->category->slug) }}"
-                   class="text-lime font-medium hover:text-lime-soft transition">
+                   class="text-primary font-medium hover:text-primary-soft transition">
                     {{ $post->category->getLocalName() }}
                 </a>
             @endif
@@ -71,7 +71,7 @@
         @foreach($post->tags as $tag)
         <a href="{{ route('blog.tag', $tag->slug) }}"
            class="inline-flex items-center gap-1 rounded-full glass px-4 py-1.5 text-xs font-medium text-white/60 hover:text-white hover:bg-white/10 transition">
-            <x-heroicon-o-hashtag class="h-3.5 w-3.5 text-lime/60" />{{ $tag->getLocalName() }}
+            <x-heroicon-o-hashtag class="h-3.5 w-3.5 text-primary/60" />{{ $tag->getLocalName() }}
         </a>
         @endforeach
     </div>
@@ -103,11 +103,11 @@
                 <div class="p-5">
                     @if($rPost->category)
                     <a href="{{ route('blog.category', $rPost->category->slug) }}"
-                       class="text-[11px] font-semibold text-lime uppercase tracking-widest mb-2 block">
+                       class="text-[11px] font-semibold text-primary uppercase tracking-widest mb-2 block">
                         {{ $rPost->category->getLocalName() }}
                     </a>
                     @endif
-                    <h3 class="font-semibold text-white leading-snug group-hover:text-lime transition mb-2">
+                    <h3 class="font-semibold text-white leading-snug group-hover:text-primary transition mb-2">
                         <a href="{{ route('blog.show', $rPost->slug) }}">{{ $rPost->getLocalTitle() }}</a>
                     </h3>
                     <p class="text-xs text-white/30">{{ $rPost->published_at->format('M j, Y') }}</p>

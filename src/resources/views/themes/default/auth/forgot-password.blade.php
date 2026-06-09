@@ -25,12 +25,12 @@
                class="auth-input {{ $errors->has('email') ? 'auth-input-err' : '' }}">
     </div>
 
-    <button type="submit" class="auth-btn-primary w-full">
+    <button type="submit" class="btn-primary w-full flex items-center justify-center rounded-xl px-5 py-3.5 text-[15px] font-semibold">
         @lang('Send reset link')
     </button>
 </form>
 
-<p class="mt-6 text-center text-sm text-white/50">
+<p class="mt-6 text-center text-sm text-ink-500">
     <a href="{{ route('login') }}" class="auth-link">@lang('← Back to sign in')</a>
 </p>
 

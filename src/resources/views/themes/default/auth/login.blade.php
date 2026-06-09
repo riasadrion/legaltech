@@ -35,7 +35,7 @@
                    placeholder="••••••••" autocomplete="current-password" required
                    class="auth-input pe-11 {{ $errors->has('password') ? 'auth-input-err' : '' }}">
             <button type="button" data-pwd-toggle tabindex="-1"
-                    class="absolute inset-y-0 end-0 flex items-center pe-3 text-white/40 hover:text-white/70">
+                    class="absolute inset-y-0 end-0 flex items-center pe-3 text-ink-400 hover:text-ink-700">
                 <x-heroicon-o-eye class="h-5 w-5" data-eye />
                 <x-heroicon-o-eye-slash class="h-5 w-5 hidden" data-eye-off />
             </button>
@@ -45,12 +45,12 @@
     <div class="flex items-center gap-2">
         <input id="remember" name="remember" type="checkbox"
                class="auth-checkbox" {{ old('remember') ? 'checked' : '' }}>
-        <label for="remember" class="text-sm text-white/60 cursor-pointer">@lang('Remember me')</label>
+        <label for="remember" class="text-sm text-ink-500 cursor-pointer">@lang('Remember me')</label>
     </div>
 
     <x-turnstile />
 
-    <button type="submit" class="auth-btn-primary w-full">
+    <button type="submit" class="btn-primary w-full flex items-center justify-center rounded-xl px-5 py-3.5 text-[15px] font-semibold">
         @lang('Sign in')
     </button>
 </form>
@@ -67,7 +67,7 @@ $anySocial = collect(['google','facebook','twitter','linkedin'])
 @endif
 
 @if(setting('controls.registration_enabled', '1') === '1')
-<p class="mt-6 text-center text-sm text-white/50">
+<p class="mt-6 text-center text-sm text-ink-500">
     @lang("Don't have an account?")
     <a href="{{ route('register') }}" class="auth-link font-medium">@lang('Sign up')</a>
 </p>

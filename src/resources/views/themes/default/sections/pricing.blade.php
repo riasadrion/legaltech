@@ -14,34 +14,32 @@
     $allPlans = Plan::active()->orderBy('sort')->get();
 @endphp
 
-<section id="pricing" class="relative py-28">
-    <div class="mx-auto max-w-7xl px-6">
+<section id="pricing" class="relative py-28 {{ $sectionBg ?? 'bg-cream-50' }} text-ink-900">
+    @if(($sectionBg ?? '') === 'bg-cream-50')<div class="absolute inset-0 bg-grid-cream pointer-events-none"></div>@endif
+    <div class="relative mx-auto max-w-7xl px-6">
 
-        <div class="text-center max-w-3xl mx-auto" data-reveal>
-            @if($eyebrow)
-                <div class="text-[11px] font-mono uppercase tracking-[.25em] text-lime mb-3">— {{ __($eyebrow) }}</div>
-            @endif
-            @if($heading)
-                <h2 class="font-display text-4xl md:text-5xl lg:text-6xl leading-[0.95]"><?php echo __($heading); ?></h2>
-            @endif
-            @if($subhead)
-                <p class="text-white/65 mt-4">{{ __($subhead) }}</p>
-            @endif
-        </div>
+        <x-theme::section-header
+            :eyebrow="$eyebrow"
+            :heading="$heading"
+            :subhead="$subhead"
+            align="center"
+            class="max-w-3xl mx-auto"
+            data-reveal
+        />
 
 
         <div class="flex justify-center mt-10">
-            <div class="glass rounded-full p-1 flex items-center text-sm" id="pricing-tabs">
+            <div class="glass-cream rounded-full p-1 flex items-center text-sm" id="pricing-tabs">
                 <button data-cycle="per_contract"
-                        class="pricing-tab rounded-full px-5 py-2 font-medium transition text-white/65">
+                        class="pricing-tab rounded-full px-5 py-2 font-medium transition text-ink-600">
                     {{ $tabPer }}
                 </button>
                 <button data-cycle="monthly"
-                        class="pricing-tab rounded-full px-5 py-2 font-medium transition bg-lime text-ink-900">
+                        class="pricing-tab rounded-full px-5 py-2 font-medium transition bg-primary text-white">
                     {{ $tabMonth }}
                 </button>
                 <button data-cycle="yearly"
-                        class="pricing-tab rounded-full px-5 py-2 font-medium transition text-white/65">
+                        class="pricing-tab rounded-full px-5 py-2 font-medium transition text-ink-600">
                     {{ $tabYear }}
                 </button>
             </div>
@@ -76,8 +74,8 @@ $(function () {
     };
 
     function applyCycle(cycle) {
-        $tabs.removeClass('bg-lime text-ink-900').addClass('text-white/65');
-        $tabs.filter('[data-cycle="' + cycle + '"]').addClass('bg-lime text-ink-900').removeClass('text-white/65');
+        $tabs.removeClass('bg-primary text-white').addClass('text-ink-600');
+        $tabs.filter('[data-cycle="' + cycle + '"]').addClass('bg-primary text-white').removeClass('text-ink-600');
 
         $prices.addClass('hidden');
         $prices.filter('[data-cycle="' + cycle + '"]').removeClass('hidden');

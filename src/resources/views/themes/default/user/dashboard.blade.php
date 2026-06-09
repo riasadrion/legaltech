@@ -18,12 +18,12 @@
         try { $pendingPayments = $user->payments()->where('status','awaiting_approval')->count(); } catch(\Throwable) {}
     @endphp
     <section class="relative rounded-3xl glass overflow-hidden p-7 md:p-9">
-        <div class="absolute -right-20 -top-20 w-80 h-80 glow-lime opacity-70"></div>
+        <div class="absolute -right-20 -top-20 w-80 h-80 glow-primary opacity-70"></div>
         <div class="absolute -left-10 -bottom-20 w-72 h-72 glow-violet opacity-40"></div>
 
         <div class="relative grid md:grid-cols-12 gap-6 items-center">
             <div class="md:col-span-7">
-                <div class="text-[11px] font-mono uppercase tracking-[.25em] text-lime mb-2">— {{ now()->format('l · d M Y') }}</div>
+                <div class="text-[11px] font-mono uppercase tracking-[.25em] text-primary mb-2">— {{ now()->format('l · d M Y') }}</div>
                 <h1 class="font-display text-5xl md:text-6xl leading-[0.95] text-white">
                     @lang('Welcome back,') <span class="italic-display">{{ $user->name ?? __('there') }}.</span>
                 </h1>
@@ -46,12 +46,12 @@
 
 
                 <form method="GET" action="{{ route('user.contracts.ai.create') }}" class="mt-7 max-w-xl">
-                    <div class="flex items-center gap-2 rounded-2xl bg-ink-900/70 border border-white/10 p-2 pl-4 focus-within:border-lime/40 transition">
-                        <x-heroicon-o-sparkles class="h-4 w-4 text-lime shrink-0" />
+                    <div class="flex items-center gap-2 rounded-2xl bg-ink-900/70 border border-white/10 p-2 pl-4 focus-within:border-primary/40 transition">
+                        <x-heroicon-o-sparkles class="h-4 w-4 text-primary shrink-0" />
                         <input name="brief" required minlength="20"
                                placeholder="{{ __('Generate a contract — e.g. \'NDA with Helix/Law, mutual, UK law\'') }}"
                                class="flex-1 bg-transparent outline-none text-[14px] placeholder:text-white/35 py-2 min-w-0 text-white">
-                        <button type="submit" class="btn-lime rounded-xl px-4 py-2 text-[13px] flex items-center gap-1.5 shrink-0">
+                        <button type="submit" class="btn-primary rounded-xl px-4 py-2 text-[13px] flex items-center gap-1.5 shrink-0">
                             @lang('Continue')
                         </button>
                     </div>
@@ -60,7 +60,7 @@
                             @lang('Add parties and generate on the next step.')
                         @else
                             <x-heroicon-o-lock-closed class="inline h-3 w-3 -mt-0.5" />
-                            @lang('Available on') <a href="{{ route('user.subscription.plans') }}" class="text-lime hover:underline">@lang('Pro plans')</a>.
+                            @lang('Available on') <a href="{{ route('user.subscription.plans') }}" class="text-primary hover:underline">@lang('Pro plans')</a>.
                         @endif
                     </p>
                 </form>
@@ -85,7 +85,7 @@
                             $signers = $recentContract->signers;
                         @endphp
                         <div class="flex items-center justify-between">
-                            <div class="text-[11px] font-mono text-white/45">@lang('MOST RECENT')</div>
+                            <div class="text-[11px] font-mono text-white/60">@lang('MOST RECENT')</div>
                             <span class="pill {{ $pill }}">{{ __(ucfirst($recentContract->status)) }}</span>
                         </div>
                         <h3 class="font-display text-xl mt-1 text-white truncate">{{ $recentContract->title }}</h3>
@@ -99,7 +99,7 @@
                                 @if($signer->signed_at)
                                     <svg viewBox="0 0 200 50" class="h-9 w-full">
                                         <path d="M5 35 C 20 5, 35 50, 55 25 S 95 5, 115 30 S 160 50, 195 15"
-                                              fill="none" stroke="#D4FF3A" stroke-width="2" stroke-linecap="round" />
+                                              fill="none" stroke="var(--brand-color)" stroke-width="2" stroke-linecap="round" />
                                     </svg>
                                     <div class="text-[10px] text-white/50 mt-1">@lang('signed')</div>
                                 @else
@@ -122,9 +122,9 @@
                         </div>
                     @else
                         <div class="text-center py-8">
-                            <div class="text-[11px] font-mono text-white/45 mb-3">@lang('NO CONTRACTS YET')</div>
+                            <div class="text-[11px] font-mono text-white/60 mb-3">@lang('NO CONTRACTS YET')</div>
                             <a href="{{ route('user.contracts.index') }}"
-                               class="btn-lime rounded-xl px-4 py-2 text-[13px] inline-flex items-center gap-1.5">
+                               class="btn-primary rounded-xl px-4 py-2 text-[13px] inline-flex items-center gap-1.5">
                                 @lang('Create contract')
                             </a>
                         </div>
@@ -155,17 +155,17 @@
         try { $totalPayments = $user->payments()->count(); } catch(\Throwable) { $totalPayments = 0; }
         try { $completedPayments = $user->payments()->where('status','completed')->count(); } catch(\Throwable) { $completedPayments = 0; }
     @endphp
-    <section class="grid grid-cols-2 md:grid-cols-4 gap-3">
+    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
 
 
         <div class="rounded-2xl glass p-5 relative overflow-hidden">
             <div class="flex items-center justify-between">
-                <span class="text-[11px] font-mono uppercase tracking-widest text-white/45">@lang('Wallet')</span>
-                <x-heroicon-o-banknotes class="h-4 w-4 text-white/45" />
+                <span class="text-[11px] font-mono uppercase tracking-widest text-white/60">@lang('Wallet')</span>
+                <x-heroicon-o-banknotes class="h-4 w-4 text-white/60" />
             </div>
             <div class="font-display text-3xl md:text-5xl mt-2 text-white">{{ $currency }}{{ number_format($balance, 2) }}</div>
             <div class="mt-2 flex items-center gap-1.5 text-[11px]">
-                <a href="{{ route('user.payment.index') }}" class="text-lime hover:underline">@lang('View history') →</a>
+                <a href="{{ route('user.payment.index') }}" class="text-primary hover:underline">@lang('View history') →</a>
             </div>
             <svg viewBox="0 0 120 30" class="absolute right-2 bottom-2 w-20 h-7">
                 <path class="spark" d="M0 22 Q 20 8 40 16 T 80 6 T 120 12"/>
@@ -175,19 +175,19 @@
 
         <div class="rounded-2xl glass p-5 relative overflow-hidden">
             <div class="flex items-center justify-between">
-                <span class="text-[11px] font-mono uppercase tracking-widest text-white/45">@lang('Plan')</span>
-                <x-heroicon-o-square-3-stack-3d class="h-4 w-4 text-white/45" />
+                <span class="text-[11px] font-mono uppercase tracking-widest text-white/60">@lang('Plan')</span>
+                <x-heroicon-o-square-3-stack-3d class="h-4 w-4 text-white/60" />
             </div>
             @if($isActive)
                 <div class="font-display text-2xl md:text-3xl mt-2 text-white">{{ $subscription->plan->name }}</div>
                 <div class="mt-2 flex items-center gap-1.5 text-[11px]">
-                    <span class="pulse-dot inline-block w-1.5 h-1.5 rounded-full bg-lime"></span>
+                    <span class="pulse-dot inline-block w-1.5 h-1.5 rounded-full bg-primary"></span>
                     <span class="text-white/55">@lang('Active')</span>
                 </div>
             @else
                 <div class="font-display text-3xl md:text-5xl mt-2 text-white/30">—</div>
                 <div class="mt-2 text-[11px]">
-                    <a href="{{ route('user.subscription.plans') }}" class="text-lime hover:underline">@lang('Browse plans') →</a>
+                    <a href="{{ route('user.subscription.plans') }}" class="text-primary hover:underline">@lang('Browse plans') →</a>
                 </div>
             @endif
         </div>
@@ -195,21 +195,21 @@
 
         <div class="rounded-2xl glass p-5 relative overflow-hidden">
             <div class="flex items-center justify-between">
-                <span class="text-[11px] font-mono uppercase tracking-widest text-white/45">@lang('Credits')</span>
-                <x-heroicon-o-sparkles class="h-4 w-4 text-white/45" />
+                <span class="text-[11px] font-mono uppercase tracking-widest text-white/60">@lang('Credits')</span>
+                <x-heroicon-o-sparkles class="h-4 w-4 text-white/60" />
             </div>
             @if($isActive && $subscription->plan->credits > 0)
                 <div class="font-display text-3xl md:text-5xl mt-2 text-white">{{ number_format($subscription->credits_remaining) }}</div>
                 <div class="mt-2 flex items-end gap-0.5 h-6">
                     @php $pct = max(0, min(100, round(($subscription->credits_remaining / $subscription->plan->credits) * 100))); @endphp
                     @for($bi = 1; $bi <= 7; $bi++)
-                        @php $opacity = $bi / 7 <= $pct / 100 ? 'bg-lime' : 'bg-white/12'; $h = ['h-2','h-2','h-3','h-4','h-4','h-5','h-6'][$bi-1]; @endphp
+                        @php $opacity = $bi / 7 <= $pct / 100 ? 'bg-primary' : 'bg-white/12'; $h = ['h-2','h-2','h-3','h-4','h-4','h-5','h-6'][$bi-1]; @endphp
                         <div class="w-1.5 {{ $opacity }} {{ $h }} rounded-sm"></div>
                     @endfor
                 </div>
                 @if($subscription->plan->ai_contract_generation)
                 <div class="mt-3 flex items-center gap-1.5 text-[11px] text-white/40">
-                    <x-heroicon-o-sparkles class="h-3.5 w-3.5 text-lime/60" />
+                    <x-heroicon-o-sparkles class="h-3.5 w-3.5 text-primary/60" />
                     <span>{{ $subscription->ai_drafts_remaining }} / {{ $subscription->plan->ai_drafts }} @lang('AI drafts')</span>
                 </div>
                 @endif
@@ -222,12 +222,12 @@
 
         <div class="rounded-2xl glass p-5 relative overflow-hidden">
             <div class="flex items-center justify-between">
-                <span class="text-[11px] font-mono uppercase tracking-widest text-white/45">@lang('Renews')</span>
-                <x-heroicon-o-calendar-days class="h-4 w-4 text-white/45" />
+                <span class="text-[11px] font-mono uppercase tracking-widest text-white/60">@lang('Renews')</span>
+                <x-heroicon-o-calendar-days class="h-4 w-4 text-white/60" />
             </div>
             @if($isActive)
-                <div class="font-display text-3xl md:text-5xl mt-2 text-white">{{ $subscription->current_period_end->format('d') }}<span class="text-base text-white/45 align-middle"> {{ $subscription->current_period_end->format('M') }}</span></div>
-                <div class="mt-2 flex items-center gap-1.5 text-[11px] text-lime">
+                <div class="font-display text-3xl md:text-5xl mt-2 text-white">{{ $subscription->current_period_end->format('d') }}<span class="text-base text-white/60 align-middle"> {{ $subscription->current_period_end->format('M') }}</span></div>
+                <div class="mt-2 flex items-center gap-1.5 text-[11px] text-primary">
                     <x-heroicon-o-arrow-up class="h-3 w-3" /> {{ $subscription->current_period_end->format('Y') }}
                 </div>
             @else
@@ -249,11 +249,11 @@
                 <h2 class="font-display text-2xl text-white">@lang('Recent Payments')</h2>
                 <div class="text-[12px] text-white/50 mt-0.5">{{ $payments->count() }} @lang('transactions')</div>
             </div>
-            <a href="{{ route('user.payment.index') }}" class="text-[13px] text-lime hover:underline">@lang('View all') →</a>
+            <a href="{{ route('user.payment.index') }}" class="text-[13px] text-primary hover:underline">@lang('View all') →</a>
         </div>
 
         @if($payments->isEmpty())
-            <div class="px-5 py-10 text-center text-white/45 text-sm">
+            <div class="px-5 py-10 text-center text-white/60 text-sm">
                 @lang('No payments yet — add funds to get started.')
             </div>
         @else
@@ -296,7 +296,7 @@
         </div>
         <div class="px-5 py-3 border-t border-white/8 flex items-center justify-between text-[12px] text-white/50">
             <span>@lang('Showing') <span class="text-white">{{ $payments->count() }}</span> @lang('payments')</span>
-            <a href="{{ route('user.payment.index') }}" class="text-lime hover:underline">@lang('See all') →</a>
+            <a href="{{ route('user.payment.index') }}" class="text-primary hover:underline">@lang('See all') →</a>
         </div>
         @endif
     </section>

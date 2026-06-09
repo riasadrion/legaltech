@@ -31,11 +31,11 @@
                 <table class="w-full text-sm">
                     <thead>
                         <tr class="border-b border-white/8">
-                            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-white/45">@lang('Reference')</th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-white/45">@lang('Subject')</th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-white/45">@lang('Category')</th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-white/45">@lang('Status')</th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-white/45">@lang('Updated')</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-white/60">@lang('Reference')</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-white/60">@lang('Subject')</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-white/60">@lang('Category')</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-white/60">@lang('Status')</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-white/60">@lang('Updated')</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-white/5">
@@ -43,7 +43,7 @@
                         @php
                             $sc = match($ticket->status) {
                                 'open'        => 'ud-badge-green',
-                                'in_progress' => 'ud-badge-lime',
+                                'in_progress' => 'ud-badge-primary',
                                 'waiting'     => 'ud-badge-amber',
                                 'closed'      => 'ud-badge-gray',
                                 default       => 'ud-badge-gray',
@@ -65,7 +65,7 @@
             </div>
 
             @if($tickets->hasPages())
-            <div class="border-t border-white/8 px-4 py-4 text-xs text-white/45">
+            <div class="border-t border-white/8 px-4 py-4 text-xs text-white/60">
                 {{ $tickets->links() }}
             </div>
             @endif

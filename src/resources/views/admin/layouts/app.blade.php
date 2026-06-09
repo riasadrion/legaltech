@@ -11,9 +11,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="{{ asset('assets/static/global/js/jquery.min.js') }}"></script>
-    <?php echo \App\Support\ViteAssets::includeAssets(['resources/css/app.css', 'resources/js/admin.js']); ?>
+    @viteAssets(['resources/css/app.css', 'resources/js/admin.js'])
     <script src="{{ asset('assets/static/admin/admin.js') }}" defer></script>
+    <link rel="stylesheet" href="{{ asset('assets/static/admin/css/admin.css') }}">
     @stack('head')
 </head>
 <body class="antialiased text-gray-900">
@@ -50,6 +50,7 @@
 
 <x-admin::confirm-modal :admin="true" />
 
+<script src="{{ asset('assets/static/global/js/jquery.min.js') }}"></script>
 <script>
 jQuery(function ($) {
     $(document).on('click', '#sidebar-toggle-mobile', function () {

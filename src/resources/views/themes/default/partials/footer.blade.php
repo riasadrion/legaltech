@@ -34,7 +34,7 @@
                             <img src="{{ upload_url($footerLogo) }}" alt="{{ $footerSiteName }}" class="nav-brand-logo nav-brand-logo-dark h-9">
                         @endif
                     @else
-                        <span class="grid place-items-center w-9 h-9 rounded-full bg-lime text-ink-900">
+                        <span class="grid place-items-center w-9 h-9 rounded-full bg-primary text-ink-900">
                             <x-heroicon-s-pencil class="h-5 w-5" />
                         </span>
                         <span class="font-display text-3xl text-white">{{ $footerSiteName }}</span>
@@ -46,16 +46,18 @@
 
 
                 <form id="newsletter-form" method="POST" action="{{ route('newsletter.subscribe') }}"
-                      class="relative mt-8 flex items-center gap-2 glass rounded-full p-1.5 pl-4 max-w-sm">
+                      class="relative mt-8 flex flex-col sm:flex-row sm:items-center gap-2 glass rounded-2xl sm:rounded-full p-1.5 sm:pl-4 max-w-sm">
                     @csrf
-                    <x-heroicon-o-envelope class="h-4 w-4 text-white/40 shrink-0" />
-                    <input type="email" name="email" required
-                           placeholder="{{ __('you@company.com') }}"
-                           class="flex-1 min-w-0 bg-transparent outline-none text-sm placeholder:text-white/35 text-white py-2">
+                    <div class="flex items-center gap-2 px-2 sm:px-0">
+                        <x-heroicon-o-envelope class="h-4 w-4 text-white/40 shrink-0" />
+                        <input type="email" name="email" required
+                               placeholder="{{ __('you@company.com') }}"
+                               class="w-full min-w-0 bg-transparent outline-none text-sm placeholder:text-white/35 text-white py-2">
+                    </div>
 
                     <input type="text" name="website" tabindex="-1" autocomplete="off"
                            class="absolute opacity-0 pointer-events-none -z-10" aria-hidden="true">
-                    <button type="submit" class="btn-lime rounded-full text-sm px-4 py-2 shrink-0">
+                    <button type="submit" class="btn-primary rounded-full text-sm px-4 py-2 w-full sm:w-auto shrink-0">
                         <span data-label>@lang('Subscribe')</span>
                     </button>
                 </form>
@@ -134,7 +136,7 @@
             </div>
             @endif
 
-            <div class="text-xs text-white/45 {{ $hasSocials ? '' : 'w-full text-center' }}">
+            <div class="text-xs text-white/60 {{ $hasSocials ? '' : 'w-full text-center' }}">
                 &copy; {{ now()->year }} {{ setting('site.name', config('app.name')) }}.
                 @lang('All rights reserved.')
             </div>
@@ -159,7 +161,7 @@ $(function () {
 
     var idleMsg   = $msg.text();
     var idleClass = 'text-white/40';
-    var okClass   = 'text-lime';
+    var okClass   = 'text-primary';
     var errClass  = 'text-red-400';
     var classes   = idleClass + ' ' + okClass + ' ' + errClass;
 

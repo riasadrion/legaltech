@@ -10,7 +10,7 @@
             <h1 class="ud-page-title">@lang('Contracts')</h1>
             <p class="ud-page-sub">@lang('Your generated and signed contracts.')</p>
         </div>
-        <a href="{{ route('user.contracts.create') }}" class="btn-lime rounded-xl px-4 py-2.5 text-[13px] flex items-center gap-1.5">
+        <a href="{{ route('user.contracts.create') }}" class="btn-primary rounded-xl px-4 py-2.5 text-[13px] flex items-center gap-1.5">
             <x-heroicon-o-plus class="h-4 w-4" />
             @lang('New Contract')
         </a>
@@ -20,7 +20,7 @@
     <div class="rounded-2xl glass p-14 text-center">
         <x-heroicon-o-document-text class="h-10 w-10 mx-auto mb-3 text-white/20" />
         <div class="text-white/50 text-sm">@lang('No contracts yet — generate your first one.')</div>
-        <a href="{{ route('user.contracts.create') }}" class="btn-lime rounded-xl px-4 py-2 text-[13px] inline-flex items-center gap-1.5 mt-5">
+        <a href="{{ route('user.contracts.create') }}" class="btn-primary rounded-xl px-4 py-2 text-[13px] inline-flex items-center gap-1.5 mt-5">
             <x-heroicon-o-plus class="h-4 w-4" />
             @lang('New Contract')
         </a>
@@ -53,7 +53,7 @@
             </div>
             <div class="mt-auto flex items-center justify-between text-[11px] text-white/35">
                 <span>{{ $contract->created_at->format('d M Y') }}</span>
-                <x-heroicon-o-arrow-right class="h-3.5 w-3.5 group-hover:text-lime transition" />
+                <x-heroicon-o-arrow-right class="h-3.5 w-3.5 group-hover:text-primary transition" />
             </div>
         </a>
         @endforeach

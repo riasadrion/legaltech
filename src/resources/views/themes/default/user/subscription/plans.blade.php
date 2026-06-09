@@ -18,8 +18,8 @@
 <div class="space-y-8">
 
     @if(session('upgrade_ai'))
-        <div class="rounded-2xl glass border border-lime/30 bg-lime/5 px-5 py-4 flex items-start gap-3">
-            <x-heroicon-o-sparkles class="h-5 w-5 text-lime shrink-0 mt-0.5" />
+        <div class="rounded-2xl glass border border-primary/30 bg-primary/5 px-5 py-4 flex items-start gap-3">
+            <x-heroicon-o-sparkles class="h-5 w-5 text-primary shrink-0 mt-0.5" />
             <div>
                 <div class="text-white font-medium text-sm">@lang('AI contract drafting is a Pro feature')</div>
                 <div class="text-white/65 text-[13px] mt-0.5">{{ session('upgrade_ai') }}</div>
@@ -28,7 +28,7 @@
     @endif
 
     <div class="text-center max-w-2xl mx-auto">
-        <div class="text-[11px] font-mono uppercase tracking-[.25em] text-lime mb-3">— @lang('Pricing')</div>
+        <div class="text-[11px] font-mono uppercase tracking-[.25em] text-primary mb-3">— @lang('Pricing')</div>
         <h1 class="font-display text-5xl md:text-6xl leading-[0.95] text-white">
             @lang('Choose your') <span class="italic-display">@lang('plan.')</span>
         </h1>
@@ -41,7 +41,7 @@
             @foreach($availableTabs as $cycle => $label)
             <button type="button"
                     data-tab="{{ $cycle }}"
-                    class="plan-tab-btn rounded-full px-5 py-2 font-medium transition {{ $cycle === $defaultTab ? 'bg-lime text-ink-900' : 'text-white/65' }}">
+                    class="plan-tab-btn rounded-full px-5 py-2 font-medium transition {{ $cycle === $defaultTab ? 'bg-primary text-ink-900' : 'text-white/65' }}">
                 {{ $label }}
             </button>
             @endforeach
@@ -74,8 +74,8 @@ $(function () {
     'use strict';
     $(document).on('click', '.plan-tab-btn', function () {
         var tab = $(this).data('tab');
-        $('.plan-tab-btn').removeClass('bg-lime text-ink-900').addClass('text-white/65');
-        $(this).addClass('bg-lime text-ink-900').removeClass('text-white/65');
+        $('.plan-tab-btn').removeClass('bg-primary text-ink-900').addClass('text-white/65');
+        $(this).addClass('bg-primary text-ink-900').removeClass('text-white/65');
         $('.plan-tab-panel').addClass('hidden');
         $('.plan-tab-panel[data-panel="' + tab + '"]').removeClass('hidden');
     });

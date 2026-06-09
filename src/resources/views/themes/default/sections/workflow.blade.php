@@ -7,8 +7,8 @@
     $steps    = array_values(array_filter($d['steps'] ?? [], fn($s) => !empty($s['title'])));
 @endphp
 
-<section id="workflow" class="relative py-28 bg-cream-100 text-ink-900">
-    <div class="absolute inset-0 bg-grid-cream radial-fade pointer-events-none"></div>
+<section id="workflow" class="relative py-28 {{ $sectionBg ?? 'bg-cream-100' }} text-ink-900">
+    <div class="absolute inset-0 {{ ($sectionBg ?? '') === 'bg-cream-50' ? 'bg-grid-cream' : 'bg-grid-cream' }} radial-fade pointer-events-none"></div>
     <div class="relative mx-auto max-w-7xl px-6">
 
         <div class="flex flex-wrap items-end justify-between gap-6 mb-16">
@@ -22,7 +22,7 @@
             </div>
             @if($cta_text && $cta_url)
                 <a href="{{ $cta_url }}"
-                   class="hidden md:inline-flex items-center gap-2 rounded-full bg-ink-900 text-white px-5 py-3 text-sm font-medium">
+                   class="hidden md:inline-flex items-center gap-2 rounded-full btn-primary text-on-primary-white px-5 py-3 text-sm font-medium">
                     {{ __($cta_text) }} <x-heroicon-o-arrow-right class="h-4 w-4 inline" />
                 </a>
             @endif
@@ -36,14 +36,14 @@
                             {{ $last ? 'bg-ink-900 text-white' : 'bg-white' }}"
                      data-reveal data-reveal-delay="{{ $i * 80 }}">
                     @if($last)
-                        <div class="absolute -right-10 -bottom-10 w-48 h-48 glow-lime"></div>
+                        <div class="absolute -right-10 -bottom-10 w-48 h-48 glow-primary"></div>
                     @endif
                     <div class="relative flex items-center justify-between">
                         <span class="font-display text-5xl {{ $last ? '' : 'text-ink-900' }}">
                             {{ str_pad($i + 1, 2, '0', STR_PAD_LEFT) }}
                         </span>
                         <span class="text-[11px] font-mono uppercase tracking-widest
-                                     {{ $last ? 'text-lime' : 'text-ink-400' }}">
+                                     {{ $last ? 'text-primary' : 'text-ink-400' }}">
                             {{ __($step['tag'] ?? '') }}
                         </span>
                     </div>

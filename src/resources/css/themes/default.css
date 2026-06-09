@@ -1,6 +1,6 @@
 /* Runtime brand color — overridden at runtime via inline <style> injected by frontend layouts */
 :root {
-    --brand-color: #D4FF3A;
+    --brand-color: #e57e38;
     --brand-color-soft: color-mix(in srgb, var(--brand-color) 70%, white);
     --brand-color-deep: color-mix(in srgb, var(--brand-color) 80%, black);
     --shadow-glow-val: 0 0 80px -10px color-mix(in srgb, var(--brand-color) 45%, transparent);
@@ -15,14 +15,14 @@
     --color-ink-500: #3A3D4D;
     --color-ink-400: #6B6E7E;
 
-    --color-cream-50:  #FBFAF6;
-    --color-cream-100: #F5F2EA;
-    --color-cream-200: #EDE8DC;
-    --color-cream-300: #D9D2BF;
+    --color-cream-50:  color-mix(in srgb, var(--brand-color) 3%, #FBFAF6);
+    --color-cream-100: color-mix(in srgb, var(--brand-color) 5%, #F5F2EA);
+    --color-cream-200: color-mix(in srgb, var(--brand-color) 7%, #EDE8DC);
+    --color-cream-300: color-mix(in srgb, var(--brand-color) 9%, #D9D2BF);
 
-    --color-lime: var(--brand-color);
-    --color-lime-soft: var(--brand-color-soft);
-    --color-lime-deep: var(--brand-color-deep);
+    --color-primary: var(--brand-color);
+    --color-primary-soft: var(--brand-color-soft);
+    --color-primary-deep: var(--brand-color-deep);
 
     --color-violet-glow: #7C5CFF;
 
@@ -32,4 +32,21 @@
 
     --shadow-glow: var(--shadow-glow-val);
     --shadow-card: 0 30px 60px -20px rgba(0, 0, 0, 0.35), 0 8px 20px -8px rgba(0, 0, 0, 0.25);
+}
+
+.toast-close-dark:hover {
+    background: #2a2a2a;
+}
+
+.toast-close-light:hover {
+    background: #f3f4f6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }

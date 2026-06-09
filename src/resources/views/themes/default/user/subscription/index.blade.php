@@ -33,7 +33,7 @@
                         </div>
                     </div>
                     <div class="text-right">
-                        <p class="text-3xl font-bold text-lime">{{ $subscription->plan->formattedPrice() }}</p>
+                        <p class="text-3xl font-bold text-primary">{{ $subscription->plan->formattedPrice() }}</p>
                         <p class="text-xs text-white/40 mt-1">/ {{ $subscription->plan->billing_cycle }}</p>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
                     @if($subscription->plan->ai_contract_generation)
                     <div>
                         <p class="ud-stat-label">@lang('AI drafts remaining')</p>
-                        <p class="text-xl font-semibold text-lime mt-2">{{ number_format($subscription->ai_drafts_remaining) }}</p>
+                        <p class="text-xl font-semibold text-primary mt-2">{{ number_format($subscription->ai_drafts_remaining) }}</p>
                         <p class="text-xs text-white/30 mt-0.5">@lang('of') {{ number_format($subscription->plan->ai_drafts) }}</p>
                     </div>
                     @endif
@@ -107,16 +107,16 @@
                 <table class="w-full text-sm">
                     <thead>
                         <tr class="border-b border-white/8">
-                            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-white/45">@lang('Date')</th>
-                            <th class="px-4 py-3 text-right text-xs font-semibold uppercase tracking-wide text-white/45">@lang('Amount')</th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-white/45">@lang('Description')</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-white/60">@lang('Date')</th>
+                            <th class="px-4 py-3 text-right text-xs font-semibold uppercase tracking-wide text-white/60">@lang('Amount')</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-white/60">@lang('Description')</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-white/5">
                         @foreach($creditHistory as $log)
                         <tr class="hover:bg-white/3 transition-colors">
                             <td class="px-4 py-3 text-xs text-white/50 whitespace-nowrap">{{ $log->created_at->format('d M Y H:i') }}</td>
-                            <td class="px-4 py-3 text-right font-semibold whitespace-nowrap {{ $log->amount >= 0 ? 'text-lime' : 'text-red-400' }}">
+                            <td class="px-4 py-3 text-right font-semibold whitespace-nowrap {{ $log->amount >= 0 ? 'text-primary' : 'text-red-400' }}">
                                 {{ $log->amount >= 0 ? '+' : '' }}{{ $log->amount }}
                             </td>
                             <td class="px-4 py-3 text-sm text-white/70">{{ $log->description }}</td>
@@ -127,7 +127,7 @@
             </div>
 
             @if($creditHistory->hasPages())
-            <div class="border-t border-white/8 mt-4 pt-4 text-xs text-white/45">
+            <div class="border-t border-white/8 mt-4 pt-4 text-xs text-white/60">
                 {{ $creditHistory->links() }}
             </div>
             @endif

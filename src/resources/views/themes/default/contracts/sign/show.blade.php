@@ -7,15 +7,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-    <?php echo \App\Support\ViteAssets::includeAssets(['resources/css/app.css']); ?>
+    @viteAssets(['resources/css/app.css'])
     <link rel="stylesheet" href="{{ asset('assets/static/css/themes/default.css') }}">
 </head>
 <body class="min-h-screen flex flex-col items-center justify-center px-4 py-12 theme-default">
 
 
 <div class="pointer-events-none fixed inset-0 overflow-hidden -z-10">
-    <div class="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full bg-lime/5 blur-[120px]"></div>
-    <div class="absolute -bottom-40 -right-40 w-[500px] h-[500px] rounded-full bg-lime/3 blur-[100px]"></div>
+    <div class="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full bg-primary/5 blur-[120px]"></div>
+    <div class="absolute -bottom-40 -right-40 w-[500px] h-[500px] rounded-full bg-primary/3 blur-[100px]"></div>
 </div>
 
 
@@ -26,8 +26,8 @@
 <div class="w-full max-w-4xl space-y-5">
 
     <div class="text-center">
-        <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-lime/10 border border-lime/20 mb-4">
-            <x-heroicon-o-document-check class="h-7 w-7 text-lime" />
+        <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-primary/10 border border-primary/20 mb-4">
+            <x-heroicon-o-document-check class="h-7 w-7 text-primary" />
         </div>
         <h1 class="font-display text-3xl md:text-4xl text-white">{{ $contract->title }}</h1>
         <p class="text-white/50 mt-2 text-sm">
@@ -54,7 +54,7 @@
         <form method="POST" action="{{ route('contracts.sign.confirm', $party->token) }}">
             @csrf
             <button type="submit"
-                    class="btn-lime rounded-xl w-full py-3 text-[13px] font-semibold flex items-center justify-center gap-2">
+                    class="btn-primary rounded-xl w-full py-3 text-[13px] font-semibold flex items-center justify-center gap-2">
                 <x-heroicon-o-check-badge class="h-5 w-5" />
                 @lang('I Agree and Sign')
             </button>

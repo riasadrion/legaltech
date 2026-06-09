@@ -14,8 +14,8 @@
         <div class="p-6">
             <div class="flex items-center gap-3 mb-4">
                 <div class="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-lg
-                            {{ $isAdmin ? 'bg-yellow-100 dark:bg-yellow-950' : 'bg-lime/10' }}">
-                    <x-heroicon-o-question-mark-circle class="h-6 w-6 {{ $isAdmin ? 'text-yellow-600 dark:text-yellow-400' : 'text-lime' }}" />
+                            {{ $isAdmin ? 'bg-yellow-100 dark:bg-yellow-950' : 'bg-primary/10' }}">
+                    <x-heroicon-o-question-mark-circle class="h-6 w-6 {{ $isAdmin ? 'text-yellow-600 dark:text-yellow-400' : 'text-primary' }}" />
                 </div>
                 <h3 class="text-base font-semibold {{ $isAdmin ? 'text-gray-900 dark:text-white' : 'text-white' }}" id="confirm-title">Confirm action</h3>
             </div>
@@ -30,7 +30,7 @@
                 </button>
                 <button type="button" id="confirm-btn"
                         class="px-4 py-2 rounded-lg text-sm font-medium transition-colors
-                               {{ $isAdmin ? 'bg-red-600 text-white hover:bg-red-700' : 'bg-lime text-black hover:bg-lime/90' }}">
+                               {{ $isAdmin ? 'bg-red-600 text-white hover:bg-red-700' : 'bg-primary text-black hover:bg-primary/90' }}">
                     @lang('Confirm')
                 </button>
             </div>

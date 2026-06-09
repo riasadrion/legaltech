@@ -18,12 +18,12 @@
 
         <div class="rounded-2xl glass p-5 relative overflow-hidden">
             <div class="flex items-center justify-between">
-                <span class="text-[11px] font-mono uppercase tracking-widest text-white/45">@lang('Wallet')</span>
-                <x-heroicon-o-banknotes class="h-6 w-6 text-white/45" />
+                <span class="text-[11px] font-mono uppercase tracking-widest text-white/60">@lang('Wallet')</span>
+                <x-heroicon-o-banknotes class="h-6 w-6 text-white/60" />
             </div>
             <div class="font-display text-3xl md:text-5xl mt-2 text-white">{{ $balance->format() }}</div>
             <div class="mt-2 text-[11px]">
-                <a href="{{ route('user.payment.create') }}" class="text-lime hover:underline">@lang('Add funds') →</a>
+                <a href="{{ route('user.payment.create') }}" class="text-primary hover:underline">@lang('Add funds') →</a>
             </div>
             <svg viewBox="0 0 120 30" class="absolute right-2 bottom-2 w-20 h-7">
                 <path class="spark" d="M0 22 Q 20 8 40 16 T 80 6 T 120 12"/>
@@ -35,11 +35,11 @@
         @php $totalSpent = $gatewayTotals[$gateway->id] ?? 0; $logo = $gateway->logoUrl(); @endphp
         <div class="rounded-2xl glass p-5 relative overflow-hidden">
             <div class="flex items-center justify-between">
-                <span class="text-[11px] font-mono uppercase tracking-widest text-white/45">{{ $gateway->name }}</span>
+                <span class="text-[11px] font-mono uppercase tracking-widest text-white/60">{{ $gateway->name }}</span>
                 @if($logo)
                     <img src="{{ $logo }}" alt="{{ $gateway->name }}" class="h-6 w-6 rounded-lg object-contain opacity-70">
                 @else
-                    <x-heroicon-o-credit-card class="h-6 w-6 text-white/45" />
+                    <x-heroicon-o-credit-card class="h-6 w-6 text-white/60" />
                 @endif
             </div>
             @if($totalSpent > 0)
@@ -62,7 +62,7 @@
                 <h2 class="font-display text-2xl text-white">@lang('Recent payments')</h2>
                 <div class="text-[12px] text-white/50 mt-0.5">{{ $payments->total() }} @lang('transactions')</div>
             </div>
-            <a href="{{ route('user.payment.create') }}" class="btn-lime rounded-lg px-3 py-2 text-[12px] flex items-center gap-1.5">
+            <a href="{{ route('user.payment.create') }}" class="btn-primary rounded-lg px-3 py-2 text-[12px] flex items-center gap-1.5">
                 <x-heroicon-o-plus class="h-4 w-4" />
                 @lang('Add funds')
             </a>
@@ -98,7 +98,7 @@
         </div>
 
         @if($payments->hasPages())
-        <div class="px-5 py-3 border-t border-white/8 text-xs text-white/45">
+        <div class="px-5 py-3 border-t border-white/8 text-xs text-white/60">
             {{ $payments->links() }}
         </div>
         @endif
@@ -107,7 +107,7 @@
     <div class="rounded-2xl glass p-12 text-center text-white/40">
         <x-heroicon-o-credit-card class="h-10 w-10 mx-auto mb-3 opacity-30" />
         <div class="text-sm">@lang('No payments yet — add funds to get started.')</div>
-        <a href="{{ route('user.payment.create') }}" class="btn-lime rounded-lg px-4 py-2 text-[13px] inline-flex items-center gap-1.5 mt-4">
+        <a href="{{ route('user.payment.create') }}" class="btn-primary rounded-lg px-4 py-2 text-[13px] inline-flex items-center gap-1.5 mt-4">
             <x-heroicon-o-plus class="h-4 w-4" />
             @lang('Add Funds')
         </a>

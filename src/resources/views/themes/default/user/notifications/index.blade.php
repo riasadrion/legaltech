@@ -35,7 +35,7 @@
 
                     <div class="mt-1.5 shrink-0">
                         @if(!$n->read_at)
-                            <span class="block h-2 w-2 rounded-full bg-lime"></span>
+                            <span class="block h-2 w-2 rounded-full bg-primary"></span>
                         @else
                             <span class="block h-2 w-2 rounded-full bg-white/15"></span>
                         @endif
@@ -50,7 +50,7 @@
                     </div>
 
                     @if($n->url)
-                    <a href="{{ $n->url }}" class="shrink-0 text-xs text-lime/80 hover:text-lime whitespace-nowrap">
+                    <a href="{{ $n->url }}" class="shrink-0 text-xs text-primary/80 hover:text-primary whitespace-nowrap">
                         @lang('View') →
                     </a>
                     @endif
@@ -59,7 +59,7 @@
             </div>
 
             @if($notifications->hasPages())
-            <div class="border-t border-white/8 px-5 py-4 text-xs text-white/45">
+            <div class="border-t border-white/8 px-5 py-4 text-xs text-white/60">
                 {{ $notifications->links() }}
             </div>
             @endif

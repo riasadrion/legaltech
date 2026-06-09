@@ -13,7 +13,7 @@
            class="inline-flex items-center gap-2 text-sm text-white/40 hover:text-white transition mb-6">
             <x-heroicon-o-arrow-left class="h-4 w-4" />@lang('All articles')
         </a>
-        <div class="inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-xs font-medium text-lime mb-4">
+        <div class="inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-xs font-medium text-primary mb-4">
             <x-heroicon-o-folder class="h-4 w-4" />@lang('Category')
         </div>
         <h1 class="font-display text-5xl text-white mb-4">{{ $category->getLocalName() }}</h1>
@@ -41,7 +41,7 @@
                 </div>
                 @endif
                 <div class="p-6 flex flex-col flex-1">
-                    <h2 class="font-semibold text-white leading-snug group-hover:text-lime transition mb-3 flex-1">
+                    <h2 class="font-semibold text-white leading-snug group-hover:text-primary transition mb-3 flex-1">
                         <a href="{{ route('blog.show', $post->slug) }}">{{ $post->getLocalTitle() }}</a>
                     </h2>
                     @if($post->getLocalExcerpt())

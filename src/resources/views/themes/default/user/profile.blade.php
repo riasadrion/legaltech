@@ -48,7 +48,7 @@
                 </div>
                 <div>
                     <div class="text-sm font-medium text-white">{{ $user->name ?? __('No name set') }}</div>
-                    <div class="text-xs text-white/45 mt-0.5">{{ $user->email }}</div>
+                    <div class="text-xs text-white/60 mt-0.5">{{ $user->email }}</div>
                     @if($user->avatar_path)
                     <form method="POST" action="{{ route('user.profile.avatar.delete') }}" class="inline mt-2 block">
                         @csrf
@@ -121,7 +121,7 @@
             <div class="mt-6 flex items-center gap-3">
                 <button type="submit" class="ud-btn-primary">@lang('Save changes')</button>
                 @if(session('success'))
-                    <span class="text-sm text-lime">{{ session('success') }}</span>
+                    <span class="text-sm text-primary">{{ session('success') }}</span>
                 @endif
             </div>
         </form>
@@ -145,7 +145,7 @@
             </div>
             <input type="email" value="{{ $user->email }}" class="ud-input" disabled>
             @if(!$user->hasVerifiedEmail())
-            <p class="text-xs text-white/45 mt-2">
+            <p class="text-xs text-white/60 mt-2">
                 @lang('Check your inbox or')
                 <a href="{{ route('verification.notice') }}" class="ud-card-link">@lang('resend verification email')</a>.
             </p>

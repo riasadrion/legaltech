@@ -38,7 +38,7 @@
 
 @push('scripts')
 <script>
-$(document).ready(function () {
+$(function () {
     'use strict';
     $('[data-copy-codes]').on('click', function () {
         var codes = [];

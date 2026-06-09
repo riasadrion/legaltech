@@ -71,7 +71,7 @@
 
 @push('scripts')
 <script>
-$(document).ready(function () {
+$(function () {
     'use strict';
     $('[data-show-recovery]').on('click', function () {
         $('#mode-code').addClass('hidden');

@@ -21,26 +21,26 @@
     <line x1="1050" y1="0" x2="1050" y2="800"/>
   </g>
 
-  <circle cx="140" cy="160" r="3" fill="#D4FF3A" opacity="0.5"/>
-  <circle cx="1060" cy="640" r="2.5" fill="#D4FF3A" opacity="0.4"/>
-  <circle cx="320" cy="580" r="2" fill="#D4FF3A" opacity="0.3"/>
-  <circle cx="880" cy="200" r="3.5" fill="#D4FF3A" opacity="0.35"/>
-  <circle cx="560" cy="700" r="2" fill="#a78bfa" opacity="0.4"/>
-  <circle cx="1100" cy="350" r="2.5" fill="#a78bfa" opacity="0.3"/>
+  <circle cx="140" cy="160" r="3" fill="#9CA3AF" opacity="0.5"/>
+  <circle cx="1060" cy="640" r="2.5" fill="#9CA3AF" opacity="0.4"/>
+  <circle cx="320" cy="580" r="2" fill="#9CA3AF" opacity="0.3"/>
+  <circle cx="880" cy="200" r="3.5" fill="#9CA3AF" opacity="0.35"/>
+  <circle cx="560" cy="700" r="2" fill="#9CA3AF" opacity="0.4"/>
+  <circle cx="1100" cy="350" r="2.5" fill="#9CA3AF" opacity="0.3"/>
 
-  <line x1="0" y1="0" x2="80" y2="0" stroke="#D4FF3A" stroke-width="1.5" opacity="0.4"/>
-  <line x1="0" y1="0" x2="0" y2="80" stroke="#D4FF3A" stroke-width="1.5" opacity="0.4"/>
-  <line x1="1200" y1="800" x2="1120" y2="800" stroke="#D4FF3A" stroke-width="1.5" opacity="0.4"/>
-  <line x1="1200" y1="800" x2="1200" y2="720" stroke="#D4FF3A" stroke-width="1.5" opacity="0.4"/>
+  <line x1="0" y1="0" x2="80" y2="0" stroke="#9CA3AF" stroke-width="1.5" opacity="0.4"/>
+  <line x1="0" y1="0" x2="0" y2="80" stroke="#9CA3AF" stroke-width="1.5" opacity="0.4"/>
+  <line x1="1200" y1="800" x2="1120" y2="800" stroke="#9CA3AF" stroke-width="1.5" opacity="0.4"/>
+  <line x1="1200" y1="800" x2="1200" y2="720" stroke="#9CA3AF" stroke-width="1.5" opacity="0.4"/>
 
   <defs>
     <radialGradient id="lime-orb" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#D4FF3A"/>
-      <stop offset="100%" stop-color="#D4FF3A" stop-opacity="0"/>
+      <stop offset="0%" stop-color="#9CA3AF"/>
+      <stop offset="100%" stop-color="#9CA3AF" stop-opacity="0"/>
     </radialGradient>
     <radialGradient id="violet-orb" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#7c3aed"/>
-      <stop offset="100%" stop-color="#7c3aed" stop-opacity="0"/>
+      <stop offset="0%" stop-color="#9CA3AF"/>
+      <stop offset="100%" stop-color="#9CA3AF" stop-opacity="0"/>
     </radialGradient>
   </defs>
 </svg>

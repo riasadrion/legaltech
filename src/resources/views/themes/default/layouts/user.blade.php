@@ -22,12 +22,20 @@
     @if($siteFont !== 'system')
     <style>.theme-default { --font-frontend: '{{ $siteFont }}', ui-sans-serif, system-ui, sans-serif; }</style>
     @endif
-    <style>body.theme-default { --brand-color: {{ setting('site.primary_color', '#D4FF3A') }}; }</style>
+    <style>body.theme-default {
+        --brand-color: {{ setting('site.primary_color') }};
+        --brand-color-soft: color-mix(in srgb, {{ setting('site.primary_color') }} 70%, white);
+        --brand-color-deep: color-mix(in srgb, {{ setting('site.primary_color') }} 80%, black);
+        --shadow-glow-val: 0 0 60px -16px color-mix(in srgb, {{ setting('site.primary_color') }} 25%, transparent);
+        --shadow-glow: 0 0 60px -16px color-mix(in srgb, {{ setting('site.primary_color') }} 25%, transparent);
+        --color-cream-50:  color-mix(in srgb, {{ setting('site.primary_color') }} 3%, #FBFAF6);
+        --color-cream-100: color-mix(in srgb, {{ setting('site.primary_color') }} 5%, #F5F2EA);
+        --color-cream-200: color-mix(in srgb, {{ setting('site.primary_color') }} 7%, #EDE8DC);
+        --color-cream-300: color-mix(in srgb, {{ setting('site.primary_color') }} 9%, #D9D2BF);
+    }</style>
 
-    <script src="{{ asset('assets/static/js/jquery.min.js') }}"></script>
-    <?php echo \App\Support\ViteAssets::includeAssets(['resources/css/app.css', 'resources/js/app.js']); ?>
-    @php $themeCssPath = base_path('../assets/static/css/themes/default.css'); @endphp
-    <link rel="stylesheet" href="{{ asset('assets/static/css/themes/default.css') }}?v={{ is_file($themeCssPath) ? filemtime($themeCssPath) : 1 }}">
+    @viteAssets(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="stylesheet" href="{{ asset('assets/static/css/themes/default.css') }}">
     <x-integrations.ga4 />
     @stack('head')
 </head>
@@ -96,7 +104,7 @@
                     @endphp
                     <div class="flex items-center gap-2 shrink-0">
 
-                        <a href="{{ route('user.contracts.create') }}" class="hidden sm:flex btn-lime rounded-lg px-3 py-2 text-sm items-center gap-1.5">
+                        <a href="{{ route('user.contracts.create') }}" class="hidden sm:flex btn-primary rounded-lg px-3 py-2 text-sm items-center gap-1.5">
                             <x-heroicon-o-sparkles class="h-4 w-4" />
                             @lang('New contract')
                         </a>
@@ -109,7 +117,7 @@
                                     aria-label="{{ __('Notifications') }}">
                                 <x-heroicon-o-bell class="h-5 w-5" />
                                 @if($unreadCount > 0)
-                                <span class="absolute -top-1 -right-1 w-4 h-4 grid place-items-center text-[9px] font-bold rounded-full bg-lime text-ink-900">{{ $unreadCount > 9 ? '9+' : $unreadCount }}</span>
+                                <span class="absolute -top-1 -right-1 w-4 h-4 grid place-items-center text-[9px] font-bold rounded-full bg-primary text-ink-900">{{ $unreadCount > 9 ? '9+' : $unreadCount }}</span>
                                 @endif
                             </button>
 
@@ -135,7 +143,7 @@
                                            class="block px-4 py-3 hover:bg-white/4 transition {{ is_null($notification->read_at) ? 'bg-white/5' : '' }}">
                                             <div class="flex items-start gap-3">
                                                 <div class="mt-0.5 flex-shrink-0">
-                                                    <x-heroicon-o-information-circle class="h-4 w-4 {{ is_null($notification->read_at) ? 'text-lime' : 'text-white/30' }}" />
+                                                    <x-heroicon-o-information-circle class="h-4 w-4 {{ is_null($notification->read_at) ? 'text-primary' : 'text-white/30' }}" />
                                                 </div>
                                                 <div class="flex-1 min-w-0">
                                                     <p class="text-[13px] font-medium text-white">{{ $notification->title }}</p>
@@ -147,7 +155,7 @@
                                         @endforeach
                                     </div>
                                     <div class="border-t border-white/8 p-3">
-                                        <a href="{{ route('user.notifications.index') }}" class="block text-center text-[12px] text-lime hover:text-lime-soft transition">
+                                        <a href="{{ route('user.notifications.index') }}" class="block text-center text-[12px] text-primary hover:text-primary-soft transition">
                                             @lang('View all notifications')
                                         </a>
                                     </div>
@@ -165,12 +173,12 @@
                                          alt="{{ auth('user')->user()->name }}"
                                          class="w-7 h-7 rounded-md object-cover">
                                 @else
-                                    <span class="w-7 h-7 rounded-md bg-gradient-to-br from-lime to-lime-deep grid place-items-center font-bold text-[11px] text-ink-900">
+                                    <span class="w-7 h-7 rounded-md bg-gradient-to-br from-primary to-primary-deep grid place-items-center font-bold text-[11px] text-ink-900">
                                         {{ mb_strtoupper(mb_substr(auth('user')->user()->name ?? auth('user')->user()->email, 0, 1)) }}
                                     </span>
                                 @endif
                                 <span class="text-[12px] hidden md:inline text-white">{{ auth('user')->user()->name ?? auth('user')->user()->email }}</span>
-                                <x-heroicon-o-chevron-down class="h-3.5 w-3.5 text-white/45" />
+                                <x-heroicon-o-chevron-down class="h-3.5 w-3.5 text-white/60" />
                             </button>
 
 
@@ -221,7 +229,8 @@
 
     <x-confirm-modal />
 
-    <script src="{{ asset('assets/static/js/phone-input.js') }}"></script>
+    <script src="{{ asset('assets/static/global/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/static/global/js/phone-input.js') }}"></script>
     @stack('scripts')
     <x-integrations.tawk />
 

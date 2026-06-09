@@ -19,7 +19,7 @@
             </a>
             <div class="min-w-0">
                 <h1 class="ud-page-title !mb-0 break-words">{{ $contract->title }}</h1>
-                <div class="flex flex-wrap items-center gap-x-2 gap-y-1 mt-1 text-[12px] text-white/45">
+                <div class="flex flex-wrap items-center gap-x-2 gap-y-1 mt-1 text-[12px] text-white/60">
                     <span>{{ $contract->template->name ?? '—' }}</span>
                     <span class="hidden sm:inline">·</span>
                     <span>{{ $contract->created_at->format('d M Y') }}</span>
@@ -39,7 +39,7 @@
                     @csrf
                     <button type="button"
                             onclick="confirmModal.show('@lang('Regenerate Contract')', '@lang('1 AI draft will be deducted. This will overwrite the current content.')', function(){ showRegenLoader(); document.getElementById('regenerate-form').submit(); })"
-                            class="btn-ghost rounded-lg px-3 py-2 text-[12px] flex items-center gap-1.5 text-lime/80 hover:text-lime">
+                            class="btn-ghost rounded-lg px-3 py-2 text-[12px] flex items-center gap-1.5 text-primary/80 hover:text-primary">
                         <x-heroicon-o-sparkles class="h-4 w-4" />
                         @lang('Regenerate')
                     </button>
@@ -57,7 +57,7 @@
                 </button>
                 <form method="POST" action="{{ route('user.contracts.finalize', $contract) }}">
                     @csrf
-                    <button class="btn-lime rounded-lg px-3 py-2 text-[12px] flex items-center gap-1.5">
+                    <button class="btn-primary rounded-lg px-3 py-2 text-[12px] flex items-center gap-1.5">
                         <x-heroicon-o-lock-closed class="h-4 w-4" />
                         @lang('Finalize')
                     </button>
@@ -72,7 +72,7 @@
                 </a>
                 <form method="POST" action="{{ route('user.contracts.send-sign', $contract) }}">
                     @csrf
-                    <button class="btn-lime rounded-lg px-3 py-2 text-[12px] flex items-center gap-1.5">
+                    <button class="btn-primary rounded-lg px-3 py-2 text-[12px] flex items-center gap-1.5">
                         <x-heroicon-o-paper-airplane class="h-4 w-4" />
                         @lang('Send for Signature')
                     </button>
@@ -110,7 +110,7 @@
     @if($contract->status === 'generating')
     <div class="rounded-2xl glass p-12 text-center">
         <div class="inline-flex items-center gap-3 text-white/60">
-            <svg class="animate-spin h-5 w-5 text-lime" fill="none" viewBox="0 0 24 24">
+            <svg class="animate-spin h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
             </svg>
@@ -178,7 +178,7 @@
                         <div class="text-right shrink-0">
                             <div class="text-[10px] font-mono uppercase text-white/30">{{ ucfirst($party->role) }}</div>
                             @if($party->hasSigned())
-                                <div class="text-[10px] text-lime mt-0.5">✓ @lang('Signed')</div>
+                                <div class="text-[10px] text-primary mt-0.5">✓ @lang('Signed')</div>
                             @elseif($party->role === 'signer')
                                 <div class="text-[10px] text-white/30 mt-0.5">@lang('Pending')</div>
                             @endif
@@ -193,15 +193,15 @@
                 <h3 class="text-[11px] font-mono uppercase tracking-widest text-white/40">@lang('Details')</h3>
                 <div class="space-y-2 text-[12px]">
                     <div class="flex justify-between">
-                        <span class="text-white/45">@lang('Template')</span>
+                        <span class="text-white/60">@lang('Template')</span>
                         <span class="text-white/80">{{ $contract->template->name ?? '—' }}</span>
                     </div>
                     <div class="flex justify-between">
-                        <span class="text-white/45">@lang('Credits used')</span>
+                        <span class="text-white/60">@lang('Credits used')</span>
                         <span class="text-white/80">{{ $contract->credits_used }}</span>
                     </div>
                     <div class="flex justify-between">
-                        <span class="text-white/45">@lang('Created')</span>
+                        <span class="text-white/60">@lang('Created')</span>
                         <span class="text-white/80">{{ $contract->created_at->format('d M Y') }}</span>
                     </div>
                 </div>
@@ -218,17 +218,17 @@
     <div class="max-w-md w-full mx-4 rounded-2xl glass p-8 text-center">
         <div class="relative mx-auto mb-6 h-20 w-20">
             <div class="absolute inset-0 rounded-full border-4 border-white/10"></div>
-            <div class="absolute inset-0 rounded-full border-4 border-lime border-t-transparent animate-spin"></div>
+            <div class="absolute inset-0 rounded-full border-4 border-primary border-t-transparent animate-spin"></div>
             <div class="absolute inset-0 flex items-center justify-center">
-                <x-heroicon-o-sparkles class="h-9 w-9 text-lime animate-pulse" />
+                <x-heroicon-o-sparkles class="h-9 w-9 text-primary animate-pulse" />
             </div>
         </div>
         <h2 class="text-lg font-bold text-white">@lang('Regenerating your contract…')</h2>
         <p id="ai-regen-step" class="mt-2 text-sm text-white/55">@lang('Reviewing your brief')</p>
         <div class="mt-5 flex items-center justify-center gap-1.5">
-            <span class="h-1.5 w-1.5 rounded-full bg-lime animate-bounce" class="delay-0"></span>
-            <span class="h-1.5 w-1.5 rounded-full bg-lime animate-bounce" class="delay-150"></span>
-            <span class="h-1.5 w-1.5 rounded-full bg-lime animate-bounce" class="delay-300"></span>
+            <span class="h-1.5 w-1.5 rounded-full bg-primary animate-bounce" class="delay-0"></span>
+            <span class="h-1.5 w-1.5 rounded-full bg-primary animate-bounce" class="delay-150"></span>
+            <span class="h-1.5 w-1.5 rounded-full bg-primary animate-bounce" class="delay-300"></span>
         </div>
         <p class="mt-5 text-xs text-white/40">{{ __('This may take 15–60 seconds. Please don\'t close this window.') }}</p>
     </div>

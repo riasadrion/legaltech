@@ -10,7 +10,7 @@
     <div class="radial-fade pointer-events-none"></div>
     <div class="relative mx-auto max-w-4xl px-6 text-center">
         <div class="inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-xs font-medium text-white/50 mb-6">
-            <x-heroicon-o-document-text class="h-4 w-4 text-lime" />@lang('Articles & insights')
+            <x-heroicon-o-document-text class="h-4 w-4 text-primary" />@lang('Articles & insights')
         </div>
         <h1 class="font-display text-4xl sm:text-5xl md:text-6xl text-white mb-4">@lang('The LegalDocs Blog')</h1>
         <p class="text-lg text-white/40 max-w-xl mx-auto">
@@ -28,7 +28,7 @@
             <a href="{{ route('blog.index') }}"
                class="rounded-full px-4 py-1.5 text-sm font-medium transition
                       {{ !request()->routeIs('blog.category') && !request()->routeIs('blog.tag')
-                         ? 'bg-lime text-ink-900' : 'glass text-white/60 hover:text-white' }}">
+                         ? 'bg-primary text-ink-900' : 'glass text-white/60 hover:text-white' }}">
                 @lang('All')
             </a>
             @foreach($categories as $cat)
@@ -79,11 +79,11 @@
                 @endif
                 <div class="p-8 md:p-10 {{ $heroPost->cover_image ? 'md:w-1/2' : 'w-full' }} flex flex-col justify-center">
                     @if($heroPost->category)
-                    <span class="text-[11px] font-semibold text-lime uppercase tracking-widest mb-3">
+                    <span class="text-[11px] font-semibold text-primary uppercase tracking-widest mb-3">
                         {{ $heroPost->category->getLocalName() }}
                     </span>
                     @endif
-                    <h2 class="font-display text-3xl text-white leading-tight mb-4 group-hover:text-lime transition">
+                    <h2 class="font-display text-3xl text-white leading-tight mb-4 group-hover:text-primary transition">
                         {{ $heroPost->getLocalTitle() }}
                     </h2>
                     @if($heroPost->getLocalExcerpt())
@@ -92,7 +92,7 @@
                     <div class="flex items-center gap-3 text-sm text-white/30">
                         <time>{{ $heroPost->published_at->format('M j, Y') }}</time>
                     </div>
-                    <div class="mt-6 inline-flex items-center gap-2 text-sm font-medium text-lime">
+                    <div class="mt-6 inline-flex items-center gap-2 text-sm font-medium text-primary">
                         @lang('Read article') <x-heroicon-o-arrow-right class="h-4 w-4 inline" />
                     </div>
                 </div>
@@ -113,11 +113,11 @@
                 <div class="p-6 flex flex-col flex-1">
                     @if($post->category)
                     <a href="{{ route('blog.category', $post->category->slug) }}"
-                       class="text-[11px] font-semibold text-lime uppercase tracking-widest mb-2 block">
+                       class="text-[11px] font-semibold text-primary uppercase tracking-widest mb-2 block">
                         {{ $post->category->getLocalName() }}
                     </a>
                     @endif
-                    <h2 class="font-semibold text-white leading-snug group-hover:text-lime transition mb-3 flex-1">
+                    <h2 class="font-semibold text-white leading-snug group-hover:text-primary transition mb-3 flex-1">
                         <a href="{{ route('blog.show', $post->slug) }}">{{ $post->getLocalTitle() }}</a>
                     </h2>
                     @if($post->getLocalExcerpt())

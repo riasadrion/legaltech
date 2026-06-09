@@ -73,7 +73,7 @@ class SettingsController extends Controller
         ]);
 
         Settings::set('site.font', $data['site_font'] ?? 'system', 'string', 'general');
-        Settings::set('site.primary_color', $data['primary_color'] ?? '#D4FF3A', 'string', 'general');
+        Settings::set('site.primary_color', $data['primary_color'] ?? '#e57e38', 'string', 'general');
 
         $css = $this->sanitizeCss($data['custom_css'] ?? '');
         Settings::set('site.custom_css', $css, 'string', 'general');

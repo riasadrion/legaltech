@@ -106,7 +106,7 @@
     <div class="header-meta">Generated {{ $today }}</div>
   </div>
   <div class="contract-body">
-    {!! $body !!}
+    <?php echo $body; ?>
   </div>
   <div class="signatures">
     <div class="signatures-title">Parties &amp; Signatures</div>

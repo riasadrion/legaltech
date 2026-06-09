@@ -7,8 +7,8 @@
     $cards   = array_values(array_filter($d['cards'] ?? [], fn($c) => !empty($c['title'])));
 @endphp
 
-<section id="why-us-{{ $section->id }}" class="relative py-28 bg-cream-100 text-ink-900">
-    <div class="absolute inset-0 bg-grid-cream radial-fade pointer-events-none"></div>
+<section id="why-us-{{ $section->id }}" class="relative py-28 {{ $sectionBg ?? 'bg-cream-100' }} text-ink-900">
+    <div class="absolute inset-0 {{ ($sectionBg ?? '') === 'bg-cream-50' ? 'bg-grid-cream' : 'bg-grid-cream' }} radial-fade pointer-events-none"></div>
     <div class="relative mx-auto max-w-7xl px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
 
 
@@ -42,7 +42,7 @@
                     @php $dark = strtolower($card['dark'] ?? '') === 'yes'; @endphp
                     <div class="rounded-3xl shadow-card p-6 lift {{ $dark ? 'bg-ink-900 text-white' : 'bg-white' }}" data-reveal data-reveal-delay="{{ $loop->index * 80 }}">
                         @if(!empty($card['icon']))
-                            <i class="{{ $card['icon'] }} text-2xl {{ $dark ? 'text-lime' : 'text-ink-900' }}"></i>
+                            <x-dynamic-component :component="$card['icon']" class="h-7 w-7 {{ $dark ? 'text-primary' : 'text-ink-900' }}" />
                         @endif
                         <h3 class="font-display text-xl mt-3">{{ __($card['title']) }}</h3>
                         <p class="text-sm mt-1 {{ $dark ? 'text-white/65' : 'text-ink-500' }}">

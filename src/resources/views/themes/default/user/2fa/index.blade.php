@@ -14,8 +14,8 @@
         @if($enabled)
             <div class="p-6 space-y-5">
                 <div class="flex items-center gap-4">
-                    <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-lime/15">
-                        <x-heroicon-o-shield-check class="h-6 w-6 text-lime" />
+                    <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary/15">
+                        <x-heroicon-o-shield-check class="h-6 w-6 text-primary" />
                     </div>
                     <div>
                         <p class="font-semibold text-white">@lang('2FA is Enabled')</p>
@@ -73,10 +73,10 @@
                         ['step' => '3', 'title' => __('Enter Code'), 'desc' => __('Confirm and activate 2FA')],
                     ] as $s)
                     <div class="rounded-lg bg-white/4 border border-white/8 px-4 py-3 flex items-start gap-3">
-                        <div class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-lime/15 text-lime text-xs font-bold">{{ $s['step'] }}</div>
+                        <div class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary/15 text-primary text-xs font-bold">{{ $s['step'] }}</div>
                         <div>
                             <div class="text-sm font-medium text-white">{{ $s['title'] }}</div>
-                            <div class="text-xs text-white/45 mt-0.5">{{ $s['desc'] }}</div>
+                            <div class="text-xs text-white/60 mt-0.5">{{ $s['desc'] }}</div>
                         </div>
                     </div>
                     @endforeach

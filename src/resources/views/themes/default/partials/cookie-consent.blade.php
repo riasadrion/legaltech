@@ -107,8 +107,8 @@
         localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
     }
 
-    function show(el)  { el.classList.add('cc-open');  }
-    function hide(el)  { el.classList.remove('cc-open'); }
+    function show(el)  { $(el).addClass('cc-open');    }
+    function hide(el)  { $(el).removeClass('cc-open'); }
 
     var SNOOZE_DAYS = 7;
 
@@ -153,20 +153,18 @@
     }
 
     // Wire buttons
-    document.getElementById('cookie-accept').addEventListener('click', function () { setConsent('accepted'); });
-    document.getElementById('cookie-reject').addEventListener('click', function () { snooze(); hideAll(); closePrefs(); });
-    document.getElementById('cookie-prefs').addEventListener('click', openPrefs);
-    document.getElementById('cookie-save-prefs').addEventListener('click', function () { setConsent('saved'); });
-    reopen.addEventListener('click', function () { showBanner(); });
+    $('#cookie-accept').on('click', function () { setConsent('accepted'); });
+    $('#cookie-reject').on('click', function () { snooze(); hideAll(); closePrefs(); });
+    $('#cookie-prefs').on('click', openPrefs);
+    $('#cookie-save-prefs').on('click', function () { setConsent('saved'); });
+    $(reopen).on('click', function () { showBanner(); });
 
     // Close modal via backdrop / X / Cancel
-    modal.querySelectorAll('[data-cc-close]').forEach(function (el) {
-        el.addEventListener('click', closePrefs);
-    });
+    $(modal).find('[data-cc-close]').on('click', closePrefs);
 
     // Escape to close modal
-    document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && modal.classList.contains('cc-open')) closePrefs();
+    $(document).on('keydown', function (e) {
+        if (e.key === 'Escape' && $(modal).hasClass('cc-open')) closePrefs();
     });
 })();
 </script>

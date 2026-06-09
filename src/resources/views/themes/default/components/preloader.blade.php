@@ -36,19 +36,17 @@
 <script>
 (function () {
     'use strict';
-    var loader = document.getElementById('fe-preloader');
-    if (!loader) return;
+    var $loader = $('#fe-preloader');
+    if (!$loader.length) return;
 
     function finish() {
-        setTimeout(function () {
-            loader.classList.add('fe-preloader-done');
-        }, 300);
+        setTimeout(function () { $loader.addClass('fe-preloader-done'); }, 300);
     }
 
     if (document.readyState === 'complete') {
         finish();
     } else {
-        window.addEventListener('load', finish);
+        $(window).on('load', finish);
         setTimeout(finish, 4000);
     }
 })();

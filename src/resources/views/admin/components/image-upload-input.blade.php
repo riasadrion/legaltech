@@ -51,7 +51,7 @@
 </div>
 
 <script>
-    $(document).ready(function () {
+    $(function () {
         'use strict';
 
         const field = $('[data-name="{{ $name }}"]');

@@ -13,7 +13,7 @@
         </a>
         <div>
             <h1 class="ud-page-title !mb-0">{{ $gateway->name }}</h1>
-            <p class="text-[12px] text-white/45">@lang('Enter amount to add to your wallet')</p>
+            <p class="text-[12px] text-white/60">@lang('Enter amount to add to your wallet')</p>
         </div>
     </div>
 
@@ -45,7 +45,7 @@
                         @if($gateway->fee_flat > 0 && $gateway->fee_percent > 0) + @endif
                         @if($gateway->fee_percent > 0){{ $gateway->fee_percent }}%@endif
                     @else
-                        · <span class="text-lime/80">@lang('No fee')</span>
+                        · <span class="text-primary/80">@lang('No fee')</span>
                     @endif
                 </div>
             </div>
@@ -94,8 +94,8 @@
                 <label class="block text-[12px] font-medium text-white/60 mb-1.5">@lang('Upload payment receipt')</label>
                 <input type="file" name="receipt" accept=".jpg,.jpeg,.png,.webp,.pdf"
                        class="block w-full text-[13px] text-white/50
-                              file:mr-3 file:rounded-lg file:border-0 file:bg-lime/10 file:px-3 file:py-2
-                              file:text-[12px] file:font-medium file:text-lime hover:file:bg-lime/20" />
+                              file:mr-3 file:rounded-lg file:border-0 file:bg-primary/10 file:px-3 file:py-2
+                              file:text-[12px] file:font-medium file:text-primary hover:file:bg-primary/20" />
                 <p class="mt-1 text-[11px] text-white/35">@lang('JPG, PNG, WebP or PDF, max 5MB')</p>
                 @error('receipt')<p class="mt-1 text-[11px] text-red-400">{{ $message }}</p>@enderror
             </div>
@@ -103,7 +103,7 @@
 
             @error('error')<p class="text-[12px] text-red-400">{{ $message }}</p>@enderror
 
-            <button type="submit" class="btn-lime rounded-xl w-full py-2.5 text-[13px] font-semibold mt-1">
+            <button type="submit" class="btn-primary rounded-xl w-full py-2.5 text-[13px] font-semibold mt-1">
                 @if($gateway->driver === 'manual')
                     @lang('Submit payment request')
                 @else

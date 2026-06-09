@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="{{ config('app.url') }}/assets/static/global/css/email.css">
 </head>
 <body class="newsletter-body">
-    {!! $body !!}
+    <?php echo $body; ?>
     <hr class="newsletter-divider">
     <p class="newsletter-meta">
         You're receiving this because you subscribed to {{ $appName }}.<br>

@@ -14,11 +14,11 @@
     <div class="rounded-2xl glass px-5 py-4 flex items-center justify-between">
         <div>
             <div class="text-[13px] font-medium text-white">{{ $plan->name }}</div>
-            <div class="text-[11px] text-white/45 mt-0.5">{{ $plan->description }}</div>
+            <div class="text-[11px] text-white/60 mt-0.5">{{ $plan->description }}</div>
         </div>
         <div class="text-right">
             <div class="font-display text-2xl text-white">{{ $plan->formattedPrice() }}</div>
-            <div class="text-[11px] text-white/45">
+            <div class="text-[11px] text-white/60">
                 @if($plan->billing_cycle === 'monthly') @lang('/ month')
                 @elseif($plan->billing_cycle === 'yearly') @lang('/ year')
                 @elseif($plan->billing_cycle === 'per_contract') @lang('/ contract')
@@ -62,7 +62,7 @@
                     <div>
                         <div class="text-[13px] font-medium text-white leading-tight">{{ $gateway->name }}</div>
                         @if($gateway->fee_flat == 0 && $gateway->fee_percent == 0)
-                            <div class="text-[11px] text-lime/70 mt-0.5">@lang('No fee')</div>
+                            <div class="text-[11px] text-primary/70 mt-0.5">@lang('No fee')</div>
                         @else
                             <div class="text-[11px] text-white/40 mt-0.5">
                                 @if($gateway->fee_flat > 0){{ $gateway->formatAmount($gateway->fee_flat) }}@endif

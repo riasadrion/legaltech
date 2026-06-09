@@ -38,7 +38,7 @@
                 <div class="text-[11px] text-white/40 mt-0.5">
                     @lang('Min') {{ $gateway->formatAmount($gateway->min_amount) }}
                     @if($gateway->fee_flat == 0 && $gateway->fee_percent == 0)
-                        · <span class="text-lime/70">@lang('No fee')</span>
+                        · <span class="text-primary/70">@lang('No fee')</span>
                     @endif
                 </div>
             </div>

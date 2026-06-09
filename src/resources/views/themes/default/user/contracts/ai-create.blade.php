@@ -12,12 +12,12 @@
         </a>
         <div>
             <h1 class="ud-page-title !mb-0 flex items-center gap-2">
-                <x-heroicon-o-sparkles class="h-5 w-5 text-lime" />
+                <x-heroicon-o-sparkles class="h-5 w-5 text-primary" />
                 @lang('AI Custom Contract')
             </h1>
-            <p class="text-[12px] text-white/45 mt-1">
+            <p class="text-[12px] text-white/60 mt-1">
                 @lang('Describe the contract you need. The AI drafts the full agreement, ready to review, edit, and sign.')
-                · <span class="text-lime/80">@lang('1 AI draft')</span>
+                · <span class="text-primary/80">@lang('1 AI draft')</span>
             </p>
         </div>
     </div>
@@ -38,7 +38,7 @@
 
         <div class="rounded-2xl glass overflow-hidden">
             <div class="px-5 py-3 border-b border-white/8 flex items-center gap-2">
-                <x-heroicon-o-sparkles class="h-4 w-4 text-lime" />
+                <x-heroicon-o-sparkles class="h-4 w-4 text-primary" />
                 <span class="text-[12px] font-mono uppercase tracking-widest text-white/50">@lang('Your Brief')</span>
             </div>
             <div class="px-5 py-5 space-y-3">
@@ -69,7 +69,7 @@
             <div class="px-5 py-3 border-b border-white/8 flex items-center justify-between">
                 <h2 class="text-[12px] font-mono uppercase tracking-widest text-white/50">@lang('Parties')</h2>
                 <button type="button" id="add-party-btn"
-                        class="text-[12px] text-lime hover:underline flex items-center gap-1">
+                        class="text-[12px] text-primary hover:underline flex items-center gap-1">
                     <x-heroicon-o-plus class="h-3.5 w-3.5" />
                     @lang('Add party')
                 </button>
@@ -99,7 +99,7 @@
 
         <div class="flex items-center justify-between gap-3">
             <a href="{{ route('user.contracts.create') }}" class="text-[13px] text-white/50 hover:text-white">@lang('Cancel')</a>
-            <button type="submit" class="btn-lime rounded-xl px-5 py-3 text-[13px] font-semibold flex items-center gap-2">
+            <button type="submit" class="btn-primary rounded-xl px-5 py-3 text-[13px] font-semibold flex items-center gap-2">
                 <x-heroicon-o-sparkles class="h-4 w-4" />
                 @lang('Generate Contract')
             </button>
@@ -113,17 +113,17 @@
     <div class="max-w-md w-full mx-4 rounded-2xl glass p-8 text-center">
         <div class="relative mx-auto mb-6 h-20 w-20">
             <div class="absolute inset-0 rounded-full border-4 border-white/10"></div>
-            <div class="absolute inset-0 rounded-full border-4 border-lime border-t-transparent animate-spin"></div>
+            <div class="absolute inset-0 rounded-full border-4 border-primary border-t-transparent animate-spin"></div>
             <div class="absolute inset-0 flex items-center justify-center">
-                <x-heroicon-o-sparkles class="h-9 w-9 text-lime animate-pulse" />
+                <x-heroicon-o-sparkles class="h-9 w-9 text-primary animate-pulse" />
             </div>
         </div>
         <h2 class="text-lg font-bold text-white">@lang('Drafting your contract…')</h2>
         <p id="ai-loader-step" class="mt-2 text-sm text-white/55">@lang('Reviewing your brief')</p>
         <div class="mt-5 flex items-center justify-center gap-1.5">
-            <span class="h-1.5 w-1.5 rounded-full bg-lime animate-bounce" class="delay-0"></span>
-            <span class="h-1.5 w-1.5 rounded-full bg-lime animate-bounce" class="delay-150"></span>
-            <span class="h-1.5 w-1.5 rounded-full bg-lime animate-bounce" class="delay-300"></span>
+            <span class="h-1.5 w-1.5 rounded-full bg-primary animate-bounce" class="delay-0"></span>
+            <span class="h-1.5 w-1.5 rounded-full bg-primary animate-bounce" class="delay-150"></span>
+            <span class="h-1.5 w-1.5 rounded-full bg-primary animate-bounce" class="delay-300"></span>
         </div>
         <p class="mt-5 text-xs text-white/40">{{ __('This may take 15–60 seconds. Please don\'t close this window.') }}</p>
     </div>

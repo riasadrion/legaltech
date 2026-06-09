@@ -201,11 +201,11 @@
                     <div>
                         <label class="mb-1.5 block text-sm font-medium text-gray-700">@lang('Primary / Accent Color')</label>
                         <div class="flex items-center gap-3">
-                            <input type="color" name="primary_color" value="{{ old('primary_color', setting('site.primary_color', '#D4FF3A')) }}"
+                            <input type="color" name="primary_color" value="{{ old('primary_color', setting('site.primary_color')) }}"
                                 class="h-9 w-14 cursor-pointer rounded-lg border border-gray-300 bg-white p-1">
-                            <input type="text" id="primary_color_hex" value="{{ old('primary_color', setting('site.primary_color', '#D4FF3A')) }}"
+                            <input type="text" id="primary_color_hex" value="{{ old('primary_color', setting('site.primary_color')) }}"
                                 class="h-9 w-32 rounded-lg border border-gray-300 px-3 text-sm font-mono focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"
-                                placeholder="#D4FF3A" maxlength="7"
+                                placeholder="#000000" maxlength="7"
                                 oninput="document.querySelector('[name=primary_color]').value=this.value">
                         </div>
                         <p class="mt-1 text-xs text-gray-400">@lang('Buttons, links, highlights across the frontend.')</p>
@@ -873,21 +873,6 @@
     </div>
 </div>
 
-@push('head')
-<style>
-.tab-content { animation: none; }
-.tab-fade { animation: tabFadeIn 0.18s ease; }
-@keyframes tabFadeIn {
-    from { opacity: 0; transform: translateY(6px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-.storage-tile[data-active="1"] { border-color: var(--color-brand-500); background-color: var(--color-brand-50); }
-[data-theme="dark"] .storage-tile[data-active="1"] { background-color: rgb(99 102 241 / 0.15); }
-.storage-tile[data-active="0"]:hover { border-color: #d1d5db; }
-[data-theme="dark"] .storage-tile[data-active="0"] { background-color: rgb(30 41 59); border-color: rgb(51 65 85); }
-[data-theme="dark"] .storage-tile[data-active="0"]:hover { border-color: rgb(71 85 105); }
-</style>
-@endpush
 
 @push('scripts')
 <script>

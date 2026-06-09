@@ -17,8 +17,8 @@
             <li class="flex items-center {{ $loop->last ? '' : 'flex-1' }} shrink-0">
                 <div class="flex items-center gap-2">
                     <span class="grid place-items-center h-7 w-7 rounded-full text-[11px] font-semibold border transition
-                        @if($state === 'done') bg-lime/15 border-lime/40 text-lime
-                        @elseif($state === 'active') bg-lime border-lime text-black
+                        @if($state === 'done') bg-primary/15 border-primary/40 text-primary
+                        @elseif($state === 'active') bg-primary border-primary text-black
                         @else bg-white/4 border-white/10 text-white/40 @endif">
                         @if($state === 'done')
                             <x-heroicon-o-check class="h-3.5 w-3.5" />

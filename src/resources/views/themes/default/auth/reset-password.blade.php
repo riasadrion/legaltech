@@ -29,7 +29,7 @@
                    placeholder="{{ __('Min 8 characters') }}" autocomplete="new-password" required
                    class="auth-input pe-11 {{ $errors->has('password') ? 'auth-input-err' : '' }}">
             <button type="button" data-pwd-toggle tabindex="-1"
-                    class="absolute inset-y-0 end-0 flex items-center pe-3 text-white/40 hover:text-white/70">
+                    class="absolute inset-y-0 end-0 flex items-center pe-3 text-ink-400 hover:text-ink-700">
                 <x-heroicon-o-eye class="h-5 w-5" data-eye />
                 <x-heroicon-o-eye-slash class="h-5 w-5 hidden" data-eye-off />
             </button>
@@ -43,14 +43,14 @@
                    placeholder="{{ __('Repeat password') }}" autocomplete="new-password" required
                    class="auth-input pe-11">
             <button type="button" data-pwd-toggle tabindex="-1"
-                    class="absolute inset-y-0 end-0 flex items-center pe-3 text-white/40 hover:text-white/70">
+                    class="absolute inset-y-0 end-0 flex items-center pe-3 text-ink-400 hover:text-ink-700">
                 <x-heroicon-o-eye class="h-5 w-5" data-eye />
                 <x-heroicon-o-eye-slash class="h-5 w-5 hidden" data-eye-off />
             </button>
         </div>
     </div>
 
-    <button type="submit" class="auth-btn-primary w-full">
+    <button type="submit" class="btn-primary w-full flex items-center justify-center rounded-xl px-5 py-3.5 text-[15px] font-semibold">
         @lang('Reset password')
     </button>
 </form>

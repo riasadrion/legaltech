@@ -9,8 +9,6 @@
 .theme-default .nav-brand-logo-light { display: block; }
 .theme-default .nav-brand-logo-dark  { display: none; }
 
-:root { --brand-color: #D4FF3A; }
-
 
 body.theme-default {
     background: #0B0B0F;
@@ -87,7 +85,7 @@ body.theme-default {
 .theme-default .pill-review { background: rgba(124,92,255,0.18); color: #A899FF; border: 1px solid rgba(124,92,255,0.25); }
 .theme-default .pill-done   { background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.45); border: 1px solid rgba(255,255,255,0.08); }
 
-.theme-default .glow-lime {
+.theme-default .glow-primary {
     background: radial-gradient(ellipse 50% 50% at 50% 50%, color-mix(in srgb, var(--brand-color) 35%, transparent), color-mix(in srgb, var(--brand-color) 0%, transparent) 70%);
     filter: blur(60px);
 }
@@ -163,30 +161,24 @@ body.theme-default {
     background-clip: text;
     color: transparent;
 }
-.theme-default .lime-grad {
+.theme-default .primary-grad {
     background: linear-gradient(180deg, color-mix(in srgb, var(--brand-color) 80%, white) 0%, var(--brand-color) 60%, color-mix(in srgb, var(--brand-color) 80%, black) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
 }
 
-.theme-default .btn-lime {
+.theme-default .btn-primary {
     background: var(--brand-color);
-    color: #0B0B0F;
+    color: #fff;
     font-weight: 600;
-    box-shadow:
-        0 1px 0 rgba(255, 255, 255, 0.6) inset,
-        0 -1px 0 rgba(0, 0, 0, 0.15) inset,
-        0 12px 30px -10px color-mix(in srgb, var(--brand-color) 55%, transparent);
+    box-shadow: none;
     transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
 }
-.theme-default .btn-lime:hover {
+.theme-default .btn-primary:hover {
     transform: translateY(-1px);
     filter: brightness(1.04);
-    box-shadow:
-        0 1px 0 rgba(255, 255, 255, 0.7) inset,
-        0 -1px 0 rgba(0, 0, 0, 0.2) inset,
-        0 18px 40px -10px color-mix(in srgb, var(--brand-color) 70%, transparent);
+    box-shadow: 0 18px 40px -10px color-mix(in srgb, var(--brand-color) 70%, transparent);
 }
 .theme-default .btn-ghost {
     background: rgba(255, 255, 255, 0.04);
@@ -220,8 +212,12 @@ body.theme-default {
 
 .theme-default details > summary { list-style: none; cursor: pointer; }
 .theme-default details > summary::-webkit-details-marker { display: none; }
-.theme-default details[open] .acc-icon { transform: rotate(45deg); }
-.theme-default .acc-icon { transition: transform 0.25s ease; }
+.theme-default .acc-icon { transition: rotate 0.25s ease, background 0.2s ease, border-color 0.2s ease; }
+.theme-default .acc-icon.acc-icon-active {
+    background: var(--brand-color);
+    border-color: var(--brand-color);
+    color: #fff;
+}
 
 .theme-default section[id] { scroll-margin-top: 100px; }
 
@@ -284,17 +280,22 @@ body.theme-default {
     border: 1px solid rgba(255,255,255,0.12);
 }
 .theme-default .hero-float-card-ai { min-width: 148px; }
+.theme-default .hero-float-card-cream {
+    backdrop-filter: blur(16px);
+    background: linear-gradient(180deg, rgba(255,255,255,0.75), rgba(255,255,255,0.45));
+    border: 1px solid rgba(11,11,15,0.1);
+}
 
-.theme-default .page-hero-wrap { background: #08090C; position: relative; }
+.theme-default .page-hero-wrap { background: var(--color-cream-50); position: relative; }
 .theme-default .page-hero-glow-bl {
     position: absolute; bottom: 0; left: 0;
     width: 700px; height: 700px; pointer-events: none;
-    background: radial-gradient(circle at 0% 100%, color-mix(in srgb, var(--brand-color) 10%, transparent) 0%, transparent 55%);
+    background: radial-gradient(circle at 0% 100%, color-mix(in srgb, var(--brand-color) 12%, transparent) 0%, transparent 55%);
 }
 .theme-default .page-hero-glow-tr {
     position: absolute; top: 33%; right: 0;
     width: 600px; height: 600px; pointer-events: none;
-    background: radial-gradient(circle at 100% 50%, rgba(124,58,237,0.11) 0%, transparent 55%);
+    background: radial-gradient(circle at 100% 50%, color-mix(in srgb, var(--brand-color) 10%, transparent) 0%, transparent 55%);
 }
 .theme-default .page-hero {
     position: relative;
@@ -308,17 +309,17 @@ body.theme-default {
 .theme-default .page-hero-orb-top {
     position: absolute; top: 0; left: 50%; transform: translateX(-50%);
     width: 800px; height: 400px; pointer-events: none;
-    background: radial-gradient(ellipse at 50% 0%, rgba(124,58,237,0.30) 0%, transparent 70%);
+    background: radial-gradient(ellipse at 50% 0%, color-mix(in srgb, var(--brand-color) 16%, transparent) 0%, transparent 70%);
 }
 .theme-default .page-hero-orb-bl {
     position: absolute; bottom: 0; left: 0;
     width: 500px; height: 400px; pointer-events: none;
-    background: radial-gradient(ellipse at 0% 100%, rgba(124,58,237,0.10) 0%, transparent 65%);
+    background: radial-gradient(ellipse at 0% 100%, color-mix(in srgb, var(--brand-color) 8%, transparent) 0%, transparent 65%);
 }
 .theme-default .page-hero-orb-tr {
     position: absolute; top: 0; right: 0;
     width: 400px; height: 350px; pointer-events: none;
-    background: radial-gradient(ellipse at 100% 0%, rgba(124,58,237,0.08) 0%, transparent 65%);
+    background: radial-gradient(ellipse at 100% 0%, color-mix(in srgb, var(--brand-color) 6%, transparent) 0%, transparent 65%);
 }
 .theme-default .page-hero-shimmer {
     position: absolute; bottom: 0; left: 0; right: 0; height: 1px; pointer-events: none;
@@ -343,18 +344,18 @@ body.theme-default {
 @media (min-width: 768px) { .theme-default .ct-hero { padding-top: calc(72px + 80px); padding-bottom: 5rem; } }
 .theme-default .ct-field {
     width: 100%;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.10);
+    background: rgba(255,255,255,0.7);
+    border: 1px solid rgba(11,11,15,0.12);
     border-radius: 14px;
     padding: 14px 18px;
-    color: #fff;
+    color: #0B0B0F;
     font-family: 'Manrope', sans-serif;
     font-size: 0.875rem;
     outline: none;
     transition: border-color 0.2s ease, background 0.2s ease;
     resize: vertical;
 }
-.theme-default .ct-field::placeholder { color: rgba(255,255,255,0.32); }
+.theme-default .ct-field::placeholder { color: rgba(11,11,15,0.32); }
 .theme-default textarea.ct-field { min-height: 220px; }
 .theme-default .ct-topic { margin-bottom: 2rem; }
 
@@ -397,13 +398,13 @@ body.theme-default {
     border-radius: 9999px;
     font-size: 0.875rem;
     padding: 0.5rem 1rem;
-    border: 1px solid rgba(255,255,255,0.10);
-    background: rgba(255,255,255,0.04);
-    color: rgba(255,255,255,0.65);
+    border: 1px solid rgba(11,11,15,0.12);
+    background: rgba(11,11,15,0.03);
+    color: rgba(11,11,15,0.55);
     cursor: pointer;
     transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
 }
-.theme-default .ct-chip:hover { border-color: rgba(255,255,255,0.25); }
+.theme-default .ct-chip:hover { border-color: rgba(11,11,15,0.25); color: rgba(11,11,15,0.8); }
 .theme-default .ct-chip.ct-active {
     border-color: color-mix(in srgb, var(--brand-color) 40%, transparent);
     background: color-mix(in srgb, var(--brand-color) 10%, transparent);
@@ -784,25 +785,25 @@ body.theme-default {
 .theme-default .auth-label {
     font-size: 0.8125rem;
     font-weight: 500;
-    color: rgba(255,255,255,0.6);
+    color: rgba(11,11,15,0.55);
     margin-bottom: 0.375rem;
     display: block;
 }
 .theme-default .auth-input {
     width: 100%;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.10);
+    background: rgba(255,255,255,0.7);
+    border: 1px solid rgba(11,11,15,0.12);
     border-radius: 0.75rem;
     padding: 0.75rem 1rem;
-    color: #fff;
+    color: #0B0B0F;
     font-size: 0.9375rem;
     outline: none;
     transition: border-color 0.2s ease, background 0.2s ease;
 }
-.theme-default .auth-input::placeholder { color: rgba(255,255,255,0.28); }
+.theme-default .auth-input::placeholder { color: rgba(11,11,15,0.28); }
 .theme-default .auth-input:focus {
     border-color: color-mix(in srgb, var(--brand-color) 50%, transparent);
-    background: color-mix(in srgb, var(--brand-color) 3%, transparent);
+    background: #fff;
 }
 .theme-default .auth-input-err { border-color: rgba(239,68,68,0.5) !important; }
 
@@ -821,8 +822,8 @@ body.theme-default {
     width: 1rem;
     height: 1rem;
     border-radius: 0.25rem;
-    border: 1px solid rgba(255,255,255,0.2);
-    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(11,11,15,0.15);
+    background: rgba(255,255,255,0.7);
     accent-color: var(--brand-color);
     cursor: pointer;
     flex-shrink: 0;
@@ -833,20 +834,20 @@ body.theme-default {
     justify-content: center;
     gap: 0.5rem;
     background: var(--brand-color);
-    color: #0B0B0F;
+    color: #fff;
     font-weight: 700;
     font-size: 0.9375rem;
     border: none;
     border-radius: 0.875rem;
     padding: 0.875rem 1.5rem;
     cursor: pointer;
-    box-shadow: 0 8px 24px -8px color-mix(in srgb, var(--brand-color) 50%, transparent);
-    transition: filter 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
 }
 .theme-default .auth-btn-primary:hover {
-    filter: brightness(1.06);
     transform: translateY(-1px);
-    box-shadow: 0 14px 30px -8px color-mix(in srgb, var(--brand-color) 65%, transparent);
+    filter: brightness(1.04);
+    box-shadow: 0 18px 40px -10px color-mix(in srgb, var(--brand-color) 70%, transparent);
 }
 .theme-default .auth-link {
     color: var(--brand-color);
@@ -868,9 +869,9 @@ body.theme-default {
     color: var(--brand-color);
 }
 .theme-default .auth-alert-err {
-    background: rgba(239,68,68,0.08);
+    background: rgba(239,68,68,0.06);
     border: 1px solid rgba(239,68,68,0.2);
-    color: rgba(255,255,255,0.8);
+    color: rgba(185,28,28,0.9);
 }
 .theme-default .auth-divider {
     position: relative;
@@ -878,7 +879,7 @@ body.theme-default {
     align-items: center;
     gap: 0.75rem;
     margin: 1.5rem 0;
-    color: rgba(255,255,255,0.3);
+    color: rgba(11,11,15,0.35);
     font-size: 0.8125rem;
 }
 .theme-default .auth-divider::before,
@@ -886,27 +887,27 @@ body.theme-default {
     content: '';
     flex: 1;
     height: 1px;
-    background: rgba(255,255,255,0.08);
+    background: rgba(11,11,15,0.08);
 }
 .theme-default .auth-social-btn {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.625rem;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.10);
+    background: rgba(255,255,255,0.7);
+    border: 1px solid rgba(11,11,15,0.10);
     border-radius: 0.75rem;
     padding: 0.75rem 1rem;
     font-size: 0.875rem;
     font-weight: 500;
-    color: rgba(255,255,255,0.8);
+    color: rgba(11,11,15,0.75);
     text-decoration: none;
     transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 .theme-default .auth-social-btn:hover {
-    background: rgba(255,255,255,0.08);
-    border-color: rgba(255,255,255,0.18);
-    color: #fff;
+    background: #fff;
+    border-color: rgba(11,11,15,0.18);
+    color: #0B0B0F;
 }
 
 .theme-default .ud-card {
@@ -992,7 +993,7 @@ body.theme-default {
 .theme-default .ud-badge-amber  { background: rgba(251,191,36,0.12);  color: #fbbf24; }
 .theme-default .ud-badge-red    { background: rgba(248,113,113,0.12); color: #f87171; }
 .theme-default .ud-badge-gray   { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.45); }
-.theme-default .ud-badge-lime   { background: color-mix(in srgb, var(--brand-color) 12%, transparent);  color: var(--brand-color); }
+.theme-default .ud-badge-primary   { background: color-mix(in srgb, var(--brand-color) 12%, transparent);  color: var(--brand-color); }
 .theme-default .ud-badge-violet { background: rgba(124,92,255,0.12);  color: #a78bfa; }
 
 .theme-default .ud-row {
@@ -1360,16 +1361,21 @@ body.theme-default {
     gap: 0.5rem;
     padding: 0.625rem 1.25rem;
     background: var(--brand-color);
-    color: #0B0B0F;
+    color: #fff;
     font-size: 0.875rem;
     font-weight: 700;
     border-radius: 0.625rem;
     border: none;
     cursor: pointer;
-    transition: opacity 0.15s;
+    box-shadow: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
     text-decoration: none;
 }
-.theme-default .ud-btn-primary:hover { opacity: 0.88; }
+.theme-default .ud-btn-primary:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.04);
+    box-shadow: 0 18px 40px -10px color-mix(in srgb, var(--brand-color) 70%, transparent);
+}
 .theme-default .ud-btn-ghost {
     display: inline-flex;
     align-items: center;
@@ -1900,3 +1906,140 @@ body.theme-default {
 #fe-preloader-pen .pen-solid { fill: var(--brand-color); }
 #fe-preloader-pen .pen-dim   { fill: color-mix(in srgb, var(--brand-color) 30%, transparent); stroke: var(--brand-color); }
 #fe-preloader-pen .pen-mid   { fill: color-mix(in srgb, var(--brand-color) 18%, transparent); stroke: var(--brand-color); }
+
+/* Error pages */
+body.theme-default-error {
+    background: var(--color-cream-50);
+    color: #0B0B0F;
+    font-family: 'Manrope', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+}
+.err-bg {
+    position: fixed;
+    inset: 0;
+    background-image: url('/assets/static/img/error-bg.svg?v=2');
+    background-size: cover;
+    background-position: center;
+    pointer-events: none;
+}
+.err-wrap {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    max-width: 560px;
+    width: 100%;
+}
+.err-code {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(140px, 22vw, 280px);
+    line-height: 1;
+    color: var(--brand-color);
+    letter-spacing: -0.04em;
+    user-select: none;
+    position: relative;
+}
+.err-glow {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 30%);
+    width: 60vw;
+    max-width: 800px;
+    aspect-ratio: 1;
+    background: radial-gradient(circle, color-mix(in srgb, var(--brand-color) 14%, transparent) 0%, transparent 70%);
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 0;
+}
+.err-card {
+    background: rgba(11,11,15,0.03);
+    border: 1px solid rgba(11,11,15,0.08);
+    backdrop-filter: blur(12px);
+    border-radius: 24px;
+    padding: 40px 48px;
+    margin-top: -20px;
+    position: relative;
+}
+.err-icon-wrap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: color-mix(in srgb, var(--brand-color) 8%, transparent);
+    border: 1px solid color-mix(in srgb, var(--brand-color) 20%, transparent);
+    margin-bottom: 20px;
+}
+.err-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 2rem;
+    color: #0B0B0F;
+    margin: 0 0 10px;
+    font-weight: 400;
+}
+.err-message {
+    color: rgba(11,11,15,0.45);
+    font-size: 15px;
+    line-height: 1.7;
+    margin: 0 0 32px;
+}
+.err-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+}
+.err-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--brand-color);
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 12px 28px;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: opacity 0.15s;
+}
+.err-btn-primary:hover { opacity: 0.88; }
+.err-btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(11,11,15,0.04);
+    color: rgba(11,11,15,0.55);
+    font-weight: 600;
+    font-size: 14px;
+    padding: 12px 28px;
+    border-radius: 999px;
+    border: 1px solid rgba(11,11,15,0.1);
+    text-decoration: none;
+    transition: all 0.15s;
+    cursor: pointer;
+    font-family: inherit;
+}
+.err-btn-ghost:hover { background: rgba(11,11,15,0.08); color: rgba(11,11,15,0.85); }
+.err-maintenance {
+    color: color-mix(in srgb, var(--brand-color) 60%, transparent);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+.err-brand {
+    margin-top: 32px;
+    color: rgba(11,11,15,0.18);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}

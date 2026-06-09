@@ -13,17 +13,10 @@
     'use strict';
     var queue = @json($messages);
     function flush() {
-        if (!window.toast) {
-            setTimeout(flush, 50);
-            return;
-        }
-        queue.forEach(function (m) { window.toast(m.message, m.type); });
+        if (!window.toast) { setTimeout(flush, 50); return; }
+        $.each(queue, function (i, m) { window.toast(m.message, m.type); });
     }
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', flush);
-    } else {
-        flush();
-    }
+    $(flush);
 }());
 </script>
 @endif

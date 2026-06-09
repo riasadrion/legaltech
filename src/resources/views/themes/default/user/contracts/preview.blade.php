@@ -12,7 +12,7 @@
         </a>
         <div>
             <h1 class="ud-page-title !mb-0">@lang('Review your details')</h1>
-            <p class="text-[12px] text-white/45 mt-1">@lang('Confirm everything is correct before generating the contract. Generation deducts') <span class="text-lime/80">{{ $template->credits_cost }} @lang('credit(s)')</span>.</p>
+            <p class="text-[12px] text-white/60 mt-1">@lang('Confirm everything is correct before generating the contract. Generation deducts') <span class="text-primary/80">{{ $template->credits_cost }} @lang('credit(s)')</span>.</p>
         </div>
     </div>
 
@@ -22,13 +22,13 @@
     <div class="rounded-2xl glass overflow-hidden">
         <div class="px-5 py-3 border-b border-white/8 flex items-center justify-between">
             <h2 class="text-[12px] font-mono uppercase tracking-widest text-white/50">@lang('Contract Details')</h2>
-            <a href="{{ route('user.contracts.wizard', $template) }}" class="text-[12px] text-lime hover:underline">@lang('Edit')</a>
+            <a href="{{ route('user.contracts.wizard', $template) }}" class="text-[12px] text-primary hover:underline">@lang('Edit')</a>
         </div>
         <div class="divide-y divide-white/6">
             @foreach($template->fields as $field)
                 @php $value = $fields[$field->key] ?? null; @endphp
                 <div class="px-5 py-3 grid grid-cols-3 gap-3 items-start">
-                    <div class="text-[12px] text-white/45">{{ $field->label }}</div>
+                    <div class="text-[12px] text-white/60">{{ $field->label }}</div>
                     <div class="col-span-2 text-[13px] text-white/85 break-words">
                         @if($value)
                             @if($field->type === 'textarea')
@@ -51,7 +51,7 @@
     <div class="rounded-2xl glass overflow-hidden">
         <div class="px-5 py-3 border-b border-white/8 flex items-center justify-between">
             <h2 class="text-[12px] font-mono uppercase tracking-widest text-white/50">@lang('Parties')</h2>
-            <a href="{{ route('user.contracts.wizard', $template) }}" class="text-[12px] text-lime hover:underline">@lang('Edit')</a>
+            <a href="{{ route('user.contracts.wizard', $template) }}" class="text-[12px] text-primary hover:underline">@lang('Edit')</a>
         </div>
         <div class="divide-y divide-white/6">
             @foreach($parties as $i => $party)
@@ -72,7 +72,7 @@
         <input type="hidden" name="template_id" value="{{ $template->id }}">
         <a href="{{ route('user.contracts.wizard', $template) }}"
            class="text-[13px] text-white/50 hover:text-white">@lang('Go back & edit')</a>
-        <button type="submit" class="btn-lime rounded-xl px-5 py-3 text-[13px] font-semibold flex items-center gap-2">
+        <button type="submit" class="btn-primary rounded-xl px-5 py-3 text-[13px] font-semibold flex items-center gap-2">
             <x-heroicon-o-sparkles class="h-4 w-4" />
             @lang('Generate Contract')
         </button>

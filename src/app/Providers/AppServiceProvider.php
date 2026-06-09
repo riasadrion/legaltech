@@ -55,6 +55,10 @@ class AppServiceProvider extends ServiceProvider
             resource_path('views/admin/components'),
             'admin'
         );
+
+        Blade::directive('viteAssets', function ($expression) {
+            return "<?php echo \\App\\Support\\ViteAssets::includeAssets({$expression}); ?>";
+        });
     }
 
     private function configureGuestRedirect(): void

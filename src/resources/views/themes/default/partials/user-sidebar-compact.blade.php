@@ -18,7 +18,7 @@
                 <img src="{{ upload_url($uLogo) }}" alt="{{ $uSiteName }}" class="nav-brand-logo nav-brand-logo-dark h-8">
             @endif
         @else
-            <span class="grid place-items-center w-8 h-8 rounded-full bg-lime text-ink-900">
+            <span class="grid place-items-center w-8 h-8 rounded-full bg-primary text-ink-900">
                 <x-heroicon-s-pencil class="h-[18px] w-[18px]" />
             </span>
             <span class="font-display text-2xl text-white">{{ $uSiteName }}</span>
@@ -39,7 +39,7 @@
 
 
     <a href="{{ route('user.contracts.ai.create') }}" class="nav-item {{ $isActive('user.contracts.ai.*') ? 'active' : '' }}">
-        <x-heroicon-o-sparkles class="h-[1rem] w-[1rem] shrink-0 text-lime" />
+        <x-heroicon-o-sparkles class="h-[1rem] w-[1rem] shrink-0 text-primary" />
         @lang('AI Contract')
     </a>
 
@@ -100,18 +100,18 @@
 <div class="mt-auto p-4 shrink-0">
     <div class="rounded-2xl border border-white/8 p-4 bg-white/2">
         <div class="flex items-center justify-between">
-            <span class="text-[11px] font-mono uppercase tracking-widest text-white/45">@lang('Plan usage')</span>
-            <span class="text-[10px] text-lime">{{ $subActive ? $sub->plan->name : __('Free') }}</span>
+            <span class="text-[11px] font-mono uppercase tracking-widest text-white/60">@lang('Plan usage')</span>
+            <span class="text-[10px] text-primary">{{ $subActive ? $sub->plan->name : __('Free') }}</span>
         </div>
         <div class="mt-3 text-[13px] text-white">{{ $sidebarBalance->format() }} @lang('balance')</div>
         @if($subActive && $sub->plan->credits > 0)
         <div class="mt-2 h-1.5 rounded-full bg-white/8 overflow-hidden">
             @php $pct = min(100, round(($sub->credits_remaining / $sub->plan->credits) * 100)); @endphp
-            <div class="h-full bg-lime rounded-full usage-bar-fill" data-pct="{{ $pct }}"></div>
+            <div class="h-full bg-primary rounded-full usage-bar-fill" data-pct="{{ $pct }}"></div>
         </div>
         <div class="mt-1 text-[11px] text-white/40">{{ number_format($sub->credits_remaining) }} / {{ number_format($sub->plan->credits) }} @lang('credits')</div>
         @endif
-        <a href="{{ route('user.subscription.plans') }}" class="mt-3 text-[11px] text-lime hover:underline inline-flex items-center gap-1">
+        <a href="{{ route('user.subscription.plans') }}" class="mt-3 text-[11px] text-primary hover:underline inline-flex items-center gap-1">
             @lang('Manage plan') <x-heroicon-o-arrow-right class="h-3 w-3" />
         </a>
     </div>

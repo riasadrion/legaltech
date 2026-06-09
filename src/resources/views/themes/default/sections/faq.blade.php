@@ -5,35 +5,71 @@
     $items   = array_values(array_filter($d['items'] ?? [], fn($i) => !empty($i['question'])));
 @endphp
 
-<section id="faq" class="relative py-28">
-    <div class="mx-auto max-w-5xl px-6">
+<section id="faq" class="relative py-28 {{ $sectionBg ?? 'bg-cream-100' }} text-ink-900">
+    @if(($sectionBg ?? '') === 'bg-cream-50')<div class="absolute inset-0 bg-grid-cream pointer-events-none"></div>@endif
+    <div class="relative mx-auto max-w-5xl px-6">
 
-        <div class="text-center max-w-2xl mx-auto mb-12" data-reveal>
-            @if($eyebrow)
-                <div class="text-[11px] font-mono uppercase tracking-[.25em] text-lime mb-3">— {{ __($eyebrow) }}</div>
-            @endif
-            @if($heading)
-                <h2 class="font-display text-5xl md:text-6xl leading-[0.95]"><?php echo __($heading); ?></h2>
-            @endif
-        </div>
+        <x-theme::section-header
+            :eyebrow="$eyebrow"
+            :heading="$heading"
+            align="center"
+            size="xl"
+            class="max-w-2xl mx-auto mb-12"
+            data-reveal
+        />
 
         @if(!empty($items))
-        <div class="divide-y divide-white/8 rounded-3xl glass overflow-hidden" data-reveal data-reveal-delay="100">
+        <div class="divide-y divide-ink-900/10 rounded-3xl glass-cream overflow-hidden" data-reveal data-reveal-delay="100">
             @foreach($items as $item)
-                <details class="group p-6">
-                    <summary class="flex items-center justify-between gap-6 cursor-pointer list-none">
+                <div class="faq-item group p-6 transition-colors duration-300">
+                    <button type="button"
+                            class="faq-trigger w-full flex items-center justify-between gap-6 cursor-pointer text-left"
+                            aria-expanded="false">
                         <span class="font-display text-xl md:text-2xl">{{ __($item['question']) }}</span>
-                        <span class="acc-icon w-9 h-9 rounded-full glass grid place-items-center shrink-0 transition-transform group-open:rotate-45">
-                            <x-heroicon-o-plus class="h-4 w-4" />
+                        <span class="acc-icon w-9 h-9 rounded-full glass-cream grid place-items-center shrink-0">
+                            <x-heroicon-o-plus class="h-4 w-4 faq-icon transition-colors duration-300" />
                         </span>
-                    </summary>
-                    <p class="mt-4 text-white/65 max-w-3xl">
-                        {{ __($item['answer'] ?? '') }}
-                    </p>
-                </details>
+                    </button>
+                    <div class="faq-panel grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-out">
+                        <div class="overflow-hidden">
+                            <p class="mt-4 text-ink-600 faq-answer transition-colors duration-300 max-w-3xl">
+                                {{ __($item['answer'] ?? '') }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
             @endforeach
         </div>
         @endif
 
     </div>
 </section>
+
+@push('scripts')
+<script>
+$(function () {
+    'use strict';
+    $('.faq-item').each(function () {
+        var $item    = $(this);
+        var $trigger = $item.find('.faq-trigger');
+        var $panel   = $item.find('.faq-panel');
+        var $icon    = $item.find('.acc-icon');
+
+        $trigger.on('click', function () {
+            var willOpen = $trigger.attr('aria-expanded') !== 'true';
+            var $answer  = $item.find('.faq-answer');
+            var $iconSvg = $item.find('.faq-icon');
+
+            $trigger.attr('aria-expanded', String(willOpen));
+
+            $panel.toggleClass('grid-rows-[1fr]', willOpen).toggleClass('grid-rows-[0fr]', !willOpen);
+            $icon.toggleClass('rotate-180', willOpen);
+            $icon.toggleClass('acc-icon-active', willOpen);
+            $iconSvg.toggleClass('text-white', willOpen);
+            $item.toggleClass('bg-ink-900', willOpen).toggleClass('text-white', willOpen);
+            $answer.toggleClass('text-white/65', willOpen).toggleClass('text-ink-600', !willOpen);
+        });
+    });
+});
+</script>
+@endpush

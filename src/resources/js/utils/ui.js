@@ -89,7 +89,7 @@ export function toast(message, type = 'info') {
 
     const textColor   = isDark ? 'color:#e5e5e5'  : 'color:#1f2937';
     const closeColor  = isDark ? 'color:#6b6b6b'  : 'color:#9ca3af';
-    const closeHover  = isDark ? '#2a2a2a' : '#f3f4f6';
+    const closeHoverClass = isDark ? 'toast-close-dark' : 'toast-close-light';
     const iconBgStyle = isDark ? variant.iconBgDark : variant.iconBgLight;
 
     el.innerHTML = `
@@ -100,7 +100,7 @@ export function toast(message, type = 'info') {
             </svg>
         </span>
         <p class="flex-1 text-sm leading-snug" style="${textColor}"></p>
-        <button type="button" class="absolute top-1/2 -translate-y-1/2 end-2 inline-flex items-center justify-center w-6 h-6 rounded-md transition-colors" style="${closeColor}" onmouseover="this.style.background='${closeHover}'" onmouseout="this.style.background=''" aria-label="Close">
+        <button type="button" class="absolute top-1/2 -translate-y-1/2 end-2 inline-flex items-center justify-center w-6 h-6 rounded-md transition-colors ${closeHoverClass}" style="${closeColor}" aria-label="Close">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
             </svg>
