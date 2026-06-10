@@ -52,8 +52,20 @@
             @endif
             @endforeach
 
+            <form action="{{ route('blog.index') }}" method="GET" class="ml-auto">
+                <div class="relative">
+                    <button type="submit" aria-label="@lang('Search')"
+                            class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-300 hover:text-primary transition">
+                        <x-heroicon-o-magnifying-glass class="h-4 w-4" />
+                    </button>
+                    <input type="search" name="q" value="{{ $search }}"
+                           placeholder="@lang('Search articles…')"
+                           class="w-48 sm:w-64 rounded-full border border-ink-900/8 bg-cream pl-9 pr-4 py-1.5 text-sm text-ink-900 placeholder:text-ink-300 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/30 transition">
+                </div>
+            </form>
+
             <a href="{{ route('blog.rss') }}"
-               class="ml-auto flex items-center gap-1.5 text-sm text-ink-400 hover:text-ink-700 transition">
+               class="flex items-center gap-1.5 text-sm text-ink-400 hover:text-ink-700 transition">
                 <x-heroicon-o-rss class="h-4 w-4" />RSS
             </a>
         </div>
@@ -66,15 +78,26 @@
 <div class="bg-cream py-16">
     <div class="mx-auto max-w-6xl px-6">
 
+        @if($search !== '')
+        <div class="flex items-center gap-2 text-sm text-ink-500 mb-8">
+            <span>@lang('Search results for') <strong class="text-ink-900">"{{ $search }}"</strong></span>
+            <a href="{{ route('blog.index') }}" class="text-primary hover:text-primary-deep transition">@lang('Clear')</a>
+        </div>
+        @endif
+
         @if($posts->isEmpty())
         <div class="py-24 text-center text-ink-400">
             <x-heroicon-o-document-text class="h-12 w-12 mb-4 mx-auto block text-ink-200" />
-            @lang('No posts yet.')
+            @if($search !== '')
+                @lang('No posts found.')
+            @else
+                @lang('No posts yet.')
+            @endif
         </div>
         @else
 
         @php
-            $heroPost  = $posts->onFirstPage() ? $posts->first() : null;
+            $heroPost  = ($search === '' && $posts->onFirstPage()) ? $posts->first() : null;
             $gridPosts = $heroPost ? $posts->slice(1) : $posts;
         @endphp
 

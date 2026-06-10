@@ -9,17 +9,28 @@ use App\Models\Tag;
 
 class BlogController extends Controller
 {
-    public function index()
+    public function index(\Illuminate\Http\Request $request)
     {
+        $search = trim((string) $request->query('q', ''));
+
         $posts = BlogPost::published()
             ->select(['id', 'slug', 'title', 'excerpt', 'cover_image', 'published_at', 'blog_category_id'])
             ->with('category:id,name,slug')
+            ->when($search !== '', function ($query) use ($search) {
+                $locale = app()->getLocale();
+                $term = '%'.mb_strtolower($search).'%';
+                $query->where(function ($q) use ($term, $locale) {
+                    $q->whereRaw("LOWER(JSON_UNQUOTE(JSON_EXTRACT(title, '$.\"{$locale}\"'))) like ?", [$term])
+                        ->orWhereRaw("LOWER(JSON_UNQUOTE(JSON_EXTRACT(excerpt, '$.\"{$locale}\"'))) like ?", [$term]);
+                });
+            })
             ->latest('published_at')
-            ->paginate(13);
+            ->paginate(13)
+            ->withQueryString();
 
         $categories = BlogCategory::withCount(['posts' => fn ($q) => $q->published()])->orderBy('sort')->get();
 
-        return view('theme::blog.index', compact('posts', 'categories'));
+        return view('theme::blog.index', compact('posts', 'categories', 'search'));
     }
 
     public function show(string $slug)
