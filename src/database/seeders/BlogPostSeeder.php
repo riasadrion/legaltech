@@ -74,15 +74,6 @@ class BlogPostSeeder extends Seeder
                 'published_at' => now()->subDays(10),
             ],
             [
-                'title' => ['en' => 'Product Updates - May 2026', 'fr' => 'Mises à jour produit - mai 2026'],
-                'excerpt' => ['en' => 'Latest updates and improvements to our platform.', 'fr' => 'Dernières mises à jour et améliorations de notre plateforme.'],
-                'body' => ['en' => 'This month we\'ve made several improvements: Enhanced API performance with 50% faster response times. New webhooks for subscription events. Improved mobile experience. Dark mode support. We\'re continuously working to improve your experience. Thank you for your feedback!', 'fr' => 'Ce mois-ci, nous avons apporté plusieurs améliorations : performances d\'API améliorées avec des temps de réponse 50% plus rapides. Nouveaux webhooks pour les événements d\'abonnement. Expérience mobile améliorée. Support du mode sombre.'],
-                'slug' => 'product-updates-may-2026',
-                'status' => BlogPost::STATUS_PUBLISHED,
-                'blog_category_id' => 2,
-                'published_at' => now()->subDays(5),
-            ],
-            [
                 'title' => ['en' => 'Upcoming Features Roadmap', 'fr' => 'Feuille de route des fonctionnalités à venir'],
                 'excerpt' => ['en' => 'Preview of exciting features coming to our platform.', 'fr' => 'Aperçu des fonctionnalités passionnantes à venir sur notre plateforme.'],
                 'body' => ['en' => 'We\'re excited to announce upcoming features: Advanced analytics dashboard (June). Marketplace for integrations (July). Mobile apps for iOS and Android (August). Custom branding options (September). We value your input - let us know what features you\'d like to see next!', 'fr' => 'Nous sommes heureux d\'annoncer les fonctionnalités à venir : tableau de bord d\'analyse avancée (juin). Marché pour les intégrations (juillet). Applications mobiles pour iOS et Android (août). Options de marque personnalisée (septembre).'],
