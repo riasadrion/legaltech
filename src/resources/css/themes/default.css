@@ -657,60 +657,35 @@ body.theme-default {
     opacity: 0;
     visibility: hidden;
 }
-#fe-preloader-writer {
+#fe-preloader-mark {
     position: relative;
-    width: 240px;
+    width: 56px;
     height: 56px;
+    display: grid;
+    place-items: center;
 }
-#fe-preloader-line {
+.fe-preloader-ring {
     position: absolute;
-    top: 50%;
-    left: 0;
-    margin-top: 8px;
-    height: 1.5px;
-    width: 0;
-    background: linear-gradient(90deg, color-mix(in srgb, var(--brand-color) 12%, transparent), color-mix(in srgb, var(--brand-color) 55%, transparent));
-    border-radius: 2px;
-    animation: fe-draw-line 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    inset: 0;
+    border-radius: 9999px;
+    border: 2px solid color-mix(in srgb, var(--brand-color) 18%, transparent);
+    border-top-color: var(--brand-color);
+    animation: fe-spin 0.9s linear infinite;
 }
-#fe-preloader-pen-wrap {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 0;
-    height: 0;
-    margin-top: 8px;
-    animation: fe-move-pen 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+.fe-preloader-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 9999px;
+    background: var(--brand-color);
+    box-shadow: 0 0 16px color-mix(in srgb, var(--brand-color) 70%, transparent);
+    animation: fe-pulse 1.4s ease-in-out infinite;
 }
-#fe-preloader-pen {
-    position: absolute;
-    bottom: -1px;
-    left: -1px;
-    width: 50px;
-    height: 50px;
-    filter: drop-shadow(0 0 8px color-mix(in srgb, var(--brand-color) 55%, transparent));
+@keyframes fe-spin {
+    to { transform: rotate(360deg); }
 }
-#fe-preloader-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 18px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.5);
-    font-weight: 500;
-}
-@keyframes fe-draw-line {
-    0%   { width: 0;    opacity: 0; }
-    8%   { opacity: 1; }
-    80%  { width: 240px; opacity: 1; }
-    90%  { width: 240px; opacity: 1; }
-    100% { width: 240px; opacity: 0; }
-}
-@keyframes fe-move-pen {
-    0%   { left: 0;     opacity: 0; }
-    8%   { opacity: 1; }
-    80%  { left: 240px; opacity: 1; }
-    90%  { left: 240px; opacity: 1; }
-    100% { left: 240px; opacity: 0; }
+@keyframes fe-pulse {
+    0%, 100% { transform: scale(0.85); opacity: 0.6; }
+    50%      { transform: scale(1.15); opacity: 1; }
 }
 
 .theme-default .cc-banner {
@@ -2066,8 +2041,4 @@ body.theme-default select.ud-select option { background: #1a1a24; color: #fff; }
 .theme-default .contract-editor-body p {
     margin: 0.75rem 0;
 }
-
-#fe-preloader-pen .pen-solid { fill: var(--brand-color); }
-#fe-preloader-pen .pen-dim   { fill: color-mix(in srgb, var(--brand-color) 30%, transparent); stroke: var(--brand-color); }
-#fe-preloader-pen .pen-mid   { fill: color-mix(in srgb, var(--brand-color) 18%, transparent); stroke: var(--brand-color); }
 
