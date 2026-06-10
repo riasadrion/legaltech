@@ -5,8 +5,6 @@
 
 @section('content')
 
-@php $sections = $page->enabledSections(); @endphp
-
 @php
     $firstType = $sections->first()?->type;
     $needsHero = $firstType !== 'hero';

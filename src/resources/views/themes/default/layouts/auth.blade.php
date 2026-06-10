@@ -125,9 +125,9 @@
     </div>
 
 
+    <script src="{{ asset('assets/static/global/js/jquery.min.js') }}"></script>
     <x-confirm-modal />
 
-    <script src="{{ asset('assets/static/global/js/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/static/global/js/phone-input.js') }}"></script>
     <script>
     $(function () {

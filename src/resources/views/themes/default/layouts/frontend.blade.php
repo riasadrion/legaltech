@@ -59,9 +59,9 @@
     @include('theme::partials.footer')
 
 
+    <script src="{{ asset('assets/static/global/js/jquery.min.js') }}"></script>
     <x-confirm-modal />
 
-    <script src="{{ asset('assets/static/global/js/jquery.min.js') }}"></script>
     <x-integrations.tawk />
     @include('theme::partials.cookie-consent')
     @stack('scripts')
