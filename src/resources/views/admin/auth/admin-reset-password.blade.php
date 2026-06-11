@@ -43,10 +43,12 @@
 
 @push('scripts')
 <script>
-document.querySelectorAll('[data-pwd-toggle]').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-        var input = btn.closest('.al-input-wrap').querySelector('input');
-        input.type = input.type === 'password' ? 'text' : 'password';
+$(function () {
+    'use strict';
+
+    $('[data-pwd-toggle]').on('click', function () {
+        var $input = $(this).closest('.al-input-wrap').find('input');
+        $input.attr('type', $input.attr('type') === 'password' ? 'text' : 'password');
     });
 });
 </script>

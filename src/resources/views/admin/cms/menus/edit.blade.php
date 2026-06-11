@@ -86,24 +86,27 @@
 
 @push('scripts')
 <script>
-
+$(function () {
     'use strict';
-    var el = document.getElementById('menu-items-sortable');
-    if (el && typeof Sortable !== 'undefined') {
-        Sortable.create(el, {
+
+    var $el = $('#menu-items-sortable');
+    if ($el.length && typeof Sortable !== 'undefined') {
+        Sortable.create($el[0], {
             handle: '[class*="cursor-grab"]',
             animation: 150,
             onEnd: function () {
-                var order = Array.from(el.querySelectorAll('[data-id]')).map(function (li) {
-                    return li.dataset.id;
-                });
-                fetch('{{ route('admin.cms.menus.reorder', $menu) }}', {
+                var order = $el.find('[data-id]').map(function () {
+                    return $(this).data('id');
+                }).get();
+
+                $.ajax({
+                    url: '{{ route('admin.cms.menus.reorder', $menu) }}',
                     method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ order: order }),
                     headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').content,
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                     },
-                    body: JSON.stringify({ order: order }),
                 });
             },
         });

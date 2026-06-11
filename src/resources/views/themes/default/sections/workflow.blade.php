@@ -8,7 +8,7 @@
 @endphp
 
 <section id="workflow" class="relative py-28 {{ $sectionBg ?? 'bg-cream-100' }} text-ink-900">
-    <div class="absolute inset-0 {{ ($sectionBg ?? '') === 'bg-cream-50' ? 'bg-grid-cream' : 'bg-grid-cream' }} radial-fade pointer-events-none"></div>
+    @if(($sectionBg ?? '') === 'bg-cream-50')<div class="absolute inset-0 bg-grid-cream radial-fade pointer-events-none"></div>@endif
     <div class="relative mx-auto max-w-7xl px-6">
 
         <div class="flex flex-wrap items-end justify-between gap-6 mb-16">

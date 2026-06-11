@@ -48,17 +48,15 @@
 
 @push('scripts')
 <script>
-
+$(function () {
     'use strict';
-    const btn = document.getElementById('add-lang-btn');
-    const spinner = document.getElementById('add-lang-spinner');
-    const icon = document.getElementById('add-lang-icon');
-    const text = document.getElementById('add-lang-text');
 
-    btn.disabled = true;
-    spinner.classList.remove('hidden');
-    icon.classList.add('hidden');
-    text.textContent = 'Creating language…';
+    $('#add-lang-btn').closest('form').on('submit', function () {
+        $('#add-lang-btn').prop('disabled', true);
+        $('#add-lang-spinner').removeClass('hidden');
+        $('#add-lang-icon').addClass('hidden');
+        $('#add-lang-text').text('Creating language…');
+    });
 });
 </script>
 @endpush

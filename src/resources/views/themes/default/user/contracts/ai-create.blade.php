@@ -132,21 +132,18 @@
 
 @push('scripts')
 <script>
-(function () {
+$(function () {
     'use strict';
-    var idx = {{ count($existingParties) }};
-    var briefInput = document.getElementById('brief-input');
 
-    document.querySelectorAll('.sample-btn').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-            if (!briefInput) return;
-            briefInput.value = btn.getAttribute('data-sample');
-            briefInput.focus();
-        });
+    var idx = {{ count($existingParties) }};
+    var $briefInput = $('#brief-input');
+
+    $('.sample-btn').on('click', function () {
+        if (!$briefInput.length) return;
+        $briefInput.val($(this).data('sample')).trigger('focus');
     });
 
-    document.getElementById('add-party-btn').addEventListener('click', function () {
-        var list = document.getElementById('parties-list');
+    $('#add-party-btn').on('click', function () {
         var html = '<div class="party-row space-y-3 pt-4 border-t border-white/8">'
             + '<div class="flex items-center justify-between">'
             + '<div class="text-[11px] font-mono text-white/35 uppercase tracking-widest">{{ __("Party") }} ' + (idx + 1) + '</div>'
@@ -161,39 +158,34 @@
             + '<option value="viewer">{{ __("Viewer only") }}</option>'
             + '</select>'
             + '</div>';
-        list.insertAdjacentHTML('beforeend', html);
+        $('#parties-list').append(html);
         idx++;
     });
 
-    document.addEventListener('click', function (e) {
-        if (e.target.closest('.remove-party')) {
-            e.target.closest('.party-row').remove();
-        }
+    $(document).on('click', '.remove-party', function () {
+        $(this).closest('.party-row').remove();
     });
 
     // Loader on submit
-    var form   = document.getElementById('ai-contract-form');
-    var loader = document.getElementById('ai-loader');
-    var step   = document.getElementById('ai-loader-step');
+    var $form   = $('#ai-contract-form');
+    var $loader = $('#ai-loader');
+    var $step   = $('#ai-loader-step');
     var steps  = [
         @json(__('Reviewing your brief')),
         @json(__('Drafting clauses')),
         @json(__('Adding protective terms')),
         @json(__('Finalizing the agreement'))
     ];
-    form.addEventListener('submit', function () {
-        loader.classList.remove('hidden');
-        loader.classList.add('flex');
-        document.body.style.overflow = 'hidden';
-        var btn = form.querySelector('button[type="submit"]');
-        if (btn) { btn.disabled = true; btn.style.opacity = '0.6'; }
+    $form.on('submit', function () {
+        $loader.removeClass('hidden').addClass('flex');
+        $('body').css('overflow', 'hidden');
+        $form.find('button[type="submit"]').prop('disabled', true).css('opacity', '0.6');
         var i = 0;
         setInterval(function () {
-    'use strict';
             i = (i + 1) % steps.length;
-            step.textContent = steps[i];
+            $step.text(steps[i]);
         }, 3500);
     });
-})();
+});
 </script>
 @endpush

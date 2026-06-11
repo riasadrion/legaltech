@@ -153,13 +153,14 @@
 
 @push('scripts')
 <script>
-(function () {
+$(function () {
     'use strict';
-    var form   = document.getElementById('regenerate-form');
-    var loader = document.getElementById('ai-loader');
-    var step   = document.getElementById('ai-loader-step');
 
-    if (!form) return;
+    var $form   = $('#regenerate-form');
+    var $loader = $('#ai-loader');
+    var $step   = $('#ai-loader-step');
+
+    if (!$form.length) return;
 
     var steps = [
         @json(__('Sending brief to the AI')),
@@ -169,19 +170,17 @@
         @json(__('Finalizing template'))
     ];
 
-    form.addEventListener('submit', function () {
-        loader.classList.remove('hidden');
-        loader.classList.add('flex');
-        document.body.style.overflow = 'hidden';
+    $form.on('submit', function () {
+        $loader.removeClass('hidden').addClass('flex');
+        $('body').css('overflow', 'hidden');
 
         var i = 0;
         setInterval(function () {
-    'use strict';
             i = (i + 1) % steps.length;
-            step.textContent = steps[i];
+            $step.text(steps[i]);
         }, 3500);
     });
-})();
+});
 </script>
 @endpush
 @endsection

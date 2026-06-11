@@ -11,7 +11,7 @@
 @endphp
 
 <section class="relative pt-28 pb-40 overflow-hidden {{ $sectionBg ?? 'bg-cream-50' }} text-ink-900">
-    <div class="absolute inset-0 bg-grid radial-fade pointer-events-none"></div>
+    @if(($sectionBg ?? '') === 'bg-cream-50')<div class="absolute inset-0 bg-grid radial-fade pointer-events-none"></div>@endif
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] glow-primary opacity-80"></div>
 
     <div class="relative mx-auto max-w-5xl px-6 text-center" data-reveal>

@@ -169,28 +169,31 @@
 
 @push('scripts')
 <script>
-
+$(function () {
     'use strict';
-    var el = document.getElementById('sections-sortable');
-    if (!el || typeof Sortable === 'undefined') return;
 
-    Sortable.create(el, {
+    var $el = $('#sections-sortable');
+    if (!$el.length || typeof Sortable === 'undefined') return;
+
+    Sortable.create($el[0], {
         handle: '[data-drag-handle]',
         animation: 150,
         onEnd: function () {
-            var order = Array.from(el.querySelectorAll('[data-id]')).map(function (li) {
-                return parseInt(li.dataset.id, 10);
-            });
-            fetch('{{ route('admin.cms.sections.reorder', $page) }}', {
+            var order = $el.find('[data-id]').map(function () {
+                return parseInt($(this).data('id'), 10);
+            }).get();
+
+            $.ajax({
+                url: '{{ route('admin.cms.sections.reorder', $page) }}',
                 method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ order: order }),
                 headers: {
-                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                     'Accept': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').content,
                 },
-                body: JSON.stringify({ order: order }),
-            }).then(function (res) {
-                if (res.ok && typeof window.toast === 'function') {
+            }).done(function () {
+                if (typeof window.toast === 'function') {
                     window.toast('@lang('Order saved')', 'success');
                 }
             });

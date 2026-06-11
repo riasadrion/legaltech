@@ -110,11 +110,12 @@
 
 @push('scripts')
 <script>
-(function () {
+$(function () {
     'use strict';
-    var form   = document.getElementById('template-form');
-    var loader = document.getElementById('ai-loader');
-    var step   = document.getElementById('ai-loader-step');
+
+    var $form   = $('#template-form');
+    var $loader = $('#ai-loader');
+    var $step   = $('#ai-loader-step');
 
     var steps = [
         @json(__('Sending brief to the AI')),
@@ -124,22 +125,19 @@
         @json(__('Finalizing template'))
     ];
 
-    form.addEventListener('submit', function () {
-        loader.classList.remove('hidden');
-        loader.classList.add('flex');
-        document.body.style.overflow = 'hidden';
+    $form.on('submit', function () {
+        $loader.removeClass('hidden').addClass('flex');
+        $('body').css('overflow', 'hidden');
 
-        var btn = form.querySelector('button[type="submit"]');
-        if (btn) { btn.disabled = true; btn.style.opacity = '0.6'; btn.style.cursor = 'wait'; }
+        $form.find('button[type="submit"]').prop('disabled', true).css({ opacity: '0.6', cursor: 'wait' });
 
         var i = 0;
         setInterval(function () {
-    'use strict';
             i = (i + 1) % steps.length;
-            step.textContent = steps[i];
+            $step.text(steps[i]);
         }, 3500);
     });
-})();
+});
 </script>
 @endpush
 @endsection

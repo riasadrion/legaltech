@@ -276,17 +276,17 @@
 <script>
 $(function () {
     'use strict';
-    var el = document.getElementById('{{ $heroTyperId }}');
-    if (!el) return;
+    var $el = $('#{{ $heroTyperId }}');
+    if (!$el.length) return;
     var text = '4.2 Indemnification — Each party (the "Indemnifying Party") shall defend, indemnify, and hold harmless the other party from any third-party claim arising out of gross negligence or willful misconduct…';
     var i = 0;
     function tick() {
         if (i <= text.length) {
-            el.textContent = text.slice(0, i);
+            $el.text(text.slice(0, i));
             i++;
             setTimeout(tick, 24 + Math.random() * 38);
         } else {
-            setTimeout(function () { i = 0; el.textContent = ''; tick(); }, 3000);
+            setTimeout(function () { i = 0; $el.text(''); tick(); }, 3000);
         }
     }
     tick();

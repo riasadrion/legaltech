@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Language;
+use App\Models\MenuItem;
 use App\Models\PageSection;
 use App\Support\GoogleTranslate;
 use Illuminate\Http\Request;
@@ -178,11 +179,14 @@ class TranslationController extends Controller
                 $this->writeJsonTranslations($locale, $localeTranslations);
             }
 
+            $menuLabelsFilled = $this->syncMenuLabels($defaultLocale, $languages);
+
             return response()->json([
                 'found' => count($defaultTranslations),
                 'scanned' => count($scanned),
                 'added' => count($newKeys),
                 'new_keys' => $newKeys,
+                'menu_labels_filled' => $menuLabelsFilled,
             ]);
         } catch (\Throwable $e) {
             return response()->json([
@@ -260,7 +264,50 @@ class TranslationController extends Controller
             $this->extractStringsFromValue($section->data ?? [], $keys);
         });
 
+        MenuItem::all()->each(function (MenuItem $item) use (&$keys) {
+            $this->extractStringsFromValue($item->label ?? [], $keys);
+        });
+
         return array_keys($keys);
+    }
+
+    /**
+     * Ensure every menu item has a label for each active language.
+     * Missing locale labels are filled with the default locale's label
+     * as a starting point so the navigation never renders blank,
+     * leaving the menu editor as the place to refine the translation.
+     */
+    private function syncMenuLabels(string $defaultLocale, array $languages): int
+    {
+        $filled = 0;
+
+        MenuItem::all()->each(function (MenuItem $item) use ($defaultLocale, $languages, &$filled) {
+            $label = $item->label ?? [];
+            $default = $label[$defaultLocale] ?? null;
+
+            if ($default === null) {
+                return;
+            }
+
+            $changed = false;
+            foreach ($languages as $locale) {
+                if ($locale === $defaultLocale) {
+                    continue;
+                }
+                if (! array_key_exists($locale, $label) || trim((string) $label[$locale]) === '') {
+                    $label[$locale] = $default;
+                    $changed = true;
+                    $filled++;
+                }
+            }
+
+            if ($changed) {
+                $item->label = $label;
+                $item->save();
+            }
+        });
+
+        return $filled;
     }
 
     private function extractStringsFromValue(mixed $value, array &$keys): void
@@ -297,6 +344,9 @@ class TranslationController extends Controller
         if (preg_match('/^<[a-z][a-z0-9]*[\s>]/i', $v)) {
             return;
         } // starts with HTML tag (full HTML body)
+        if (strip_tags($v) !== $v) {
+            return;
+        } // contains HTML tags anywhere
         if (preg_match('/^ri-[a-z]/', $v)) {
             return;
         }            // Remix icon class names

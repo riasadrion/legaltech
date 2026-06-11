@@ -39,17 +39,16 @@
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-    const confirmBtn = document.getElementById('confirm-btn');
-    if (confirmBtn) {
-        confirmBtn.addEventListener('click', () => {
-            if (window.confirmModal && window.confirmModal.onConfirm) {
-                window.confirmModal.onConfirm();
-            }
-            if (window.confirmModal) {
-                window.confirmModal.close();
-            }
-        });
-    }
+$(function () {
+    'use strict';
+
+    $('#confirm-btn').on('click', function () {
+        if (window.confirmModal && window.confirmModal.onConfirm) {
+            window.confirmModal.onConfirm();
+        }
+        if (window.confirmModal) {
+            window.confirmModal.close();
+        }
+    });
 });
 </script>

@@ -279,31 +279,41 @@ class CmsSeeder extends Seeder
                 ],
             ],
             [
-                'handle' => 'footer',
-                'name' => ['en' => 'Footer'],
+                'handle' => 'footer_product',
+                'name' => ['en' => 'Product'],
                 'items' => [
-                    // Product column
-                    ['label' => ['en' => 'Product'],      'url' => null,            'parent' => null,      'sort' => 0, 'key' => 'product'],
-                    ['label' => ['en' => 'Features'],     'url' => '/#features',    'parent' => 'product', 'sort' => 0],
-                    ['label' => ['en' => 'How it works'], 'url' => '/#workflow',    'parent' => 'product', 'sort' => 1],
-                    ['label' => ['en' => 'Pricing'],      'url' => '/pricing',    'parent' => 'product', 'sort' => 2],
-                    ['label' => ['en' => 'FAQ'],          'url' => '/#faq',         'parent' => 'product', 'sort' => 3],
-                    // Resources column
-                    ['label' => ['en' => 'Resources'],    'url' => null,            'parent' => null,        'sort' => 1, 'key' => 'resources'],
-                    ['label' => ['en' => 'Blog'],         'url' => '/blog',         'parent' => 'resources', 'sort' => 0],
-                    ['label' => ['en' => 'Contact'],      'url' => '/contact',      'parent' => 'resources', 'sort' => 1],
-                    ['label' => ['en' => 'Support'],      'url' => '/contact',      'parent' => 'resources', 'sort' => 2],
-                    // Company column
-                    ['label' => ['en' => 'Company'],      'url' => null,            'parent' => null,      'sort' => 2, 'key' => 'company'],
-                    ['label' => ['en' => 'About'],        'url' => '/about',      'parent' => 'company', 'sort' => 0],
-                    ['label' => ['en' => 'Pricing'],      'url' => '/pricing',    'parent' => 'company', 'sort' => 1],
-                    ['label' => ['en' => 'Contact'],      'url' => '/contact',      'parent' => 'company', 'sort' => 2],
-                    // Legal column
-                    ['label' => ['en' => 'Legal'],        'url' => null,            'parent' => null,    'sort' => 3, 'key' => 'legal'],
-                    ['label' => ['en' => 'Terms'],        'url' => '/terms',          'parent' => 'legal', 'sort' => 0],
-                    ['label' => ['en' => 'Privacy'],      'url' => '/privacy-policy', 'parent' => 'legal', 'sort' => 1],
-                    ['label' => ['en' => 'Refund'],       'url' => '/refund-policy',  'parent' => 'legal', 'sort' => 2],
-                    ['label' => ['en' => 'Cookies'],      'url' => '/cookie-policy',  'parent' => 'legal', 'sort' => 3],
+                    ['label' => ['en' => 'Features'],     'url' => '/#features', 'parent' => null, 'sort' => 0],
+                    ['label' => ['en' => 'How it works'], 'url' => '/#workflow', 'parent' => null, 'sort' => 1],
+                    ['label' => ['en' => 'Pricing'],      'url' => '/pricing',   'parent' => null, 'sort' => 2],
+                    ['label' => ['en' => 'FAQ'],          'url' => '/#faq',      'parent' => null, 'sort' => 3],
+                ],
+            ],
+            [
+                'handle' => 'footer_resources',
+                'name' => ['en' => 'Resources'],
+                'items' => [
+                    ['label' => ['en' => 'Blog'],    'url' => '/blog',    'parent' => null, 'sort' => 0],
+                    ['label' => ['en' => 'Contact'], 'url' => '/contact', 'parent' => null, 'sort' => 1],
+                    ['label' => ['en' => 'Support'], 'url' => '/contact', 'parent' => null, 'sort' => 2],
+                ],
+            ],
+            [
+                'handle' => 'footer_company',
+                'name' => ['en' => 'Company'],
+                'items' => [
+                    ['label' => ['en' => 'About'],   'url' => '/about',   'parent' => null, 'sort' => 0],
+                    ['label' => ['en' => 'Pricing'], 'url' => '/pricing', 'parent' => null, 'sort' => 1],
+                    ['label' => ['en' => 'Contact'], 'url' => '/contact', 'parent' => null, 'sort' => 2],
+                ],
+            ],
+            [
+                'handle' => 'footer_legal',
+                'name' => ['en' => 'Legal'],
+                'items' => [
+                    ['label' => ['en' => 'Terms'],   'url' => '/terms',          'parent' => null, 'sort' => 0],
+                    ['label' => ['en' => 'Privacy'], 'url' => '/privacy-policy', 'parent' => null, 'sort' => 1],
+                    ['label' => ['en' => 'Refund'],  'url' => '/refund-policy',  'parent' => null, 'sort' => 2],
+                    ['label' => ['en' => 'Cookies'], 'url' => '/cookie-policy',  'parent' => null, 'sort' => 3],
                 ],
             ],
             [

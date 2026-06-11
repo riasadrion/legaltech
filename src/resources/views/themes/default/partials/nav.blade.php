@@ -85,8 +85,13 @@
                             <button type="button"
                                     data-locale-switch="{{ $lang->code }}"
                                     data-locale-url="{{ route('locale.set', $lang->code) }}"
-                                    class="w-full text-left px-4 py-2 text-sm transition
+                                    class="w-full flex items-center gap-2 text-left px-4 py-2 text-sm transition
                                            {{ $lang->code === $currentLocale ? 'text-primary-deep font-medium' : 'text-ink-500 hover:text-ink-950 hover:bg-ink-900/5' }}">
+                                @if($lang->code === $currentLocale)
+                                    <x-heroicon-s-check class="h-4 w-4 text-primary-deep" />
+                                @else
+                                    <span class="h-4 w-4"></span>
+                                @endif
                                 {{ $lang->name }}
                             </button>
                         </li>

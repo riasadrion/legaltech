@@ -1,7 +1,9 @@
 @php
     use App\Models\Menu;
-    $footerMenu = Menu::handle('footer');
-    $footerColumns = $footerMenu ? $footerMenu->items()->get() : collect();
+    $footerColumns = collect(['footer_product', 'footer_resources', 'footer_company', 'footer_legal'])
+        ->map(fn ($handle) => Menu::handle($handle))
+        ->filter()
+        ->filter(fn ($menu) => $menu->items()->exists());
 
     $socials = [
         ['url' => setting('site.twitter'),  'label' => 'Twitter',  'icon' => 'twitter'],
@@ -68,13 +70,12 @@
 
             <div class="footer-nav-grid">
             @foreach($footerColumns as $column)
-                @if($column->children->isNotEmpty())
                 <div>
                     <div class="text-[11px] font-mono uppercase tracking-widest text-white/40 mb-4">
-                        {{ $column->getLocalLabel() }}
+                        {{ $column->getLocalName() }}
                     </div>
                     <ul class="space-y-2 text-sm text-white/70">
-                        @foreach($column->children as $link)
+                        @foreach($column->items as $link)
                         <li>
                             <a href="{{ $link->resolvedUrl() }}"
                                @if($link->open_in_new_tab) target="_blank" rel="noopener noreferrer" @endif
@@ -85,15 +86,6 @@
                         @endforeach
                     </ul>
                 </div>
-                @else
-                <div>
-                    <a href="{{ $column->resolvedUrl() }}"
-                       @if($column->open_in_new_tab) target="_blank" rel="noopener noreferrer" @endif
-                       class="text-sm text-white/70 hover:text-white transition">
-                        {{ $column->getLocalLabel() }}
-                    </a>
-                </div>
-                @endif
             @endforeach
             </div>
 

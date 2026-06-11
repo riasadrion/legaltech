@@ -117,11 +117,12 @@
 
 @push('scripts')
 <script>
-
+$(function () {
     'use strict';
-    document.querySelectorAll('.prose-editor-init').forEach(function (el) {
-        ProseEditor.init(el)
-    })
-})
+
+    $('.prose-editor-init').each(function () {
+        ProseEditor.init(this);
+    });
+});
 </script>
 @endpush

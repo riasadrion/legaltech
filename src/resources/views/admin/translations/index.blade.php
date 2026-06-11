@@ -26,7 +26,7 @@
             </button>
             @if($locale !== $defaultLocale)
             <div class="flex items-center gap-2">
-                <button type="button" id="sync-keywords-btn" onclick="handleSyncKeywords(this); return false;"
+                <button type="button" id="sync-keywords-btn"
                         class="inline-flex items-center gap-1.5 rounded-lg border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 px-4 py-2 text-sm font-medium text-gray-700 dark:text-slate-200 hover:bg-gray-50 dark:hover:bg-slate-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
                     <svg id="sync-keywords-spinner" class="hidden animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -165,156 +165,162 @@
 
 @push('scripts')
 <script>
-const locale = '{{ $locale }}';
-const defaultLocale = '{{ $defaultLocale }}';
-const pendingEl = document.getElementById('pending-count');
+$(function () {
+    'use strict';
 
-function handleSyncKeywords(btn) {
-    if (btn.disabled) return;
-    const spinner = document.getElementById('sync-keywords-spinner');
-    const icon = document.getElementById('sync-keywords-icon');
-    const text = document.getElementById('sync-keywords-text');
-    btn.disabled = true;
-    spinner.classList.remove('hidden');
-    icon.classList.add('hidden');
-    text.textContent = 'Scanning…';
-    fetch('{{ route('admin.translations.sync-keywords') }}', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-            'Accept': 'application/json',
-        },
-    })
-    .then(r => r.json())
-    .then(data => {
-        let msg;
-        if (data.added > 0) {
-            msg = data.added + ' new keywords added (' + data.found + ' total).';
-            // Reload page only if new keywords were added
-            setTimeout(() => {
-                window.location.reload();
-            }, 1500);
-        } else {
-            msg = '0 new keywords added (' + data.found + ' total).';
-            showToast(msg, 'info');
-            btn.disabled = false;
-            spinner.classList.add('hidden');
-            icon.classList.remove('hidden');
-            text.textContent = '@lang('Sync Keywords')';
-        }
-        if (data.added > 0) {
-            showToast(msg, 'success');
-        }
-    })
-    .catch(() => {
-        showToast('Failed to sync keywords.', 'error');
-        btn.disabled = false;
-        spinner.classList.add('hidden');
-        icon.classList.remove('hidden');
-        text.textContent = '@lang('Sync Keywords')';
+    var locale = '{{ $locale }}';
+    var defaultLocale = '{{ $defaultLocale }}';
+    var $pending = $('#pending-count');
+    var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+    var showToast = function (message, type) {
+        window.toast(message, type || 'info');
+    };
+
+    $('#sync-keywords-btn').on('click', function () {
+        var $btn = $(this);
+        if ($btn.prop('disabled')) return;
+
+        var $spinner = $('#sync-keywords-spinner');
+        var $icon = $('#sync-keywords-icon');
+        var $text = $('#sync-keywords-text');
+
+        $btn.prop('disabled', true);
+        $spinner.removeClass('hidden');
+        $icon.addClass('hidden');
+        $text.text('Scanning…');
+
+        $.ajax({
+            url: '{{ route('admin.translations.sync-keywords') }}',
+            method: 'POST',
+            contentType: 'application/json',
+            headers: {
+                'X-CSRF-TOKEN': csrfToken,
+                'Accept': 'application/json',
+            },
+        }).done(function (data) {
+            var msg;
+            if (data.added > 0) {
+                msg = data.added + ' new keywords added (' + data.found + ' total).';
+                setTimeout(function () {
+                    window.location.reload();
+                }, 1500);
+                showToast(msg, 'success');
+            } else {
+                msg = '0 new keywords added (' + data.found + ' total).';
+                showToast(msg, 'info');
+                $btn.prop('disabled', false);
+                $spinner.addClass('hidden');
+                $icon.removeClass('hidden');
+                $text.text('@lang('Sync Keywords')');
+            }
+        }).fail(function () {
+            showToast('Failed to sync keywords.', 'error');
+            $btn.prop('disabled', false);
+            $spinner.addClass('hidden');
+            $icon.removeClass('hidden');
+            $text.text('@lang('Sync Keywords')');
+        });
     });
-}
 
-// Fetch pending count on load
-if (pendingEl && locale !== defaultLocale) {
-    fetch('{{ route('admin.translations.auto-translate') }}', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-            'Accept': 'application/json',
-        },
-        body: JSON.stringify({ locale: locale }),
-    })
-    .then(r => r.json())
-    .then(data => {
-        const total = data.total || 0;
-        pendingEl.textContent = total > 0 ? `${total} pending` : 'All translated';
-        pendingEl.className = total > 0 ? 'text-xs text-amber-600 font-medium' : 'text-xs text-green-600 font-medium';
-    })
-    .catch(() => {
-        pendingEl.textContent = '—';
-    });
-}
+    // Fetch pending count on load
+    if ($pending.length && locale !== defaultLocale) {
+        $.ajax({
+            url: '{{ route('admin.translations.auto-translate') }}',
+            method: 'POST',
+            contentType: 'application/json',
+            headers: {
+                'X-CSRF-TOKEN': csrfToken,
+                'Accept': 'application/json',
+            },
+            data: JSON.stringify({ locale: locale }),
+        }).done(function (data) {
+            var total = data.total || 0;
+            $pending.text(total > 0 ? total + ' pending' : 'All translated');
+            $pending.attr('class', total > 0 ? 'text-xs text-amber-600 font-medium' : 'text-xs text-green-600 font-medium');
+        }).fail(function () {
+            $pending.text('—');
+        });
+    }
 
-function startAutoTranslate() {
-    const atBtn = document.getElementById('auto-translate-btn');
-    const spinner = document.getElementById('auto-translate-spinner');
-    const icon = document.getElementById('auto-translate-icon');
-    const text = document.getElementById('auto-translate-text');
+    function resetBtn() {
+        var $atBtn = $('#auto-translate-btn');
+        $atBtn.prop('disabled', false);
+        $('#auto-translate-spinner').addClass('hidden');
+        $('#auto-translate-icon').removeClass('hidden');
+        $('#auto-translate-text').text('@lang('Auto-translate')');
+        $pending.removeClass('hidden');
+    }
 
-    atBtn.disabled = true;
-    spinner.classList.remove('hidden');
-    icon.classList.add('hidden');
-    pendingEl.classList.add('hidden');
+    function startAutoTranslate() {
+        var $atBtn = $('#auto-translate-btn');
+        var $spinner = $('#auto-translate-spinner');
+        var $icon = $('#auto-translate-icon');
+        var $text = $('#auto-translate-text');
 
-    showToast('⏱️ Translation started. This may take several minutes due to Google\'s rate limiting (~1 second per key). Please wait...', 'info');
+        $atBtn.prop('disabled', true);
+        $spinner.removeClass('hidden');
+        $icon.addClass('hidden');
+        $pending.addClass('hidden');
 
-    const batchSize = 10;
-    let totalProcessed = 0;
-    let totalPending = 0;
-    let batchCount = 0;
-    let errors = 0;
-    let isFirstBatch = true;
+        showToast('⏱️ Translation started. This may take several minutes due to Google\'s rate limiting (~1 second per key). Please wait...', 'info');
 
-    function fetchAndProcessNextBatch() {
-            // Fetch next batch of pending translations
-            fetch('{{ route('admin.translations.auto-translate') }}', {
+        var batchSize = 10;
+        var totalProcessed = 0;
+        var totalPending = 0;
+        var errors = 0;
+        var isFirstBatch = true;
+
+        function fetchAndProcessNextBatch() {
+            $.ajax({
+                url: '{{ route('admin.translations.auto-translate') }}',
                 method: 'POST',
+                contentType: 'application/json',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                    'X-CSRF-TOKEN': csrfToken,
                     'Accept': 'application/json',
                 },
-                body: JSON.stringify({ locale: locale }),
-            })
-            .then(r => r.json())
-            .then(data => {
+                data: JSON.stringify({ locale: locale }),
+            }).done(function (data) {
                 if (data.error) {
                     showToast(data.error, 'error');
                     resetBtn();
                     return;
                 }
 
-                const pending = data.pending || [];
-                const total = data.total || 0;
+                var pending = data.pending || [];
+                var total = data.total || 0;
 
-                // On first batch, save the total
                 if (isFirstBatch) {
                     totalPending = total;
                     isFirstBatch = false;
                 }
 
-                // If no pending keys or we've processed all, we're done
                 if (pending.length === 0 || totalProcessed >= totalPending) {
-                    text.textContent = `${totalPending}/${totalPending}`;
-                    const msg = errors > 0
-                        ? `Done. ${totalProcessed - errors} translated, ${errors} failed.`
-                        : `Auto-translated ${totalProcessed} keys to ${locale.toUpperCase()}.`;
+                    $text.text(totalPending + '/' + totalPending);
+                    var msg = errors > 0
+                        ? 'Done. ' + (totalProcessed - errors) + ' translated, ' + errors + ' failed.'
+                        : 'Auto-translated ' + totalProcessed + ' keys to ' + locale.toUpperCase() + '.';
                     showToast(msg, errors > 0 ? 'warning' : 'success');
-                    pendingEl.textContent = 'All translated';
-                    pendingEl.className = 'text-xs text-green-600 font-medium';
+                    $pending.text('All translated');
+                    $pending.attr('class', 'text-xs text-green-600 font-medium');
                     resetBtn();
                     return;
                 }
 
-                // Take only first 10 from this batch
-                const batch = pending.slice(0, batchSize);
-                batchCount++;
+                var batch = pending.slice(0, batchSize);
 
-                // Start animation immediately while batch translates on server
-                const startProgress = totalProcessed;
-                const endProgress = totalProcessed + batch.length;
-                const duration = 3000; // 3 seconds to animate through the batch
-                const startTime = Date.now();
-                let animationFrame;
+                var startProgress = totalProcessed;
+                var endProgress = totalProcessed + batch.length;
+                var duration = 3000;
+                var startTime = Date.now();
+                var animationFrame;
 
-                const animateProgress = () => {
-                    const elapsed = Date.now() - startTime;
-                    const progress = Math.min(elapsed / duration, 1);
-                    const currentProgress = Math.floor(startProgress + (endProgress - startProgress) * progress);
-                    text.textContent = `${currentProgress}/${totalPending}`;
+                var animateProgress = function () {
+                    var elapsed = Date.now() - startTime;
+                    var progress = Math.min(elapsed / duration, 1);
+                    var currentProgress = Math.floor(startProgress + (endProgress - startProgress) * progress);
+                    $text.text(currentProgress + '/' + totalPending);
 
                     if (progress < 1) {
                         animationFrame = requestAnimationFrame(animateProgress);
@@ -322,82 +328,54 @@ function startAutoTranslate() {
                 };
                 animateProgress();
 
-                // Send batch for translation
-                fetch('{{ route('admin.translations.auto-translate-batch') }}', {
+                $.ajax({
+                    url: '{{ route('admin.translations.auto-translate-batch') }}',
                     method: 'POST',
+                    contentType: 'application/json',
                     headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                        'X-CSRF-TOKEN': csrfToken,
                         'Accept': 'application/json',
                     },
-                    body: JSON.stringify({ locale: locale, batch: batch }),
-                })
-                .then(r => {
-                    if (!r.ok) throw new Error('HTTP ' + r.status);
-                    return r.json();
-                })
-                .then(batchData => {
-                    // Cancel animation and jump to exact count
+                    data: JSON.stringify({ locale: locale, batch: batch }),
+                }).done(function () {
                     cancelAnimationFrame(animationFrame);
                     totalProcessed = endProgress;
-                    text.textContent = `${totalProcessed}/${totalPending}`;
-                    const remaining = totalPending - totalProcessed;
+                    $text.text(totalProcessed + '/' + totalPending);
+                    var remaining = totalPending - totalProcessed;
 
                     if (remaining <= 0) {
-                        text.textContent = `${totalPending}/${totalPending}`;
-                        pendingEl.textContent = 'All translated';
-                        const msg = errors > 0
-                            ? `Done. ${totalPending - errors} translated, ${errors} failed.`
-                            : `Auto-translated ${totalPending} keys to ${locale.toUpperCase()}.`;
+                        $text.text(totalPending + '/' + totalPending);
+                        $pending.text('All translated');
+                        var msg = errors > 0
+                            ? 'Done. ' + (totalPending - errors) + ' translated, ' + errors + ' failed.'
+                            : 'Auto-translated ' + totalPending + ' keys to ' + locale.toUpperCase() + '.';
                         showToast(msg, errors > 0 ? 'warning' : 'success');
-                        pendingEl.className = 'text-xs text-green-600 font-medium';
+                        $pending.attr('class', 'text-xs text-green-600 font-medium');
                         resetBtn();
                     } else {
-                        pendingEl.textContent = `${remaining} remaining`;
+                        $pending.text(remaining + ' remaining');
                         setTimeout(fetchAndProcessNextBatch, 500);
                     }
-                })
-                .catch(err => {
+                }).fail(function () {
                     errors += batch.length;
                     totalProcessed += batch.length;
-
-                    // Continue even on error
                     setTimeout(fetchAndProcessNextBatch, 500);
                 });
-            })
-            .catch(() => {
+            }).fail(function () {
                 showToast('Failed to fetch pending translations.', 'error');
                 resetBtn();
             });
         }
 
-    // Start the process
-    fetchAndProcessNextBatch();
-
-    function resetBtn() {
-        const atBtn = document.getElementById('auto-translate-btn');
-        const spinner = document.getElementById('auto-translate-spinner');
-        const icon = document.getElementById('auto-translate-icon');
-        const text = document.getElementById('auto-translate-text');
-
-        atBtn.disabled = false;
-        spinner.classList.add('hidden');
-        icon.classList.remove('hidden');
-        text.textContent = '@lang('Auto-translate')';
-        pendingEl.classList.remove('hidden');
+        fetchAndProcessNextBatch();
     }
-}
 
-const atBtn = document.getElementById('auto-translate-btn');
-if (atBtn) {
-    atBtn.addEventListener('click', function () {
-        const title = '{{ __('Auto-translate all missing keys to :lang?', ['lang' => strtoupper($locale)]) }}';
-        const message = '⏱️ This will take time due to Google\'s rate limits (~1 second per key). Do not close this page.';
+    $('#auto-translate-btn').on('click', function () {
+        var title = '{{ __('Auto-translate all missing keys to :lang?', ['lang' => strtoupper($locale)]) }}';
+        var message = '⏱️ This will take time due to Google\'s rate limits (~1 second per key). Do not close this page.';
         window.confirmModal.show(title, message, startAutoTranslate);
     });
-}
-
-const showToast = (message, type = 'info') => window.toast(message, type);
+});
 </script>
 @endpush
 @endsection

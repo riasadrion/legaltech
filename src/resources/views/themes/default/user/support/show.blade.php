@@ -4,16 +4,19 @@
 
 @push('scripts')
 <script>
-function udShowFiles(input, listId) {
-    var list = document.getElementById(listId);
-    list.innerHTML = '';
-    Array.from(input.files).forEach(function(f) {
-        var li = document.createElement('li');
-        li.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M18.375 12.739l-7.693 7.693a4.5 4.5 0 01-6.364-6.364l10.94-10.94A3 3 0 1119.5 7.372L8.552 18.32m.009-.01-.01.01m5.699-9.941-7.81 7.81a1.5 1.5 0 002.112 2.13"/></svg>'
-            + f.name + ' <span class="file-size-label">(' + (f.size/1024).toFixed(0) + ' KB)</span>';
-        list.appendChild(li);
+$(function () {
+    'use strict';
+
+    $(document).on('change', '[data-file-list]', function () {
+        var $list = $('#' + $(this).data('file-list'));
+        $list.empty();
+        Array.from(this.files).forEach(function (f) {
+            var $li = $('<li>').html('<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M18.375 12.739l-7.693 7.693a4.5 4.5 0 01-6.364-6.364l10.94-10.94A3 3 0 1119.5 7.372L8.552 18.32m.009-.01-.01.01m5.699-9.941-7.81 7.81a1.5 1.5 0 002.112 2.13"/></svg>'
+                + f.name + ' <span class="file-size-label">(' + (f.size / 1024).toFixed(0) + ' KB)</span>');
+            $list.append($li);
+        });
     });
-}
+});
 </script>
 @endpush
 
@@ -92,12 +95,12 @@ function udShowFiles(input, listId) {
             <div>
                 <label class="ud-dropzone" id="dropzone-reply">
                     <input type="file" name="attachments[]" multiple class="sr-only" id="file-reply"
-                           accept=".jpg,.jpeg,.png,.webp,.pdf,.txt" onchange="udShowFiles(this,'file-list-reply')" />
+                           accept=".jpg,.jpeg,.png,.webp,.pdf,.txt" data-file-list="file-list-reply" />
                     <x-heroicon-o-paper-clip class="h-5 w-5 text-white/30" />
                     <span class="ud-dropzone-text">@lang('Attach files')</span>
                     <span class="ud-dropzone-hint">@lang('JPG, PNG, PDF, TXT — max 10 MB each')</span>
-                    <ul id="file-list-reply" class="ud-file-list"></ul>
                 </label>
+                <ul id="file-list-reply" class="ud-file-list"></ul>
             </div>
             <div class="flex items-center gap-3">
                 <button type="submit" class="ud-btn-primary inline-flex">

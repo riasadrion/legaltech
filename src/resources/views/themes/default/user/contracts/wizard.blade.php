@@ -154,8 +154,9 @@
 @push('scripts')
 <script src="{{ asset('assets/static/js/flatpickr.min.js') }}"></script>
 <script>
-(function () {
+$(function () {
     'use strict';
+
     if (window.flatpickr) {
         flatpickr('.flatpickr-date', {
             dateFormat: 'Y-m-d',
@@ -167,8 +168,7 @@
 
     var idx = {{ count($existingParties) }};
 
-    document.getElementById('add-party-btn').addEventListener('click', function () {
-        var list = document.getElementById('parties-list');
+    $('#add-party-btn').on('click', function () {
         var html = '<div class="party-row space-y-3 pt-4 border-t border-white/8">'
             + '<div class="flex items-center justify-between">'
             + '<div class="text-[11px] font-mono text-white/35 uppercase tracking-widest">{{ __("Party") }} ' + (idx + 1) + '</div>'
@@ -183,15 +183,13 @@
             + '<option value="viewer">{{ __("Viewer only") }}</option>'
             + '</select>'
             + '</div>';
-        list.insertAdjacentHTML('beforeend', html);
+        $('#parties-list').append(html);
         idx++;
     });
 
-    document.addEventListener('click', function (e) {
-        if (e.target.closest('.remove-party')) {
-            e.target.closest('.party-row').remove();
-        }
+    $(document).on('click', '.remove-party', function () {
+        $(this).closest('.party-row').remove();
     });
-})();
+});
 </script>
 @endpush

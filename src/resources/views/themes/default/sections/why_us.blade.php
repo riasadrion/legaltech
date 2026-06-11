@@ -8,7 +8,7 @@
 @endphp
 
 <section id="why-us-{{ $section->id }}" class="relative py-28 {{ $sectionBg ?? 'bg-cream-100' }} text-ink-900">
-    <div class="absolute inset-0 {{ ($sectionBg ?? '') === 'bg-cream-50' ? 'bg-grid-cream' : 'bg-grid-cream' }} radial-fade pointer-events-none"></div>
+    @if(($sectionBg ?? '') === 'bg-cream-50')<div class="absolute inset-0 bg-grid-cream radial-fade pointer-events-none"></div>@endif
     <div class="relative mx-auto max-w-7xl px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
 
 

@@ -64,6 +64,14 @@
 
     <x-integrations.tawk />
     @include('theme::partials.cookie-consent')
+    <script>
+    $(function () {
+        'use strict';
+        // @csrf renders hidden _token inputs with autocomplete="off",
+        // which is invalid per the HTML spec for type="hidden".
+        $('input[type="hidden"][name="_token"]').removeAttr('autocomplete');
+    });
+    </script>
     @stack('scripts')
 </body>
 </html>

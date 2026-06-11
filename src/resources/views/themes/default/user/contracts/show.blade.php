@@ -38,7 +38,7 @@
                 <form method="POST" action="{{ route('user.contracts.ai.regenerate', $contract) }}" id="regenerate-form" data-no-page-loader>
                     @csrf
                     <button type="button"
-                            onclick="confirmModal.show('@lang('Regenerate Contract')', '@lang('1 AI draft will be deducted. This will overwrite the current content.')', function(){ showRegenLoader(); document.getElementById('regenerate-form').submit(); })"
+                            onclick="confirmModal.show('@lang('Regenerate Contract')', '@lang('1 AI draft will be deducted. This will overwrite the current content.')', function(){ showRegenLoader(); $('#regenerate-form').trigger('submit'); })"
                             class="btn-ghost rounded-full px-3 py-2 text-[12px] flex items-center gap-1.5 text-primary/80 hover:text-primary">
                         <x-heroicon-o-sparkles class="h-4 w-4" />
                         @lang('Regenerate')
@@ -244,22 +244,24 @@
 <script>
 $(function () {
     'use strict';
-    document.querySelectorAll('.prose-editor-init').forEach(function (el) {
-        ProseEditor.init(el);
+
+    $('.prose-editor-init').each(function () {
+        ProseEditor.init(this);
     });
 
     $('#save-contract-btn').on('click', function () {
-        $('#contract-save-form').submit();
+        $('#contract-save-form').trigger('submit');
     });
 });
 
-function showRegenLoader() {
-    var loader = document.getElementById('ai-regen-loader');
-    var step   = document.getElementById('ai-regen-step');
-    if (!loader) return;
-    loader.classList.remove('hidden');
-    loader.classList.add('flex');
-    document.body.style.overflow = 'hidden';
+window.showRegenLoader = function () {
+    'use strict';
+
+    var $loader = $('#ai-regen-loader');
+    var $step   = $('#ai-regen-step');
+    if (!$loader.length) return;
+    $loader.removeClass('hidden').addClass('flex');
+    $('body').css('overflow', 'hidden');
     var steps = [
         @json(__('Reviewing your brief')),
         @json(__('Drafting clauses')),
@@ -268,10 +270,9 @@ function showRegenLoader() {
     ];
     var i = 0;
     setInterval(function () {
-    'use strict';
         i = (i + 1) % steps.length;
-        if (step) step.textContent = steps[i];
+        $step.text(steps[i]);
     }, 3500);
-}
+};
 </script>
 @endpush

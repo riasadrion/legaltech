@@ -208,7 +208,7 @@
     var ff = 'DM Sans, sans-serif';
 
     // Revenue Area Chart
-    new ApexCharts(document.querySelector("#revenueChart"), {
+    new ApexCharts($('#revenueChart')[0], {
         series: [
             { name: 'Revenue', data: @json($chartData['monthlyRevenue']['revenues']) },
             { name: 'Expenses', data: @json($chartData['monthlyRevenue']['expenses']) }
@@ -242,7 +242,7 @@
     var donutTotal = donutValues.reduce(function(a, b) { return a + b; }, 0);
     var colors = ['#6366f1', '#10b981', '#3b82f6', '#f59e0b', '#ec4899', '#f97316'];
 
-    new ApexCharts(document.querySelector("#revenueDonut"), {
+    new ApexCharts($('#revenueDonut')[0], {
         chart: { type: 'donut', height: 200, background: 'transparent', animations: { easing: 'easeinout', speed: 800 } },
         series: donutValues,
         labels: donutLabels,
@@ -276,9 +276,9 @@
         var pct = ((d.value / donutTotal) * 100).toFixed(0);
         legendHtml += '<div class="flex items-center gap-2"><span class="legend-color-dot" data-color="' + colors[i] + '"></span><span class="text-xs flex-1 legend-label">' + d.label + '</span><span class="text-xs legend-value">$' + (d.value / 1000).toFixed(1) + 'K</span><span class="text-xs legend-pct">' + pct + '%</span></div>';
     });
-    document.getElementById('donutLegend').innerHTML = legendHtml;
-    document.querySelectorAll('#donutLegend .legend-color-dot[data-color]').forEach(function (dot) {
-        dot.style.background = dot.getAttribute('data-color');
+    $('#donutLegend').html(legendHtml);
+    $('#donutLegend .legend-color-dot[data-color]').each(function () {
+        $(this).css('background', $(this).data('color'));
     });
     @else
     // Gateway Revenue Bar Chart
@@ -287,7 +287,7 @@
         var gatewayLabels = gatewayData.map(function(d) { return d.label; });
         var gatewayValues = gatewayData.map(function(d) { return d.value; });
 
-        new ApexCharts(document.querySelector("#gatewayChart"), {
+        new ApexCharts($('#gatewayChart')[0], {
             chart: { type: 'bar', height: 200, background: 'transparent', animations: { easing: 'easeinout', speed: 800 }, toolbar: { show: false } },
             series: [{ name: 'Revenue', data: gatewayValues }],
             colors: ['#6366f1'],

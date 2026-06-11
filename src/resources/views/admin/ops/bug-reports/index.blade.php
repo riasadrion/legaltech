@@ -47,52 +47,53 @@
 
 @push('scripts')
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-    var form = document.getElementById('bug-report-form');
-    if (!form) return;
+$(function () {
+    'use strict';
 
-    form.addEventListener('submit', function (e) {
+    var $form = $('#bug-report-form');
+    if (!$form.length) return;
+
+    var $btn = $('#bug-report-submit');
+
+    $form.on('submit', function (e) {
         e.preventDefault();
 
-        var btn = document.getElementById('bug-report-submit');
         var params = {
-            title:       form.title.value.trim(),
-            description: form.description.value.trim(),
-            severity:    form.severity.value,
+            title:       $form.find('[name="title"]').val().trim(),
+            description: $form.find('[name="description"]').val().trim(),
+            severity:    $form.find('[name="severity"]').val(),
             url:         window.location.href,
             project:     @json(config('app.name')),
             app_url:     window.location.origin,
             reported_at: new Date().toISOString()
         };
 
-        var query = new URLSearchParams(params).toString();
-        var endpoint = form.dataset.endpoint + '?' + query;
+        var endpoint = $form.data('endpoint') + '?' + $.param(params);
 
-        btn.disabled = true;
-        var original = btn.textContent;
-        btn.textContent = 'Sending…';
+        $btn.prop('disabled', true);
+        var original = $btn.text();
+        $btn.text('Sending…');
 
-        fetch(endpoint, {
+        $.ajax({
+            url: endpoint,
             method: 'GET',
-            headers: { 'Accept': 'application/json' }
-        })
-        .then(function (r) {
-            if (r.status === 429) { if (window.toast) window.toast('Too many requests.', 'error'); throw new Error('429'); }
-            if (!r.ok) throw new Error('HTTP ' + r.status);
-            return r.json().catch(function () { return {}; });
-        })
-        .then(function (data) {
-            if (data && data.ok === false) throw new Error('rejected');
+            dataType: 'json',
+            headers: { 'Accept': 'application/json' },
+        }).done(function (data) {
+            if (data && data.ok === false) {
+                if (window.toast) window.toast('Could not send the report. Please try again.', 'error');
+                return;
+            }
             if (window.toast) window.toast('Report sent.', 'success');
-            form.reset();
-        })
-        .catch(function (err) {
-            if (err && err.message === '429') return;
+            $form.trigger('reset');
+        }).fail(function (xhr) {
+            if (xhr.status === 429) {
+                if (window.toast) window.toast('Too many requests.', 'error');
+                return;
+            }
             if (window.toast) window.toast('Could not send the report. Please try again.', 'error');
-        })
-        .finally(function () {
-            btn.disabled = false;
-            btn.textContent = original;
+        }).always(function () {
+            $btn.prop('disabled', false).text(original);
         });
     });
 });

@@ -205,14 +205,10 @@
                                 class="h-9 w-14 cursor-pointer rounded-lg border border-gray-300 bg-white p-1">
                             <input type="text" id="primary_color_hex" value="{{ old('primary_color', setting('site.primary_color')) }}"
                                 class="h-9 w-32 rounded-lg border border-gray-300 px-3 text-sm font-mono focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"
-                                placeholder="#000000" maxlength="7"
-                                oninput="document.querySelector('[name=primary_color]').value=this.value">
+                                placeholder="#000000" maxlength="7">
                         </div>
                         <p class="mt-1 text-xs text-gray-400">@lang('Buttons, links, highlights across the frontend.')</p>
                     </div>
-                    <script>
-                        document.querySelector('[name=primary_color]').addEventListener('input', function() { document.getElementById('primary_color_hex').value = this.value; });
-                    </script>
 
 
                     <div class="flex flex-col">
@@ -911,9 +907,16 @@ $(function () {
 
     // Submit each tab's form with a hidden _tab so server can redirect back here
     $('.tab-content form').each(function () {
-    'use strict';
         var tabName = $(this).closest('.tab-content').attr('id');
         $(this).prepend('<input type="hidden" name="_tab" value="' + tabName + '">');
+    });
+
+    // Sync primary color picker with hex input
+    $('[name=primary_color]').on('input', function () {
+        $('#primary_color_hex').val($(this).val());
+    });
+    $('#primary_color_hex').on('input', function () {
+        $('[name=primary_color]').val($(this).val());
     });
 
     // File preview (label natively opens picker since input is inside it)
@@ -967,7 +970,7 @@ $(function () {
             return;
         }
         var id = 'gfont-' + font.replace(/\s+/g, '-');
-        if (!document.getElementById(id)) {
+        if (!$('#' + id).length) {
             $('<link>').attr({ id: id, rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=' + encodeURIComponent(font) + ':wght@400;600&display=swap' }).appendTo('head');
         }
         $text.css('font-family', "'" + font + "', sans-serif");
@@ -995,7 +998,6 @@ $(function () {
         $('#storage_driver_input').val(val);
 
         $('.storage-tile').each(function () {
-    'use strict';
             var isActive = $(this).data('storage-driver') === val;
             $(this).attr('data-active', isActive ? '1' : '0');
             $(this).find('.storage-check').remove();
