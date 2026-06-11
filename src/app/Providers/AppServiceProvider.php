@@ -191,6 +191,9 @@ class AppServiceProvider extends ServiceProvider
                 if ($clientSecret) {
                     config(['services.'.$configKey.'.client_secret' => $clientSecret]);
                 }
+                if ($clientId || $clientSecret) {
+                    config(['services.'.$configKey.'.redirect' => route('social.callback', $settingKey)]);
+                }
             }
         } catch (\Throwable) {
             // DB not ready (e.g. during migrations) — skip

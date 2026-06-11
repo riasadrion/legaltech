@@ -31,7 +31,6 @@ class HandleSocialLogin
                 $user->name = $socialUser->getName();
                 $user->email = $socialUser->getEmail();
                 $user->email_verified_at = now();
-                $user->avatar_path = $socialUser->getAvatar();
                 $user->status = 'active';
                 $user->save();
             }
