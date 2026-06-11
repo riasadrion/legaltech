@@ -236,8 +236,8 @@
 @endsection
 
 @push('head')
-<link rel="stylesheet" href="{{ asset('assets/static/css/editor.css') }}">
-<script src="{{ asset('assets/static/js/editor.js') }}"></script>
+<link rel="stylesheet" href="{{ asset('assets/static/global/css/editor.css') }}">
+<script src="{{ asset('assets/static/global/js/editor.js') }}"></script>
 @endpush
 
 @push('scripts')
