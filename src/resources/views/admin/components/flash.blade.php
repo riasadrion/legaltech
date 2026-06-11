@@ -9,9 +9,11 @@
 
 @if (!empty($messages))
 <script>
-(function () {
+$(function () {
     'use strict';
+
     var queue = @json($messages);
+
     function flush() {
         if (!window.toast) {
             setTimeout(flush, 50);
@@ -19,11 +21,8 @@
         }
         queue.forEach(function (m) { window.toast(m.message, m.type); });
     }
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', flush);
-    } else {
-        flush();
-    }
-}());
+
+    flush();
+});
 </script>
 @endif
