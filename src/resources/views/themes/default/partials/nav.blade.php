@@ -100,22 +100,23 @@
                 </div>
                 @endif
 
+                <div class="hidden lg:flex items-center gap-2">
                 @guest('user')
                     <a href="{{ route('login') }}"
-                       class="hidden sm:inline text-sm px-4 py-2 text-ink-700 hover:text-ink-950">
+                       class="text-sm px-4 py-2 text-ink-700 hover:text-ink-950">
                         @lang('Sign in')
                     </a>
                     <a href="{{ route('register') }}"
-                       class="btn-primary no-shadow text-on-primary-white rounded-full px-5 py-2.5 text-sm hidden sm:flex items-center gap-2">
+                       class="btn-primary no-shadow text-on-primary-white rounded-full px-5 py-2.5 text-sm flex items-center gap-2 whitespace-nowrap">
                         @lang('Get started')
                         <x-heroicon-o-arrow-top-right-on-square class="h-4 w-4" />
                     </a>
                 @else
                     <a href="{{ route('user.dashboard') }}"
-                       class="hidden sm:inline text-sm px-4 py-2 text-ink-700 hover:text-ink-950">
+                       class="text-sm px-4 py-2 text-ink-700 hover:text-ink-950">
                         @lang('Dashboard')
                     </a>
-                    <form method="POST" action="{{ route('logout') }}" class="hidden sm:inline">
+                    <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit" class="btn-primary no-shadow text-on-primary-white rounded-full px-5 py-2.5 text-sm flex items-center gap-2">
                             @lang('Sign out')
@@ -123,6 +124,7 @@
                         </button>
                     </form>
                 @endguest
+                </div>
 
 
                 <button type="button" id="nav-mobile-btn"
@@ -188,14 +190,14 @@
 
             <div class="mt-4 pt-4 border-t border-ink-900/10 flex flex-col gap-2">
                 @guest('user')
-                    <a href="{{ route('login') }}" class="block text-center text-sm px-4 py-2.5 rounded-xl glass-cream text-ink-700 hover:text-ink-950">
+                    <a href="{{ route('login') }}" class="block text-center text-sm px-4 py-2.5 rounded-full glass-cream text-ink-700 hover:text-ink-950">
                         @lang('Sign in')
                     </a>
                     <a href="{{ route('register') }}" class="btn-primary no-shadow text-on-primary-white rounded-full text-center px-4 py-2.5 text-sm">
                         @lang('Get started')
                     </a>
                 @else
-                    <a href="{{ route('user.dashboard') }}" class="block text-center text-sm px-4 py-2.5 rounded-xl glass-cream text-ink-700 hover:text-ink-950">
+                    <a href="{{ route('user.dashboard') }}" class="block text-center text-sm px-4 py-2.5 rounded-full glass-cream text-ink-700 hover:text-ink-950">
                         @lang('Dashboard')
                     </a>
                     <form method="POST" action="{{ route('logout') }}">

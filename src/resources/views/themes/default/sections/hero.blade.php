@@ -12,16 +12,16 @@
 
 
         @if(!empty($d['pill_text']))
-            <div class="flex justify-center" data-reveal>
+            <div class="flex justify-center px-4" data-reveal>
                 <a href="{{ link_url($d['pill_url'] ?? '#') }}"
-                   class="group inline-flex items-center gap-3 rounded-full glass-cream px-2 py-1.5 pr-4 text-sm text-ink-700">
+                   class="group inline-flex items-center gap-2 sm:gap-3 rounded-full glass-cream px-2 py-1.5 pr-3 sm:pr-4 text-xs sm:text-sm text-ink-700 max-w-full">
                     @if(!empty($d['pill_label']))
-                        <span class="rounded-full bg-primary text-white font-semibold text-xs px-2.5 py-1">
+                        <span class="shrink-0 rounded-full bg-primary text-white font-semibold text-xs px-2.5 py-1">
                             {{ __($d['pill_label']) }}
                         </span>
                     @endif
-                    <span>{{ __($d['pill_text']) }}</span>
-                    <x-heroicon-o-arrow-right class="h-4 w-4 transition group-hover:translate-x-0.5" />
+                    <span class="whitespace-nowrap overflow-hidden text-ellipsis">{{ __($d['pill_text']) }}</span>
+                    <x-heroicon-o-arrow-right class="h-4 w-4 shrink-0 transition group-hover:translate-x-0.5" />
                 </a>
             </div>
         @endif
