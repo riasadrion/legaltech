@@ -201,7 +201,7 @@
 <script>
 (function () {
     'use strict';
-    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    var isDark = document.documentElement.getAttribute('data-theme') !== 'light';
     var tc = isDark ? '#8b8ea8' : '#6b7280';
     var gc = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)';
     var th = isDark ? 'dark' : 'light';

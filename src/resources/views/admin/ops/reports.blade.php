@@ -162,7 +162,7 @@
 onAdminReady(function () {
     'use strict';
 
-    if (document.documentElement.getAttribute('data-theme') === 'dark') {
+    if (document.documentElement.getAttribute('data-theme') !== 'light') {
         $('#flatpickr-css').attr('href', '{{ asset('assets/static/global/css/flatpickr.dark.css') }}');
     }
 

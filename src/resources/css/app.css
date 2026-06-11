@@ -795,6 +795,7 @@
 [data-theme="dark"] .legend-pct { color: #4b4e6b; }
 
 /* Donut chart center text */
+.apexcharts-datalabel-label { fill: #6b7280 !important; }
 [data-theme="dark"] .apexcharts-datalabel-label,
 [data-theme="dark"] .apexcharts-datalabel-value { fill: #9ca3af !important; }
 

@@ -13,7 +13,7 @@
     @viteAssets(['resources/css/app.css'])
     @stack('head')
 </head>
-<body class="admin-auth">
+<body class="al-shell">
 
 <div class="al-left">
     <div class="al-left-noise"></div>
